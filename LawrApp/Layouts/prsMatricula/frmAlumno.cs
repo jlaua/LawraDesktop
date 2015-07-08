@@ -31,6 +31,12 @@ namespace LawrApp.Layouts.prsMatricula
 
 		private Thread _hilo;
 
+		public frmAlumno( DataGeneral dts )
+		{
+			this._data = dts;
+			InitializeComponent();
+		}
+
 		#region PROPIEDADES
 
 		public bool IsNewStudent
@@ -46,12 +52,6 @@ namespace LawrApp.Layouts.prsMatricula
 		}
 
 		#endregion
-
-		public frmAlumno( DataGeneral dts )
-		{
-			this._data = dts;
-			InitializeComponent();
-		}
 
 		#region HILOS
 
@@ -76,9 +76,181 @@ namespace LawrApp.Layouts.prsMatricula
 
 		#endregion
 
+		#region METODOS DE INTERFAZ
+
+		public void AddDocuments( Document Odocument, string NameDocument )
+		{
+			bool continuar = true;
+
+			foreach ( DataGridViewRow row in this.dgvDocuments.Rows )
+			{
+				string nameDocumentInGrid = row.Cells[0].Value.ToString();
+
+				if ( nameDocumentInGrid == NameDocument )
+				{
+					MetroMessageBox.Show( this, "el tipo de Documento: " + " " + NameDocument, ", ya esta asignado al alumno", MessageBoxButtons.OK, MessageBoxIcon.Information );
+					continuar = false;
+					break;
+				}
+			}
+
+			if ( !continuar ) return;
+
+			string strExpire	= ( string.IsNullOrEmpty( Odocument.Expire ) ) ? "No expira" : Odocument.Expire;
+			bool hasImage		= ( string.IsNullOrEmpty( Odocument.Imagesrc ) ) ? false : true;
+
+			object[] obj = new object[5] { NameDocument, Odocument.DocumentNumber, strExpire, hasImage, "" };
+			
+			this.dgvDocuments.Rows.Add( obj );
+
+			alum.DataDocuments = Odocument;
+		}
+
+		public void AddParent( Parent Parient, string NameParent, string NameDocument )
+		{
+			bool continua	= true;
+
+			foreach( DataGridViewRow row in this.dgvParents.Rows )
+			{
+				string nameParentInGrid = row.Cells[0].Value.ToString();
+				
+				if ( nameParentInGrid == NameParent )
+				{
+					MetroMessageBox.Show( this, "el tipo de Apoderado: " + " " + NameParent, ", ya esta asignado al alumno.", MessageBoxButtons.OK, MessageBoxIcon.Error );
+					continua = false;
+					break;
+				}
+			}
+
+			if ( ! continua ) return;
+
+			object[] obj = new object[4] { NameParent, ( Parient.Names + " " + Parient.LastName ), NameDocument, "" };
+
+			this.dgvParents.Rows.Add(obj);
+
+			alum.DataParent = Parient;
+		}
+
+		public void AddSchool( string Name, int Codigo, string Type )
+		{
+			this._IsNewShcool = false;
+			this._codSchool = Convert.ToInt32( Codigo );
+			this.txtnombrecolegio.Text = Name;
+			this.cbotipocolegio.SelectedItem = Type;
+			this.lbvtipocolegio.Visible = false;
+		}
+
+		#endregion
+
 		#region METODOS
 
-		public void sendDataRegistro()
+		private void JoinDataStudent()
+		{
+			List<ExoneratedCours> ObjExonerateCurses = new List<ExoneratedCours>();
+
+			this.alum.DataAlumno.Names			= this.txtnombre.Text;
+			this.alum.DataAlumno.LastName		= this.txtapellidos.Text;
+			this.alum.DataAlumno.Birthday		= this.dtpbirthday.Value.Date.ToString( "yyyy-MM-dd" );
+			this.alum.DataAlumno.Address		= this.txtdireccion.Text;
+			this.alum.DataAlumno.Sexo			= this.cbosexo.SelectedIndex == 0 ? false : true;
+			this.alum.DataAlumno.Observations	= this.txtotrasObservaciones.Text;
+
+			if ( this.pbPerfilPicture.ImageLocation != null && pbPerfilPicture.Image != null )
+			{
+				this.alum.DataAlumno.ImageKey = Helper.NameImageRandom( 10 );
+				this.alum.DataAlumno.Imagesrc = pbPerfilPicture.ImageLocation;
+			}
+			else
+			{
+				this.alum.DataAlumno.ImageKey = null;
+				this.alum.DataAlumno.Imagesrc = null;
+			}
+
+			foreach ( DataGridViewRow row in dgcursosExonerados.Rows )
+			{
+				ExoneratedCours tempData = new ExoneratedCours();
+
+				if ( ( bool ) row.Cells[3].Value )
+				{
+					tempData.CodigoCurso		= Convert.ToInt32( row.Cells[0].Value );
+					tempData.Oservation			= row.Cells[2].Value.ToString();
+					alum.DataExoneratedCurses	= tempData;
+				}
+			}
+
+			if ( this._IsNewShcool )
+			{
+				this.alum.DataAlumno.TypeLastSchool = this.cbotipocolegio.SelectedIndex == 0 ? false : true;
+				this.alum.DataAlumno.NameLastSchool = txtnombrecolegio.Text;
+			}
+			else
+			{
+				this.alum.DataAlumno.IdLastSchool = this._codSchool;
+			}
+
+			var depa = Convert.ToInt32( this.cbodepartamento.SelectedValue );
+			var prov = Convert.ToInt32( this.cboprovincia.SelectedValue );
+			var dist = Convert.ToInt32( this.cbodistrito.SelectedValue );
+
+			string ubigeo = ( depa < 10 ) ? "0" + depa : depa.ToString();
+			ubigeo += ( prov < 10 ) ? "0" + prov : prov.ToString();
+			ubigeo += ( dist < 10 ) ? "0" + dist : dist.ToString();
+
+			this.alum.DataAlumno.Ubigeo = ubigeo;
+		}
+
+		private void ResetControls()
+		{
+			txtnombre.Clear();
+			txtapellidos.Clear();
+			this.cbosexo.SelectedIndex = -1;
+			this.cbosexo.Text = "Seleccione...";
+
+			this.dtpbirthday.Value = DateTime.Now;
+			this.cbodepartamento.SelectedIndex = -1;
+			this.cbodepartamento.Text = "Seleccione...";
+
+			this.cboprovincia.DataSource = null;
+			this.cboprovincia.Text = "Seleccione...";
+
+			this.cbodistrito.DataSource = null;
+			this.cbodistrito.Text = "Seleccione...";
+
+			this.txtdireccion.Clear();
+
+			this.pbPerfilPicture.Image = null;
+			this.lblUrlPerfilPicture.Text = "";
+
+			this.txtnombrecolegio.Clear();
+
+			this.cbotipocolegio.SelectedIndex = -1;
+			this.cbotipocolegio.Text = "Seleccione...";
+
+			this._codSchool = 0;
+			this._IsNewShcool = false;
+
+			this.dgvDocuments.Rows.Clear();
+			this.dgvParents.Rows.Clear();
+
+			this.alum.DataAlumno.Address = null;
+			this.alum.DataAlumno.Birthday = null;
+			this.alum.DataAlumno.Documents = null;
+			this.alum.DataAlumno.IdLastSchool = 0;
+			this.alum.DataAlumno.ImageKey = null;
+			this.alum.DataAlumno.Imagesrc = null;
+			this.alum.DataAlumno.LastName = null;
+			this.alum.DataAlumno.NameLastSchool = null;
+			this.alum.DataAlumno.Names = null;
+			this.alum.DataAlumno.Parents = null;
+			this.alum.DataAlumno.Sexo = false;
+			this.alum.DataAlumno.TypeLastSchool = false;
+			this.alum.DataAlumno.Ubigeo = null;
+
+			this.alum.DataDocuments = null;
+			this.alum.DataParent = null;
+		}
+
+		private void sendDataRegistro()
 		{
 			CheckForIllegalCrossThreadCalls = false;
 
@@ -105,72 +277,11 @@ namespace LawrApp.Layouts.prsMatricula
 			}
 		}
 
-		public void AddDocuments( Document Odocument, string NameDocument )
-		{
-			int index = this.dgvDocuments.Rows.Count;
-			bool continuar = true;
+		#endregion
 
-			if ( index > 0 )
-			{
-				for ( int i = 0; i < index; i++ )
-				{
-					string NombreDocument = dgvDocuments.Rows[i].Cells[0].Value.ToString();
+		#region FUNCIONES
 
-					if ( NombreDocument == NameDocument )
-					{
-						MetroMessageBox.Show( this, "el tipo de Documento" + " " + NameDocument, " ya esta asignado al alumno",
-																			   MessageBoxButtons.OK, MessageBoxIcon.Information );
-						continuar = false;
-					}
-				}
-			}
-
-			if ( !continuar ) return;
-
-			this.dgvDocuments.Rows.Add();
-
-			dgvDocuments.Rows[index].Cells[0].Value = NameDocument;
-			dgvDocuments.Rows[index].Cells[1].Value = Odocument.DocumentNumber;
-			dgvDocuments.Rows[index].Cells[2].Value = ( string.IsNullOrEmpty( Odocument.Expire ) ) ? "No expira" : Odocument.Expire;
-			dgvDocuments.Rows[index].Cells[3].Value = ( string.IsNullOrEmpty( Odocument.Imagesrc ) ) ? false : true;
-
-			alum.DataDocuments = Odocument;
-		}
-
-		public void AddParent( Parent Parient, string NameParent, string NameDocument )
-		{
-			int cantRows = this.dgvParents.Rows.Count;
-			bool continua = true;
-
-			if ( cantRows > 0 )
-			{
-				for ( int i = 0; i < cantRows; i++ )
-				{
-					string dgTexto = dgvParents.Rows[i].Cells[0].Value.ToString();
-
-					if ( dgTexto == NameParent )
-					{
-						MetroMessageBox.Show( this, "el tipo de pariente" + " " + NameParent, " ya esta asignado al alumno",
-																			   MessageBoxButtons.OK, MessageBoxIcon.Error );
-						continua = false;
-
-					}
-
-				}
-			}
-
-			if ( !continua ) return;
-
-			this.dgvParents.Rows.Add();
-
-			dgvParents.Rows[cantRows].Cells[0].Value = NameParent;
-			dgvParents.Rows[cantRows].Cells[1].Value = Parient.Names + " " + Parient.LastName;
-			dgvParents.Rows[cantRows].Cells[2].Value = NameDocument;
-			alum.DataParent = Parient;
-
-		}
-
-		public bool ValidarInformacionBasica()
+		private bool ValidarInformacionBasica()
 		{
 			if ( string.IsNullOrWhiteSpace( txtnombre.Text ) )
 			{
@@ -238,7 +349,7 @@ namespace LawrApp.Layouts.prsMatricula
 			return true;
 		}
 
-		public bool validarInformacionAbanzada()
+		private bool validarInformacionAbanzada()
 		{
 			if ( string.IsNullOrWhiteSpace( this.txtnombrecolegio.Text ) )
 			{
@@ -285,121 +396,6 @@ namespace LawrApp.Layouts.prsMatricula
 			return true;
 		}
 
-		public void AddSchool( string Name, int Codigo, string Type )
-		{
-			this._IsNewShcool = false;
-			this._codSchool = Convert.ToInt32( Codigo );
-			this.txtnombrecolegio.Text = Name;
-			this.cbotipocolegio.Text = Type;
-		}
-
-		private void IngresaAlumno()
-		{
-
-			int cantidadFilas = dgcursosExonerados.Rows.Count;
-			List<ExoneratedCours> ObjExonerateCurses = new List<ExoneratedCours>();
-
-			this.alum.DataAlumno.Names = this.txtnombre.Text;
-			this.alum.DataAlumno.LastName = this.txtapellidos.Text;
-			this.alum.DataAlumno.Birthday = this.dtpbirthday.Value.Date.ToString( "yyyy-MM-dd" );
-			this.alum.DataAlumno.Address = this.txtdireccion.Text;
-			this.alum.DataAlumno.Sexo = this.cbosexo.SelectedIndex == 0 ? false : true;
-
-			if ( this.pbPerfilPicture.ImageLocation != null && pbPerfilPicture.Image != null )
-			{
-				this.alum.DataAlumno.ImageKey = Helper.NameImageRandom( 10 );
-				this.alum.DataAlumno.Imagesrc = pbPerfilPicture.ImageLocation;
-			}
-			else
-			{
-				this.alum.DataAlumno.ImageKey = null;
-				this.alum.DataAlumno.Imagesrc = null;
-			}
-
-			foreach ( DataGridViewRow row in dgcursosExonerados.Rows )
-			{
-				ExoneratedCours item = new ExoneratedCours();
-
-				if ( ( bool ) row.Cells[3].Value )
-				{
-					item.idCursesExonerate = Convert.ToInt32( row.Cells[0].Value );
-					item.Oservation = Convert.ToString( row.Cells[2].Value );
-					alum.DataExoneratedCurses = item;
-				}
-			}
-
-			if ( this._IsNewShcool )
-			{
-				this.alum.DataAlumno.TypeLastSchool = this.cbotipocolegio.SelectedIndex == 0 ? false : true;
-				this.alum.DataAlumno.NameLastSchool = txtnombrecolegio.Text;
-			}
-			else
-			{
-				this.alum.DataAlumno.IdLastSchool = _codSchool;
-			}
-
-			var depa = Convert.ToInt32( this.cbodepartamento.SelectedValue );
-			var prov = Convert.ToInt32( this.cboprovincia.SelectedValue );
-			var dist = Convert.ToInt32( this.cbodistrito.SelectedValue );
-
-			string ubigeo = ( depa < 10 ) ? "0" + depa : depa.ToString();
-			ubigeo += ( prov < 10 ) ? "0" + prov : prov.ToString();
-			ubigeo += ( dist < 10 ) ? "0" + dist : dist.ToString();
-
-			this.alum.DataAlumno.Ubigeo = ubigeo;
-		}
-
-		void ResetControls()
-		{
-			txtnombre.Clear();
-			txtapellidos.Clear();
-			this.cbosexo.SelectedIndex = -1;
-			this.cbosexo.Text = "Seleccione...";
-
-			this.dtpbirthday.Value = DateTime.Now;
-			this.cbodepartamento.SelectedIndex = -1;
-			this.cbodepartamento.Text = "Seleccione...";
-
-			this.cboprovincia.DataSource = null;
-			this.cboprovincia.Text = "Seleccione...";
-
-			this.cbodistrito.DataSource = null;
-			this.cbodistrito.Text = "Seleccione...";
-
-			this.txtdireccion.Clear();
-
-			this.pbPerfilPicture.Image = null;
-			this.lblUrlPerfilPicture.Text = "";
-
-			this.txtnombrecolegio.Clear();
-
-			this.cbotipocolegio.SelectedIndex = -1;
-			this.cbotipocolegio.Text = "Seleccione...";
-
-			this._codSchool = 0;
-			this._IsNewShcool = false;
-
-			this.dgvDocuments.Rows.Clear();
-			this.dgvParents.Rows.Clear();
-
-			this.alum.DataAlumno.Address = null;
-			this.alum.DataAlumno.Birthday = null;
-			this.alum.DataAlumno.Documents = null;
-			this.alum.DataAlumno.IdLastSchool = 0;
-			this.alum.DataAlumno.ImageKey = null;
-			this.alum.DataAlumno.Imagesrc = null;
-			this.alum.DataAlumno.LastName = null;
-			this.alum.DataAlumno.NameLastSchool = null;
-			this.alum.DataAlumno.Names = null;
-			this.alum.DataAlumno.Parents = null;
-			this.alum.DataAlumno.Sexo = false;
-			this.alum.DataAlumno.TypeLastSchool = false;
-			this.alum.DataAlumno.Ubigeo = null;
-
-			this.alum.DataDocuments = null;
-			this.alum.DataParent = null;
-		}
-
 		#endregion
 
 		#region EVENTOS
@@ -427,6 +423,7 @@ namespace LawrApp.Layouts.prsMatricula
 		{
 			frmParents parents = new frmParents( this._data );
 			parents.Owner = this;
+			parents.AddressOfSon = this.txtdireccion.Text;
 			parents.ShowDialog( this );
 		}
 
@@ -666,6 +663,155 @@ namespace LawrApp.Layouts.prsMatricula
 
 		}
 
+		private void cbodistrito_SelectionChangeCommitted( object sender, EventArgs e )
+		{
+			if ( this.cbodistrito.Text == "Seleccione..." )
+				this.lblvdistrito.Visible = true;
+			else
+				this.lblvdistrito.Visible = false;
+		}
+
+		private void txtnombrecolegio_KeyDown( object sender, KeyEventArgs e )
+		{
+			if ( !Helper.solotexto( ( char ) e.KeyCode ) &&
+					!Helper.solonumeros( ( char ) e.KeyCode )
+					&& e.KeyData != Keys.Back
+					&& e.KeyData != Keys.Right
+					&& e.KeyData != Keys.Left )
+			{
+				e.SuppressKeyPress = true;
+				return;
+			}
+
+			MetroTextBox txt = ( MetroTextBox ) sender;
+
+			try
+			{
+				DataRow[] dt = this._data.Tables["lastschool"].Select( "Name = '" + txt.Text + "'" );
+
+				if ( dt.Length > 0 )
+				{
+					this._codSchool = Convert.ToInt32( dt[0]["Id"] );
+					this.cbotipocolegio.SelectedItem = dt[0]["Type"];
+					this._IsNewShcool = false;
+				}
+				else
+				{
+					this._codSchool = 0;
+					this.cbotipocolegio.SelectedIndex = -1;
+					this.cbotipocolegio.Text = "Seleccione";
+					this._IsNewShcool = true;
+				}
+			}
+			catch ( Exception ex ) { }
+		}
+
+		private void txtnombrecolegio_TextChanged_1( object sender, EventArgs e )
+		{
+			MetroTextBox txt = ( MetroTextBox ) sender;
+
+			try
+			{
+				DataRow[] dt = this._data.Tables["lastschool"].Select( "Name = '" + txt.Text + "'" );
+
+				if ( dt.Length > 0 )
+				{
+					this._codSchool = Convert.ToInt32( dt[0]["Id"] );
+
+					this.cbotipocolegio.SelectedItem = dt[0]["Type"];
+					this.lbvtipocolegio.Visible = false;
+
+					this._IsNewShcool = false;
+				}
+				else
+				{
+					this._codSchool = 0;
+
+					this.cbotipocolegio.SelectedIndex = -1;
+					this.cbotipocolegio.Text = "Seleccione";
+					this.lbvtipocolegio.Visible = true;
+
+					this._IsNewShcool = true;
+				}
+
+				if ( string.IsNullOrWhiteSpace( txtnombrecolegio.Text.Trim() ) )
+				{
+					this.lbvcolegioprocedencia.Visible = true;
+					this.cbotipocolegio.Enabled = false;
+				}
+				else
+				{
+					this.cbotipocolegio.Enabled = true;
+					this.lbvcolegioprocedencia.Visible = false;
+				}
+			}
+			catch ( Exception ex ) { }
+		}
+
+		private void cbotipocolegio_SelectionChangeCommitted( object sender, EventArgs e )
+		{
+			ComboBox cbo = ( ComboBox ) sender;
+			try
+			{
+				string fill = "Name = '" + this.txtnombrecolegio.Text.Trim() + "' and Type = '" + cbo.SelectedItem + "'";
+				DataRow[] dt = this._data.Tables["lastschool"].Select( fill );
+
+				if ( dt.Length > 0 )
+				{
+					this._codSchool = Convert.ToInt32( dt[0]["Id"] ); ;
+					this._IsNewShcool = false;
+				}
+				else
+				{
+					this._codSchool = 0;
+					this._IsNewShcool = true;
+				}
+
+				if ( cbo.SelectedItem == null )
+					this.lbvtipocolegio.Visible = true;
+				else
+					this.lbvtipocolegio.Visible = false;
+			}
+			catch ( Exception ex ) { }
+		}
+
+		private void btnsiguieteInfAvanzada_Click( object sender, EventArgs e )
+		{
+
+			if ( validarInformacionAbanzada() == false ) return;
+
+			this.txtnombre.Focus();
+
+			this.pInfoAdvanced.Enabled = false;
+			this.tabRegitroAlumno.SelectedTab = this.tabotrasconfig;
+			this.potrasConfiguraciones.Enabled = true;
+		}
+
+		private void btnatrasOtrasConfiguraciones_Click( object sender, EventArgs e )
+		{
+			tabRegitroAlumno.SelectedTab = this.tabinfoAvanzada;
+			this.pInfoAdvanced.Enabled = true;
+			this.potrasConfiguraciones.Enabled = false;
+
+		}
+
+		private void btnsiguienteOConf_Click( object sender, EventArgs e )
+		{
+			this._hilo = new Thread( new ThreadStart( this.sendDataRegistro ) );
+			this.pgsload.Visible = true;
+
+			this.JoinDataStudent();
+
+			this._hilo.Start();
+		}
+
+		private void btmatras_Click( object sender, EventArgs e )
+		{
+			frmAsignaClase asign = new Layouts.prsMatricula.frmAsignaClase( this._data );
+			asign.IsNewStudent = this._isNewStudent;
+			asign.Show();
+			this.Close();
+		}
 
 		#endregion
 
@@ -722,70 +868,19 @@ namespace LawrApp.Layouts.prsMatricula
 
 		#endregion
 
-		private void cbodistrito_SelectionChangeCommitted( object sender, EventArgs e )
+		private void dgcursosExonerados_CellBeginEdit( object sender, DataGridViewCellCancelEventArgs e )
 		{
-			if ( this.cbodistrito.Text == "Seleccione..." )
-				this.lblvdistrito.Visible = true;
-			else
-				this.lblvdistrito.Visible = false;
+			this.dgcursosExonerados.Rows[e.RowIndex].Cells[3].Value = true;
 		}
 
-		private void txtnombrecolegio_KeyDown( object sender, KeyEventArgs e )
+		private void dgcursosExonerados_CellEndEdit( object sender, DataGridViewCellEventArgs e )
 		{
-			this._codSchool = 0;
-			this._IsNewShcool = true;
-		}
+			string text = this.dgcursosExonerados.Rows[e.RowIndex].Cells[2].Value.ToString();
 
-		private void txtnombrecolegio_TextChanged_1( object sender, EventArgs e )
-		{
-			if ( string.IsNullOrEmpty( txtnombrecolegio.Text ) )
-				this.lbVnombreAlumno.Visible = true;
-			else
-				this.lbVnombreAlumno.Visible = false;
-		}
-
-		private void cbotipocolegio_SelectionChangeCommitted( object sender, EventArgs e )
-		{
-			if ( this.cbotipocolegio.Text == "Seleccione..." )
-				this.lbvtipocolegio.Visible = true;
-			else
-				this.lbvtipocolegio.Visible = false;
-		}
-
-		private void btnsiguieteInfAvanzada_Click( object sender, EventArgs e )
-		{
-
-			if ( validarInformacionAbanzada() == false ) return;
-
-			this.pgsload.Visible = true;
-			this.txtnombre.Focus();
-
-			this.pInfoAdvanced.Enabled = false;
-			this.tabRegitroAlumno.SelectedTab = this.tabotrasconfig;
-			this.potrasConfiguraciones.Enabled = true;
-		}
-
-		private void btnatrasOtrasConfiguraciones_Click( object sender, EventArgs e )
-		{
-			tabRegitroAlumno.SelectedTab = this.tabinfoAvanzada;
-			this.pInfoAdvanced.Enabled = true;
-			this.potrasConfiguraciones.Enabled = false;
-
-		}
-
-		private void btnsiguienteOConf_Click( object sender, EventArgs e )
-		{
-			this._hilo = new Thread( new ThreadStart( this.sendDataRegistro ) );
-			IngresaAlumno();
-			this._hilo.Start();
-		}
-
-		private void btmatras_Click( object sender, EventArgs e )
-		{
-			frmAsignaClase asign = new Layouts.prsMatricula.frmAsignaClase( this._data );
-			asign.IsNewStudent = this._isNewStudent;
-			asign.Show();
-			this.Close();
+			if( string.IsNullOrWhiteSpace( text ) )
+			{
+				this.dgcursosExonerados.Rows[e.RowIndex].Cells[3].Value = false;
+			}
 		}
 
 	}

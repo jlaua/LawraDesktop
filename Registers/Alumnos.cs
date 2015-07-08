@@ -17,7 +17,7 @@ namespace Registers
     public class Alumnos : Connection
     {
         private string _msgExceptionRegAlumno, 
-                        _registerController = "api/student",
+                        _registerController = "api/process/enrollment/registers/students",
                         _schoolController = "api/lastschool";
 
         private OpSRegisterAlumno _dataAlumno    = new OpSRegisterAlumno();
@@ -217,8 +217,9 @@ namespace Registers
         {
             Query query = new Query( this._registerController );
 
-            this._dataAlumno.Documents = this._dataDocuments;
-            this._dataAlumno.Parents = this._dataParent;
+            this._dataAlumno.Documents			= this._dataDocuments;
+            this._dataAlumno.Parents			= this._dataParent;
+			this._dataAlumno.ExoneratedCourses	= this._dataExoneratedCourses;
 
             if(!string.IsNullOrEmpty(DataAlumno.ImageKey) &&  !string.IsNullOrEmpty(DataAlumno.Imagesrc))
             {
@@ -267,9 +268,9 @@ namespace Registers
 
 				foreach ( ResponseDocument docs in alumno.Documents )
 				{
-					object objDocuments = new object[] 
+					object[] objDocuments = new object[4] 
 					{
-						Convert.ToInt32(docs.TypeDocument),
+						docs.TypeDocument,
 						docs.DocumentNumber,
 						docs.Expire,
 						alumno.Id
@@ -280,13 +281,13 @@ namespace Registers
 
 				foreach ( ResponseParent parent in alumno.Parents )
 				{
-					object objParents = new object[] 
+					object[] objParents = new object[9] 
 					{
 						parent.Names,
 						parent.LastName,
 						parent.TypeParent,
 						parent.GenderParent,
-						Convert.ToInt32(parent.TypeDocument),
+						parent.TypeDocument,
 						parent.DocumentNumber,
 						parent.Phone,
 						parent.Email,
@@ -301,7 +302,7 @@ namespace Registers
             catch ( Exception e )
             {
                 this._msgExceptionRegAlumno = e.Message;
-                return true;
+                return false;
             }
         }
 

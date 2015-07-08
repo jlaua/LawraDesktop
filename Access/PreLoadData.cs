@@ -17,13 +17,15 @@ namespace Access
 {
     public class PreLoadData : Connection
     {
-        private string _ubigeoController = "api/ubigeo";
-        private string _tipoDocController = "api/tipodocumento";
-        private string _tipoParentController = "api/typeparents";
+        private string _ubigeoController		= "api/ubigeo";
+        private string _tipoDocController		= "api/tipodocumento";
+        private string _tipoParentController	= "api/typeparents";
 
         private string _exceptionUbigeo;
 
-        public string ExceptionUbigeo
+		#region PROPIEDADES
+
+		public string ExceptionUbigeo
         {
             get { return this._exceptionUbigeo; }
         }
@@ -33,6 +35,10 @@ namespace Access
 			this.setAppSettings( "YearAcademy", IdPeriod );
 			return true;
 		}
+
+		#endregion
+
+		#region METODOS	
 
 		public DataSet ListPeriodos( DataSet dts )
 		{
@@ -53,16 +59,8 @@ namespace Access
 
 				foreach ( Periodos Item in peri )
 				{
-					object[] td = new object[8] 
-                    {
-						Item.Codigo,
-						Item.Name,
-						Item.Year,
-						Item.Description,
-						Item.StartDate,
-						Item.EndDate,
-						Item.IsActive,
-						Item.ModifiedDate
+					object[] td = new object[8]  {
+						Item.Codigo, Item.Name, Item.Year, Item.Description, Item.StartDate, Item.EndDate, Item.IsActive, Item.ModifiedDate
                     };
 
 					dts.Tables["periodos"].Rows.Add( td );
@@ -148,15 +146,9 @@ namespace Access
 
                 foreach ( TipoDocumento Item in tipo )
                 {
-                    object[] td = new object[6] 
-                    { 
-                        Item.Id, 
-                        Item.LongName, 
-                        Item.ShortName, 
-                        Item.Length, 
-                        Item.IsNumeric, 
-                        Item.IsExactLength 
-                    };
+                    object[] td = new object[6]  { 
+                        Item.Id, Item.LongName, Item.ShortName, Item.Length, Item.IsNumeric, Item.IsExactLength
+					};
 
                     dts.Tables["tipodocumento"].Rows.Add( td );
                 }
@@ -190,12 +182,7 @@ namespace Access
 
                 foreach (TypeParent Item in tipo)
                 {
-                    object[] td = new object[3] 
-                    { 
-                        Item.Id, 
-                        Item.Name,
-                        Item.type
-                    };
+                    object[] td = new object[3] { Item.Id, Item.Name, Item.type };
 
                     dts.Tables["tipoapoderado"].Rows.Add(td);
                 }
@@ -229,13 +216,7 @@ namespace Access
 
 				foreach ( ListStudents Item in tipo )
 				{
-					object[] td = new object[4]
-                    { 
-                        Item.Codigo, 
-                        Item.Key,
-                        Item.Names,
-						Item.ModifiedDate
-                    };
+					object[] td = new object[4] { Item.Codigo, Item.Key, Item.Names, Item.ModifiedDate };
 
 					dts.Tables["liststudents"].Rows.Add( td );
 				}
@@ -271,15 +252,8 @@ namespace Access
 
 				foreach ( Grados Item in grs.Grados )
 				{
-					object[] td = new object[7]
-					{ 
-						Item.Codigo, 
-						Item.CodigoNivel,
-						Item.Name,
-						Item.Preview,
-						Item.Next,
-						Item.Description,
-						Item.ModifiedDate
+					object[] td = new object[7] { 
+						Item.Codigo, Item.CodigoNivel, Item.Name, Item.Preview, Item.Next, Item.Description, Item.ModifiedDate
 					};
 
 					dts.Tables["Grados"].Rows.Add( td );
@@ -287,12 +261,8 @@ namespace Access
 
 				foreach ( Secciones Item in grs.Secciones )
 				{
-					object[] td = new object[4]
-					{ 
-						Item.Codigo, 
-						Item.Name,
-						Item.Character,
-						Item.ModifiedDate
+					object[] td = new object[4] { 
+						Item.Codigo, Item.Name, Item.Character, Item.ModifiedDate
 					};
 
 					dts.Tables["Secciones"].Rows.Add( td );
@@ -300,12 +270,8 @@ namespace Access
 
 				foreach ( Niveles Item in grs.Niveles )
 				{
-					object[] td = new object[4]
-					{ 
-						Item.Codigo, 
-						Item.Name,
-						Item.Description,
-						Item.ModifiedDate
+					object[] td = new object[4] { 
+						Item.Codigo, Item.Name, Item.Description, Item.ModifiedDate
 					};
 
 					dts.Tables["Niveles"].Rows.Add( td );
@@ -320,5 +286,8 @@ namespace Access
 				return null;
 			}
 		}
-    }
+
+		#endregion
+
+	}
 }

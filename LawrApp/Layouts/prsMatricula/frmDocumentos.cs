@@ -31,11 +31,12 @@ namespace LawrApp.Layouts.prsMatricula
 
 		private void SendObjectToDatagrid()
 		{
-			Document ObjDocument                    = new Document();
-			IFrmAlumno IUAlumno  = this.Owner as IFrmAlumno;
+			IFrmAlumno IUAlumno		= this.Owner as IFrmAlumno;
 
 			if ( IUAlumno != null )
 			{
+				Document ObjDocument	= new Document();
+
 				ObjDocument.tDocument = Convert.ToInt32( cboTypeDocument.SelectedValue );
 				ObjDocument.DocumentNumber = txtNumberDocument.Text;
 
@@ -51,20 +52,6 @@ namespace LawrApp.Layouts.prsMatricula
 			}
 		}
 
-		public void limpiarRegistroDocumento()
-		{
-			cboTypeDocument.SelectedIndex = -1;
-			cboTypeDocument.Text = "Seleccione...";
-			lbVtipoDocumento.Visible = true;
-			txtNumberDocument.Enabled = false;
-			dtpExpiryDate.Enabled = false;
-			dtpExpiryDate.Value = DateTime.Now;
-			chboExpira.CheckState = CheckState.Checked;
-			pbImageDocument.Image = null;
-
-			txtNumberDocument.Clear();
-		}
-
 		#endregion
 
 		#region EVENTOS
@@ -72,9 +59,12 @@ namespace LawrApp.Layouts.prsMatricula
 		private void frmDocumentos_Load( object sender, EventArgs e )
 		{
 			this.cboTypeDocument.ValueMember = "Id";
-			this.cboTypeDocument.DisplayMember = "LongName";
+			this.cboTypeDocument.DisplayMember = "ShortName";
 			this.cboTypeDocument.DataSource = this._data;
+
+			this.cboTypeDocument.SelectedIndex = -1;
 			this.cboTypeDocument.Text = "Seleccione...";
+			
 			this.lbVtipoDocumento.Visible = true;
 
 			this.txtNumberDocument.Enabled = true;
@@ -100,7 +90,7 @@ namespace LawrApp.Layouts.prsMatricula
 
 			if ( result == DialogResult.OK )
 			{
-				var src = this.openImageDocument.FileName;
+				string src = this.openImageDocument.FileName;
 				pbImageDocument.Image = Image.FromFile( src );
 				pbImageDocument.Load( src );
 			}
@@ -108,14 +98,13 @@ namespace LawrApp.Layouts.prsMatricula
 
 		private void btnAddDocumentToAlumno_Click( object sender, EventArgs e )
 		{
-			bool AddContinue = cboTypeDocument.Text != "Seleccione..." &&
-								!string.IsNullOrWhiteSpace( txtNumberDocument.Text );
+			bool AddContinue = cboTypeDocument.Text != "Seleccione..." && !string.IsNullOrWhiteSpace( txtNumberDocument.Text );
 
-			if ( !AddContinue ) return;
+			if ( ! AddContinue ) return;
 
 			if ( chboExpira.CheckState == CheckState.Unchecked )
 			{
-				if ( !Helper.ValidarFechaDeExpiracion( dtpExpiryDate.Value, 2 ) )
+				if ( ! Helper.ValidarFechaDeExpiracion( dtpExpiryDate.Value, 2 ) )
 				{
 					this.lblDateExpire.Visible = true;
 					ttValidatorMessage.Show( "Maximo 2 dias antes de su fecha de vencimiento", this.lblDateExpire, 3000 );
@@ -124,7 +113,7 @@ namespace LawrApp.Layouts.prsMatricula
 			}
 
 			SendObjectToDatagrid();
-			limpiarRegistroDocumento();
+
 			this.Close();
 		}
 

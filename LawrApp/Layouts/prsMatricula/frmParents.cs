@@ -22,6 +22,11 @@ namespace LawrApp.Layouts.prsMatricula
 		private int _lengthAllowed;
 		private bool _isNumeric, _isExactLength;
 
+		public string AddressOfSon
+		{
+			set { this.txtAddress.Text = value; }
+		}
+
 		public frmParents( DataGeneral dts )
 		{
 			this._data = dts;
@@ -239,7 +244,7 @@ namespace LawrApp.Layouts.prsMatricula
 			{
 				this.lbvalidacionApellidos.Visible = true;
 				this.toltipValid.ShowAlways = true;
-				this.toltipValid.Show( "El Apellido del Pariente del alumno es rquerido", this.TxtLasName, 3000 );
+				this.toltipValid.Show( "El Apellido del Pariente del alumno es requerido", this.TxtLasName, 3000 );
 			}
 			else lbvalidacionApellidos.Visible = false;
 		}
@@ -255,7 +260,6 @@ namespace LawrApp.Layouts.prsMatricula
 			if ( !ValidarInformacionBasica() ) return;
 
 			SendObjectToDatagrid();
-			LimpiarParent();
 			this.Close();
 		}
 
@@ -282,12 +286,12 @@ namespace LawrApp.Layouts.prsMatricula
 		private void cboSexo_SelectionChangeCommitted( object sender, EventArgs e )
 		{
 			ComboBox cbo = ( ComboBox ) sender;
-			DataRow[] parents = this._data.Tables["tipoapoderado"].Select( "Type=" + cbo.SelectedIndex );
 
 			this.cboparentesco.ValueMember = "Id";
 			this.cboparentesco.DisplayMember = "Name";
 
-			this.cboparentesco.DataSource = this.TempDataTable( parents );
+			this.cboparentesco.DataSource = this._data.Tables["tipoapoderado"].Select( "Type=" + cbo.SelectedIndex ).CopyToDataTable();
+			
 			this.cboparentesco.SelectedIndex = -1;
 			this.cboparentesco.Text = "Seleccione...";
 		}
@@ -310,18 +314,15 @@ namespace LawrApp.Layouts.prsMatricula
 			{
 				toltipValid.ShowAlways = true;
 				toltipValid.Show( "Cammpo Ciudad requerido", this.txtAddress, 3000 );
-
 			}
 		}
 
 		private void txtDocumentNumber_TextChanged( object sender, EventArgs e )
 		{
 			if ( string.IsNullOrEmpty( txtDocumentNumber.Text ) )
-			{ this.lbvalidacionNumerDocumet.Visible = true; }
+				this.lbvalidacionNumerDocumet.Visible = true; 
 			else
-			{
 				this.lbvalidacionNumerDocumet.Visible = false;
-			}
 		}
 
 		private void txtDocumentNumber_Leave( object sender, EventArgs e )
@@ -330,7 +331,6 @@ namespace LawrApp.Layouts.prsMatricula
 			{
 				toltipValid.ShowAlways = true;
 				toltipValid.Show( "Cammpo Dni requerido", txtDocumentNumber, 3000 );
-
 			}
 		}
 
@@ -374,16 +374,7 @@ namespace LawrApp.Layouts.prsMatricula
 				this.lbValidactionParentesco.Visible = false;
 		}
 
-		private void cboTypeDocument_Move( object sender, EventArgs e )
-		{
-			if ( cboTypeDocument.Text == "Seleccione..." )
-			{
-				toltipValid.ShowAlways = true;
-				toltipValid.Show( "Tipo de documento requerido", cboTypeDocument, 3000 );
-			}
-		}
-
-		private void cboTypeDocument_KeyDown_1( object sender, KeyEventArgs e )
+		private void cboTypeDocument_KeyDown( object sender, KeyEventArgs e )
 		{
 			if ( e.KeyCode != Keys.Down && e.KeyCode != Keys.Up )
 				e.SuppressKeyPress = true;
@@ -393,18 +384,16 @@ namespace LawrApp.Layouts.prsMatricula
 		{
 			ComboBox cbo = ( ComboBox ) sender;
 
-			if ( cbo.Text != "Seleccione..." )
-			{
-				this.txtDocumentNumber.Enabled = true;
+			this.txtDocumentNumber.Enabled = true;
 
-				Object[] docs = this._data.Tables["tipodocumento"].Select( "Id=" + cbo.SelectedValue )[0].ItemArray;
+			Object[] docs = this._data.Tables["tipodocumento"].Select( "Id=" + cbo.SelectedValue )[0].ItemArray;
 
-				this._lengthAllowed = ( int ) docs[3];
-				this._isNumeric = ( bool ) docs[4];
-				this._isExactLength = ( bool ) docs[5];
+			this._lengthAllowed		= ( int ) docs[3];
+			this._isNumeric			= ( bool ) docs[4];
+			this._isExactLength		= ( bool ) docs[5];
 
-				this.txtDocumentNumber.Clear();
-			}
+			this.lbValidacionTipoDocumento.Visible = false;
+			this.txtDocumentNumber.Clear();
 		}
 
 		private void txtEmail_Leave( object sender, EventArgs e )
@@ -435,5 +424,10 @@ namespace LawrApp.Layouts.prsMatricula
 		}
 
 		#endregion
+
+		private void dtpBirthday_ValueChanged( object sender, EventArgs e )
+		{
+			this.ValidacionMayoriaDeEdad();
+		}
 	}
 }

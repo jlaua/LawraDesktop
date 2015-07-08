@@ -48,10 +48,41 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tables\TablesRequest.cs" />
     <Compile Include="Tables\TablesResponse.cs" />
+    <Compile Include="Tables\tAlumno.cs" />
+    <Compile Include="Tables\tApoderado.cs" />
+    <Compile Include="Tables\tAreaPedagogica.cs" />
+    <Compile Include="Tables\tClase.cs" />
+    <Compile Include="Tables\tClaseAlumno.cs" />
+    <Compile Include="Tables\tClaseCurso.cs" />
+    <Compile Include="Tables\tConceptoPago.cs" />
+    <Compile Include="Tables\tCurso.cs" />
+    <Compile Include="Tables\tCursoExonerado.cs" />
+    <Compile Include="Tables\tDocumentoAlumno.cs" />
+    <Compile Include="Tables\tFase.cs" />
+    <Compile Include="Tables\tFaseDivision.cs" />
+    <Compile Include="Tables\tGrado.cs" />
+    <Compile Include="Tables\tHoraClase.cs" />
+    <Compile Include="Tables\tNivel.cs" />
+    <Compile Include="Tables\tNivelParametro.cs" />
+    <Compile Include="Tables\tNivelTurno.cs" />
+    <Compile Include="Tables\tPago.cs" />
+    <Compile Include="Tables\tPagoDetalle.cs" />
+    <Compile Include="Tables\tPeriodo.cs" />
+    <Compile Include="Tables\tPeriodoParametro.cs" />
+    <Compile Include="Tables\tPersonal.cs" />
+    <Compile Include="Tables\tProfesiones.cs" />
+    <Compile Include="Tables\tSalon.cs" />
+    <Compile Include="Tables\tSeccion.cs" />
+    <Compile Include="Tables\tTipoApoderado.cs" />
+    <Compile Include="Tables\tTipoDocumento.cs" />
+    <Compile Include="Tables\tTipoFase.cs" />
+    <Compile Include="Tables\tTipoPersonal.cs" />
+    <Compile Include="Tables\tTipoUsuario.cs" />
+    <Compile Include="Tables\tTurno.cs" />
+    <Compile Include="Tables\tUltimoColegio.cs" />
+    <Compile Include="Tables\tUsuarios.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Tables\Response\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

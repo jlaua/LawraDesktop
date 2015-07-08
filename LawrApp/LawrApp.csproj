@@ -243,11 +243,17 @@
     <EmbeddedResource Include="Layouts\prsMatricula\frmAsignaClase.resx">
       <DependentUpon>frmAsignaClase.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Layouts\prsMatricula\frmDocumentos.resx">
+      <DependentUpon>frmDocumentos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Layouts\prsMatricula\frmFindAlumno.resx">
       <DependentUpon>frmFindAlumno.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Layouts\prsMatricula\frmInitialMessage.resx">
       <DependentUpon>frmInitialMessage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layouts\prsMatricula\frmParents.resx">
+      <DependentUpon>frmParents.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Layouts\regPersonal\frmFindPersonal.resx">
       <DependentUpon>frmFindPersonal.cs</DependentUpon>

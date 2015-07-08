@@ -18,6 +18,7 @@ namespace Objects.Processes
         public string Ubigeo            { get; set; }
         public string Imagesrc          { get; set; }
         public string ImageKey          { get; set; }
+		public string Observations		{ get; set; }
         public List<Parent> Parents     { get; set; }
         public List<Document> Documents { get; set; }
 		public List<ExoneratedCours> ExoneratedCourses { get; set; }
@@ -48,7 +49,7 @@ namespace Objects.Processes
 
 	public class ExoneratedCours
 	{
-		public int idCursesExonerate { get; set; }
+		public int CodigoCurso { get; set; }
 		public string Oservation { get; set; }
 	}
 }

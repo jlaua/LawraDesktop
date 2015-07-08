@@ -5244,8 +5244,6 @@ namespace LawrApp {
             
             private global::System.Data.DataColumn columnModifiedDate;
             
-            private global::System.Data.DataColumn columnStatus;
-            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public listCursosDataTable() {
@@ -5313,14 +5311,6 @@ namespace LawrApp {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn StatusColumn {
-                get {
-                    return this.columnStatus;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -5356,14 +5346,13 @@ namespace LawrApp {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public listCursosRow AddlistCursosRow(string Codigo, string Name, string Observation, string ModifiedDate, string Status) {
+            public listCursosRow AddlistCursosRow(string Codigo, string Name, string Observation, string ModifiedDate) {
                 listCursosRow rowlistCursosRow = ((listCursosRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Codigo,
                         Name,
                         Observation,
-                        ModifiedDate,
-                        Status};
+                        ModifiedDate};
                 rowlistCursosRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowlistCursosRow);
                 return rowlistCursosRow;
@@ -5390,7 +5379,6 @@ namespace LawrApp {
                 this.columnName = base.Columns["Name"];
                 this.columnObservation = base.Columns["Observation"];
                 this.columnModifiedDate = base.Columns["ModifiedDate"];
-                this.columnStatus = base.Columns["Status"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5404,8 +5392,6 @@ namespace LawrApp {
                 base.Columns.Add(this.columnObservation);
                 this.columnModifiedDate = new global::System.Data.DataColumn("ModifiedDate", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnModifiedDate);
-                this.columnStatus = new global::System.Data.DataColumn("Status", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnStatus);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7778,22 +7764,6 @@ namespace LawrApp {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Status {
-                get {
-                    try {
-                        return ((string)(this[this.tablelistCursos.StatusColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Status\' de la tabla \'listCursos\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tablelistCursos.StatusColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsCodigoNull() {
                 return this.IsNull(this.tablelistCursos.CodigoColumn);
             }
@@ -7838,18 +7808,6 @@ namespace LawrApp {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetModifiedDateNull() {
                 this[this.tablelistCursos.ModifiedDateColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsStatusNull() {
-                return this.IsNull(this.tablelistCursos.StatusColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetStatusNull() {
-                this[this.tablelistCursos.StatusColumn] = global::System.Convert.DBNull;
             }
         }
         

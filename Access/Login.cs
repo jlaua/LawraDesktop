@@ -12,19 +12,12 @@ using System.Net;
 
 namespace Access
 {
+
     public class Login : Connection
     {
-        private string _msgExceptionLogin,
-                        _InputName, 
-                        _InputPass, 
-                        _UserFullName, 
-                        _UserType, 
-                        _LocationImage;
-
+        private string _msgExceptionLogin, _InputName, _InputPass, _UserFullName, _UserType, _LocationImage;
 		private int _yearActive;
-
         private string _Controller = "api/prslog";
-
 
         #region PROPIEDADES
 
@@ -32,24 +25,29 @@ namespace Access
         {
             get { return this._msgExceptionLogin; }
         }
+
         public string InputName
         {
             get { return this._InputName; }
             set { this._InputName = value; }
         }
+
         public string InputPass
         {
             get { return this._InputPass; }
             set { this._InputPass = value; }
         }
+
         public string UserFullName
         {
             get { return this._UserFullName; }
         }
+
         public string UserType
         {
             get { return this._UserType; }
         }
+
         public string LocationImage
         {
             get { return this._LocationImage; }
@@ -63,7 +61,6 @@ namespace Access
 
         #endregion
 
-
         #region CONSTRUCTOR
 
         public Login()
@@ -75,9 +72,7 @@ namespace Access
 
         #endregion
 
-
         #region METODOS
-
 
         public bool TokenIsRegistered()
         {
@@ -89,12 +84,10 @@ namespace Access
                 return true;
         }
 
-
         public bool SendLogin()
         {
-            OpSendLogin objSend = new OpSendLogin();
-
-            Query Oquery = new Query(this._Controller);
+            OpSendLogin objSend		= new OpSendLogin();
+			Query Oquery			= new Query( this._Controller );
 
             try
             {
@@ -173,8 +166,8 @@ namespace Access
             }
         }
 
-
         #endregion
 
     }
+
 }

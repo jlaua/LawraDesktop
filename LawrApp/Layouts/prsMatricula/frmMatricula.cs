@@ -16,7 +16,7 @@ namespace LawrApp.Layouts.prsMatricula
 		private DataGeneral _data;
 		private bool _isNewStudent = false;
 		private int _codClase;
-		private int _idStudent;
+		private int _idStudent = 0;
 
 		public bool IsNewStudent
 		{
