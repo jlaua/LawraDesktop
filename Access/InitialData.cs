@@ -11,15 +11,16 @@ using System.Data;
 using Options;
 using Newtonsoft.Json;
 using RestSharp;
+using Objects.Processes;
 using Objects.Tables;
 
 namespace Access
 {
-    public class PreLoadData : Connection
+    public class InitialData : Connection
     {
-        private string _ubigeoController		= "api/ubigeo";
-        private string _tipoDocController		= "api/tipodocumento";
-        private string _tipoParentController	= "api/typeparents";
+        private string _ubigeoController		= "api/initial/ubigeo";
+        private string _tipoDocController		= "api/initial/type/documents";
+        private string _tipoParentController	= "api/initial/type/parents";
 
         private string _exceptionUbigeo;
 
@@ -42,28 +43,36 @@ namespace Access
 
 		public DataSet ListPeriodos( DataSet dts )
 		{
-			Query query = new Query( "api/listperiods" );
+			Query query = new Query( "api/initial/periods" );
 
 			try
 			{
 				query.SendRequestGET();
 
-				dts.Tables["periodos"].Clear();
+				dts.Tables["Periodo"].Clear();
 
 				if ( query.ResponseStatusCode != HttpStatusCode.OK )
 				{
 					throw new ArgumentNullException( "No se ha podido acceder a los datos", "Datos de Tipo de Documentos" );
 				}
 
-				List<Periodos> peri = JsonConvert.DeserializeObject<List<Periodos>>( query.ResponseContent );
+				List<tPeriodo> peri = JsonConvert.DeserializeObject<List<tPeriodo>>( query.ResponseContent );
 
-				foreach ( Periodos Item in peri )
+				foreach ( tPeriodo Item in peri )
 				{
-					object[] td = new object[8]  {
-						Item.Codigo, Item.Name, Item.Year, Item.Description, Item.StartDate, Item.EndDate, Item.IsActive, Item.ModifiedDate
+					object[] td = new object[8]  
+					{
+						Item.Codigo, 
+						Item.Name, 
+						Item.Year, 
+						Item.Description, 
+						Item.StartDate, 
+						Item.EndDate, 
+						Item.Active, 
+						Item.ModifiedDate
                     };
 
-					dts.Tables["periodos"].Rows.Add( td );
+					dts.Tables["Periodo"].Rows.Add( td );
 				}
 
 				return dts;
@@ -93,21 +102,21 @@ namespace Access
                     throw new ArgumentNullException( "No se ha podido acceder a los datos", "Datos de Ubigeo" );
                 }
 
-                List<Departamentos> departamentos = JsonConvert.DeserializeObject<List<Departamentos>>( query.ResponseContent );
+                List<tDepartamentos> departamentos = JsonConvert.DeserializeObject<List<tDepartamentos>>( query.ResponseContent );
 
                 int countProv = 1, countDist = 1;
 
-                foreach ( Departamentos depItem in departamentos )
+                foreach ( tDepartamentos depItem in departamentos )
                 {
                     string[] camposdep = new string[2] { depItem.Id.ToString(), depItem.Departamento};
                     dts.Tables["Departamentos"].Rows.Add(camposdep);
 
-                    foreach ( Provincias proItem in depItem.Provincias )
+                    foreach ( tProvincias proItem in depItem.Provincias )
                     {
                         string[] campospro = new string[4] { countProv.ToString(), camposdep[0], proItem.Id.ToString(), proItem.Provincia };
                         dts.Tables["Provincias"].Rows.Add( campospro );
 
-                        foreach ( Distritos disItem in proItem.Distritos )
+                        foreach ( tDistritos disItem in proItem.Distritos )
                         {
                             string[] camposdis = new string[4] { countDist.ToString(), campospro[0], disItem.Id.ToString(), disItem.Distrito };
                             dts.Tables["Distritos"].Rows.Add( camposdis );
@@ -135,22 +144,29 @@ namespace Access
             {
                 query.SendRequestGET();
 
-                dts.Tables["tipodocumento"].Clear();
+				dts.Tables["TipoDocumento"].Clear();
 
                 if ( query.ResponseStatusCode != HttpStatusCode.OK )
                 {
                     throw new ArgumentNullException( "No se ha podido acceder a los datos", "Datos de Tipo de Documentos" );
                 }
 
-                List<TipoDocumento> tipo = JsonConvert.DeserializeObject<List<TipoDocumento>>( query.ResponseContent );
+                List<tTipoDocumento> tipo = JsonConvert.DeserializeObject<List<tTipoDocumento>>( query.ResponseContent );
 
-                foreach ( TipoDocumento Item in tipo )
+                foreach ( tTipoDocumento Item in tipo )
                 {
-                    object[] td = new object[6]  { 
-                        Item.Id, Item.LongName, Item.ShortName, Item.Length, Item.IsNumeric, Item.IsExactLength
+                    object[] td = new object[8]  { 
+                        Item.Codigo, 
+						Item.Name, 
+						Item.ShortName, 
+						Item.Length, 
+						Item.Numeric, 
+						Item.Numeric,
+						Item.Description,
+						Item.ModifiedDate
 					};
 
-                    dts.Tables["tipodocumento"].Rows.Add( td );
+					dts.Tables["TipoDocumento"].Rows.Add( td );
                 }
 
                 return dts;
@@ -171,20 +187,27 @@ namespace Access
             {
                 query.SendRequestGET();
 
-                dts.Tables["tipoapoderado"].Clear();
+				dts.Tables["TipoApoderado"].Clear();
 
                 if (query.ResponseStatusCode != HttpStatusCode.OK)
                 {
                     throw new ArgumentNullException("No se ha podido acceder a los datos", "Datos de Tipo de Documentos");
                 }
 
-                List<TypeParent> tipo = JsonConvert.DeserializeObject<List<TypeParent>>(query.ResponseContent);
+                List<tTipoApoderado> tipo = JsonConvert.DeserializeObject<List<tTipoApoderado>>(query.ResponseContent);
 
-                foreach (TypeParent Item in tipo)
+                foreach (tTipoApoderado Item in tipo)
                 {
-                    object[] td = new object[3] { Item.Id, Item.Name, Item.type };
+                    object[] td = new object[5] 
+					{ 
+						Item.Codigo, 
+						Item.Name, 
+						Item.Gender, 
+						Item.Description, 
+						Item.ModifiedDate 
+					};
 
-                    dts.Tables["tipoapoderado"].Rows.Add(td);
+					dts.Tables["TipoApoderado"].Rows.Add( td );
                 }
 
                 return dts;
@@ -205,20 +228,20 @@ namespace Access
 			{
 				query.SendRequestGET();
 
-				dts.Tables["liststudents"].Clear();
+				dts.Tables["ListaAlumnos"].Clear();
 
 				if ( query.ResponseStatusCode != HttpStatusCode.OK )
 				{
 					throw new ArgumentNullException( "No se ha podido acceder a los datos", "Datos de Tipo de Documentos" );
 				}
 
-				List<ListStudents> tipo = JsonConvert.DeserializeObject<List<ListStudents>>( query.ResponseContent );
+				List<lAlumnos> tipo = JsonConvert.DeserializeObject<List<lAlumnos>>( query.ResponseContent );
 
-				foreach ( ListStudents Item in tipo )
+				foreach ( lAlumnos Item in tipo )
 				{
 					object[] td = new object[4] { Item.Codigo, Item.Key, Item.Names, Item.ModifiedDate };
 
-					dts.Tables["liststudents"].Rows.Add( td );
+					dts.Tables["ListaAlumnos"].Rows.Add( td );
 				}
 
 				return dts;
@@ -233,7 +256,7 @@ namespace Access
 
 		public DataSet ListaGradoSeccion( DataSet dts )
 		{
-			Query query = new Query( "api/gradoseccion" );
+			Query query = new Query( "api/initial/gradoseccion" );
 
 			try
 			{
@@ -250,7 +273,7 @@ namespace Access
 
 				GradoSeccion grs = JsonConvert.DeserializeObject<GradoSeccion>( query.ResponseContent );
 
-				foreach ( Grados Item in grs.Grados )
+				foreach ( tGrado Item in grs.Grados )
 				{
 					object[] td = new object[7] { 
 						Item.Codigo, Item.CodigoNivel, Item.Name, Item.Preview, Item.Next, Item.Description, Item.ModifiedDate
@@ -259,7 +282,7 @@ namespace Access
 					dts.Tables["Grados"].Rows.Add( td );
 				}
 
-				foreach ( Secciones Item in grs.Secciones )
+				foreach ( tSeccion Item in grs.Secciones )
 				{
 					object[] td = new object[4] { 
 						Item.Codigo, Item.Name, Item.Character, Item.ModifiedDate
@@ -268,7 +291,7 @@ namespace Access
 					dts.Tables["Secciones"].Rows.Add( td );
 				}
 
-				foreach ( Niveles Item in grs.Niveles )
+				foreach ( tNivel Item in grs.Niveles )
 				{
 					object[] td = new object[4] { 
 						Item.Codigo, Item.Name, Item.Description, Item.ModifiedDate

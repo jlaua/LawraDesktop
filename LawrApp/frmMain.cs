@@ -19,7 +19,7 @@ namespace LawrApp
     {
         //el formulario login modifica esta variable
         private Login _log = new Login();
-        private PreLoadData _preload = new PreLoadData();
+        private InitialData _preload = new InitialData();
         private DataGeneral _data;
         private Thread _tr;
 
@@ -41,7 +41,7 @@ namespace LawrApp
 
 			this.cboPeriodos.ValueMember = "Codigo";
 			this.cboPeriodos.DisplayMember = "Year";
-			this.cboPeriodos.DataSource = this._data.Tables["periodos"];
+			this.cboPeriodos.DataSource = this._data.Tables["Periodo"];
 
 			this.lblLoadInfo.Text = "Asignando Periodos...";
 			this._preload.AsignYear( cboPeriodos.SelectedValue.ToString() );

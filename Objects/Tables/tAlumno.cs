@@ -14,6 +14,8 @@ namespace Objects.Tables
 		public string ImageKey { get; set; }
 		public int CodigoUsuario { get; set; }
 		public int CodigoUltimoColegio { get; set; }
+		public string NameLastSchool { get; set; }
+		public bool TypeLastSchool { get; set; }
 		public string Names { get; set; }
 		public string LastNames { get; set; }
 		public string Birthday { get; set; }

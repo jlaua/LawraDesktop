@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Objects.Processes;
+using Objects.Tables;
 
 namespace LawrApp.Layouts.prsMatricula
 {
 	public interface IFrmAlumno
 	{
-		void AddDocuments( Document Odocument, string NameDoc );
+		void AddDocuments( tDocumentoAlumno Odocument, string NameDoc );
 
-		void AddParent( Parent OParent, string NameParent, string NameDocument );
+		void AddParent( tApoderado OParent, string NameParent, string NameDocument );
 
 		void AddSchool( string nameSchool, int idSchool, string type );
 	}

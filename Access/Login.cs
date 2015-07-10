@@ -5,7 +5,6 @@ using System.Text;
 
 //agregados
 using Options;
-using Objects.Processes.Response;
 using Objects.Processes;
 using Newtonsoft.Json;
 using System.Net;
@@ -86,7 +85,7 @@ namespace Access
 
         public bool SendLogin()
         {
-            OpSendLogin objSend		= new OpSendLogin();
+            RequestLogin objSend		= new RequestLogin();
 			Query Oquery			= new Query( this._Controller );
 
             try
@@ -98,7 +97,7 @@ namespace Access
 
                 Oquery.SendRequestPOST();
 
-                OpLogin obj = JsonConvert.DeserializeObject<OpLogin>( Oquery.ResponseContent );
+                ResponseLogin obj = JsonConvert.DeserializeObject<ResponseLogin>( Oquery.ResponseContent );
 
                 if( Oquery.ResponseStatusCode == HttpStatusCode.OK )
                 {
@@ -128,21 +127,7 @@ namespace Access
 
         public bool SendLogOut()
         {
-            var parameters = new Dictionary<string, string>();
             Query Oquery = new Query( this._Controller );
-
-            OpLogin objlogin = new OpLogin();
-            OpLoginData objdata = new OpLoginData();
-
-            objlogin.msg = "Soy un mensaje";
-
-            objdata.FullName = "soy un fullname";
-            objdata.ImagePath = "soy un imagepath";
-            objdata.TypeUser = "soy un tpo de usuario";
-
-            objlogin.data = objdata;
-
-            Oquery.RequestParameters = objlogin;
 
             try
             {

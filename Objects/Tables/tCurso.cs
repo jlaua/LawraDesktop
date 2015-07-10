@@ -11,6 +11,6 @@ namespace Objects.Tables
 		public int CodigoAreaPedagogica { get; set; }
 		public string Name { get; set; }
 		public bool Principal { get; set; }
-		public bool ModifiedDate { get; set; }
+		public string ModifiedDate { get; set; }
 	}
 }

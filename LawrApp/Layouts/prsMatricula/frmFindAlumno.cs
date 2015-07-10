@@ -36,7 +36,7 @@ namespace LawrApp.Layouts.prsMatricula
 
 		private void frmFindAlumno_Load( object sender, EventArgs e )
 		{
-			dgvalumnos.DataSource = this._data.Tables["liststudents"];
+			dgvalumnos.DataSource = this._data.Tables["ListaAlumnos"];
 		}
 
 		private void txtsearch_TextChanged( object sender, EventArgs e )

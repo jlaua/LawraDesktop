@@ -39,15 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Processes\OpSApertura.cs" />
-    <Compile Include="Processes\OpSendLogin.cs" />
-    <Compile Include="Processes\OpSRegisterAlumno.cs" />
-    <Compile Include="Processes\OpSRegisterPersonal.cs" />
-    <Compile Include="Processes\Response\OpLogin.cs" />
-    <Compile Include="Processes\Response\OpRRegisterAlumno.cs" />
+    <Compile Include="Processes\pInitial.cs" />
+    <Compile Include="Processes\plogin.cs" />
+    <Compile Include="Processes\pAlumno.cs" />
+    <Compile Include="Processes\pMatricula.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tables\TablesRequest.cs" />
-    <Compile Include="Tables\TablesResponse.cs" />
     <Compile Include="Tables\tAlumno.cs" />
     <Compile Include="Tables\tApoderado.cs" />
     <Compile Include="Tables\tAreaPedagogica.cs" />
@@ -79,6 +75,7 @@
     <Compile Include="Tables\tTipoPersonal.cs" />
     <Compile Include="Tables\tTipoUsuario.cs" />
     <Compile Include="Tables\tTurno.cs" />
+    <Compile Include="Tables\tUbigeo.cs" />
     <Compile Include="Tables\tUltimoColegio.cs" />
     <Compile Include="Tables\tUsuarios.cs" />
   </ItemGroup>

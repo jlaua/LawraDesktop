@@ -11,7 +11,7 @@ namespace Objects.Tables
 		public int CodigoAlumno { get; set; }
 		public string Names { get; set; }
 		public string LastNames { get; set; }
-		public string BirthDay { get; set; }
+		public string Birthday { get; set; }
 		public bool Gender { get; set; }
 		public int CodigoTipoApoderado { get; set; }
 		public int CodigoTipoDocumento { get; set; }

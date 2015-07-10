@@ -59,7 +59,7 @@
   <ItemGroup>
     <Compile Include="ConfigServer.cs" />
     <Compile Include="Login.cs" />
-    <Compile Include="PreLoadData.cs" />
+    <Compile Include="InitialData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -4,22 +4,25 @@ using System.Linq;
 using System.Text;
 using Options;
 using Objects.Processes;
+using Objects.Tables;
 
 namespace Registers
 {
     public class Personal : Connection
     {
         private string _msgExceptionRegPersonal,
-                       _Controller = "api/registeralumno";
+                       _Controller = "api/personal";
 
-        private OpSRegisterPersonal _DataPersonal = new OpSRegisterPersonal();
+        private tPersonal  _DataPersonal = new tPersonal();
 
         #region Propiedades
+
         public string MsERegistrarPersonal
         {
             get { return this._msgExceptionRegPersonal; }
         }
-        public OpSRegisterPersonal DataPersonal
+
+        public tPersonal DataPersonal
         {
             get { return this._DataPersonal; }
             set

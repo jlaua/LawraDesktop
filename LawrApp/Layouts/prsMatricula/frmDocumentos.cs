@@ -11,7 +11,7 @@ using MetroFramework.Forms;
 using MetroFramework.Controls;
 using MetroFramework;
 using Options;
-using Objects.Processes;
+using Objects.Tables;
 
 namespace LawrApp.Layouts.prsMatricula
 {
@@ -35,18 +35,18 @@ namespace LawrApp.Layouts.prsMatricula
 
 			if ( IUAlumno != null )
 			{
-				Document ObjDocument	= new Document();
+				tDocumentoAlumno ObjDocument	= new tDocumentoAlumno();
 
-				ObjDocument.tDocument = Convert.ToInt32( cboTypeDocument.SelectedValue );
+				ObjDocument.CodigoTipoDocumento = Convert.ToInt32( cboTypeDocument.SelectedValue );
 				ObjDocument.DocumentNumber = txtNumberDocument.Text;
 
 				if ( this.pbImageDocument.ImageLocation != null && this.pbImageDocument.Image != null )
 				{
-					ObjDocument.Imagesrc = this.pbImageDocument.ImageLocation;
+					ObjDocument.ImageSrc = this.pbImageDocument.ImageLocation;
 					ObjDocument.ImageKey = Helper.NameImageRandom( 10 );
 				}
 
-				ObjDocument.Expire = ( this.chboExpira.CheckState == CheckState.Checked ) ? null : dtpExpiryDate.Value.ToString( "yyyy-MM-dd" );
+				ObjDocument.ExpirationDate = ( this.chboExpira.CheckState == CheckState.Checked ) ? null : dtpExpiryDate.Value.ToString( "yyyy-MM-dd" );
 
 				IUAlumno.AddDocuments( ObjDocument, this.cboTypeDocument.Text );
 			}
@@ -58,8 +58,8 @@ namespace LawrApp.Layouts.prsMatricula
 
 		private void frmDocumentos_Load( object sender, EventArgs e )
 		{
-			this.cboTypeDocument.ValueMember = "Id";
-			this.cboTypeDocument.DisplayMember = "ShortName";
+			this.cboTypeDocument.ValueMember = "Codigo";
+			this.cboTypeDocument.DisplayMember = "Name";
 			this.cboTypeDocument.DataSource = this._data;
 
 			this.cboTypeDocument.SelectedIndex = -1;
@@ -165,7 +165,7 @@ namespace LawrApp.Layouts.prsMatricula
 			{
 				txtNumberDocument.Enabled = true;
 
-				Object[] docs = this._data.Select( "Id=" + cbo.SelectedValue )[0].ItemArray;
+				Object[] docs = this._data.Select( "Codigo=" + cbo.SelectedValue )[0].ItemArray;
 
 				this._lengthAllowed = ( int ) docs[3];
 				this._isNumeric = ( bool ) docs[4];

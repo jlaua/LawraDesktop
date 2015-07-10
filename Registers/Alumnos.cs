@@ -6,7 +6,6 @@ using System.Data;
 using System.Net;
 
 using Objects.Processes;
-using Objects.Processes.Response;
 using Objects.Tables;
 using RestSharp;
 using Newtonsoft.Json;
@@ -18,12 +17,15 @@ namespace Registers
     {
         private string _msgExceptionRegAlumno, 
                         _registerController = "api/process/enrollment/registers/students",
-                        _schoolController = "api/lastschool";
+                        _schoolController = "api/initial/lastschool";
 
-        private OpSRegisterAlumno _dataAlumno    = new OpSRegisterAlumno();
-        private List<Document>    _dataDocuments = new List<Document>();
-		private List<Parent>      _dataParent    = new List<Parent>();
-		private List<ExoneratedCours>_dataExoneratedCourses = new List<ExoneratedCours>();
+        private pAlumno _dataMain								= new pAlumno();
+
+		private tAlumno _dataAlumno								= new tAlumno();
+        private List<tDocumentoAlumno>_dataDocumento			= new List<tDocumentoAlumno>();
+		private List<tApoderado> _dataApoderado					= new List<tApoderado>();
+		private List<tCursoExonerado> _dataCursoExonerado		= new List<tCursoExonerado>();
+
         private Dictionary<string, string> _File =   new Dictionary<string, string>();
 
         #region PROPIEDADES
@@ -32,7 +34,8 @@ namespace Registers
         {
             get { return this._msgExceptionRegAlumno; }
         }
-        public OpSRegisterAlumno DataAlumno
+
+        public tAlumno DataAlumno
         {
             get { return this._dataAlumno; }
             set
@@ -40,27 +43,28 @@ namespace Registers
                 this._dataAlumno = value;
             }
         }
-        public Document DataDocuments
+
+        public tDocumentoAlumno DataDocumento
         {
             set
             {
-                this._dataDocuments.Add( value );
+                this._dataDocumento.Add( value );
             }
         }
       
-        public Parent DataParent
+        public tApoderado DataApoderado
         {
             set
             {
-                this._dataParent.Add( value );
+                this._dataApoderado.Add( value );
             }
         }
 
-		public ExoneratedCours DataExoneratedCurses
+		public tCursoExonerado DataCursoExonerado
 		{
 			set
 			{
-				this._dataExoneratedCourses.Add( value );
+				this._dataCursoExonerado.Add( value );
 			}
 		}
 
@@ -73,11 +77,11 @@ namespace Registers
         {
             int i = 0;
 
-            for ( i = 0; i <= this._dataDocuments.Count; i++ )
+            for ( i = 0; i <= this._dataDocumento.Count; i++ )
             {
-                if ( this._dataDocuments[i].DocumentNumber == NumeroDocumento )
+                if ( this._dataDocumento[i].DocumentNumber == NumeroDocumento )
                 {
-                    this._dataDocuments.RemoveAt( i );
+                    this._dataDocumento.RemoveAt( i );
                     break;
                 }
             }
@@ -87,13 +91,13 @@ namespace Registers
         {
             int i = 0;
 
-            for ( i = 0; i <= _dataParent.Count; i++ )
+            for ( i = 0; i <= this._dataApoderado.Count; i++ )
             {
-                string nombrecompleto = _dataParent[i].Names + " " + _dataParent[i].LastName;
+                string nombrecompleto = this._dataApoderado[i].Names + " " + this._dataApoderado[i].LastNames;
 
                 if ( nombrecompleto == NombrePariente )
                 {
-                    this._dataParent.RemoveAt( i );
+                    this._dataApoderado.RemoveAt( i );
                     break;
                 }
             }
@@ -106,19 +110,19 @@ namespace Registers
             try
             {
 
-                if( dts.Tables["lastschool"].Rows.Count > 0 ) dts.Tables["lastschool"].Clear();
+				if ( dts.Tables["UltimoColegio"].Rows.Count > 0 ) dts.Tables["UltimoColegio"].Clear();
 
                 query.SendRequestGET();
 
                 if ( query.ResponseStatusCode != HttpStatusCode.OK )
                     throw new ArgumentNullException( "No se encontraron datos", "Ultimos Colegios" );
 
-                List<LastSchool> schools = JsonConvert.DeserializeObject<List<LastSchool>>( query.ResponseContent );
+                List<tUltimoColegio> schools = JsonConvert.DeserializeObject<List<tUltimoColegio>>( query.ResponseContent );
 
-                foreach ( LastSchool Items in schools )
+                foreach ( tUltimoColegio Items in schools )
                 {
-                    var temp = new object[3] { Items.Id, Items.Name, Items.type };
-                    dts.Tables["lastschool"].Rows.Add( temp );
+                    object[] temp = new object[4] { Items.Codigo, Items.Name, Items.TypeSchool, Items.ModifiedDate };
+					dts.Tables["UltimoColegio"].Rows.Add( temp );
                 }
 
                 return dts;
@@ -131,9 +135,9 @@ namespace Registers
             }
         }
 
-		public List<ListCursos> ListaCursos(  int IdClase )
+		public List<tCurso> ListaCursos(  int IdClase )
 		{
-			Query query = new Query( "api/cursos/clase/" + IdClase );
+			Query query = new Query( "api/clase/cursos/" + IdClase );
 
 			try
 			{
@@ -142,7 +146,7 @@ namespace Registers
 				if ( query.ResponseStatusCode != HttpStatusCode.OK )
 					throw new ArgumentNullException( "No se encontraron datos", "Cursos" );
 
-				List<ListCursos> cursos = JsonConvert.DeserializeObject<List<ListCursos>>( query.ResponseContent );
+				List<tCurso> cursos = JsonConvert.DeserializeObject<List<tCurso>>( query.ResponseContent );
 
 				return cursos;
 			}
@@ -160,25 +164,25 @@ namespace Registers
 			try
 			{
 
-				if ( dts.Tables["liststudents"].Rows.Count > 0 ) dts.Tables["liststudents"].Clear();
+				if ( dts.Tables["ListaAlumnos"].Rows.Count > 0 ) dts.Tables["ListaAlumnos"].Clear();
 
 				query.SendRequestGET();
 
 				if ( query.ResponseStatusCode != HttpStatusCode.OK )
 					throw new ArgumentNullException( "No se encontraron datos", "Estudiantes" );
 
-				List<ListAlumnos> AlumnosData = JsonConvert.DeserializeObject<List<ListAlumnos>>( query.ResponseContent );
+				List<lAlumnos> AlumnosData = JsonConvert.DeserializeObject<List<lAlumnos>>( query.ResponseContent );
 
-				foreach ( ListAlumnos Items in AlumnosData )
+				foreach ( lAlumnos Items in AlumnosData )
 				{
-					var temp = new object[] { 
-						Items.Id, 
+					object[] temp = new object[4] { 
+						Items.Codigo, 
 						Items.Key,
-						Items.Name, 
-						Items.type 
+						Items.Names, 
+						Items.ModifiedDate 
 					};
 
-					dts.Tables["liststudents"].Rows.Add( temp );
+					dts.Tables["ListaAlumnos"].Rows.Add( temp );
 				}
 
 				return dts;
@@ -213,33 +217,34 @@ namespace Registers
 			}
 		}
 
-        public bool SendDataStudent( DataSet dts )
+        public int SendDataStudent( DataSet dts )
         {
             Query query = new Query( this._registerController );
 
-            this._dataAlumno.Documents			= this._dataDocuments;
-            this._dataAlumno.Parents			= this._dataParent;
-			this._dataAlumno.ExoneratedCourses	= this._dataExoneratedCourses;
+			this._dataMain.Alumno				= this._dataAlumno;
+            this._dataMain.Documentos			= this._dataDocumento;
+            this._dataMain.Apoderado			= this._dataApoderado;
+			this._dataMain.CursosExonerados		= this._dataCursoExonerado;
 
-            if(!string.IsNullOrEmpty(DataAlumno.ImageKey) &&  !string.IsNullOrEmpty(DataAlumno.Imagesrc))
+            if(!string.IsNullOrEmpty(DataAlumno.ImageKey) &&  !string.IsNullOrEmpty(DataAlumno.ImageSrc))
             {
-				this._File.Add(this.DataAlumno.ImageKey, this.DataAlumno.Imagesrc);
-				this._dataAlumno.Imagesrc = string.Empty;
+				this._File.Add(this.DataAlumno.ImageKey, this.DataAlumno.ImageSrc);
+				this._dataMain.Alumno.ImageSrc = string.Empty;
             }
 
             int con = 0;
 
-            foreach(Document items in this.DataAlumno.Documents)
+            foreach(tDocumentoAlumno items in this._dataMain.Documentos)
             {
-				if ( !string.IsNullOrEmpty( items.Imagesrc ) && !string.IsNullOrEmpty( items.ImageKey ) )
+				if ( !string.IsNullOrEmpty( items.ImageSrc ) && !string.IsNullOrEmpty( items.ImageKey ) )
 				{
-					this._File.Add( items.ImageKey, items.Imagesrc );
-					this._dataAlumno.Documents[con].Imagesrc = string.Empty;
+					this._File.Add( items.ImageKey, items.ImageSrc );
+					this._dataMain.Documentos[con].ImageSrc = string.Empty;
 					con++;
 				}
             }
 
-            query.RequestParameters = this._dataAlumno;
+            query.RequestParameters = this._dataMain;
             query.AddRequestFiles(this._File);
 
             try
@@ -249,60 +254,12 @@ namespace Registers
 				if ( query.ResponseStatusCode != HttpStatusCode.OK )
 					throw new ArgumentNullException( query.MsgExceptionQuery, "ERROR AL REGISTRO" );
 
-				ResponseAlumno alumno = JsonConvert.DeserializeObject<ResponseAlumno>( query.ResponseContent );
-
-				object[] objAlumno = new object[] 
-				{
-					alumno.Id,
-					alumno.Names,
-					alumno.LastName,
-					alumno.Sexo,
-					alumno.Birthday,
-					alumno.Imagesrc,
-					alumno.Address,
-					alumno.Usuario,
-					alumno.IdLastSchool
-				};
-
-				dts.Tables["student"].Rows.Add( objAlumno );
-
-				foreach ( ResponseDocument docs in alumno.Documents )
-				{
-					object[] objDocuments = new object[4] 
-					{
-						docs.TypeDocument,
-						docs.DocumentNumber,
-						docs.Expire,
-						alumno.Id
-					};
-
-					dts.Tables["Documents"].Rows.Add( objDocuments );
-				}
-
-				foreach ( ResponseParent parent in alumno.Parents )
-				{
-					object[] objParents = new object[9] 
-					{
-						parent.Names,
-						parent.LastName,
-						parent.TypeParent,
-						parent.GenderParent,
-						parent.TypeDocument,
-						parent.DocumentNumber,
-						parent.Phone,
-						parent.Email,
-						alumno.Id
-					};
-
-					dts.Tables["Parents"].Rows.Add( objParents );
-				}
-
-                return true;
+				return Convert.ToInt32( query.ResponseContent );
             }
             catch ( Exception e )
             {
                 this._msgExceptionRegAlumno = e.Message;
-                return false;
+                return 0;
             }
         }
 

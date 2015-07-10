@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using MetroFramework;
 using MetroFramework.Forms;
 using Options;
-using Objects.Processes;
+using Objects.Tables;
 
 namespace LawrApp.Layouts.prsApertura
 {
@@ -20,8 +20,8 @@ namespace LawrApp.Layouts.prsApertura
 		private string _msgRequired = "Este campo es requerido";
 		private bool _isNext = false;
 		private DataGeneral _data;
-		private Periodo _periodo = new Periodo();
-		private ParamPeriodo _param = new ParamPeriodo();
+		private tPeriodo _periodo = new tPeriodo();
+		private tPeriodoParametro _param = new tPeriodoParametro();
 
 		public frmOpeningOne( DataGeneral dts )
 		{
@@ -143,7 +143,7 @@ namespace LawrApp.Layouts.prsApertura
 		void SaveObjectData()
 		{
 			_periodo.Name		= txtnameYear.Text;
-			_periodo.Year		= Convert.ToInt32(cboyear.Text);
+			_periodo.Year		= cboyear.Text;
 			_periodo.StartDate	= dtpStartPeriod.Value.ToString("yyyy-MM-dd");
 			_periodo.EndDate	= dtpEndPeriod.Value.ToString("yyyy-MM-dd");
 
@@ -164,7 +164,7 @@ namespace LawrApp.Layouts.prsApertura
 			for ( int i = 0; i < this.listHoursAcademy.Items.Count; i++ )
 				academyHours.Add( this.listHoursAcademy.Items[i].ToString().Split(' ')[0] );
 
-			_param.AcademicHour = string.Join( ",", academyHours );
+			_param.AcademyHours = string.Join( ",", academyHours );
 
 			//tiempos libres
 			List<string> FreeTimes = new List<string>();
@@ -174,7 +174,7 @@ namespace LawrApp.Layouts.prsApertura
 			_param.BreakTime = string.Join( ",", FreeTimes );
 
 			//uniendo los parametro con el periodo
-			_periodo.Parameters = _param;
+			//_periodo.Parameters = _param;
 
 		}
 

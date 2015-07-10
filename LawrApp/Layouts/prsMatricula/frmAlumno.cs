@@ -59,9 +59,9 @@ namespace LawrApp.Layouts.prsMatricula
 		{
 			CheckForIllegalCrossThreadCalls = false;
 			this.alum.ListSchool( this._data );
-			List<ListCursos> cursos =  this.alum.ListaCursos( this._idClass );
+			List<tCurso> cursos =  this.alum.ListaCursos( this._idClass );
 
-			foreach( ListCursos items in cursos )
+			foreach ( tCurso items in cursos )
 			{
 				var temp = new object[] 
 				{
@@ -78,7 +78,7 @@ namespace LawrApp.Layouts.prsMatricula
 
 		#region METODOS DE INTERFAZ
 
-		public void AddDocuments( Document Odocument, string NameDocument )
+		public void AddDocuments( tDocumentoAlumno Odocument, string NameDocument )
 		{
 			bool continuar = true;
 
@@ -96,17 +96,17 @@ namespace LawrApp.Layouts.prsMatricula
 
 			if ( !continuar ) return;
 
-			string strExpire	= ( string.IsNullOrEmpty( Odocument.Expire ) ) ? "No expira" : Odocument.Expire;
-			bool hasImage		= ( string.IsNullOrEmpty( Odocument.Imagesrc ) ) ? false : true;
+			string strExpire	= ( string.IsNullOrEmpty( Odocument.ExpirationDate ) ) ? "No expira" : Odocument.ExpirationDate;
+			bool hasImage		= ( string.IsNullOrEmpty( Odocument.ImageSrc ) ) ? false : true;
 
 			object[] obj = new object[5] { NameDocument, Odocument.DocumentNumber, strExpire, hasImage, "" };
 			
 			this.dgvDocuments.Rows.Add( obj );
 
-			alum.DataDocuments = Odocument;
+			alum.DataDocumento = Odocument;
 		}
 
-		public void AddParent( Parent Parient, string NameParent, string NameDocument )
+		public void AddParent( tApoderado Parient, string NameParent, string NameDocument )
 		{
 			bool continua	= true;
 
@@ -124,11 +124,11 @@ namespace LawrApp.Layouts.prsMatricula
 
 			if ( ! continua ) return;
 
-			object[] obj = new object[4] { NameParent, ( Parient.Names + " " + Parient.LastName ), NameDocument, "" };
+			object[] obj = new object[4] { NameParent, ( Parient.Names + " " + Parient.LastNames ), NameDocument, "" };
 
 			this.dgvParents.Rows.Add(obj);
 
-			alum.DataParent = Parient;
+			alum.DataApoderado = Parient;
 		}
 
 		public void AddSchool( string Name, int Codigo, string Type )
@@ -146,35 +146,37 @@ namespace LawrApp.Layouts.prsMatricula
 
 		private void JoinDataStudent()
 		{
-			List<ExoneratedCours> ObjExonerateCurses = new List<ExoneratedCours>();
+			List<tCursoExonerado> cursoExonerado = new List<tCursoExonerado>();
 
 			this.alum.DataAlumno.Names			= this.txtnombre.Text;
-			this.alum.DataAlumno.LastName		= this.txtapellidos.Text;
+			this.alum.DataAlumno.LastNames		= this.txtapellidos.Text;
 			this.alum.DataAlumno.Birthday		= this.dtpbirthday.Value.Date.ToString( "yyyy-MM-dd" );
 			this.alum.DataAlumno.Address		= this.txtdireccion.Text;
-			this.alum.DataAlumno.Sexo			= this.cbosexo.SelectedIndex == 0 ? false : true;
-			this.alum.DataAlumno.Observations	= this.txtotrasObservaciones.Text;
+			this.alum.DataAlumno.Gender			= this.cbosexo.SelectedIndex == 0 ? false : true;
+			this.alum.DataAlumno.Observation	= this.txtotrasObservaciones.Text;
 
 			if ( this.pbPerfilPicture.ImageLocation != null && pbPerfilPicture.Image != null )
 			{
 				this.alum.DataAlumno.ImageKey = Helper.NameImageRandom( 10 );
-				this.alum.DataAlumno.Imagesrc = pbPerfilPicture.ImageLocation;
+				this.alum.DataAlumno.ImageSrc = pbPerfilPicture.ImageLocation;
 			}
 			else
 			{
 				this.alum.DataAlumno.ImageKey = null;
-				this.alum.DataAlumno.Imagesrc = null;
+				this.alum.DataAlumno.ImageSrc = null;
 			}
 
 			foreach ( DataGridViewRow row in dgcursosExonerados.Rows )
 			{
-				ExoneratedCours tempData = new ExoneratedCours();
+				tCursoExonerado tempData = new tCursoExonerado();
 
 				if ( ( bool ) row.Cells[3].Value )
 				{
-					tempData.CodigoCurso		= Convert.ToInt32( row.Cells[0].Value );
-					tempData.Oservation			= row.Cells[2].Value.ToString();
-					alum.DataExoneratedCurses	= tempData;
+					tempData.CodigoCurso			= Convert.ToInt32( row.Cells[0].Value );
+					tempData.Observation			= row.Cells[2].Value.ToString();
+
+					this.alum.DataCursoExonerado	= tempData;
+
 				}
 			}
 
@@ -185,7 +187,7 @@ namespace LawrApp.Layouts.prsMatricula
 			}
 			else
 			{
-				this.alum.DataAlumno.IdLastSchool = this._codSchool;
+				this.alum.DataAlumno.CodigoUltimoColegio = this._codSchool;
 			}
 
 			var depa = Convert.ToInt32( this.cbodepartamento.SelectedValue );
@@ -232,29 +234,17 @@ namespace LawrApp.Layouts.prsMatricula
 			this.dgvDocuments.Rows.Clear();
 			this.dgvParents.Rows.Clear();
 
-			this.alum.DataAlumno.Address = null;
-			this.alum.DataAlumno.Birthday = null;
-			this.alum.DataAlumno.Documents = null;
-			this.alum.DataAlumno.IdLastSchool = 0;
-			this.alum.DataAlumno.ImageKey = null;
-			this.alum.DataAlumno.Imagesrc = null;
-			this.alum.DataAlumno.LastName = null;
-			this.alum.DataAlumno.NameLastSchool = null;
-			this.alum.DataAlumno.Names = null;
-			this.alum.DataAlumno.Parents = null;
-			this.alum.DataAlumno.Sexo = false;
-			this.alum.DataAlumno.TypeLastSchool = false;
-			this.alum.DataAlumno.Ubigeo = null;
+			this.alum.DataAlumno = new tAlumno();
 
-			this.alum.DataDocuments = null;
-			this.alum.DataParent = null;
+			this.alum.DataDocumento = new tDocumentoAlumno();
+			this.alum.DataApoderado = new tApoderado();
 		}
 
 		private void sendDataRegistro()
 		{
 			CheckForIllegalCrossThreadCalls = false;
 
-			if ( this.alum.SendDataStudent( this._data ) )
+			if ( this.alum.SendDataStudent( this._data ) > 0 )
 			{
 				this.pgsload.Visible = false;
 
@@ -272,7 +262,6 @@ namespace LawrApp.Layouts.prsMatricula
 			else
 			{
 				this.pgsload.Visible = false;
-
 				MetroMessageBox.Show( this, this.alum.MsERegistrarAlumno, "Error!!", MessageBoxButtons.OK, MessageBoxIcon.Error );
 			}
 		}
@@ -429,14 +418,14 @@ namespace LawrApp.Layouts.prsMatricula
 
 		private void btnOpenFrmDocuments_Click( object sender, EventArgs e )
 		{
-			frmDocumentos doc = new frmDocumentos( this._data.Tables["tipodocumento"] );
+			frmDocumentos doc = new frmDocumentos( this._data.Tables["TipoDocumento"] );
 			doc.Owner = this;
 			doc.ShowDialog( this );
 		}
 
 		private void btnSearchColegio_Click( object sender, EventArgs e )
 		{
-			frmSearchSchool School = new frmSearchSchool( this._data.Tables["lastschool"] );
+			frmSearchSchool School = new frmSearchSchool( this._data.Tables["UltimoColegio"] );
 			School.Owner = this;
 			School.ShowDialog( this );
 		}
@@ -687,12 +676,12 @@ namespace LawrApp.Layouts.prsMatricula
 
 			try
 			{
-				DataRow[] dt = this._data.Tables["lastschool"].Select( "Name = '" + txt.Text + "'" );
+				DataRow[] dt = this._data.Tables["UltimoColegio"].Select( "Name = '" + txt.Text + "'" );
 
 				if ( dt.Length > 0 )
 				{
-					this._codSchool = Convert.ToInt32( dt[0]["Id"] );
-					this.cbotipocolegio.SelectedItem = dt[0]["Type"];
+					this._codSchool = Convert.ToInt32( dt[0]["Codigo"] );
+					this.cbotipocolegio.SelectedItem = dt[0]["TypeSchool"];
 					this._IsNewShcool = false;
 				}
 				else
@@ -712,13 +701,13 @@ namespace LawrApp.Layouts.prsMatricula
 
 			try
 			{
-				DataRow[] dt = this._data.Tables["lastschool"].Select( "Name = '" + txt.Text + "'" );
+				DataRow[] dt = this._data.Tables["UltimoColegio"].Select( "Name = '" + txt.Text + "'" );
 
 				if ( dt.Length > 0 )
 				{
-					this._codSchool = Convert.ToInt32( dt[0]["Id"] );
+					this._codSchool = Convert.ToInt32( dt[0]["Codigo"] );
 
-					this.cbotipocolegio.SelectedItem = dt[0]["Type"];
+					this.cbotipocolegio.SelectedItem = dt[0]["TypeSchool"];
 					this.lbvtipocolegio.Visible = false;
 
 					this._IsNewShcool = false;
@@ -753,12 +742,12 @@ namespace LawrApp.Layouts.prsMatricula
 			ComboBox cbo = ( ComboBox ) sender;
 			try
 			{
-				string fill = "Name = '" + this.txtnombrecolegio.Text.Trim() + "' and Type = '" + cbo.SelectedItem + "'";
-				DataRow[] dt = this._data.Tables["lastschool"].Select( fill );
+				string fill = "Name = '" + this.txtnombrecolegio.Text.Trim() + "' and TypeSchool = '" + cbo.SelectedItem + "'";
+				DataRow[] dt = this._data.Tables["TypeSchool"].Select( fill );
 
 				if ( dt.Length > 0 )
 				{
-					this._codSchool = Convert.ToInt32( dt[0]["Id"] ); ;
+					this._codSchool = Convert.ToInt32( dt[0]["Codigo"] ); ;
 					this._IsNewShcool = false;
 				}
 				else

@@ -156,15 +156,15 @@ namespace LawrApp.Layouts.regPersonal
         private void IngresaPersonal()
         {
             this.Personal.DataPersonal.Names = this.TxtNamePersonal.Text;
-            this.Personal.DataPersonal.LasName = this.txtLastNamesPersonal.Text;
+            this.Personal.DataPersonal.LastNames = this.txtLastNamesPersonal.Text;
             this.Personal.DataPersonal.Birthday = this.dtpBirthdayPersonal.Value.Year.ToString() + "-" + validarMes() + "-" + validardia();
-            this.Personal.DataPersonal.Sexo = this.cboSexoPersonal.Text;
-            this.Personal.DataPersonal.TypeDocument = this.cboTypeDocumentPersonal.SelectedIndex;
+            this.Personal.DataPersonal.Gender = this.cboSexoPersonal.Text;
+            this.Personal.DataPersonal.CodigoTipoDocumento = this.cboTypeDocumentPersonal.SelectedIndex;
             this.Personal.DataPersonal.DocumentNumber = this.txtDocumentNumberPersonal.Text;
-            this.Personal.DataPersonal.Profession = this.cbProfesion.SelectedIndex;
-            this.Personal.DataPersonal.Adress = this.txtAddressPersonal.Text;
+            this.Personal.DataPersonal.CodigoProfesion = this.cbProfesion.SelectedIndex;
+            this.Personal.DataPersonal.Address = this.txtAddressPersonal.Text;
             this.Personal.DataPersonal.Phone = this.txtPhonesPersonal.Text;
-            this.Personal.DataPersonal.Mail = this.txtEmailPersonal.Text;
+            this.Personal.DataPersonal.Email = this.txtEmailPersonal.Text;
         }
 
         public bool ValidarInformacionBasica()

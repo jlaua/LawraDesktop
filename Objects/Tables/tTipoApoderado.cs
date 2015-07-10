@@ -9,7 +9,7 @@ namespace Objects.Tables
 	{
 		public int Codigo { get; set; }
 		public string Name { get; set; }
-		public bool Gender { get; set; }
+		public int Gender { get; set; }
 		public string Description { get; set; }
 		public string ModifiedDate { get; set; }
 	}

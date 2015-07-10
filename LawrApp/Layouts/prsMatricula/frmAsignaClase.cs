@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using MetroFramework;
 using MetroFramework.Forms;
 using Registers;
-using Objects.Tables;
+using Objects.Processes;
 
 namespace LawrApp.Layouts.prsMatricula
 {

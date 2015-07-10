@@ -10,21 +10,21 @@ using System.Windows.Forms;
 //custom
 using MetroFramework;
 using MetroFramework.Forms;
-using Objects.Processes;
+using Objects.Tables;
 
 namespace LawrApp.Layouts.prsApertura
 {
 	public partial class frmOpeningTwo : MetroForm
 	{
-		List<Grados> _grado = new List<Grados>();
-		List<Secciones> _seccion = new List<Secciones>();
-		List<Turnos> _turno = new List<Turnos>();
-		List<Niveles> _nivel = new List<Niveles>();
+		List<tGrado> _grado = new List<tGrado>();
+		List<tSeccion> _seccion = new List<tSeccion>();
+		List<tTurno> _turno = new List<tTurno>();
+		List<tNivel> _nivel = new List<tNivel>();
 		
-		Periodo _periodo;
+		tPeriodo _periodo;
 		private bool _isNext = false;
 
-		public frmOpeningTwo( Periodo age )
+		public frmOpeningTwo( tPeriodo age )
 		{
 			this._periodo = age;
 			InitializeComponent();
@@ -136,7 +136,7 @@ namespace LawrApp.Layouts.prsApertura
 			{
 				if (! row.IsNewRow)
 				{
-					Grados gr = new Grados();
+					tGrado gr = new tGrado();
 					object value = row.Cells[1].Value;
 
 					gr.Name = value == null ? string.Empty : value.ToString();
@@ -144,7 +144,7 @@ namespace LawrApp.Layouts.prsApertura
 				}
 			}
 
-			this._periodo.Grados = this._grado;
+			//this._periodo.Grados = this._grado;
 		}
 
 		#endregion

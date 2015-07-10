@@ -39,7 +39,7 @@ namespace LawrApp.Layouts.prsMatricula
 		{
 			DataTable tempDt = new DataTable();
 
-			tempDt.Columns.Add( new DataColumn( "Id", typeof( int ) ) );
+			tempDt.Columns.Add( new DataColumn( "Codigo", typeof( int ) ) );
 			tempDt.Columns.Add( new DataColumn( "Name", typeof( string ) ) );
 			tempDt.Columns.Add( new DataColumn( "Type", typeof( int ) ) );
 
@@ -56,19 +56,19 @@ namespace LawrApp.Layouts.prsMatricula
 
 		public void SendObjectToDatagrid()
 		{
-			Parent ObjParent = new Parent();
+			tApoderado ObjParent = new tApoderado();
 
 			IFrmAlumno IUAlumno = this.Owner as IFrmAlumno;
 
 			if ( IUAlumno != null )
 			{
 				ObjParent.Names = txtNames.Text;
-				ObjParent.LastName = TxtLasName.Text;
-				ObjParent.GenderParent = ( cboSexo.SelectedIndex == 0 ) ? false : true;
+				ObjParent.LastNames = TxtLasName.Text;
+				ObjParent.Gender = ( cboSexo.SelectedIndex == 0 ) ? false : true;
 				ObjParent.Birthday = dtpBirthday.Value.ToString( "yyyy-MM-dd" );
-				ObjParent.TypeDocument = Convert.ToInt32( cboTypeDocument.SelectedValue );
+				ObjParent.CodigoTipoDocumento = Convert.ToInt32( cboTypeDocument.SelectedValue );
 				ObjParent.DocumentNumber = txtDocumentNumber.Text;
-				ObjParent.TypeParent = Convert.ToInt32( cboparentesco.SelectedValue );
+				ObjParent.CodigoTipoApoderado = Convert.ToInt32( cboparentesco.SelectedValue );
 				ObjParent.Phone = txtPhones.Text;
 				ObjParent.Email = txtEmail.Text;
 				ObjParent.Address = txtAddress.Text;
@@ -193,9 +193,9 @@ namespace LawrApp.Layouts.prsMatricula
 
 		private void frmParents_Load( object sender, EventArgs e )
 		{
-			this.cboTypeDocument.ValueMember = "Id";
-			this.cboTypeDocument.DisplayMember = "LongName";
-			this.cboTypeDocument.DataSource = this._data.Tables["tipodocumento"];
+			this.cboTypeDocument.ValueMember = "Codigo";
+			this.cboTypeDocument.DisplayMember = "Name";
+			this.cboTypeDocument.DataSource = this._data.Tables["TipoDocumento"];
 
 			this.cboTypeDocument.SelectedIndex = -1;
 			this.cboTypeDocument.Text = "Seleccione...";
@@ -287,10 +287,10 @@ namespace LawrApp.Layouts.prsMatricula
 		{
 			ComboBox cbo = ( ComboBox ) sender;
 
-			this.cboparentesco.ValueMember = "Id";
+			this.cboparentesco.ValueMember = "Codigo";
 			this.cboparentesco.DisplayMember = "Name";
 
-			this.cboparentesco.DataSource = this._data.Tables["tipoapoderado"].Select( "Type=" + cbo.SelectedIndex ).CopyToDataTable();
+			this.cboparentesco.DataSource = this._data.Tables["TipoApoderado"].Select( "Gender=" + cbo.SelectedIndex ).CopyToDataTable();
 			
 			this.cboparentesco.SelectedIndex = -1;
 			this.cboparentesco.Text = "Seleccione...";
@@ -386,8 +386,8 @@ namespace LawrApp.Layouts.prsMatricula
 
 			this.txtDocumentNumber.Enabled = true;
 
-			Object[] docs = this._data.Tables["tipodocumento"].Select( "Id=" + cbo.SelectedValue )[0].ItemArray;
-
+			object[] docs = this._data.Tables["TipoDocumento"].Select( "Codigo=" + cbo.SelectedValue )[0].ItemArray;
+			
 			this._lengthAllowed		= ( int ) docs[3];
 			this._isNumeric			= ( bool ) docs[4];
 			this._isExactLength		= ( bool ) docs[5];
