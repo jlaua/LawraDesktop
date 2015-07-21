@@ -33,6 +33,7 @@
 			this.menuOptions = new System.Windows.Forms.MenuStrip();
 			this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+			this.datosDeAlumnoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.buscarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.alumnoToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
 			this.personalToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -133,9 +134,18 @@
 			// 
 			// toolStripMenuItem1
 			// 
+			this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.datosDeAlumnoToolStripMenuItem});
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
 			this.toolStripMenuItem1.Size = new System.Drawing.Size(165, 24);
 			this.toolStripMenuItem1.Text = "Reportes";
+			// 
+			// datosDeAlumnoToolStripMenuItem
+			// 
+			this.datosDeAlumnoToolStripMenuItem.Name = "datosDeAlumnoToolStripMenuItem";
+			this.datosDeAlumnoToolStripMenuItem.Size = new System.Drawing.Size(194, 24);
+			this.datosDeAlumnoToolStripMenuItem.Text = "Datos de Alumno";
+			this.datosDeAlumnoToolStripMenuItem.Click += new System.EventHandler(this.datosDeAlumnoToolStripMenuItem_Click);
 			// 
 			// buscarToolStripMenuItem
 			// 
@@ -186,7 +196,7 @@
             this.cursosExoneradosToolStripMenuItem,
             this.modificarDatosDeAlumnosToolStripMenuItem});
 			this.alumnosToolStripMenuItem1.Name = "alumnosToolStripMenuItem1";
-			this.alumnosToolStripMenuItem1.Size = new System.Drawing.Size(147, 24);
+			this.alumnosToolStripMenuItem1.Size = new System.Drawing.Size(152, 24);
 			this.alumnosToolStripMenuItem1.Text = "Alumnos";
 			// 
 			// apoderadosToolStripMenuItem
@@ -194,12 +204,14 @@
 			this.apoderadosToolStripMenuItem.Name = "apoderadosToolStripMenuItem";
 			this.apoderadosToolStripMenuItem.Size = new System.Drawing.Size(268, 24);
 			this.apoderadosToolStripMenuItem.Text = "Apoderados";
+			this.apoderadosToolStripMenuItem.Click += new System.EventHandler(this.apoderadosToolStripMenuItem_Click);
 			// 
 			// documentosToolStripMenuItem
 			// 
 			this.documentosToolStripMenuItem.Name = "documentosToolStripMenuItem";
 			this.documentosToolStripMenuItem.Size = new System.Drawing.Size(268, 24);
 			this.documentosToolStripMenuItem.Text = "Documentos";
+			this.documentosToolStripMenuItem.Click += new System.EventHandler(this.documentosToolStripMenuItem_Click);
 			// 
 			// cursosExoneradosToolStripMenuItem
 			// 
@@ -212,11 +224,12 @@
 			this.modificarDatosDeAlumnosToolStripMenuItem.Name = "modificarDatosDeAlumnosToolStripMenuItem";
 			this.modificarDatosDeAlumnosToolStripMenuItem.Size = new System.Drawing.Size(268, 24);
 			this.modificarDatosDeAlumnosToolStripMenuItem.Text = "Modificar Datos de Alumnos";
+			this.modificarDatosDeAlumnosToolStripMenuItem.Click += new System.EventHandler(this.modificarDatosDeAlumnosToolStripMenuItem_Click);
 			// 
 			// profesoresToolStripMenuItem
 			// 
 			this.profesoresToolStripMenuItem.Name = "profesoresToolStripMenuItem";
-			this.profesoresToolStripMenuItem.Size = new System.Drawing.Size(147, 24);
+			this.profesoresToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
 			this.profesoresToolStripMenuItem.Text = "Profesores";
 			// 
 			// periodosToolStripMenuItem
@@ -845,7 +858,7 @@
 			this.lblUserType.FontSize = MetroFramework.MetroLabelSize.Small;
 			this.lblUserType.Location = new System.Drawing.Point(72, 32);
 			this.lblUserType.Name = "lblUserType";
-			this.lblUserType.Size = new System.Drawing.Size(183, 17);
+			this.lblUserType.Size = new System.Drawing.Size(270, 22);
 			this.lblUserType.TabIndex = 3;
 			this.lblUserType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -855,7 +868,7 @@
 			this.lblUserName.FontWeight = MetroFramework.MetroLabelWeight.Regular;
 			this.lblUserName.Location = new System.Drawing.Point(72, 3);
 			this.lblUserName.Name = "lblUserName";
-			this.lblUserName.Size = new System.Drawing.Size(270, 29);
+			this.lblUserName.Size = new System.Drawing.Size(314, 29);
 			this.lblUserName.TabIndex = 2;
 			this.lblUserName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -986,6 +999,7 @@
 		private System.Windows.Forms.ToolStripMenuItem datosDeLaEmpresaToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem cambiarServidorToolStripMenuItem;
 		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.ToolStripMenuItem datosDeAlumnoToolStripMenuItem;
 
     }
 }

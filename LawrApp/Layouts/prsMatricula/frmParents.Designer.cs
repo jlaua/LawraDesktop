@@ -222,7 +222,7 @@
 			this.lbvalidacionApellidos.BackColor = System.Drawing.Color.Transparent;
 			this.lbvalidacionApellidos.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lbvalidacionApellidos.ForeColor = System.Drawing.Color.Red;
-			this.lbvalidacionApellidos.Location = new System.Drawing.Point(336, 27);
+			this.lbvalidacionApellidos.Location = new System.Drawing.Point(325, 25);
 			this.lbvalidacionApellidos.Name = "lbvalidacionApellidos";
 			this.lbvalidacionApellidos.Size = new System.Drawing.Size(13, 16);
 			this.lbvalidacionApellidos.TabIndex = 23;
@@ -252,6 +252,9 @@
 			// 
 			// cboparentesco
 			// 
+			this.cboparentesco.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+			this.cboparentesco.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+			this.cboparentesco.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.cboparentesco.Items.AddRange(new object[] {
             "Madre",
             "Padre"});
@@ -259,7 +262,6 @@
 			this.cboparentesco.Name = "cboparentesco";
 			this.cboparentesco.Size = new System.Drawing.Size(219, 28);
 			this.cboparentesco.TabIndex = 5;
-			this.cboparentesco.Text = "Seleccione...";
 			this.cboparentesco.SelectionChangeCommitted += new System.EventHandler(this.cboparentesco_SelectionChangeCommitted);
 			this.cboparentesco.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboSexo_KeyDown);
 			this.cboparentesco.Leave += new System.EventHandler(this.cboparentesco_Leave);
@@ -272,6 +274,7 @@
 			this.metroButton2.TabIndex = 11;
 			this.metroButton2.Text = "Cancelar";
 			this.metroButton2.UseSelectable = true;
+			this.metroButton2.Click += new System.EventHandler(this.metroButton2_Click);
 			// 
 			// metroLabel9
 			// 
@@ -348,7 +351,7 @@
 			// metroLabel1
 			// 
 			this.metroLabel1.AutoSize = true;
-			this.metroLabel1.Location = new System.Drawing.Point(6, 27);
+			this.metroLabel1.Location = new System.Drawing.Point(8, 24);
 			this.metroLabel1.Name = "metroLabel1";
 			this.metroLabel1.Size = new System.Drawing.Size(67, 19);
 			this.metroLabel1.TabIndex = 9;
@@ -420,8 +423,9 @@
 			// 
 			// cboTypeDocument
 			// 
-			this.cboTypeDocument.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+			this.cboTypeDocument.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
 			this.cboTypeDocument.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+			this.cboTypeDocument.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.cboTypeDocument.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.cboTypeDocument.FormattingEnabled = true;
 			this.cboTypeDocument.Items.AddRange(new object[] {
@@ -432,7 +436,6 @@
 			this.cboTypeDocument.Name = "cboTypeDocument";
 			this.cboTypeDocument.Size = new System.Drawing.Size(231, 29);
 			this.cboTypeDocument.TabIndex = 6;
-			this.cboTypeDocument.Text = "Seleccione...";
 			this.cboTypeDocument.SelectionChangeCommitted += new System.EventHandler(this.cboTypeDocument_SelectionChangeCommitted);
 			this.cboTypeDocument.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboTypeDocument_KeyDown);
 			// 
@@ -452,6 +455,8 @@
 			// 
 			// cboSexo
 			// 
+			this.cboSexo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+			this.cboSexo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.cboSexo.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.cboSexo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.cboSexo.FormattingEnabled = true;
@@ -462,7 +467,6 @@
 			this.cboSexo.Name = "cboSexo";
 			this.cboSexo.Size = new System.Drawing.Size(139, 29);
 			this.cboSexo.TabIndex = 3;
-			this.cboSexo.Text = "Seleccione...";
 			this.cboSexo.SelectionChangeCommitted += new System.EventHandler(this.cboSexo_SelectionChangeCommitted);
 			this.cboSexo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboSexo_KeyDown);
 			this.cboSexo.Leave += new System.EventHandler(this.cboSexo_Leave);
@@ -527,8 +531,6 @@
 		public MetroFramework.Controls.MetroTextBox txtAddress;
 		public MetroFramework.Controls.MetroTextBox txtPhones;
 		public MetroFramework.Controls.MetroTextBox txtEmail;
-		public System.Windows.Forms.ComboBox cboTypeDocument;
-		public System.Windows.Forms.ComboBox cboSexo;
 		public MetroFramework.Controls.MetroTextBox txtNames;
 		private System.Windows.Forms.Label lbvalidacionname;
 		private System.Windows.Forms.ToolTip toltipValid;
@@ -545,5 +547,7 @@
 		private MetroFramework.Controls.MetroTextBox txtDocumentNumber;
 		private System.Windows.Forms.ComboBox cboparentesco;
 		private System.Windows.Forms.DateTimePicker dtpBirthday;
+		private System.Windows.Forms.ComboBox cboTypeDocument;
+		private System.Windows.Forms.ComboBox cboSexo;
 	}
 }

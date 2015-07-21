@@ -158,7 +158,7 @@ namespace LawrApp.Layouts.regPersonal
             this.Personal.DataPersonal.Names = this.TxtNamePersonal.Text;
             this.Personal.DataPersonal.LastNames = this.txtLastNamesPersonal.Text;
             this.Personal.DataPersonal.Birthday = this.dtpBirthdayPersonal.Value.Year.ToString() + "-" + validarMes() + "-" + validardia();
-            this.Personal.DataPersonal.Gender = this.cboSexoPersonal.Text;
+            this.Personal.DataPersonal.Gender = (this.cboSexoPersonal.SelectedIndex == 0) ? false : true;
             this.Personal.DataPersonal.CodigoTipoDocumento = this.cboTypeDocumentPersonal.SelectedIndex;
             this.Personal.DataPersonal.DocumentNumber = this.txtDocumentNumberPersonal.Text;
             this.Personal.DataPersonal.CodigoProfesion = this.cbProfesion.SelectedIndex;

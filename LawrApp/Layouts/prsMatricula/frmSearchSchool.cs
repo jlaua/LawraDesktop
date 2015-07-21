@@ -36,7 +36,7 @@ namespace LawrApp.Layouts.prsMatricula
 
 			int index = this.dgvListSchool.CurrentCell.RowIndex;
 
-			int Codigo = Convert.ToInt32( this.dgvListSchool.Rows[index].Cells[0].Value );
+			int Codigo				= Convert.ToInt32( this.dgvListSchool.Rows[index].Cells[0].Value );
 			string nombreColegio    = this.dgvListSchool.Rows[index].Cells[1].Value.ToString();
 			string tipoColegio      = this.dgvListSchool.Rows[index].Cells[2].Value.ToString();
 
@@ -50,8 +50,11 @@ namespace LawrApp.Layouts.prsMatricula
 		private void frmFindSchool_Load( object sender, EventArgs e )
 		{
 			this.dgvListSchool.DataSource = this._data;
-			this.dgvListSchool.Columns[0].Width = 50;
-			this.dgvListSchool.Columns[2].Width = 150;
+			this.dgvListSchool.Columns[0].FillWeight = 30;
+			this.dgvListSchool.Columns[0].Visible = false;
+
+			this.dgvListSchool.Columns[2].FillWeight = 50;
+			this.dgvListSchool.Columns[3].FillWeight = 60;
 			lblMessage.Text = this.Owner.Text;
 			this.txtSearchSchool.Focus();
 		}
@@ -71,6 +74,15 @@ namespace LawrApp.Layouts.prsMatricula
 		private void btnadd_Click( object sender, EventArgs e )
 		{
 			this.sendDataToParent();
+		}
+
+		private void dgvListSchool_PreviewKeyDown( object sender, PreviewKeyDownEventArgs e )
+		{
+			if (e.KeyData == Keys.Enter)
+			{
+				this.sendDataToParent();
+				e.IsInputKey = false;
+			}
 		}
 
 	}

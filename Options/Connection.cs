@@ -15,7 +15,7 @@ namespace Options
 
         #region PROPIEDADES
 
-        protected string ConfigBaseUrl 
+        public string ConfigBaseUrl 
         { 
             get { return this._BaseUrl; }
             set
