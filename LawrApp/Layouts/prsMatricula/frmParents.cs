@@ -198,8 +198,6 @@ namespace LawrApp.Layouts.prsMatricula
 			this.cboTypeDocument.DataSource = this._data.Tables["TipoDocumento"];
 
 			this.cboTypeDocument.SelectedIndex = -1;
-			this.cboTypeDocument.Text = "Seleccione...";
-
 		}
 
 		private void txtNames_KeyPress( object sender, KeyPressEventArgs e )
@@ -428,6 +426,11 @@ namespace LawrApp.Layouts.prsMatricula
 		private void dtpBirthday_ValueChanged( object sender, EventArgs e )
 		{
 			this.ValidacionMayoriaDeEdad();
+		}
+
+		private void metroButton2_Click( object sender, EventArgs e )
+		{
+			this.Close();
 		}
 	}
 }

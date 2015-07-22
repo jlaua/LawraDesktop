@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 using MetroFramework;
 using MetroFramework.Forms;
-using Registers;
+using Registers.Students;
 using Objects.Processes;
 
 namespace LawrApp.Layouts.prsMatricula
@@ -21,6 +21,8 @@ namespace LawrApp.Layouts.prsMatricula
 		private bool _isNewStudent = false;
 		private bool _closeInProcesses = false;
 		private int _codigoAlumno;
+
+		#region PROPIEDADES
 
 		public bool IsNewStudent
 		{
@@ -39,6 +41,26 @@ namespace LawrApp.Layouts.prsMatricula
 			this._data = dts;
 			InitializeComponent();
 		}
+
+		#endregion
+
+		#region METODOS
+			
+		public void sendDataKeys()
+		{
+			int indice = this.dgClases.CurrentRow.Index;
+			frmAlumno alumno = new frmAlumno( this._data );
+			alumno.IsNewStudent = this._isNewStudent;
+			alumno.IdClase = Convert.ToInt32( this.dgClases.Rows[indice].Cells[0].Value );
+			alumno.IdNivel = Convert.ToInt32( this.cboniveles.SelectedValue );
+
+			this._closeInProcesses = true;
+
+			alumno.Show();
+			this.Close();
+		}
+
+		#endregion
 
 		private void btnPreview_Click( object sender, EventArgs e )
 		{
@@ -74,6 +96,8 @@ namespace LawrApp.Layouts.prsMatricula
 
 			if( this._isNewStudent )
 				this.txtname.Text = "Nuevo Alumno";
+
+			this.cboniveles.Select();
 		}
 
 		private void cboniveles_SelectionChangeCommitted( object sender, EventArgs e )
@@ -89,32 +113,42 @@ namespace LawrApp.Layouts.prsMatricula
 
 		private void btnsearch_Click( object sender, EventArgs e )
 		{
-			List<FillClases> lista = this.alum.fillClases( Convert.ToInt32(this.cbogrado.SelectedValue), Convert.ToInt32(this.cboseccion.SelectedValue) );
+			List<FillClases> lista = this.alum.FindClases( Convert.ToInt32(this.cbogrado.SelectedValue), Convert.ToInt32(this.cboseccion.SelectedValue) );
 
-			foreach ( FillClases item in lista )
+			this.dgClases.Rows.Clear();
+
+			if ( lista != null && lista.Any() )
 			{
-				var temp = new object[] 
-				{ 
-					item.Codigo,
-					item.Grado,
-					item.Seccion,
-					item.Nivel,
-					item.Turno
-				};
+				foreach ( FillClases item in lista )
+				{
+					var temp = new object[] 
+					{ 
+						item.Codigo,
+						item.Grado,
+						item.Seccion,
+						item.Nivel,
+						item.Turno
+					};
 
-				this.dgClases.Rows.Add( temp );
+					this.dgClases.Rows.Add( temp );
+				}
+
+				this.dgClases.CurrentCell = this.dgClases.Rows[0].Cells[1];
 			}
 		}
 
 		private void dgClases_CellDoubleClick( object sender, DataGridViewCellEventArgs e )
 		{
-			int indice = this.dgClases.CurrentRow.Index;
-			frmAlumno alumno = new frmAlumno( this._data );
-			alumno.IsNewStudent = this._isNewStudent;
-			alumno.IdClase = Convert.ToInt32(this.dgClases.Rows[indice].Cells[0].Value);
-			this._closeInProcesses = true;
-			alumno.Show();
-			this.Close();
+			this.sendDataKeys();
+		}
+
+		private void dgClases_KeyDown( object sender, KeyEventArgs e )
+		{
+			if ( e.KeyData == Keys.Enter )
+			{
+				e.SuppressKeyPress = true;
+				this.sendDataKeys();
+			}
 		}
 	}
 }

@@ -9,6 +9,7 @@ namespace Objects.Tables
 	{
 		public int Codigo { get; set; }
 		public int CodigoAlumno { get; set; }
+		public int CodigoImagen { get; set; }
 		public int CodigoTipoDocumento { get; set; }
 		public string ImageSrc { get; set; }
 		public string ImageKey { get; set; }

@@ -3948,7 +3948,7 @@ namespace LawrApp {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ListaAlumnosRow AddListaAlumnosRow(int Codigo, string Key, string Names, System.DateTime ModifiedDate) {
+            public ListaAlumnosRow AddListaAlumnosRow(int Codigo, string Key, string Names, string ModifiedDate) {
                 ListaAlumnosRow rowListaAlumnosRow = ((ListaAlumnosRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Codigo,
@@ -3992,7 +3992,7 @@ namespace LawrApp {
                 base.Columns.Add(this.columnKey);
                 this.columnNames = new global::System.Data.DataColumn("Names", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnNames);
-                this.columnModifiedDate = new global::System.Data.DataColumn("ModifiedDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                this.columnModifiedDate = new global::System.Data.DataColumn("ModifiedDate", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnModifiedDate);
                 this.columnCodigo.AllowDBNull = false;
             }
@@ -7953,10 +7953,10 @@ namespace LawrApp {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public System.DateTime ModifiedDate {
+            public string ModifiedDate {
                 get {
                     try {
-                        return ((global::System.DateTime)(this[this.tableListaAlumnos.ModifiedDateColumn]));
+                        return ((string)(this[this.tableListaAlumnos.ModifiedDateColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("El valor de la columna \'ModifiedDate\' de la tabla \'ListaAlumnos\' es DBNull.", e);

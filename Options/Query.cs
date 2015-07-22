@@ -5,6 +5,7 @@ using System.Text;
 using RestSharp;
 using RestSharp.Deserializers;
 using System.Net;
+using System.IO;
 
 namespace Options
 {
@@ -18,8 +19,9 @@ namespace Options
 
         private HttpStatusCode _StatusCode;
         private IList<RestSharp.Parameter> _Header;
-        private Object _RequestParameters;
 
+        private object _RequestParameters;
+		private Dictionary<string, string> _requestFiles = new Dictionary<string,string>();
         private RestClient Client;
         private RestRequest Request;
 
@@ -64,13 +66,19 @@ namespace Options
             }
         }
 
-        public Object RequestParameters
+		public Dictionary<string, string> RequestFiles
+		{
+			get { return this._requestFiles; }
+			set { this._requestFiles = value; }
+		}
+
+        public object RequestParameters
         {
             set
             {
                 if ( value != null )
                 {
-                    this.Request.AddParameter( "data", this.Request.JsonSerializer.Serialize(value) );
+					this.Request.AddParameter( "data", this.Request.JsonSerializer.Serialize( value ) );
                     this._RequestParameters = value;
                 }
             }
@@ -89,6 +97,7 @@ namespace Options
             this.Request = new RestRequest( Controller );
 
 			this.Client.ClearHandlers();
+			this.Client.UserAgent = "API From Windows Desktop Cliente";
 
 			this.Client.AddHandler( "application/json", new JsonDeserializer() );
 
@@ -117,22 +126,22 @@ namespace Options
         {
             if ( Files != null )
             {
-                foreach ( KeyValuePair<string,string> ItemFiles in Files )
+                foreach ( KeyValuePair<string,string> Item in Files )
                 {
-					string[] extends = ItemFiles.Value.Split( '.' );
+					string[] extends = Item.Value.Split( '.' );
 					string mime = extends[extends.Length - 1] == "jpg" ? "jpeg" : extends[extends.Length - 1];
-                    this.Request.AddFile( ItemFiles.Key, ItemFiles.Value, "image/" + mime );
+					this.Request.AddFile( Item.Key, Item.Value, "image/" + mime );
                 }
             }
         }
 
         private void SendRequest()
         {
-            IRestResponse response = this.Client.Execute( this.Request );
+            RestResponse response = (RestResponse) this.Client.Execute( this.Request );
 
-            this._ResponseContent = response.Content;
-            this._Header = response.Headers;
-            this._StatusCode = response.StatusCode;
+            this._ResponseContent	= response.Content;
+            this._Header			= response.Headers;
+            this._StatusCode		= response.StatusCode;
         }
 
 
@@ -185,7 +194,6 @@ namespace Options
                 this._msgQueryException = e.Message;
                 return false;
             }
-
         }
 
 
@@ -197,16 +205,17 @@ namespace Options
         /// <param name="parameters">Colección de Parametros que serán enviados junto a la petición</param>
         /// <param name="Files">Colección de Archivos que serán enviados junto a la petición</param>
         /// <returns>Confirmación de la Petición</returns>
-        public bool SendRequestPUT( string ID )
+        public bool SendRequestPUT()
         {
-            this.Request.Method = Method.PUT;
-            this.Client.AddDefaultUrlSegment( this._FullURL, ID );
+			this.Request.AddParameter( "_method", "put" );
+			
+			if ( !this._requestFiles.Any() )
+				this.Request.AlwaysMultipartFormData = false;
 
-            try
+            this.Request.Method = Method.POST;
+
+			try
             {
-                if ( string.IsNullOrEmpty( ID ) )
-                    throw new ArgumentNullException("Se necesita un Identificador para que el sistema sepa que debe Modificar", "ID");
-
                 if ( this._RequestParameters == null )
                     throw new ArgumentNullException( "Para este metodo se necesita minimo un parametro", "RequestParameters" );
 
@@ -230,16 +239,12 @@ namespace Options
         /// </summary>
         /// <param name="ID">ID del Elemento que desea Eliminar</param>
         /// <returns>Confirmación de la Petición</returns>
-        public bool SendRequestDELETE( string ID )
+        public bool SendRequestDELETE()
         {
-            this.Request.Method = Method.DELETE;
-            this.Client.AddDefaultUrlSegment( this._FullURL, ID );
-
             try
-            {
-                if ( string.IsNullOrEmpty( ID ) )
-                    throw new ArgumentNullException( "Se necesita un Identificador para que el sistema sepa que debe Eliminar", "ID" );
-
+			{
+				this.Request.Method = Method.DELETE;
+				this.SendRequest();
                 return true;
             }
             catch ( Exception e )
@@ -249,7 +254,6 @@ namespace Options
             }
 
         }
-
 
         #endregion
 

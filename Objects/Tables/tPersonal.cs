@@ -17,10 +17,11 @@ namespace Objects.Tables
 		public string Names { get; set; }
 		public string LastNames { get; set; }
 		public string Birthday { get; set; }
-		public string Gender { get; set; }
+		public bool Gender { get; set; }
 		public int CodigoTipoDocumento { get; set; }
 		public string DocumentNumber { get; set; }
 		public int CodigoProfesion { get; set; }
+		public string NameProfesion { get; set; }
 		public string Address { get; set; }
 		public string Phone { get; set; }
 		public string Email { get; set; }

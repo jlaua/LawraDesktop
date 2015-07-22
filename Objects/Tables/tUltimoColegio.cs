@@ -10,6 +10,6 @@ namespace Objects.Tables
 		public int Codigo { get; set; }
 		public string Name { get; set; }
 		public bool TypeSchool { get; set; }
-		public bool ModifiedDate { get; set; }
+		public string ModifiedDate { get; set; }
 	}
 }

@@ -21,4 +21,21 @@ namespace Objects.Processes
 		public string Names { get; set; }
 		public string ModifiedDate { get; set; }
 	}
+
+	public class lDocumentos
+	{
+		public int Codigo { get; set; }
+		public string Names { get; set; }
+		public string Number { get; set; }
+		public string Expiration { get; set; }
+		public string ModifiedDate { get; set; }
+	}
+
+	public class lApoderados
+	{
+		public int Codigo { get; set; }
+		public string Names { get; set; }
+		public string TipoApoderado { get; set; }
+		public string ModifiedDate { get; set; }
+	}
 }

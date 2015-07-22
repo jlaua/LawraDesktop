@@ -6,15 +6,15 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 
+using MetroFramework;
 using MetroFramework.Forms;
+using MetroFramework.Controls;
 using Objects.Processes;
 using Objects.Tables;
+using Registers.Students;
 using Options;
-using System.Threading;
-using MetroFramework;
-using MetroFramework.Controls;
-using Registers;
 
 namespace LawrApp.Layouts.prsMatricula
 {
@@ -24,7 +24,11 @@ namespace LawrApp.Layouts.prsMatricula
 		private DataGeneral _data;
 
 		private bool _isNewStudent = false;
+		private bool _studentSaveSuccessfully = false;
+		private bool _closeInProgress = false;
+
 		private int _idClass;
+		private int _idNivel;
 
 		private bool _IsNewShcool = true;
 		private int _codSchool = 0;
@@ -50,6 +54,12 @@ namespace LawrApp.Layouts.prsMatricula
 			get { return this._idClass; }
 			set { this._idClass = value; }
 		}
+		
+		public int IdNivel
+		{
+			get { return this._idNivel; }
+			set { this._idNivel = value; }
+		}
 
 		#endregion
 
@@ -58,20 +68,30 @@ namespace LawrApp.Layouts.prsMatricula
 		private void LoadDataTableLastSchool()
 		{
 			CheckForIllegalCrossThreadCalls = false;
+
 			this.alum.ListSchool( this._data );
+
 			List<tCurso> cursos =  this.alum.ListaCursos( this._idClass );
 
-			foreach ( tCurso items in cursos )
+			tNivelParametro nparam = this.alum.ParametersLevel( this._idClass );
+
+			if ( cursos != null && cursos.Any() )
 			{
-				var temp = new object[] 
+				foreach ( tCurso items in cursos )
 				{
-					items.Codigo,
-					items.Name,
-					"",
-					false
-				};
-				this.dgcursosExonerados.Rows.Add( temp );
+					object[] temp = new object[4] 
+					{
+						items.Codigo,
+						items.Name,
+						string.Empty,
+						false
+					};
+
+					this.dgcursosExonerados.Rows.Add( temp );
+				}
 			}
+
+			this._hilo.Abort();
 		}
 
 		#endregion
@@ -243,27 +263,29 @@ namespace LawrApp.Layouts.prsMatricula
 		private void sendDataRegistro()
 		{
 			CheckForIllegalCrossThreadCalls = false;
+			
+			Thread.Sleep( 1500 );
 
-			if ( this.alum.SendDataStudent( this._data ) > 0 )
+			bool eng = true;
+
+			if ( eng /*this.alum.SendDataStudent( this._data ) > 0*/ )
 			{
-				this.pgsload.Visible = false;
-
 				MetroMessageBox.Show(
-					this, "El Alumno se ha Registrado satisfactoriamente", "Muy Bien!",
-					MessageBoxButtons.OK,
-					MessageBoxIcon.Question
+					this, "El Alumno se ha Registrado satisfactoriamente", "Muy Bien!"
 				);
 
-				this.ResetControls();
+				this._studentSaveSuccessfully = true;
 
-				frmMatricula matri = new frmMatricula( this._data );
-				matri.Show();
+				this.Close();
 			}
 			else
 			{
-				this.pgsload.Visible = false;
+				this._studentSaveSuccessfully = true;
 				MetroMessageBox.Show( this, this.alum.MsERegistrarAlumno, "Error!!", MessageBoxButtons.OK, MessageBoxIcon.Error );
 			}
+
+			this.pgsload.Visible = false;
+			this._hilo.Abort();
 		}
 
 		#endregion
@@ -787,6 +809,7 @@ namespace LawrApp.Layouts.prsMatricula
 		private void btnsiguienteOConf_Click( object sender, EventArgs e )
 		{
 			this._hilo = new Thread( new ThreadStart( this.sendDataRegistro ) );
+			
 			this.pgsload.Visible = true;
 
 			this.JoinDataStudent();
@@ -798,6 +821,7 @@ namespace LawrApp.Layouts.prsMatricula
 		{
 			frmAsignaClase asign = new Layouts.prsMatricula.frmAsignaClase( this._data );
 			asign.IsNewStudent = this._isNewStudent;
+			this._closeInProgress = true;
 			asign.Show();
 			this.Close();
 		}
@@ -869,6 +893,20 @@ namespace LawrApp.Layouts.prsMatricula
 			if( string.IsNullOrWhiteSpace( text ) )
 			{
 				this.dgcursosExonerados.Rows[e.RowIndex].Cells[3].Value = false;
+			}
+		}
+
+		private void frmAlumno_FormClosing( object sender, FormClosingEventArgs e )
+		{
+			if ( this._studentSaveSuccessfully )
+			{
+				frmMatricula matricula = new frmMatricula( this._data );
+				matricula.Show();
+			}
+			else if( ! this._closeInProgress )
+			{
+				frmMain main = new frmMain( this._data );
+				main.Show();
 			}
 		}
 

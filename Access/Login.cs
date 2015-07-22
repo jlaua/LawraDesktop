@@ -132,7 +132,7 @@ namespace Access
             try
             {
 
-                Oquery.SendRequestPUT("0");
+                Oquery.SendRequestPUT();
 
                 if ( Oquery.ResponseStatusCode == HttpStatusCode.Accepted )
                 {

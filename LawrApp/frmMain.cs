@@ -183,5 +183,32 @@ namespace LawrApp
 		}
 
         #endregion
+
+		private void datosDeAlumnoToolStripMenuItem_Click( object sender, EventArgs e )
+		{
+			//Reportes.Forms.frmAlumnoMatricula mat = new Reportes.Forms.frmAlumnoMatricula();
+			//mat.Show();
+		}
+
+		private void modificarDatosDeAlumnosToolStripMenuItem_Click( object sender, EventArgs e )
+		{
+			Layouts.regAlumno.frm_FindAlumno falumno = new Layouts.regAlumno.frm_FindAlumno( this._data );
+			falumno.Show();
+			this.Close();
+		}
+
+		private void documentosToolStripMenuItem_Click( object sender, EventArgs e )
+		{
+			Layouts.regAlumno.frm_Documents documents = new Layouts.regAlumno.frm_Documents( this._data );
+			documents.Show();
+			this.Close();
+		}
+
+		private void apoderadosToolStripMenuItem_Click( object sender, EventArgs e )
+		{
+			Layouts.regAlumno.frm_Parents documents = new Layouts.regAlumno.frm_Parents( this._data );
+			documents.Show();
+			this.Close();
+		}
 	}
 }
