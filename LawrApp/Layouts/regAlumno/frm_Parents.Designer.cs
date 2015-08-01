@@ -29,8 +29,9 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			this.toltipValidParent = new System.Windows.Forms.ToolTip(this.components);
+			this.toltipValid = new System.Windows.Forms.ToolTip(this.components);
 			this.panelMain = new System.Windows.Forms.Panel();
+			this.pgsLoading = new MetroFramework.Controls.MetroProgressSpinner();
 			this.tabControl = new MetroFramework.Controls.MetroTabControl();
 			this.tabPageListado = new MetroFramework.Controls.MetroTabPage();
 			this.panelListado = new System.Windows.Forms.Panel();
@@ -48,15 +49,16 @@
 			this.btnCancelar = new MetroFramework.Controls.MetroButton();
 			this.btnGuardar = new MetroFramework.Controls.MetroButton();
 			this.gbDatos = new System.Windows.Forms.GroupBox();
+			this.lblEmail_Validator = new MetroFramework.Controls.MetroLabel();
 			this.txtAddress = new MetroFramework.Controls.MetroTextBox();
 			this.TxtLasName = new MetroFramework.Controls.MetroTextBox();
-			this.lbValidacionTipoDocumento = new System.Windows.Forms.Label();
-			this.lbValidactionParentesco = new System.Windows.Forms.Label();
-			this.lbValidationfechaNacimiento = new System.Windows.Forms.Label();
-			this.lbValidacionsexo = new System.Windows.Forms.Label();
-			this.lbvalidacionNumerDocumet = new System.Windows.Forms.Label();
-			this.lbvalidacionApellidos = new System.Windows.Forms.Label();
-			this.lbvalidacionname = new System.Windows.Forms.Label();
+			this.lblTipoDocument_Validator = new System.Windows.Forms.Label();
+			this.lblTipoParent_Validator = new System.Windows.Forms.Label();
+			this.lblBirthday_Validator = new System.Windows.Forms.Label();
+			this.lblGender_Validator = new System.Windows.Forms.Label();
+			this.lblNumberDocument_Validator = new System.Windows.Forms.Label();
+			this.lblLastNames_Validator = new System.Windows.Forms.Label();
+			this.lblNames_Validator = new System.Windows.Forms.Label();
 			this.metroLabel10 = new MetroFramework.Controls.MetroLabel();
 			this.cboparentesco = new System.Windows.Forms.ComboBox();
 			this.metroLabel9 = new MetroFramework.Controls.MetroLabel();
@@ -78,7 +80,6 @@
 			this.btnSearchStudent = new MetroFramework.Controls.MetroButton();
 			this.txtNameStudent = new MetroFramework.Controls.MetroTextBox();
 			this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
-			this.pgsLoading = new MetroFramework.Controls.MetroProgressSpinner();
 			this.panelMain.SuspendLayout();
 			this.tabControl.SuspendLayout();
 			this.tabPageListado.SuspendLayout();
@@ -89,10 +90,10 @@
 			this.gbDatos.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// toltipValidParent
+			// toltipValid
 			// 
-			this.toltipValidParent.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-			this.toltipValidParent.ToolTipTitle = "Requerido";
+			this.toltipValid.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+			this.toltipValid.ToolTipTitle = "Requerido";
 			// 
 			// panelMain
 			// 
@@ -107,6 +108,19 @@
 			this.panelMain.Size = new System.Drawing.Size(740, 471);
 			this.panelMain.TabIndex = 0;
 			// 
+			// pgsLoading
+			// 
+			this.pgsLoading.Location = new System.Drawing.Point(3, 452);
+			this.pgsLoading.Maximum = 100;
+			this.pgsLoading.Name = "pgsLoading";
+			this.pgsLoading.Size = new System.Drawing.Size(16, 16);
+			this.pgsLoading.Speed = 2F;
+			this.pgsLoading.Style = MetroFramework.MetroColorStyle.Green;
+			this.pgsLoading.TabIndex = 9;
+			this.pgsLoading.UseSelectable = true;
+			this.pgsLoading.Value = 50;
+			this.pgsLoading.Visible = false;
+			// 
 			// tabControl
 			// 
 			this.tabControl.Controls.Add(this.tabPageListado);
@@ -116,7 +130,7 @@
 			this.tabControl.ItemSize = new System.Drawing.Size(120, 40);
 			this.tabControl.Location = new System.Drawing.Point(3, 39);
 			this.tabControl.Name = "tabControl";
-			this.tabControl.SelectedIndex = 1;
+			this.tabControl.SelectedIndex = 0;
 			this.tabControl.Size = new System.Drawing.Size(734, 417);
 			this.tabControl.Style = MetroFramework.MetroColorStyle.Green;
 			this.tabControl.TabIndex = 3;
@@ -127,7 +141,7 @@
 			this.tabPageListado.Controls.Add(this.panelListado);
 			this.tabPageListado.HorizontalScrollbarBarColor = true;
 			this.tabPageListado.HorizontalScrollbarHighlightOnWheel = false;
-			this.tabPageListado.HorizontalScrollbarSize = 4;
+			this.tabPageListado.HorizontalScrollbarSize = 1;
 			this.tabPageListado.Location = new System.Drawing.Point(4, 44);
 			this.tabPageListado.Name = "tabPageListado";
 			this.tabPageListado.Size = new System.Drawing.Size(726, 369);
@@ -135,7 +149,7 @@
 			this.tabPageListado.Text = "Apoderados";
 			this.tabPageListado.VerticalScrollbarBarColor = true;
 			this.tabPageListado.VerticalScrollbarHighlightOnWheel = false;
-			this.tabPageListado.VerticalScrollbarSize = 5;
+			this.tabPageListado.VerticalScrollbarSize = 2;
 			// 
 			// panelListado
 			// 
@@ -156,6 +170,8 @@
 			// 
 			this.dgvListado.AllowUserToAddRows = false;
 			this.dgvListado.AllowUserToDeleteRows = false;
+			this.dgvListado.AllowUserToResizeColumns = false;
+			this.dgvListado.AllowUserToResizeRows = false;
 			this.dgvListado.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
 			this.dgvListado.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
 			this.dgvListado.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -181,9 +197,15 @@
 			this.dgvListado.RowTemplate.Height = 28;
 			this.dgvListado.RowTemplate.ReadOnly = true;
 			this.dgvListado.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+			this.dgvListado.ShowCellErrors = false;
+			this.dgvListado.ShowCellToolTips = false;
+			this.dgvListado.ShowEditingIcon = false;
+			this.dgvListado.ShowRowErrors = false;
 			this.dgvListado.Size = new System.Drawing.Size(720, 324);
+			this.dgvListado.StandardTab = true;
 			this.dgvListado.TabIndex = 8;
 			this.dgvListado.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListado_CellDoubleClick);
+			this.dgvListado.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.dgvListado_PreviewKeyDown);
 			// 
 			// colCodigo
 			// 
@@ -220,6 +242,7 @@
 			this.btnSalir.TabIndex = 7;
 			this.btnSalir.Text = "Salir";
 			this.btnSalir.UseSelectable = true;
+			this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
 			// 
 			// btnEliminar
 			// 
@@ -229,6 +252,7 @@
 			this.btnEliminar.TabIndex = 6;
 			this.btnEliminar.Text = "Eliminar";
 			this.btnEliminar.UseSelectable = true;
+			this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
 			// 
 			// btnModificar
 			// 
@@ -255,7 +279,7 @@
 			this.tabPageRegistro.Controls.Add(this.panelRegistros);
 			this.tabPageRegistro.HorizontalScrollbarBarColor = true;
 			this.tabPageRegistro.HorizontalScrollbarHighlightOnWheel = false;
-			this.tabPageRegistro.HorizontalScrollbarSize = 4;
+			this.tabPageRegistro.HorizontalScrollbarSize = 1;
 			this.tabPageRegistro.Location = new System.Drawing.Point(4, 44);
 			this.tabPageRegistro.Name = "tabPageRegistro";
 			this.tabPageRegistro.Size = new System.Drawing.Size(726, 369);
@@ -263,7 +287,7 @@
 			this.tabPageRegistro.Text = "Registros";
 			this.tabPageRegistro.VerticalScrollbarBarColor = true;
 			this.tabPageRegistro.VerticalScrollbarHighlightOnWheel = false;
-			this.tabPageRegistro.VerticalScrollbarSize = 5;
+			this.tabPageRegistro.VerticalScrollbarSize = 2;
 			// 
 			// panelRegistros
 			// 
@@ -296,18 +320,20 @@
 			this.btnGuardar.TabIndex = 1;
 			this.btnGuardar.Text = "Hecho";
 			this.btnGuardar.UseSelectable = true;
+			this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
 			// 
 			// gbDatos
 			// 
+			this.gbDatos.Controls.Add(this.lblEmail_Validator);
 			this.gbDatos.Controls.Add(this.txtAddress);
 			this.gbDatos.Controls.Add(this.TxtLasName);
-			this.gbDatos.Controls.Add(this.lbValidacionTipoDocumento);
-			this.gbDatos.Controls.Add(this.lbValidactionParentesco);
-			this.gbDatos.Controls.Add(this.lbValidationfechaNacimiento);
-			this.gbDatos.Controls.Add(this.lbValidacionsexo);
-			this.gbDatos.Controls.Add(this.lbvalidacionNumerDocumet);
-			this.gbDatos.Controls.Add(this.lbvalidacionApellidos);
-			this.gbDatos.Controls.Add(this.lbvalidacionname);
+			this.gbDatos.Controls.Add(this.lblTipoDocument_Validator);
+			this.gbDatos.Controls.Add(this.lblTipoParent_Validator);
+			this.gbDatos.Controls.Add(this.lblBirthday_Validator);
+			this.gbDatos.Controls.Add(this.lblGender_Validator);
+			this.gbDatos.Controls.Add(this.lblNumberDocument_Validator);
+			this.gbDatos.Controls.Add(this.lblLastNames_Validator);
+			this.gbDatos.Controls.Add(this.lblNames_Validator);
 			this.gbDatos.Controls.Add(this.metroLabel10);
 			this.gbDatos.Controls.Add(this.cboparentesco);
 			this.gbDatos.Controls.Add(this.metroLabel9);
@@ -332,6 +358,19 @@
 			this.gbDatos.TabIndex = 0;
 			this.gbDatos.TabStop = false;
 			this.gbDatos.Text = "Datos del Apoderado";
+			// 
+			// lblEmail_Validator
+			// 
+			this.lblEmail_Validator.FontSize = MetroFramework.MetroLabelSize.Tall;
+			this.lblEmail_Validator.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+			this.lblEmail_Validator.ForeColor = System.Drawing.Color.Red;
+			this.lblEmail_Validator.Location = new System.Drawing.Point(44, 251);
+			this.lblEmail_Validator.Name = "lblEmail_Validator";
+			this.lblEmail_Validator.Size = new System.Drawing.Size(26, 19);
+			this.lblEmail_Validator.TabIndex = 62;
+			this.lblEmail_Validator.Text = "*";
+			this.lblEmail_Validator.UseCustomForeColor = true;
+			this.lblEmail_Validator.Visible = false;
 			// 
 			// txtAddress
 			// 
@@ -360,83 +399,85 @@
 			this.TxtLasName.Size = new System.Drawing.Size(383, 29);
 			this.TxtLasName.TabIndex = 36;
 			this.TxtLasName.UseSelectable = true;
+			this.TxtLasName.TextChanged += new System.EventHandler(this.TxtLasName_TextChanged);
+			this.TxtLasName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtLasName_KeyDown);
 			// 
-			// lbValidacionTipoDocumento
+			// lblTipoDocument_Validator
 			// 
-			this.lbValidacionTipoDocumento.BackColor = System.Drawing.Color.Transparent;
-			this.lbValidacionTipoDocumento.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lbValidacionTipoDocumento.ForeColor = System.Drawing.Color.Red;
-			this.lbValidacionTipoDocumento.Location = new System.Drawing.Point(132, 183);
-			this.lbValidacionTipoDocumento.Name = "lbValidacionTipoDocumento";
-			this.lbValidacionTipoDocumento.Size = new System.Drawing.Size(13, 16);
-			this.lbValidacionTipoDocumento.TabIndex = 60;
-			this.lbValidacionTipoDocumento.Text = "*";
+			this.lblTipoDocument_Validator.BackColor = System.Drawing.Color.Transparent;
+			this.lblTipoDocument_Validator.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblTipoDocument_Validator.ForeColor = System.Drawing.Color.Red;
+			this.lblTipoDocument_Validator.Location = new System.Drawing.Point(132, 183);
+			this.lblTipoDocument_Validator.Name = "lblTipoDocument_Validator";
+			this.lblTipoDocument_Validator.Size = new System.Drawing.Size(13, 16);
+			this.lblTipoDocument_Validator.TabIndex = 60;
+			this.lblTipoDocument_Validator.Text = "*";
 			// 
-			// lbValidactionParentesco
+			// lblTipoParent_Validator
 			// 
-			this.lbValidactionParentesco.BackColor = System.Drawing.Color.Transparent;
-			this.lbValidactionParentesco.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lbValidactionParentesco.ForeColor = System.Drawing.Color.Red;
-			this.lbValidactionParentesco.Location = new System.Drawing.Point(514, 108);
-			this.lbValidactionParentesco.Name = "lbValidactionParentesco";
-			this.lbValidactionParentesco.Size = new System.Drawing.Size(13, 16);
-			this.lbValidactionParentesco.TabIndex = 59;
-			this.lbValidactionParentesco.Text = "*";
+			this.lblTipoParent_Validator.BackColor = System.Drawing.Color.Transparent;
+			this.lblTipoParent_Validator.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblTipoParent_Validator.ForeColor = System.Drawing.Color.Red;
+			this.lblTipoParent_Validator.Location = new System.Drawing.Point(514, 108);
+			this.lblTipoParent_Validator.Name = "lblTipoParent_Validator";
+			this.lblTipoParent_Validator.Size = new System.Drawing.Size(13, 16);
+			this.lblTipoParent_Validator.TabIndex = 59;
+			this.lblTipoParent_Validator.Text = "*";
 			// 
-			// lbValidationfechaNacimiento
+			// lblBirthday_Validator
 			// 
-			this.lbValidationfechaNacimiento.BackColor = System.Drawing.Color.Transparent;
-			this.lbValidationfechaNacimiento.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lbValidationfechaNacimiento.ForeColor = System.Drawing.Color.Red;
-			this.lbValidationfechaNacimiento.Location = new System.Drawing.Point(280, 108);
-			this.lbValidationfechaNacimiento.Name = "lbValidationfechaNacimiento";
-			this.lbValidationfechaNacimiento.Size = new System.Drawing.Size(13, 16);
-			this.lbValidationfechaNacimiento.TabIndex = 58;
-			this.lbValidationfechaNacimiento.Text = "*";
+			this.lblBirthday_Validator.BackColor = System.Drawing.Color.Transparent;
+			this.lblBirthday_Validator.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblBirthday_Validator.ForeColor = System.Drawing.Color.Red;
+			this.lblBirthday_Validator.Location = new System.Drawing.Point(280, 108);
+			this.lblBirthday_Validator.Name = "lblBirthday_Validator";
+			this.lblBirthday_Validator.Size = new System.Drawing.Size(13, 16);
+			this.lblBirthday_Validator.TabIndex = 58;
+			this.lblBirthday_Validator.Text = "*";
 			// 
-			// lbValidacionsexo
+			// lblGender_Validator
 			// 
-			this.lbValidacionsexo.BackColor = System.Drawing.Color.Transparent;
-			this.lbValidacionsexo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lbValidacionsexo.ForeColor = System.Drawing.Color.Red;
-			this.lbValidacionsexo.Location = new System.Drawing.Point(43, 106);
-			this.lbValidacionsexo.Name = "lbValidacionsexo";
-			this.lbValidacionsexo.Size = new System.Drawing.Size(51, 16);
-			this.lbValidacionsexo.TabIndex = 57;
-			this.lbValidacionsexo.Text = "*";
+			this.lblGender_Validator.BackColor = System.Drawing.Color.Transparent;
+			this.lblGender_Validator.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblGender_Validator.ForeColor = System.Drawing.Color.Red;
+			this.lblGender_Validator.Location = new System.Drawing.Point(43, 106);
+			this.lblGender_Validator.Name = "lblGender_Validator";
+			this.lblGender_Validator.Size = new System.Drawing.Size(17, 16);
+			this.lblGender_Validator.TabIndex = 57;
+			this.lblGender_Validator.Text = "*";
 			// 
-			// lbvalidacionNumerDocumet
+			// lblNumberDocument_Validator
 			// 
-			this.lbvalidacionNumerDocumet.BackColor = System.Drawing.Color.Transparent;
-			this.lbvalidacionNumerDocumet.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lbvalidacionNumerDocumet.ForeColor = System.Drawing.Color.Red;
-			this.lbvalidacionNumerDocumet.Location = new System.Drawing.Point(281, 183);
-			this.lbvalidacionNumerDocumet.Name = "lbvalidacionNumerDocumet";
-			this.lbvalidacionNumerDocumet.Size = new System.Drawing.Size(13, 16);
-			this.lbvalidacionNumerDocumet.TabIndex = 56;
-			this.lbvalidacionNumerDocumet.Text = "*";
+			this.lblNumberDocument_Validator.BackColor = System.Drawing.Color.Transparent;
+			this.lblNumberDocument_Validator.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblNumberDocument_Validator.ForeColor = System.Drawing.Color.Red;
+			this.lblNumberDocument_Validator.Location = new System.Drawing.Point(276, 183);
+			this.lblNumberDocument_Validator.Name = "lblNumberDocument_Validator";
+			this.lblNumberDocument_Validator.Size = new System.Drawing.Size(13, 16);
+			this.lblNumberDocument_Validator.TabIndex = 56;
+			this.lblNumberDocument_Validator.Text = "*";
 			// 
-			// lbvalidacionApellidos
+			// lblLastNames_Validator
 			// 
-			this.lbvalidacionApellidos.BackColor = System.Drawing.Color.Transparent;
-			this.lbvalidacionApellidos.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lbvalidacionApellidos.ForeColor = System.Drawing.Color.Red;
-			this.lbvalidacionApellidos.Location = new System.Drawing.Point(390, 36);
-			this.lbvalidacionApellidos.Name = "lbvalidacionApellidos";
-			this.lbvalidacionApellidos.Size = new System.Drawing.Size(13, 16);
-			this.lbvalidacionApellidos.TabIndex = 55;
-			this.lbvalidacionApellidos.Text = "*";
+			this.lblLastNames_Validator.BackColor = System.Drawing.Color.Transparent;
+			this.lblLastNames_Validator.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblLastNames_Validator.ForeColor = System.Drawing.Color.Red;
+			this.lblLastNames_Validator.Location = new System.Drawing.Point(390, 36);
+			this.lblLastNames_Validator.Name = "lblLastNames_Validator";
+			this.lblLastNames_Validator.Size = new System.Drawing.Size(13, 16);
+			this.lblLastNames_Validator.TabIndex = 55;
+			this.lblLastNames_Validator.Text = "*";
 			// 
-			// lbvalidacionname
+			// lblNames_Validator
 			// 
-			this.lbvalidacionname.BackColor = System.Drawing.Color.Transparent;
-			this.lbvalidacionname.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lbvalidacionname.ForeColor = System.Drawing.Color.Red;
-			this.lbvalidacionname.Location = new System.Drawing.Point(65, 38);
-			this.lbvalidacionname.Name = "lbvalidacionname";
-			this.lbvalidacionname.Size = new System.Drawing.Size(24, 16);
-			this.lbvalidacionname.TabIndex = 54;
-			this.lbvalidacionname.Text = "*";
+			this.lblNames_Validator.BackColor = System.Drawing.Color.Transparent;
+			this.lblNames_Validator.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblNames_Validator.ForeColor = System.Drawing.Color.Red;
+			this.lblNames_Validator.Location = new System.Drawing.Point(65, 38);
+			this.lblNames_Validator.Name = "lblNames_Validator";
+			this.lblNames_Validator.Size = new System.Drawing.Size(24, 16);
+			this.lblNames_Validator.TabIndex = 54;
+			this.lblNames_Validator.Text = "*";
 			// 
 			// metroLabel10
 			// 
@@ -457,6 +498,8 @@
 			this.cboparentesco.Size = new System.Drawing.Size(273, 29);
 			this.cboparentesco.TabIndex = 39;
 			this.cboparentesco.Text = "Seleccione...";
+			this.cboparentesco.SelectionChangeCommitted += new System.EventHandler(this.cboparentesco_SelectionChangeCommitted);
+			this.cboparentesco.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboSexo_KeyDown);
 			// 
 			// metroLabel9
 			// 
@@ -490,9 +533,9 @@
 			this.metroLabel6.AutoSize = true;
 			this.metroLabel6.Location = new System.Drawing.Point(190, 180);
 			this.metroLabel6.Name = "metroLabel6";
-			this.metroLabel6.Size = new System.Drawing.Size(88, 19);
+			this.metroLabel6.Size = new System.Drawing.Size(91, 19);
 			this.metroLabel6.TabIndex = 49;
-			this.metroLabel6.Text = "Numero Doc.";
+			this.metroLabel6.Text = "Numero Doc.:";
 			// 
 			// metroLabel5
 			// 
@@ -566,6 +609,8 @@
 			this.txtEmail.Size = new System.Drawing.Size(286, 29);
 			this.txtEmail.TabIndex = 43;
 			this.txtEmail.UseSelectable = true;
+			this.txtEmail.TextChanged += new System.EventHandler(this.txtEmail_TextChanged);
+			this.txtEmail.Leave += new System.EventHandler(this.txtEmail_Leave);
 			// 
 			// txtDocumentNumber
 			// 
@@ -580,6 +625,7 @@
 			this.txtDocumentNumber.Size = new System.Drawing.Size(246, 29);
 			this.txtDocumentNumber.TabIndex = 41;
 			this.txtDocumentNumber.UseSelectable = true;
+			this.txtDocumentNumber.TextChanged += new System.EventHandler(this.txtDocumentNumber_TextChanged);
 			this.txtDocumentNumber.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDocumentNumber_KeyDown);
 			// 
 			// cboTypeDocument
@@ -594,6 +640,7 @@
 			this.cboTypeDocument.Size = new System.Drawing.Size(178, 29);
 			this.cboTypeDocument.TabIndex = 40;
 			this.cboTypeDocument.SelectionChangeCommitted += new System.EventHandler(this.cboTypeDocument_SelectionChangeCommitted);
+			this.cboTypeDocument.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboSexo_KeyDown);
 			// 
 			// dtpBirthday
 			// 
@@ -606,6 +653,7 @@
 			this.dtpBirthday.Size = new System.Drawing.Size(246, 29);
 			this.dtpBirthday.TabIndex = 38;
 			this.dtpBirthday.Value = new System.DateTime(2015, 5, 24, 20, 26, 10, 0);
+			this.dtpBirthday.ValueChanged += new System.EventHandler(this.dtpBirthday_ValueChanged);
 			// 
 			// cboSexo
 			// 
@@ -623,6 +671,7 @@
 			this.cboSexo.TabIndex = 37;
 			this.cboSexo.Text = "Seleccione...";
 			this.cboSexo.SelectionChangeCommitted += new System.EventHandler(this.cboSexo_SelectionChangeCommitted);
+			this.cboSexo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboSexo_KeyDown);
 			// 
 			// txtNames
 			// 
@@ -637,6 +686,8 @@
 			this.txtNames.Size = new System.Drawing.Size(319, 29);
 			this.txtNames.TabIndex = 35;
 			this.txtNames.UseSelectable = true;
+			this.txtNames.TextChanged += new System.EventHandler(this.txtNames_TextChanged);
+			this.txtNames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNames_KeyDown);
 			// 
 			// btnSearchStudent
 			// 
@@ -672,19 +723,6 @@
 			this.metroLabel1.TabIndex = 0;
 			this.metroLabel1.Text = "Alumno:";
 			// 
-			// pgsLoading
-			// 
-			this.pgsLoading.Location = new System.Drawing.Point(3, 452);
-			this.pgsLoading.Maximum = 100;
-			this.pgsLoading.Name = "pgsLoading";
-			this.pgsLoading.Size = new System.Drawing.Size(16, 16);
-			this.pgsLoading.Speed = 2F;
-			this.pgsLoading.Style = MetroFramework.MetroColorStyle.Green;
-			this.pgsLoading.TabIndex = 9;
-			this.pgsLoading.UseSelectable = true;
-			this.pgsLoading.Value = 50;
-			this.pgsLoading.Visible = false;
-			// 
 			// frm_Parents
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
@@ -699,6 +737,7 @@
 			this.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow;
 			this.Style = MetroFramework.MetroColorStyle.Green;
 			this.Text = "Registro Parientes";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frm_Parents_FormClosing);
 			this.Load += new System.EventHandler(this.frm_Parents_Load);
 			this.panelMain.ResumeLayout(false);
 			this.panelMain.PerformLayout();
@@ -716,7 +755,7 @@
 
 		#endregion
 
-		private System.Windows.Forms.ToolTip toltipValidParent;
+		private System.Windows.Forms.ToolTip toltipValid;
 		private System.Windows.Forms.Panel panelMain;
 		private MetroFramework.Controls.MetroTabControl tabControl;
 		private MetroFramework.Controls.MetroTabPage tabPageListado;
@@ -739,13 +778,13 @@
 		private MetroFramework.Controls.MetroButton btnGuardar;
 		private System.Windows.Forms.GroupBox gbDatos;
 		public MetroFramework.Controls.MetroTextBox TxtLasName;
-		private System.Windows.Forms.Label lbValidacionTipoDocumento;
-		private System.Windows.Forms.Label lbValidactionParentesco;
-		private System.Windows.Forms.Label lbValidationfechaNacimiento;
-		private System.Windows.Forms.Label lbValidacionsexo;
-		private System.Windows.Forms.Label lbvalidacionNumerDocumet;
-		private System.Windows.Forms.Label lbvalidacionApellidos;
-		private System.Windows.Forms.Label lbvalidacionname;
+		private System.Windows.Forms.Label lblTipoDocument_Validator;
+		private System.Windows.Forms.Label lblTipoParent_Validator;
+		private System.Windows.Forms.Label lblBirthday_Validator;
+		private System.Windows.Forms.Label lblGender_Validator;
+		private System.Windows.Forms.Label lblNumberDocument_Validator;
+		private System.Windows.Forms.Label lblLastNames_Validator;
+		private System.Windows.Forms.Label lblNames_Validator;
 		private MetroFramework.Controls.MetroLabel metroLabel10;
 		private System.Windows.Forms.ComboBox cboparentesco;
 		private MetroFramework.Controls.MetroLabel metroLabel9;
@@ -766,5 +805,6 @@
 		public MetroFramework.Controls.MetroTextBox txtNames;
 		public MetroFramework.Controls.MetroTextBox txtAddress;
 		private MetroFramework.Controls.MetroProgressSpinner pgsLoading;
+		private MetroFramework.Controls.MetroLabel lblEmail_Validator;
 	}
 }

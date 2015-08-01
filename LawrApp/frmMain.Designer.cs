@@ -76,7 +76,7 @@
 			this.btnNewAcademyYear = new MetroFramework.Controls.MetroTile();
 			this.metroTile5 = new MetroFramework.Controls.MetroTile();
 			this.metroTile6 = new MetroFramework.Controls.MetroTile();
-			this.metroTile7 = new MetroFramework.Controls.MetroTile();
+			this.btnFichasStudents = new MetroFramework.Controls.MetroTile();
 			this.metroTile8 = new MetroFramework.Controls.MetroTile();
 			this.metroTile9 = new MetroFramework.Controls.MetroTile();
 			this.metroTile10 = new MetroFramework.Controls.MetroTile();
@@ -196,7 +196,7 @@
             this.cursosExoneradosToolStripMenuItem,
             this.modificarDatosDeAlumnosToolStripMenuItem});
 			this.alumnosToolStripMenuItem1.Name = "alumnosToolStripMenuItem1";
-			this.alumnosToolStripMenuItem1.Size = new System.Drawing.Size(152, 24);
+			this.alumnosToolStripMenuItem1.Size = new System.Drawing.Size(147, 24);
 			this.alumnosToolStripMenuItem1.Text = "Alumnos";
 			// 
 			// apoderadosToolStripMenuItem
@@ -229,7 +229,7 @@
 			// profesoresToolStripMenuItem
 			// 
 			this.profesoresToolStripMenuItem.Name = "profesoresToolStripMenuItem";
-			this.profesoresToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+			this.profesoresToolStripMenuItem.Size = new System.Drawing.Size(147, 24);
 			this.profesoresToolStripMenuItem.Text = "Profesores";
 			// 
 			// periodosToolStripMenuItem
@@ -475,7 +475,7 @@
 			this.tableTiles.Controls.Add(this.metroTile3, 0, 1);
 			this.tableTiles.Controls.Add(this.metroTile5, 3, 0);
 			this.tableTiles.Controls.Add(this.metroTile6, 3, 1);
-			this.tableTiles.Controls.Add(this.metroTile7, 3, 2);
+			this.tableTiles.Controls.Add(this.btnFichasStudents, 3, 2);
 			this.tableTiles.Controls.Add(this.metroTile8, 6, 0);
 			this.tableTiles.Controls.Add(this.metroTile9, 7, 0);
 			this.tableTiles.Controls.Add(this.metroTile10, 6, 1);
@@ -588,28 +588,29 @@
 			this.metroTile6.UseStyleColors = true;
 			this.metroTile6.UseTileImage = true;
 			// 
-			// metroTile7
+			// btnFichasStudents
 			// 
-			this.metroTile7.ActiveControl = null;
-			this.metroTile7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.btnFichasStudents.ActiveControl = null;
+			this.btnFichasStudents.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.metroTile7.AutoSize = true;
-			this.metroTile7.Location = new System.Drawing.Point(358, 250);
-			this.metroTile7.Margin = new System.Windows.Forms.Padding(4);
-			this.metroTile7.MaximumSize = new System.Drawing.Size(150, 170);
-			this.metroTile7.MinimumSize = new System.Drawing.Size(100, 120);
-			this.metroTile7.Name = "metroTile7";
-			this.metroTile7.Size = new System.Drawing.Size(110, 120);
-			this.metroTile7.Style = MetroFramework.MetroColorStyle.Silver;
-			this.metroTile7.TabIndex = 6;
-			this.metroTile7.Text = "Imprimir \r\nFichas";
-			this.metroTile7.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-			this.metroTile7.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.metroTile7.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
-			this.metroTile7.UseSelectable = true;
-			this.metroTile7.UseStyleColors = true;
-			this.metroTile7.UseTileImage = true;
+			this.btnFichasStudents.AutoSize = true;
+			this.btnFichasStudents.Location = new System.Drawing.Point(358, 250);
+			this.btnFichasStudents.Margin = new System.Windows.Forms.Padding(4);
+			this.btnFichasStudents.MaximumSize = new System.Drawing.Size(150, 170);
+			this.btnFichasStudents.MinimumSize = new System.Drawing.Size(100, 120);
+			this.btnFichasStudents.Name = "btnFichasStudents";
+			this.btnFichasStudents.Size = new System.Drawing.Size(110, 120);
+			this.btnFichasStudents.Style = MetroFramework.MetroColorStyle.Silver;
+			this.btnFichasStudents.TabIndex = 6;
+			this.btnFichasStudents.Text = "Ficha de\r\nAlumno";
+			this.btnFichasStudents.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+			this.btnFichasStudents.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.btnFichasStudents.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
+			this.btnFichasStudents.UseSelectable = true;
+			this.btnFichasStudents.UseStyleColors = true;
+			this.btnFichasStudents.UseTileImage = true;
+			this.btnFichasStudents.Click += new System.EventHandler(this.btnFichasStudents_Click);
 			// 
 			// metroTile8
 			// 
@@ -783,6 +784,7 @@
 			// 
 			// lblLoadInfo
 			// 
+			this.lblLoadInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.lblLoadInfo.FontSize = MetroFramework.MetroLabelSize.Small;
 			this.lblLoadInfo.FontWeight = MetroFramework.MetroLabelWeight.Regular;
 			this.lblLoadInfo.ForeColor = System.Drawing.SystemColors.ControlDark;
@@ -958,7 +960,7 @@
         private System.Windows.Forms.Panel panelLoginIn;
         private MetroFramework.Controls.MetroTile metroTile5;
         private MetroFramework.Controls.MetroTile metroTile6;
-        private MetroFramework.Controls.MetroTile metroTile7;
+        private MetroFramework.Controls.MetroTile btnFichasStudents;
         private MetroFramework.Controls.MetroTile metroTile8;
         private MetroFramework.Controls.MetroTile metroTile9;
         private MetroFramework.Controls.MetroTile metroTile10;
