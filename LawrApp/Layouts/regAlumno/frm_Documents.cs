@@ -38,7 +38,7 @@ namespace LawrApp.Layouts.regAlumno
 			InitializeComponent();
 		}
 
-		#region THREAD'S
+#region THREAD'S
 
 		public void LoadDocumentsOfStudent()
 		{
@@ -123,11 +123,10 @@ namespace LawrApp.Layouts.regAlumno
 			this._hilo.Abort();
 		}
 
-		#endregion
+#endregion
 
-		#region METODOS DE INTERFAZ
+#region METODOS DE INTERFAZ
 
-		//cambiar nombre y programar el hilo para el listado en el datagrid
 		public void ChooseStudent( string nameAlumno, int idAlumno )
 		{
 			this._hilo = new Thread( new ThreadStart( this.LoadDocumentsOfStudent ) );
@@ -144,9 +143,9 @@ namespace LawrApp.Layouts.regAlumno
 
 		public void AddSchool( string Name, int Codigo, string Type ){}
 
-		#endregion
+#endregion
 
-		#region METODOS
+#region METODOS
 
 		private void SubmitDataForDeletion()
 		{
@@ -267,9 +266,9 @@ namespace LawrApp.Layouts.regAlumno
 			this._documents.Data = this._objDocuments;
 		}
 
-		#endregion
+#endregion
 
-		#region EVENTOS
+#region EVENTOS
 
 		private void frmregDocumento_Load( object sender, EventArgs e )
 		{
@@ -291,7 +290,7 @@ namespace LawrApp.Layouts.regAlumno
 			main.Show();
 		}
 
-		#region KEYDOWN
+	#region KEYDOWN
 
 		private void cboDocumentotipoDocument_KeyDown( object sender, KeyEventArgs e )
 		{
@@ -325,6 +324,26 @@ namespace LawrApp.Layouts.regAlumno
 					this._hilo.Start();
 				}
 			}
+			else if( e.KeyData == Keys.Enter )
+			{
+				if ( dgListDocumentos.CurrentRow.Index < 0 ) return;
+
+				this._hilo = new Thread( new ThreadStart( this.FindDocumentSelected ) );
+
+				this.pgshowDocumentos.Visible = true;
+				this.btnagregardocumentos.Enabled = false;
+
+				int index = this.dgListDocumentos.CurrentRow.Index;
+
+				this._idDocument = Convert.ToInt32( this.dgListDocumentos.Rows[index].Cells[0].Value );
+
+				this._gotoModify = true;
+				this.cbotipoDocument.Enabled = false;
+
+				this._hilo.Start();
+
+				this.tabcontrolDocumentos.SelectedTab = this.tabregistrardocumentos;
+			}
 		}
 
 		private void txtDocumentoNrodocumento_KeyDown( object sender, KeyEventArgs e )
@@ -346,9 +365,9 @@ namespace LawrApp.Layouts.regAlumno
 			}
 		}
 
-		#endregion
+	#endregion
 
-		#region SELECTIONCHANGECOMITTED
+	#region SELECTIONCHANGECOMITTED
 
 		private void cboDocumentotipoDocument_SelectionChangeCommitted( object sender, EventArgs e )
 		{
@@ -366,9 +385,9 @@ namespace LawrApp.Layouts.regAlumno
 			this.txtNrodocumento.Clear();
 		}
 
-		#endregion
+	#endregion
 
-		#region LEAVE
+	#region LEAVE
 
 		private void txtDocumentoNrodocumento_Leave( object sender, EventArgs e )
 		{
@@ -383,9 +402,9 @@ namespace LawrApp.Layouts.regAlumno
 			}
 		}
 
-		#endregion
+	#endregion
 
-		#region CLICK
+	#region CLICK
 
 		private void btnbuscaralumno_Click( object sender, EventArgs e )
 		{
@@ -459,18 +478,27 @@ namespace LawrApp.Layouts.regAlumno
 
 		private void btnEliminar_Click( object sender, EventArgs e )
 		{
-			this._hilo = new Thread( new ThreadStart( this.SubmitDataForDeletion ) );
-			
-			this.btnbuscaralumno.Enabled = false;
-			this.btncancelar.Enabled = false;
-			this.btnModificar.Enabled = false;
-			this.btnNuevo.Enabled = false;
-			this.btnEliminar.Enabled = false;
-			this.PregistroDocumento.Enabled = false;
-			
-			this.pgshowDocumentos.Visible = true;
+			DialogResult question = MetroMessageBox.Show(
+					this,
+					"Esta Seguro que desea eliminar El Documento del Alumno : " + this.txtNameSelectedStudent.Text,
+					"Advertencia!",
+					MessageBoxButtons.YesNo,
+					MessageBoxIcon.Question
+			);
 
-			this._hilo.Start();
+			if ( question == DialogResult.Yes )
+			{
+				this._hilo = new Thread( new ThreadStart( this.SubmitDataForDeletion ) );
+
+				this._idDocument = ( int ) this.dgListDocumentos.CurrentRow.Cells[0].Value;
+
+				this.pbuscarDocumentos.Enabled = false;
+				this.PregistroDocumento.Enabled = false;
+				this.btnbuscaralumno.Enabled = false;
+				this.pgshowDocumentos.Visible = true;
+
+				this._hilo.Start();
+			}
 		}
 
 		private void btnDocuementoSearchImageDocument_Click( object sender, EventArgs e )
@@ -539,7 +567,7 @@ namespace LawrApp.Layouts.regAlumno
 			this._hilo.Start();
 		}
 
-		#endregion
+	#endregion
 
 		private void chboExpira_CheckedChanged( object sender, EventArgs e )
 		{
@@ -555,7 +583,7 @@ namespace LawrApp.Layouts.regAlumno
 				this.dtFechaExpiracion.Enabled = false;
 		}
 
-		#endregion
+#endregion
 
 	}
 }

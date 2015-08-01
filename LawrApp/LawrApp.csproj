@@ -132,6 +132,30 @@
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="IFrmMain.cs" />
+    <Compile Include="Layouts\Fichas\Students\mdlDocuments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Layouts\Fichas\Students\mdlDocuments.Designer.cs">
+      <DependentUpon>mdlDocuments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Layouts\Fichas\Students\frmSearchStudents.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Layouts\Fichas\Students\frmSearchStudents.Designer.cs">
+      <DependentUpon>frmSearchStudents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Layouts\Fichas\Students\frmStudents.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Layouts\Fichas\Students\frmStudents.Designer.cs">
+      <DependentUpon>frmStudents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Layouts\Fichas\Students\mdlParents.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Layouts\Fichas\Students\mdlParents.Designer.cs">
+      <DependentUpon>mdlParents.cs</DependentUpon>
+    </Compile>
     <Compile Include="Layouts\prsApertura\frmInitialMessage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -265,6 +289,18 @@
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Layouts\Fichas\Students\frmSearchStudents.resx">
+      <DependentUpon>frmSearchStudents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layouts\Fichas\Students\frmStudents.resx">
+      <DependentUpon>frmStudents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layouts\Fichas\Students\mdlDocuments.resx">
+      <DependentUpon>mdlDocuments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layouts\Fichas\Students\mdlParents.resx">
+      <DependentUpon>mdlParents.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Layouts\prsApertura\frmInitialMessage.resx">
       <DependentUpon>frmInitialMessage.cs</DependentUpon>
     </EmbeddedResource>
@@ -335,7 +371,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Reportes\ReportViewer\repAlumnoMatricula.rdlc" />
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
@@ -363,8 +398,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib\" />
-    <Folder Include="Reportes\Forms\" />
-    <Folder Include="Resources\Icons\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

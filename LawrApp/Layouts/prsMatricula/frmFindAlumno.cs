@@ -37,6 +37,12 @@ namespace LawrApp.Layouts.prsMatricula
 		private void frmFindAlumno_Load( object sender, EventArgs e )
 		{
 			dgvalumnos.DataSource = this._data.Tables["ListaAlumnos"];
+
+			dgvalumnos.Columns[0].Visible = false;
+			dgvalumnos.Columns[1].HeaderText = "Clave";
+			dgvalumnos.Columns[2].HeaderText = "Nombres Completos";
+			dgvalumnos.Columns[3].HeaderText = "Ult. Modificación";
+
 		}
 
 		private void txtsearch_TextChanged( object sender, EventArgs e )

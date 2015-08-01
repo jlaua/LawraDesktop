@@ -46,18 +46,28 @@ namespace LawrApp
 			this.lblLoadInfo.Text = "Asignando Periodos...";
 			this._preload.AsignYear( cboPeriodos.SelectedValue.ToString() );
 
-            this.lblLoadInfo.Text = "Cargando: Departamentos, Provincias, Distritos...";
-            this._preload.ListUbigeo( _data );
+			if ( this._data.Tables["Departamentos"].Rows.Count == 0 )
+			{
+				this.lblLoadInfo.Text = "Cargando: Departamentos, Provincias, Distritos...";
+				this._preload.ListUbigeo( _data );
+			}
 
-            this.lblLoadInfo.Text = "Cargando: Tipos de Documentos...";
-            this._preload.ListTipoDocumento( _data );
+			if ( this._data.Tables["TipoDocumento"].Rows.Count == 0 )
+			{
+				this.lblLoadInfo.Text = "Cargando: Tipos de Documentos...";
+				this._preload.ListTipoDocumento( _data );
+			}
 
-            this.lblLoadInfo.Text = "Cargando: Tipos de Parientes...";
-            this._preload.ListTipoApoderado(_data);
+			if ( this._data.Tables["TipoApoderado"].Rows.Count == 0 )
+			{
+				this.lblLoadInfo.Text = "Cargando: Tipos de Parientes...";
+				this._preload.ListTipoApoderado( _data );
+			}
 
 			this.lblLoadInfo.Text = "Cargando: Estudiantes...";
             this._preload.ListaStudents(_data);
 
+			if ( this._data.Tables["Grados"].Rows.Count == 0 )
 			this.lblLoadInfo.Text = "Cargando: Grados, Secciones...";
 			this._preload.ListaGradoSeccion( _data );
 
@@ -208,6 +218,13 @@ namespace LawrApp
 		{
 			Layouts.regAlumno.frm_Parents documents = new Layouts.regAlumno.frm_Parents( this._data );
 			documents.Show();
+			this.Close();
+		}
+
+		private void btnFichasStudents_Click( object sender, EventArgs e )
+		{
+			Layouts.Fichas.Students.frmSearchStudents search = new Layouts.Fichas.Students.frmSearchStudents( this._data );
+			search.Show();
 			this.Close();
 		}
 	}

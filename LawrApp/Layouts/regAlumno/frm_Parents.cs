@@ -29,7 +29,10 @@ namespace LawrApp.Layouts.regAlumno
 		private int _codParient;
 		private int _lengthAllowed;
 		private bool _isNumeric, _isExactLength, _gotoModify;
+		private string error_debug;
 
+		// DELEGADO QUE PERMITE INGRESAR AL EVENTO SELECTIONCHANGEDCOMMITTED 
+		// DEL CBO TIPO PARIENTE DESDE UN SEGUNDO HILO
 		delegate void ChangeTipoApoderadoCallback(object sender, EventArgs e);
 
 		public frm_Parents( DataGeneral dts )
@@ -117,20 +120,87 @@ namespace LawrApp.Layouts.regAlumno
 			this._hilo.Abort();
 		}
 
-		private void InsertOrUpdateParent()
+		private void SubmitInsertOrUpdate()
 		{
 			CheckForIllegalCrossThreadCalls = false;
 
 			if ( ! this._gotoModify )
 			{
-				
+				int codigo = this._parent.Insert( this._codAlumno );
+
+				if ( codigo > 0 )
+				{
+					object[] temp = new object[4]
+					{
+						codigo,
+						this._objParent.Names + " " + this._objParent.LastNames,
+						this.cboparentesco.Text,
+						DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+					};
+
+					this.dgvListado.Rows.Add( temp );
+
+					this.pgsLoading.Visible = false;
+					MetroMessageBox.Show( this, "El Apoderado a sido registrado correctamente", "Correcto", MessageBoxButtons.OK, MessageBoxIcon.Question );
+
+					this.ResetControls();
+					this.tabControl.SelectedTab = this.tabPageListado;
+				}
+				else
+				{
+					this.pgsLoading.Visible = false;
+					MetroMessageBox.Show( this, "Error al intentar registrar al apoderado", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error );
+					this.tabControl.SelectedTab = this.tabPageRegistro;
+					this.panelRegistros.Enabled = false;
+					this._objParent = new tApoderado();
+				}
 			}
 			else
 			{
+				if ( this._parent.Update( this._codAlumno, this._codParient ) )
+				{
+					this.dgvListado.CurrentRow.Cells[1].Value = this._objParent.Names + " " + this._objParent.LastNames;
+					this.dgvListado.CurrentRow.Cells[2].Value = this.cboparentesco.Text;
+					this.dgvListado.CurrentRow.Cells[3].Value = DateTime.Now.ToString( "yyyy-MM-dd HH:mm:ss" );
+					
+					this.pgsLoading.Visible = false;
 
+					MetroMessageBox.Show( this, "El Apoderado a sido Modificado correctamente", "Correcto", MessageBoxButtons.OK, MessageBoxIcon.Question );
+
+					this.ResetControls();
+					this.tabControl.SelectedTab = this.tabPageListado;
+				}
+				else
+				{
+					this.pgsLoading.Visible = false;
+					MetroMessageBox.Show( this, "Error al intentar Modificar al apoderado", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error );
+					this.tabControl.SelectedTab = this.tabPageRegistro;
+					this._objParent = new tApoderado();
+				}
 			}
 
 			this._hilo.Abort();
+		}
+
+		private void SubmitDelete()
+		{
+			CheckForIllegalCrossThreadCalls = false;
+
+			if ( this._parent.Delete( this._codAlumno, this._codParient ) )
+			{
+				this.pgsLoading.Visible = false;
+				this.dgvListado.Rows.RemoveAt( this.dgvListado.CurrentRow.Index );
+				MetroMessageBox.Show( this, "El Apodereado a sido Eliminado", "CORRECTO", MessageBoxButtons.OK, MessageBoxIcon.Question );
+				this.ResetControls();
+			}
+			else
+			{
+				this.pgsLoading.Visible = false;
+				MetroMessageBox.Show( this, this._parent.MsgExceptionParents, "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error );
+			}
+
+			this._hilo.Abort();
+
 		}
 
 		#endregion
@@ -184,8 +254,33 @@ namespace LawrApp.Layouts.regAlumno
 			this.btnSearchStudent.Enabled = false;
 			this.pgsLoading.Visible = true;
 			this.tabControl.SelectedTab = this.tabPageRegistro;
+			this._gotoModify = true;
 			
 			this._hilo.Start();
+		}
+
+		void ActionForDelete()
+		{
+			DialogResult result = MetroMessageBox.Show( 
+				this, 
+				"Realmente Deseas Eliminar al Apoderado seleccionado?\nPresiona Ok para Eliminar...", 
+				"ADVERTENCIA",
+				MessageBoxButtons.OKCancel, 
+				MessageBoxIcon.Warning
+			);
+
+			if ( result == DialogResult.OK )
+			{
+				this._hilo = new Thread( new ThreadStart( SubmitDelete ) );
+
+				this.panelListado.Enabled = false;
+				this.btnSearchStudent.Enabled = false;
+				this.pgsLoading.Visible = true;
+
+				this._codParient = (int) this.dgvListado.CurrentRow.Cells[0].Value;
+
+				this._hilo.Start();
+			}
 		}
 
 		void ResetControls()
@@ -197,11 +292,10 @@ namespace LawrApp.Layouts.regAlumno
 			this.txtPhones.Clear();
 			this.txtAddress.Clear();
 
+			this.cboparentesco.Text = "Seleccione...";
+
 			this.cboSexo.SelectedIndex = -1;
 			this.cboSexo.Text = "Seleccione...";
-
-			this.cboparentesco.DataSource = null;
-			this.cboparentesco.Text = "Seleccione...";
 
 			this.cboTypeDocument.SelectedIndex = -1;
 			this.cboTypeDocument.Text = "Seleccione...";
@@ -221,10 +315,113 @@ namespace LawrApp.Layouts.regAlumno
 			this.btnSearchStudent.Enabled = true;
 			this.pgsLoading.Visible = false;
 
+			if ( dgvListado.Rows.Count == 0 )
+			{
+				this.btnModificar.Enabled = false;
+				this.btnEliminar.Enabled = false;
+			}
+			else
+			{
+				this.btnModificar.Enabled = true;
+				this.btnEliminar.Enabled = true;
+			}
+
 			this.tabControl.SelectedTab = this.tabPageListado;
 		}
 
+		void JoinData()
+		{
+			this._objParent.Names = this.txtNames.Text;
+			this._objParent.LastNames = this.TxtLasName.Text;
+			this._objParent.Gender = this.cboSexo.SelectedIndex == 1 ? true : false;
+			this._objParent.Birthday = this.dtpBirthday.Value.ToString( "yyyy-MM-dd" );
+			this._objParent.CodigoTipoApoderado = (int) this.cboparentesco.SelectedValue;
+			this._objParent.CodigoTipoDocumento = ( int ) this.cboTypeDocument.SelectedValue;
+			this._objParent.DocumentNumber = this.txtDocumentNumber.Text;
+			this._objParent.Phone = this.txtPhones.Text;
+			this._objParent.Email = this.txtEmail.Text;
+			this._objParent.Address = this.txtAddress.Text;
+
+			this._parent.Data = this._objParent;
+		}
+
 		#endregion
+
+		#region FUNCIONES
+
+		private bool ValidateData()
+		{
+			// Nombres
+			if ( string.IsNullOrWhiteSpace( this.txtNames.Text ) )
+			{
+				this.toltipValid.Show( "Nombre del Pariente es requerido", this.txtNames, 3000 );
+				this.txtNames.Focus();
+				return false;
+			}
+
+			//Apellidos
+			if ( string.IsNullOrWhiteSpace( this.TxtLasName.Text ) )
+			{
+				this.toltipValid.Show( "Apellido del pariente es requerido", this.TxtLasName, 3000 );
+				this.TxtLasName.Focus();
+				return false;
+			}
+
+			//Sexo
+			if ( this.cboSexo.SelectedIndex < 0 )
+			{
+				this.toltipValid.Show( "Sexo del pariente es requerido ", this.cboSexo, 3000 );
+				this.cboSexo.Focus();
+				return false;
+			}
+
+			// Fecha de Nacimiento
+			if ( !Helper.ValidacionMayoriaDeEdad( this.dtpBirthday.Value ) )
+			{
+				this.toltipValid.Show( "El Apoderado debe ser mayor de edad", this.dtpBirthday, 3000 );
+				this.dtpBirthday.Focus();
+				return false;
+			}
+
+			// Tipo de Apoderado
+			if ( this.cboparentesco.SelectedIndex < 0 )
+			{
+				this.toltipValid.Show( "Debes seleccionar el parentesco", this.cboparentesco, 3000 );
+				this.cboparentesco.Focus();
+				return false;
+			}
+
+			// Tipo de Documento
+			if ( cboTypeDocument.SelectedIndex < 0)
+			{
+				this.toltipValid.Show( "Minimo es un documento requerido  ", this.cboTypeDocument, 3000 );
+				this.cboTypeDocument.Focus();
+				return false;
+			}
+
+			// Numero de Documento
+			if ( string.IsNullOrWhiteSpace( txtDocumentNumber.Text ) )
+			{
+				this.toltipValid.Show( "Este campo es requerido", this.txtDocumentNumber, 3000 );
+				this.txtDocumentNumber.Focus();
+				return false;
+			}
+
+			// Dirección
+			if ( string.IsNullOrWhiteSpace( this.txtAddress.Text ) )
+			{
+				this.toltipValid.Show( "Este campo es requerido", this.txtAddress, 3000 );
+				this.txtAddress.Focus();
+				return false;
+			}
+
+			// A cumplido todas las validaciones
+			return true;
+		}
+
+		#endregion
+
+		#region EVENTOS
 
 		private void frm_Parents_Load( object sender, EventArgs e )
 		{
@@ -238,11 +435,26 @@ namespace LawrApp.Layouts.regAlumno
 			this.cboTypeDocument.Text			= "Seleccione...";
 		}
 
+		private void frm_Parents_FormClosing( object sender, FormClosingEventArgs e )
+		{
+			frmMain main = new frmMain( this._data );
+			main.Show();
+		}
+
+		#region CLICK & DOUBLECLICK
+
 		private void btnSearchStudent_Click( object sender, EventArgs e )
 		{
-			mdl_ListAlumno search = new mdl_ListAlumno( this._data );
-			search.Owner = this;
-			search.ShowDialog( this );
+			try
+			{
+				mdl_ListAlumno search = new mdl_ListAlumno( this._data );
+				search.Owner = this;
+				search.ShowDialog( this );
+			}
+			catch( Exception ex )
+			{
+				this.error_debug = ex.Message;
+			}
 		}
 
 		private void btnNuevo_Click( object sender, EventArgs e )
@@ -250,10 +462,23 @@ namespace LawrApp.Layouts.regAlumno
 			this.ActionForCreation();
 		}
 
-		private void dgvListado_CellDoubleClick( object sender, DataGridViewCellEventArgs e )
+		private void btnCancelar_Click( object sender, EventArgs e )
 		{
-			if ( e.RowIndex >= 0 )
-				this.ActionForModification();
+			this.ResetControls();
+		}
+
+		private void btnGuardar_Click( object sender, EventArgs e )
+		{
+			if ( !this.ValidateData() ) return;
+			
+			this._hilo = new Thread( new ThreadStart( this.SubmitInsertOrUpdate ) );
+
+			this.panelRegistros.Enabled = false;
+			this.pgsLoading.Visible = true;
+
+			this.JoinData();
+
+			this._hilo.Start();
 		}
 
 		private void btnModificar_Click( object sender, EventArgs e )
@@ -262,19 +487,51 @@ namespace LawrApp.Layouts.regAlumno
 				this.ActionForModification();
 		}
 
+		private void btnEliminar_Click( object sender, EventArgs e )
+		{
+			if ( this.dgvListado.Rows.Count > 0 )
+				this.ActionForDelete();
+		}
+
+		private void btnSalir_Click( object sender, EventArgs e )
+		{
+			this.Close();
+		}
+
+		private void dgvListado_CellDoubleClick( object sender, DataGridViewCellEventArgs e )
+		{
+			if ( e.RowIndex >= 0 )
+				this.ActionForModification();
+		}
+
+		#endregion
+
+		#region SELECTIONCHANGECOMMITTED
+
 		private void cboSexo_SelectionChangeCommitted( object sender, EventArgs e )
 		{
 			if ( ! this.cboSexo.InvokeRequired )
 			{
 				ComboBox cbo = ( ComboBox ) sender;
 
-				this.cboparentesco.ValueMember = "Codigo";
-				this.cboparentesco.DisplayMember = "Name";
+				if ( cbo.SelectedIndex >= 0 )
+				{
+					this.cboparentesco.ValueMember = "Codigo";
+					this.cboparentesco.DisplayMember = "Name";
 
-				this.cboparentesco.DataSource = this._data.Tables["TipoApoderado"].Select( "Gender=" + cbo.SelectedIndex ).CopyToDataTable();
+					this.cboparentesco.DataSource = this._data.Tables["TipoApoderado"].Select( "Gender=" + cbo.SelectedIndex ).CopyToDataTable();
 
-				this.cboparentesco.SelectedIndex = -1;
-				this.cboparentesco.Text = "Seleccione...";
+					this.cboparentesco.SelectedIndex = -1;
+					this.cboparentesco.Text = "Seleccione...";
+
+					this.lblGender_Validator.Visible = false;
+				}
+				else
+				{
+					this.cboparentesco.DataSource = null;
+					this.lblGender_Validator.Visible = true;
+				}
+				
 			}
 			else
 			{
@@ -287,7 +544,7 @@ namespace LawrApp.Layouts.regAlumno
 		{
 			ComboBox cbo = ( ComboBox ) sender;
 
-			this.lbValidacionTipoDocumento.Visible = false;
+			this.lblTipoDocument_Validator.Visible = false;
 			this.txtDocumentNumber.Enabled = true;
 
 			Object[] docs = this._data.Tables["TipoDocumento"].Select( "Codigo=" + cbo.SelectedValue )[0].ItemArray;
@@ -298,6 +555,15 @@ namespace LawrApp.Layouts.regAlumno
 
 			this.txtDocumentNumber.Clear();
 		}
+
+		private void cboparentesco_SelectionChangeCommitted( object sender, EventArgs e )
+		{
+			this.lblTipoParent_Validator.Visible = false;
+		}
+
+		#endregion
+
+		#region KEYDOWN & PREVIEWKEYDOWN
 
 		private void txtDocumentNumber_KeyDown( object sender, KeyEventArgs e )
 		{
@@ -318,10 +584,107 @@ namespace LawrApp.Layouts.regAlumno
 			}
 		}
 
-		private void btnCancelar_Click( object sender, EventArgs e )
+		private void txtNames_KeyDown( object sender, KeyEventArgs e )
 		{
-			this.ResetControls();
+			if ( Helper.solotexto( ( char ) e.KeyValue ) )
+				e.SuppressKeyPress = true;
 		}
+
+		private void TxtLasName_KeyDown( object sender, KeyEventArgs e )
+		{
+			if ( Helper.solotexto( ( char ) e.KeyValue ) )
+				e.SuppressKeyPress = true;
+		}
+
+		private void cboSexo_KeyDown( object sender, KeyEventArgs e )
+		{
+			if ( e.KeyCode != Keys.Down && e.KeyCode != Keys.Up )
+				e.SuppressKeyPress = true;
+		}
+
+		private void dgvListado_PreviewKeyDown( object sender, PreviewKeyDownEventArgs e )
+		{
+			if ( ( (DataGridView) sender ).Rows.Count > 0 )
+			{
+				if ( e.KeyData == Keys.Enter )
+					this.ActionForModification();
+				else if ( e.KeyData == Keys.Delete )
+					this.ActionForDelete();
+			}
+		}
+
+		#endregion
+
+		#region TEXTCHANGED & VALUECHANGED
+
+		private void txtEmail_TextChanged( object sender, EventArgs e )
+		{
+			if ( ! string.IsNullOrWhiteSpace( txtEmail.Text ) )
+			{
+				if ( ! Helper.CorreoElectronico( this.txtEmail.Text ) )
+					this.lblEmail_Validator.Visible = true;
+				else
+					this.lblEmail_Validator.Visible = false;
+			}
+			else
+				this.lblEmail_Validator.Visible = false;
+		}
+
+		private void txtNames_TextChanged( object sender, EventArgs e )
+		{
+			if ( string.IsNullOrWhiteSpace( this.txtNames.Text ) )
+				this.lblNames_Validator.Visible = true;
+			else
+				this.lblNames_Validator.Visible = false;
+		}
+
+		private void TxtLasName_TextChanged( object sender, EventArgs e )
+		{
+			if ( string.IsNullOrWhiteSpace( this.txtNames.Text ) )
+				this.lblLastNames_Validator.Visible = true;
+			else
+				this.lblLastNames_Validator.Visible = false;
+		}
+
+		private void txtDocumentNumber_TextChanged( object sender, EventArgs e )
+		{
+			if ( !string.IsNullOrWhiteSpace( this.txtDocumentNumber.Text ) )
+				this.lblNumberDocument_Validator.Visible = false;
+			else
+				this.lblNumberDocument_Validator.Visible = true;
+		}
+
+		private void dtpBirthday_ValueChanged( object sender, EventArgs e )
+		{
+			if ( ! Helper.ValidacionMayoriaDeEdad( dtpBirthday.Value ) )
+			{
+				lblBirthday_Validator.Visible = true;
+			}
+			else
+			{
+				lblBirthday_Validator.Visible = false;
+			}
+		}
+
+		#endregion
+
+		private void txtEmail_Leave( object sender, EventArgs e )
+		{
+			if ( !string.IsNullOrWhiteSpace( txtEmail.Text ) )
+			{
+				if ( !Helper.CorreoElectronico( this.txtEmail.Text ) )
+				{
+					this.lblEmail_Validator.Visible = false;
+					this.toltipValid.Show( "El texto no parece un Email", this.txtEmail, 3000 );
+				}
+				else
+					this.lblEmail_Validator.Visible = false;
+			}
+			else
+				this.lblEmail_Validator.Visible = false;
+		}
+
+		#endregion
 
 	}
 }

@@ -222,7 +222,7 @@ namespace Access
 
 		public DataSet ListaStudents( DataSet dts )
 		{
-			Query query = new Query( "api/liststudents" );
+			Query query = new Query( "api/students" );
 
 			try
 			{

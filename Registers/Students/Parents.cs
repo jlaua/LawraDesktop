@@ -18,7 +18,7 @@ namespace Registers.Students
 
 		tApoderado _data = new tApoderado();
 
-		#region Propiedades
+		#region PROPIEDADES
 
 		public string MsgExceptionParents
 		{
@@ -34,7 +34,7 @@ namespace Registers.Students
 
 		#endregion
 
-		#region Metodos
+		#region METODOS
 
 		public List<lApoderados> List( int CodigoStudents = 0 )
 		{
@@ -110,7 +110,7 @@ namespace Registers.Students
 			{
 				query.SendRequestPUT();
 
-				if ( query.ResponseStatusCode != HttpStatusCode.Created )
+				if ( query.ResponseStatusCode != HttpStatusCode.OK )
 					throw new ArgumentNullException( query.MsgExceptionQuery, "HUBO UN ERROR AL INTENTAR MODIFICAR AL APODERADO" );
 
 				return Convert.ToBoolean( query.ResponseContent );
