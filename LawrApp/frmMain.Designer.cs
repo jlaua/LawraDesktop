@@ -39,7 +39,7 @@
 			this.personalToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.cerrarSesiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.registrosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+			this.tsmRegistros = new System.Windows.Forms.ToolStripMenuItem();
 			this.alumnosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.apoderadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.documentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +52,11 @@
 			this.modificarParametrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.configuracionesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.datosDeLaEmpresaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.tsmItemDatosInstitucion = new System.Windows.Forms.ToolStripMenuItem();
+			this.historiaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.visionMisiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.lemasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.sucursalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.cambiarServidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.procesosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.matriculasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,6 +95,10 @@
 			this.lblLoadInfo = new MetroFramework.Controls.MetroLabel();
 			this.pgsLoadDataDefault = new MetroFramework.Controls.MetroProgressSpinner();
 			this.panelLogged = new System.Windows.Forms.Panel();
+			this.pictureBox2 = new System.Windows.Forms.PictureBox();
+			this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
+			this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
+			this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
 			this.cboPeriodos = new MetroFramework.Controls.MetroComboBox();
 			this.btnLogOut = new System.Windows.Forms.Label();
 			this.pbUserPicture = new System.Windows.Forms.PictureBox();
@@ -102,6 +111,7 @@
 			this.panelLoginIn.SuspendLayout();
 			this.panelTitles.SuspendLayout();
 			this.panelLogged.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pbUserPicture)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
@@ -112,7 +122,7 @@
 			this.menuOptions.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.menuOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.archivoToolStripMenuItem,
-            this.registrosToolStripMenuItem1,
+            this.tsmRegistros,
             this.periodosToolStripMenuItem,
             this.configuracionesToolStripMenuItem1});
 			this.menuOptions.Location = new System.Drawing.Point(20, 30);
@@ -179,14 +189,14 @@
 			this.cerrarSesiónToolStripMenuItem.Size = new System.Drawing.Size(165, 24);
 			this.cerrarSesiónToolStripMenuItem.Text = "Cerrar Sesión";
 			// 
-			// registrosToolStripMenuItem1
+			// tsmRegistros
 			// 
-			this.registrosToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			this.tsmRegistros.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.alumnosToolStripMenuItem1,
             this.profesoresToolStripMenuItem});
-			this.registrosToolStripMenuItem1.Name = "registrosToolStripMenuItem1";
-			this.registrosToolStripMenuItem1.Size = new System.Drawing.Size(82, 24);
-			this.registrosToolStripMenuItem1.Text = "Registros";
+			this.tsmRegistros.Name = "tsmRegistros";
+			this.tsmRegistros.Size = new System.Drawing.Size(82, 24);
+			this.tsmRegistros.Text = "Registros";
 			// 
 			// alumnosToolStripMenuItem1
 			// 
@@ -271,14 +281,51 @@
 			// 
 			// datosDeLaEmpresaToolStripMenuItem
 			// 
+			this.datosDeLaEmpresaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmItemDatosInstitucion,
+            this.historiaToolStripMenuItem,
+            this.visionMisiónToolStripMenuItem,
+            this.lemasToolStripMenuItem,
+            this.sucursalesToolStripMenuItem});
 			this.datosDeLaEmpresaToolStripMenuItem.Name = "datosDeLaEmpresaToolStripMenuItem";
-			this.datosDeLaEmpresaToolStripMenuItem.Size = new System.Drawing.Size(215, 24);
-			this.datosDeLaEmpresaToolStripMenuItem.Text = "Datos de la Empresa";
+			this.datosDeLaEmpresaToolStripMenuItem.Size = new System.Drawing.Size(193, 24);
+			this.datosDeLaEmpresaToolStripMenuItem.Text = "Institución";
+			// 
+			// tsmItemDatosInstitucion
+			// 
+			this.tsmItemDatosInstitucion.Name = "tsmItemDatosInstitucion";
+			this.tsmItemDatosInstitucion.Size = new System.Drawing.Size(172, 24);
+			this.tsmItemDatosInstitucion.Text = "Información";
+			this.tsmItemDatosInstitucion.Click += new System.EventHandler(this.tsmItemDatosInstitucion_Click);
+			// 
+			// historiaToolStripMenuItem
+			// 
+			this.historiaToolStripMenuItem.Name = "historiaToolStripMenuItem";
+			this.historiaToolStripMenuItem.Size = new System.Drawing.Size(172, 24);
+			this.historiaToolStripMenuItem.Text = "Historia";
+			// 
+			// visionMisiónToolStripMenuItem
+			// 
+			this.visionMisiónToolStripMenuItem.Name = "visionMisiónToolStripMenuItem";
+			this.visionMisiónToolStripMenuItem.Size = new System.Drawing.Size(172, 24);
+			this.visionMisiónToolStripMenuItem.Text = "Vision/ Misión";
+			// 
+			// lemasToolStripMenuItem
+			// 
+			this.lemasToolStripMenuItem.Name = "lemasToolStripMenuItem";
+			this.lemasToolStripMenuItem.Size = new System.Drawing.Size(172, 24);
+			this.lemasToolStripMenuItem.Text = "Lemas";
+			// 
+			// sucursalesToolStripMenuItem
+			// 
+			this.sucursalesToolStripMenuItem.Name = "sucursalesToolStripMenuItem";
+			this.sucursalesToolStripMenuItem.Size = new System.Drawing.Size(172, 24);
+			this.sucursalesToolStripMenuItem.Text = "Sucursales";
 			// 
 			// cambiarServidorToolStripMenuItem
 			// 
 			this.cambiarServidorToolStripMenuItem.Name = "cambiarServidorToolStripMenuItem";
-			this.cambiarServidorToolStripMenuItem.Size = new System.Drawing.Size(215, 24);
+			this.cambiarServidorToolStripMenuItem.Size = new System.Drawing.Size(193, 24);
 			this.cambiarServidorToolStripMenuItem.Text = "Cambiar Servidor";
 			this.cambiarServidorToolStripMenuItem.Click += new System.EventHandler(this.cambiarServidorToolStripMenuItem_Click);
 			// 
@@ -753,17 +800,20 @@
 			// 
 			// label1
 			// 
-			this.label1.AutoSize = true;
+			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
 			this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(94)))), ((int)(((byte)(94)))));
 			this.label1.Location = new System.Drawing.Point(3, 1);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(128, 15);
+			this.label1.Size = new System.Drawing.Size(342, 15);
 			this.label1.TabIndex = 11;
 			this.label1.Text = "Asistente de Procesos";
 			// 
 			// panelTitles
 			// 
+			this.panelTitles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.panelTitles.Controls.Add(this.label2);
 			this.panelTitles.Controls.Add(this.label1);
 			this.panelTitles.Location = new System.Drawing.Point(30, 164);
@@ -773,12 +823,13 @@
 			// 
 			// label2
 			// 
-			this.label2.AutoSize = true;
+			this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
 			this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(94)))), ((int)(((byte)(94)))));
 			this.label2.Location = new System.Drawing.Point(351, 1);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(125, 15);
+			this.label2.Size = new System.Drawing.Size(349, 15);
 			this.label2.TabIndex = 12;
 			this.label2.Text = "Actividades Comunes";
 			// 
@@ -810,6 +861,10 @@
 			// 
 			this.panelLogged.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.panelLogged.Controls.Add(this.pictureBox2);
+			this.panelLogged.Controls.Add(this.metroLabel3);
+			this.panelLogged.Controls.Add(this.metroLabel2);
+			this.panelLogged.Controls.Add(this.metroLabel1);
 			this.panelLogged.Controls.Add(this.cboPeriodos);
 			this.panelLogged.Controls.Add(this.btnLogOut);
 			this.panelLogged.Controls.Add(this.pbUserPicture);
@@ -822,15 +877,73 @@
 			this.panelLogged.TabIndex = 16;
 			this.panelLogged.Visible = false;
 			// 
+			// pictureBox2
+			// 
+			this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+			this.pictureBox2.Location = new System.Drawing.Point(872, 0);
+			this.pictureBox2.Name = "pictureBox2";
+			this.pictureBox2.Size = new System.Drawing.Size(74, 74);
+			this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+			this.pictureBox2.TabIndex = 19;
+			this.pictureBox2.TabStop = false;
+			this.pictureBox2.WaitOnLoad = true;
+			// 
+			// metroLabel3
+			// 
+			this.metroLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.metroLabel3.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+			this.metroLabel3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.metroLabel3.Location = new System.Drawing.Point(636, 48);
+			this.metroLabel3.Name = "metroLabel3";
+			this.metroLabel3.Size = new System.Drawing.Size(152, 22);
+			this.metroLabel3.TabIndex = 18;
+			this.metroLabel3.Text = "Periodo:";
+			this.metroLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.metroLabel3.UseCustomForeColor = true;
+			// 
+			// metroLabel2
+			// 
+			this.metroLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.metroLabel2.BackColor = System.Drawing.Color.Transparent;
+			this.metroLabel2.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+			this.metroLabel2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.metroLabel2.Location = new System.Drawing.Point(482, 24);
+			this.metroLabel2.Name = "metroLabel2";
+			this.metroLabel2.Size = new System.Drawing.Size(389, 19);
+			this.metroLabel2.TabIndex = 18;
+			this.metroLabel2.Text = "Local: Av. Carlos Izaguirre 432 - Chulucanas";
+			this.metroLabel2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			this.metroLabel2.UseCustomBackColor = true;
+			this.metroLabel2.UseCustomForeColor = true;
+			// 
+			// metroLabel1
+			// 
+			this.metroLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.metroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall;
+			this.metroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+			this.metroLabel1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.metroLabel1.Location = new System.Drawing.Point(500, 3);
+			this.metroLabel1.Name = "metroLabel1";
+			this.metroLabel1.Size = new System.Drawing.Size(374, 25);
+			this.metroLabel1.TabIndex = 17;
+			this.metroLabel1.Text = "IEP JOHANNES GUTEMBERG";
+			this.metroLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.metroLabel1.UseCustomForeColor = true;
+			// 
 			// cboPeriodos
 			// 
+			this.cboPeriodos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cboPeriodos.FontSize = MetroFramework.MetroComboBoxSize.Small;
 			this.cboPeriodos.FormattingEnabled = true;
-			this.cboPeriodos.ItemHeight = 23;
-			this.cboPeriodos.Location = new System.Drawing.Point(853, 6);
+			this.cboPeriodos.ItemHeight = 19;
+			this.cboPeriodos.Location = new System.Drawing.Point(789, 47);
 			this.cboPeriodos.Name = "cboPeriodos";
-			this.cboPeriodos.Size = new System.Drawing.Size(90, 29);
+			this.cboPeriodos.Size = new System.Drawing.Size(77, 25);
+			this.cboPeriodos.Style = MetroFramework.MetroColorStyle.Green;
 			this.cboPeriodos.TabIndex = 16;
 			this.cboPeriodos.UseSelectable = true;
+			this.cboPeriodos.UseStyleColors = true;
 			// 
 			// btnLogOut
 			// 
@@ -923,9 +1036,9 @@
 			this.tableTiles.PerformLayout();
 			this.panelLoginIn.ResumeLayout(false);
 			this.panelTitles.ResumeLayout(false);
-			this.panelTitles.PerformLayout();
 			this.panelLogged.ResumeLayout(false);
 			this.panelLogged.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pbUserPicture)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);
@@ -986,7 +1099,7 @@
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripMenuItem cerrarSesiónToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem registrosToolStripMenuItem1;
+		private System.Windows.Forms.ToolStripMenuItem tsmRegistros;
 		private System.Windows.Forms.ToolStripMenuItem alumnosToolStripMenuItem1;
 		private System.Windows.Forms.ToolStripMenuItem apoderadosToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem documentosToolStripMenuItem;
@@ -1002,6 +1115,15 @@
 		private System.Windows.Forms.ToolStripMenuItem cambiarServidorToolStripMenuItem;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.ToolStripMenuItem datosDeAlumnoToolStripMenuItem;
+		private MetroFramework.Controls.MetroLabel metroLabel3;
+		private MetroFramework.Controls.MetroLabel metroLabel2;
+		private MetroFramework.Controls.MetroLabel metroLabel1;
+		private System.Windows.Forms.PictureBox pictureBox2;
+		private System.Windows.Forms.ToolStripMenuItem tsmItemDatosInstitucion;
+		private System.Windows.Forms.ToolStripMenuItem historiaToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem visionMisiónToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem lemasToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem sucursalesToolStripMenuItem;
 
     }
 }

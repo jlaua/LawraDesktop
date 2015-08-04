@@ -51,6 +51,9 @@
     <Compile Include="Tables\tClaseAlumno.cs" />
     <Compile Include="Tables\tClaseCurso.cs" />
     <Compile Include="Tables\tConceptoPago.cs" />
+    <Compile Include="Tables\tControl.cs" />
+    <Compile Include="Tables\tControlDetalle.cs" />
+    <Compile Include="Tables\tControlUnico.cs" />
     <Compile Include="Tables\tCurso.cs" />
     <Compile Include="Tables\tCursoExonerado.cs" />
     <Compile Include="Tables\tDocumentoAlumno.cs" />
@@ -58,6 +61,10 @@
     <Compile Include="Tables\tFaseDivision.cs" />
     <Compile Include="Tables\tGrado.cs" />
     <Compile Include="Tables\tHoraClase.cs" />
+    <Compile Include="Tables\tInstitucion.cs" />
+    <Compile Include="Tables\tKardex.cs" />
+    <Compile Include="Tables\tMaterial.cs" />
+    <Compile Include="Tables\tMaterialSalon.cs" />
     <Compile Include="Tables\tNivel.cs" />
     <Compile Include="Tables\tNivelParametro.cs" />
     <Compile Include="Tables\tNivelTurno.cs" />
@@ -69,6 +76,7 @@
     <Compile Include="Tables\tProfesiones.cs" />
     <Compile Include="Tables\tSalon.cs" />
     <Compile Include="Tables\tSeccion.cs" />
+    <Compile Include="Tables\tSucursal.cs" />
     <Compile Include="Tables\tTipoApoderado.cs" />
     <Compile Include="Tables\tTipoDocumento.cs" />
     <Compile Include="Tables\tTipoFase.cs" />

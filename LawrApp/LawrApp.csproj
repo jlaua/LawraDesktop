@@ -132,6 +132,48 @@
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="IFrmMain.cs" />
+    <Compile Include="Institucion\frm_History.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Institucion\frm_History.Designer.cs">
+      <DependentUpon>frm_History.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Institucion\frm_Information.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Institucion\frm_Information.Designer.cs">
+      <DependentUpon>frm_Information.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Institucion\frm_Slogans.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Institucion\frm_Slogans.Designer.cs">
+      <DependentUpon>frm_Slogans.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Institucion\frm_Branches.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Institucion\frm_Branches.Designer.cs">
+      <DependentUpon>frm_Branches.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Institucion\frm_VisionMision.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Institucion\frm_VisionMision.Designer.cs">
+      <DependentUpon>frm_VisionMision.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Institucion\frm_Welcome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Institucion\frm_Welcome.Designer.cs">
+      <DependentUpon>frm_Welcome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Institucion\mdl_Preview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Institucion\mdl_Preview.Designer.cs">
+      <DependentUpon>mdl_Preview.cs</DependentUpon>
+    </Compile>
     <Compile Include="Layouts\Fichas\Students\mdlDocuments.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -288,6 +330,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Institucion\frm_Branches.resx">
+      <DependentUpon>frm_Branches.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Institucion\frm_History.resx">
+      <DependentUpon>frm_History.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Institucion\frm_Information.resx">
+      <DependentUpon>frm_Information.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Institucion\frm_Slogans.resx">
+      <DependentUpon>frm_Slogans.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Institucion\frm_VisionMision.resx">
+      <DependentUpon>frm_VisionMision.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Institucion\frm_Welcome.resx">
+      <DependentUpon>frm_Welcome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Institucion\mdl_Preview.resx">
+      <DependentUpon>mdl_Preview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Layouts\Fichas\Students\frmSearchStudents.resx">
       <DependentUpon>frmSearchStudents.cs</DependentUpon>

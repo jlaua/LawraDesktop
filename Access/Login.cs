@@ -15,7 +15,7 @@ namespace Access
     public class Login : Connection
     {
         private string _msgExceptionLogin, _InputName, _InputPass, _UserFullName, _UserType, _LocationImage;
-		private int _yearActive;
+		private int _yearActive, _userLevel;
         private string _Controller = "api/prslog";
 
         #region PROPIEDADES
@@ -58,6 +58,12 @@ namespace Access
 			set { this._yearActive = value; }
 		}
 
+		public int UserLevel
+		{
+			get { return this._userLevel; }
+			internal set { this._userLevel = value; }
+		}
+
         #endregion
 
         #region CONSTRUCTOR
@@ -97,23 +103,35 @@ namespace Access
 
                 Oquery.SendRequestPOST();
 
-                ResponseLogin obj = JsonConvert.DeserializeObject<ResponseLogin>( Oquery.ResponseContent );
-
-                if( Oquery.ResponseStatusCode == HttpStatusCode.OK )
+                if( Oquery.ResponseStatusCode == HttpStatusCode.Accepted )
                 {
+					ResponseLogin obj = JsonConvert.DeserializeObject<ResponseLogin>( Oquery.ResponseContent );
+
                     this.setAppSettings( "UserName", obj.data.FullName );
-                    this.setAppSettings( "UserType", obj.data.TypeUser );
+                    this.setAppSettings( "UserType", obj.data.UserType );
+					this.setAppSettings( "UserLevel", obj.data.UserLevel );
                     this.setAppSettings( "UserPictureUrl", this.ConfigBaseUrl + obj.data.ImagePath );
+
+					this.setAppSettings( "NameInstitution", obj.data.Institution.NameInstitution );
+					this.setAppSettings("LogoInstitution", obj.data.Institution.LogoInstitution );
+					this.setAppSettings("BranchCode", obj.data.Institution.BranchCode.ToString() );
+					this.setAppSettings("BranchAddress", obj.data.Institution.BranchAddress );
 
                     this.AuthToken = Oquery.ResponseHeader[0].Value.ToString();
 
                     this._UserFullName  = obj.data.FullName;
-                    this._UserType      = obj.data.TypeUser;
+                    this._UserType      = obj.data.UserType;
                     this._LocationImage = this.ConfigBaseUrl + obj.data.ImagePath;
+					this.UserLevel = Convert.ToInt32( obj.data.UserLevel );
+
                 }
+				else if ( Oquery.ResponseStatusCode == HttpStatusCode.NotFound )
+				{
+					throw new ArgumentNullException( "La clave o la contraseña pueden estar erradas, vuelve a intentarlo", "Usuario no Existe" );
+				}
                 else
                 {
-                    throw new Exception( obj.msg );
+					throw new ArgumentNullException( "Existen Errores en el Servidor, no puedes Acceder en estos momentos", "Error en el Servidor" );
                 }
 
                 return true;

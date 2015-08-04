@@ -43,13 +43,33 @@ namespace LawrApp
 			this.cboPeriodos.DisplayMember = "Year";
 			this.cboPeriodos.DataSource = this._data.Tables["Periodo"];
 
-			this.lblLoadInfo.Text = "Asignando Periodos...";
-			this._preload.AsignYear( cboPeriodos.SelectedValue.ToString() );
-
-			if ( this._data.Tables["Departamentos"].Rows.Count == 0 )
+			if ( this._data.Tables["Periodo"].Rows.Count > 0 )
 			{
-				this.lblLoadInfo.Text = "Cargando: Departamentos, Provincias, Distritos...";
-				this._preload.ListUbigeo( _data );
+				this.lblLoadInfo.Text = "Asignando Periodos...";
+				this._preload.AsignYear( cboPeriodos.SelectedValue.ToString() );
+
+				if ( this._data.Tables["TipoApoderado"].Rows.Count == 0 )
+				{
+					this.lblLoadInfo.Text = "Cargando: Tipos de Parientes...";
+					this._preload.ListTipoApoderado( _data );
+				}
+
+				if ( this._data.Tables["Grados"].Rows.Count == 0 )
+				{
+					this.lblLoadInfo.Text = "Cargando: Grados, Secciones...";
+					this._preload.ListaGradoSeccion( _data );
+				}
+
+				this.lblLoadInfo.Text = "Cargando: Estudiantes...";
+				this._preload.ListaStudents( _data );
+			}
+			else
+			{
+				this.tsmRegistros.Enabled = false;
+				this.btnRegistrarAlumno.Enabled = false;
+				this.cboPeriodos.Enabled = false;
+				this.btnFichasStudents.Enabled = false;
+				MetroMessageBox.Show( this, "No Existe ningun Periodo Configurado", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning );
 			}
 
 			if ( this._data.Tables["TipoDocumento"].Rows.Count == 0 )
@@ -58,18 +78,11 @@ namespace LawrApp
 				this._preload.ListTipoDocumento( _data );
 			}
 
-			if ( this._data.Tables["TipoApoderado"].Rows.Count == 0 )
+			if ( this._data.Tables["Departamentos"].Rows.Count == 0 )
 			{
-				this.lblLoadInfo.Text = "Cargando: Tipos de Parientes...";
-				this._preload.ListTipoApoderado( _data );
+				this.lblLoadInfo.Text = "Cargando: Departamentos, Provincias, Distritos...";
+				this._preload.ListUbigeo( _data );
 			}
-
-			this.lblLoadInfo.Text = "Cargando: Estudiantes...";
-            this._preload.ListaStudents(_data);
-
-			if ( this._data.Tables["Grados"].Rows.Count == 0 )
-			this.lblLoadInfo.Text = "Cargando: Grados, Secciones...";
-			this._preload.ListaGradoSeccion( _data );
 
             this.lblLoadInfo.Text = "";
             this.pgsLoadDataDefault.Visible = false;
@@ -98,6 +111,16 @@ namespace LawrApp
             this.tableTiles.Enabled = IsIt;
 			this.panelTitles.Visible = IsIt;
         }
+
+		private void AsignLevel()
+		{
+			switch ( this._log.UserLevel )
+			{
+				case 0: 
+					this.
+				break;
+			}
+		}
 
 		public void ReloadData( bool Reload )
 		{
@@ -128,6 +151,8 @@ namespace LawrApp
                 this.lblUserName.Text = this._log.UserFullName;
                 this.lblUserType.Text = this._log.UserType;
                 this.pbUserPicture.ImageLocation = this._log.LocationImage;
+
+				this.AsignLevel();
 
 				this.ControlsVisible( true );
 				this.ControlsEnabled( false );
@@ -226,6 +251,13 @@ namespace LawrApp
 			Layouts.Fichas.Students.frmSearchStudents search = new Layouts.Fichas.Students.frmSearchStudents( this._data );
 			search.Show();
 			this.Close();
+		}
+
+		private void tsmItemDatosInstitucion_Click( object sender, EventArgs e )
+		{
+			Institucion.frm_Information info = new Institucion.frm_Information( this._data );
+			info.Owner = this;
+			info.ShowDialog(this);
 		}
 	}
 }

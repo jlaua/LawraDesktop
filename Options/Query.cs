@@ -104,6 +104,7 @@ namespace Options
 			this.Request.RequestFormat = DataFormat.Json;
             this.Request.AddHeader( "Auth-Token", this.AuthToken );
 			this.Request.AddHeader( "YearAcademy", this.getAppSettings("YearAcademy") );
+			this.Request.AddHeader( "AppCode", this.getAppSettings( "ApplicationCode" ) );
 
 			this.Request.AlwaysMultipartFormData = true;
         }

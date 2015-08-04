@@ -41,6 +41,30 @@ namespace Access
 
 		#region METODOS	
 
+		public bool InfoInstitution()
+		{
+			Query query = new Query( "api/initial/periods" );
+
+			try
+			{
+				query.SendRequestGET();
+
+				if ( query.ResponseStatusCode != HttpStatusCode.OK )
+				{
+					throw new ArgumentNullException( "No se ha podido acceder a los datos", "Datos de Tipo de Documentos" );
+				}
+
+				InstitutionData data = JsonConvert.DeserializeObject< InstitutionData >( query.ResponseContent );
+
+				return true;
+			}
+			catch ( Exception e )
+			{
+				this._exceptionUbigeo = e.Message;
+				return false;
+			}
+		}
+
 		public DataSet ListPeriodos( DataSet dts )
 		{
 			Query query = new Query( "api/initial/periods" );
@@ -76,7 +100,6 @@ namespace Access
 				}
 
 				return dts;
-
 			}
 			catch ( Exception e )
 			{

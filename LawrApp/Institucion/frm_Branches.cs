@@ -7,33 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-//custom
+//Custom's
 using MetroFramework;
 using MetroFramework.Forms;
 using MetroFramework.Controls;
-using System.Threading;
 
 namespace LawrApp.Institucion
 {
-	public partial class frm_Information : MetroForm
+	public partial class frm_Branches : MetroForm
 	{
-		private DataGeneral _data;
-		private Thread _hilo;
-
-		public frm_Information( DataGeneral dts )
+		public frm_Branches()
 		{
-			this._data = dts;
 			InitializeComponent();
 		}
-
-		#region THREAD'S
-
-		void LoadData()
-		{
-
-		}
-
-		#endregion
-
 	}
 }
