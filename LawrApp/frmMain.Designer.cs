@@ -32,7 +32,7 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
 			this.menuOptions = new System.Windows.Forms.MenuStrip();
 			this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+			this.tsmItemReportes = new System.Windows.Forms.ToolStripMenuItem();
 			this.datosDeAlumnoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.buscarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.alumnoToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,14 +46,14 @@
 			this.cursosExoneradosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.modificarDatosDeAlumnosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.profesoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.periodosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.tsmItemPeriodos = new System.Windows.Forms.ToolStripMenuItem();
 			this.nuevoPeriodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.modificarPeriodosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.modificarParametrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.configuracionesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.datosDeLaEmpresaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.tsmItemDatosInstitucion = new System.Windows.Forms.ToolStripMenuItem();
-			this.historiaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.tsmItemHistory = new System.Windows.Forms.ToolStripMenuItem();
 			this.visionMisiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.lemasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.sucursalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -95,10 +95,10 @@
 			this.lblLoadInfo = new MetroFramework.Controls.MetroLabel();
 			this.pgsLoadDataDefault = new MetroFramework.Controls.MetroProgressSpinner();
 			this.panelLogged = new System.Windows.Forms.Panel();
-			this.pictureBox2 = new System.Windows.Forms.PictureBox();
-			this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
-			this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
-			this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
+			this.ptbLogo = new System.Windows.Forms.PictureBox();
+			this.lblPeriodo = new MetroFramework.Controls.MetroLabel();
+			this.lblBranchAddress = new MetroFramework.Controls.MetroLabel();
+			this.lblNameInstitution = new MetroFramework.Controls.MetroLabel();
 			this.cboPeriodos = new MetroFramework.Controls.MetroComboBox();
 			this.btnLogOut = new System.Windows.Forms.Label();
 			this.pbUserPicture = new System.Windows.Forms.PictureBox();
@@ -111,7 +111,7 @@
 			this.panelLoginIn.SuspendLayout();
 			this.panelTitles.SuspendLayout();
 			this.panelLogged.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.ptbLogo)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pbUserPicture)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
@@ -123,7 +123,7 @@
 			this.menuOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.archivoToolStripMenuItem,
             this.tsmRegistros,
-            this.periodosToolStripMenuItem,
+            this.tsmItemPeriodos,
             this.configuracionesToolStripMenuItem1});
 			this.menuOptions.Location = new System.Drawing.Point(20, 30);
 			this.menuOptions.Name = "menuOptions";
@@ -134,7 +134,7 @@
 			// archivoToolStripMenuItem
 			// 
 			this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
+            this.tsmItemReportes,
             this.buscarToolStripMenuItem,
             this.toolStripSeparator1,
             this.cerrarSesiónToolStripMenuItem});
@@ -142,13 +142,13 @@
 			this.archivoToolStripMenuItem.Size = new System.Drawing.Size(71, 24);
 			this.archivoToolStripMenuItem.Text = "Archivo";
 			// 
-			// toolStripMenuItem1
+			// tsmItemReportes
 			// 
-			this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			this.tsmItemReportes.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.datosDeAlumnoToolStripMenuItem});
-			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(165, 24);
-			this.toolStripMenuItem1.Text = "Reportes";
+			this.tsmItemReportes.Name = "tsmItemReportes";
+			this.tsmItemReportes.Size = new System.Drawing.Size(165, 24);
+			this.tsmItemReportes.Text = "Reportes";
 			// 
 			// datosDeAlumnoToolStripMenuItem
 			// 
@@ -242,15 +242,15 @@
 			this.profesoresToolStripMenuItem.Size = new System.Drawing.Size(147, 24);
 			this.profesoresToolStripMenuItem.Text = "Profesores";
 			// 
-			// periodosToolStripMenuItem
+			// tsmItemPeriodos
 			// 
-			this.periodosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			this.tsmItemPeriodos.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nuevoPeriodoToolStripMenuItem,
             this.modificarPeriodosToolStripMenuItem,
             this.modificarParametrosToolStripMenuItem});
-			this.periodosToolStripMenuItem.Name = "periodosToolStripMenuItem";
-			this.periodosToolStripMenuItem.Size = new System.Drawing.Size(79, 24);
-			this.periodosToolStripMenuItem.Text = "Periodos";
+			this.tsmItemPeriodos.Name = "tsmItemPeriodos";
+			this.tsmItemPeriodos.Size = new System.Drawing.Size(79, 24);
+			this.tsmItemPeriodos.Text = "Periodos";
 			// 
 			// nuevoPeriodoToolStripMenuItem
 			// 
@@ -283,7 +283,7 @@
 			// 
 			this.datosDeLaEmpresaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmItemDatosInstitucion,
-            this.historiaToolStripMenuItem,
+            this.tsmItemHistory,
             this.visionMisiónToolStripMenuItem,
             this.lemasToolStripMenuItem,
             this.sucursalesToolStripMenuItem});
@@ -298,11 +298,12 @@
 			this.tsmItemDatosInstitucion.Text = "Información";
 			this.tsmItemDatosInstitucion.Click += new System.EventHandler(this.tsmItemDatosInstitucion_Click);
 			// 
-			// historiaToolStripMenuItem
+			// tsmItemHistory
 			// 
-			this.historiaToolStripMenuItem.Name = "historiaToolStripMenuItem";
-			this.historiaToolStripMenuItem.Size = new System.Drawing.Size(172, 24);
-			this.historiaToolStripMenuItem.Text = "Historia";
+			this.tsmItemHistory.Name = "tsmItemHistory";
+			this.tsmItemHistory.Size = new System.Drawing.Size(172, 24);
+			this.tsmItemHistory.Text = "Historia";
+			this.tsmItemHistory.Click += new System.EventHandler(this.tsmItemHistory_Click);
 			// 
 			// visionMisiónToolStripMenuItem
 			// 
@@ -534,6 +535,7 @@
 			this.tableTiles.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
 			this.tableTiles.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
 			this.tableTiles.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+			this.tableTiles.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
 			this.tableTiles.Size = new System.Drawing.Size(951, 371);
 			this.tableTiles.TabIndex = 8;
 			// 
@@ -861,10 +863,10 @@
 			// 
 			this.panelLogged.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.panelLogged.Controls.Add(this.pictureBox2);
-			this.panelLogged.Controls.Add(this.metroLabel3);
-			this.panelLogged.Controls.Add(this.metroLabel2);
-			this.panelLogged.Controls.Add(this.metroLabel1);
+			this.panelLogged.Controls.Add(this.ptbLogo);
+			this.panelLogged.Controls.Add(this.lblPeriodo);
+			this.panelLogged.Controls.Add(this.lblBranchAddress);
+			this.panelLogged.Controls.Add(this.lblNameInstitution);
 			this.panelLogged.Controls.Add(this.cboPeriodos);
 			this.panelLogged.Controls.Add(this.btnLogOut);
 			this.panelLogged.Controls.Add(this.pbUserPicture);
@@ -877,63 +879,67 @@
 			this.panelLogged.TabIndex = 16;
 			this.panelLogged.Visible = false;
 			// 
-			// pictureBox2
+			// ptbLogo
 			// 
-			this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-			this.pictureBox2.Location = new System.Drawing.Point(872, 0);
-			this.pictureBox2.Name = "pictureBox2";
-			this.pictureBox2.Size = new System.Drawing.Size(74, 74);
-			this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-			this.pictureBox2.TabIndex = 19;
-			this.pictureBox2.TabStop = false;
-			this.pictureBox2.WaitOnLoad = true;
+			this.ptbLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.ptbLogo.Enabled = false;
+			this.ptbLogo.Location = new System.Drawing.Point(872, 0);
+			this.ptbLogo.Name = "ptbLogo";
+			this.ptbLogo.Size = new System.Drawing.Size(74, 74);
+			this.ptbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+			this.ptbLogo.TabIndex = 19;
+			this.ptbLogo.TabStop = false;
+			this.ptbLogo.Visible = false;
+			this.ptbLogo.WaitOnLoad = true;
 			// 
-			// metroLabel3
+			// lblPeriodo
 			// 
-			this.metroLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.metroLabel3.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-			this.metroLabel3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.metroLabel3.Location = new System.Drawing.Point(636, 48);
-			this.metroLabel3.Name = "metroLabel3";
-			this.metroLabel3.Size = new System.Drawing.Size(152, 22);
-			this.metroLabel3.TabIndex = 18;
-			this.metroLabel3.Text = "Periodo:";
-			this.metroLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.metroLabel3.UseCustomForeColor = true;
+			this.lblPeriodo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.lblPeriodo.Enabled = false;
+			this.lblPeriodo.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+			this.lblPeriodo.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.lblPeriodo.Location = new System.Drawing.Point(636, 48);
+			this.lblPeriodo.Name = "lblPeriodo";
+			this.lblPeriodo.Size = new System.Drawing.Size(152, 22);
+			this.lblPeriodo.TabIndex = 18;
+			this.lblPeriodo.Text = "Periodo:";
+			this.lblPeriodo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.lblPeriodo.UseCustomForeColor = true;
+			this.lblPeriodo.Visible = false;
 			// 
-			// metroLabel2
+			// lblBranchAddress
 			// 
-			this.metroLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.metroLabel2.BackColor = System.Drawing.Color.Transparent;
-			this.metroLabel2.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-			this.metroLabel2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.metroLabel2.Location = new System.Drawing.Point(482, 24);
-			this.metroLabel2.Name = "metroLabel2";
-			this.metroLabel2.Size = new System.Drawing.Size(389, 19);
-			this.metroLabel2.TabIndex = 18;
-			this.metroLabel2.Text = "Local: Av. Carlos Izaguirre 432 - Chulucanas";
-			this.metroLabel2.TextAlign = System.Drawing.ContentAlignment.TopRight;
-			this.metroLabel2.UseCustomBackColor = true;
-			this.metroLabel2.UseCustomForeColor = true;
+			this.lblBranchAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.lblBranchAddress.BackColor = System.Drawing.Color.Transparent;
+			this.lblBranchAddress.Enabled = false;
+			this.lblBranchAddress.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+			this.lblBranchAddress.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.lblBranchAddress.Location = new System.Drawing.Point(482, 24);
+			this.lblBranchAddress.Name = "lblBranchAddress";
+			this.lblBranchAddress.Size = new System.Drawing.Size(389, 19);
+			this.lblBranchAddress.TabIndex = 18;
+			this.lblBranchAddress.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			this.lblBranchAddress.UseCustomBackColor = true;
+			this.lblBranchAddress.UseCustomForeColor = true;
 			// 
-			// metroLabel1
+			// lblNameInstitution
 			// 
-			this.metroLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.metroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall;
-			this.metroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-			this.metroLabel1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.metroLabel1.Location = new System.Drawing.Point(500, 3);
-			this.metroLabel1.Name = "metroLabel1";
-			this.metroLabel1.Size = new System.Drawing.Size(374, 25);
-			this.metroLabel1.TabIndex = 17;
-			this.metroLabel1.Text = "IEP JOHANNES GUTEMBERG";
-			this.metroLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.metroLabel1.UseCustomForeColor = true;
+			this.lblNameInstitution.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.lblNameInstitution.Enabled = false;
+			this.lblNameInstitution.FontSize = MetroFramework.MetroLabelSize.Tall;
+			this.lblNameInstitution.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+			this.lblNameInstitution.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.lblNameInstitution.Location = new System.Drawing.Point(500, 3);
+			this.lblNameInstitution.Name = "lblNameInstitution";
+			this.lblNameInstitution.Size = new System.Drawing.Size(374, 25);
+			this.lblNameInstitution.TabIndex = 17;
+			this.lblNameInstitution.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.lblNameInstitution.UseCustomForeColor = true;
 			// 
 			// cboPeriodos
 			// 
 			this.cboPeriodos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cboPeriodos.Enabled = false;
 			this.cboPeriodos.FontSize = MetroFramework.MetroComboBoxSize.Small;
 			this.cboPeriodos.FormattingEnabled = true;
 			this.cboPeriodos.ItemHeight = 19;
@@ -944,6 +950,7 @@
 			this.cboPeriodos.TabIndex = 16;
 			this.cboPeriodos.UseSelectable = true;
 			this.cboPeriodos.UseStyleColors = true;
+			this.cboPeriodos.Visible = false;
 			// 
 			// btnLogOut
 			// 
@@ -951,7 +958,7 @@
 			this.btnLogOut.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.btnLogOut.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnLogOut.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.btnLogOut.Location = new System.Drawing.Point(72, 54);
+			this.btnLogOut.Location = new System.Drawing.Point(69, 55);
 			this.btnLogOut.Name = "btnLogOut";
 			this.btnLogOut.Size = new System.Drawing.Size(81, 15);
 			this.btnLogOut.TabIndex = 4;
@@ -1038,7 +1045,7 @@
 			this.panelTitles.ResumeLayout(false);
 			this.panelLogged.ResumeLayout(false);
 			this.panelLogged.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.ptbLogo)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pbUserPicture)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);
@@ -1096,7 +1103,7 @@
 		private MetroFramework.Controls.MetroLabel lblUserName;
 		private MetroFramework.Controls.MetroComboBox cboPeriodos;
 		private System.Windows.Forms.ToolTip ttInfo;
-		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+		private System.Windows.Forms.ToolStripMenuItem tsmItemReportes;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripMenuItem cerrarSesiónToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem tsmRegistros;
@@ -1106,7 +1113,7 @@
 		private System.Windows.Forms.ToolStripMenuItem cursosExoneradosToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem modificarDatosDeAlumnosToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem profesoresToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem periodosToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem tsmItemPeriodos;
 		private System.Windows.Forms.ToolStripMenuItem nuevoPeriodoToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem modificarPeriodosToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem modificarParametrosToolStripMenuItem;
@@ -1115,12 +1122,12 @@
 		private System.Windows.Forms.ToolStripMenuItem cambiarServidorToolStripMenuItem;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.ToolStripMenuItem datosDeAlumnoToolStripMenuItem;
-		private MetroFramework.Controls.MetroLabel metroLabel3;
-		private MetroFramework.Controls.MetroLabel metroLabel2;
-		private MetroFramework.Controls.MetroLabel metroLabel1;
-		private System.Windows.Forms.PictureBox pictureBox2;
+		private MetroFramework.Controls.MetroLabel lblPeriodo;
+		private MetroFramework.Controls.MetroLabel lblBranchAddress;
+		private MetroFramework.Controls.MetroLabel lblNameInstitution;
+		private System.Windows.Forms.PictureBox ptbLogo;
 		private System.Windows.Forms.ToolStripMenuItem tsmItemDatosInstitucion;
-		private System.Windows.Forms.ToolStripMenuItem historiaToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem tsmItemHistory;
 		private System.Windows.Forms.ToolStripMenuItem visionMisiónToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem lemasToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem sucursalesToolStripMenuItem;

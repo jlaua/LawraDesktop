@@ -7,12 +7,12 @@ namespace Objects.Tables
 {
 	public class tInstitucion
 	{
-		public int Codigo { get; set; }
+		public string Codigo { get; set; }
 		public string Name { get; set; }
 		public string FullAcronym { get; set; }
 		public string ShortAcronym { get; set; }
-		public string CreationDate { get; set; }
-		public int TypeInstitution { get; set; }
+		public string Creation { get; set; }
+		public int Forma { get; set; }
 		public int Gestion { get; set; }
 		public int Gender { get; set; }
 		public int Type { get; set; }
@@ -25,6 +25,7 @@ namespace Objects.Tables
 		public string History { get; set; }
 		public string Vision { get; set; }
 		public string Mision { get; set; }
+		public string ModifiedDate { get; set; }
 	}
 
 	public class tWelcome

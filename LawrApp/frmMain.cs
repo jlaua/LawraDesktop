@@ -23,6 +23,8 @@ namespace LawrApp
         private DataGeneral _data;
         private Thread _tr;
 
+		delegate void ValidateLevel();
+
         public frmMain( DataGeneral dts )
         {
             _data = dts;
@@ -87,7 +89,8 @@ namespace LawrApp
             this.lblLoadInfo.Text = "";
             this.pgsLoadDataDefault.Visible = false;
 
-            this.ControlsEnabled( true );
+			this.AsignLevel();
+            //this.ControlsEnabled( true );
         }
 
         #endregion
@@ -114,12 +117,37 @@ namespace LawrApp
 
 		private void AsignLevel()
 		{
-			switch ( this._log.UserLevel )
+			if ( ! this.InvokeRequired )
 			{
-				case 0: 
-					this.
-				break;
+				this.ControlsEnabled( false );
+
+				this.btnLogin.Enabled = false;
+
+				switch ( this._log.UserLevel )
+				{
+					case 0:
+					this.tableTiles.Enabled = false;
+					this.panelTitles.Enabled = false;
+					this.menuOptions.Enabled = true;
+					this.cboPeriodos.Visible = false;
+					this.lblBranchAddress.Visible = false;
+					this.lblPeriodo.Visible = false;
+					this.ptbLogo.Visible = false;
+					this.lblNameInstitution.Text = "Administrador General";
+					this.tsmRegistros.Visible = false;
+					this.tsmItemPeriodos.Visible = false;
+					this.tsmItemReportes.Visible = false;
+					this.panelLogged.Enabled = true;
+					this.lblNameInstitution.Location = new Point(570, 3);
+					break;
+				}
 			}
+			else
+			{
+				ValidateLevel tipo = new ValidateLevel( AsignLevel );
+				this.Invoke( tipo, new object[] {  } );
+			}
+			
 		}
 
 		public void ReloadData( bool Reload )
@@ -152,14 +180,8 @@ namespace LawrApp
                 this.lblUserType.Text = this._log.UserType;
                 this.pbUserPicture.ImageLocation = this._log.LocationImage;
 
-				this.AsignLevel();
-
-				this.ControlsVisible( true );
-				this.ControlsEnabled( false );
-				this.btnLogin.Enabled = false;
-
+				this.panelLogged.Visible = true;
 				this.pgsLoadDataDefault.Visible = true;
-
                 this._tr.Start();
             }
             else
@@ -258,6 +280,13 @@ namespace LawrApp
 			Institucion.frm_Information info = new Institucion.frm_Information( this._data );
 			info.Owner = this;
 			info.ShowDialog(this);
+		}
+
+		private void tsmItemHistory_Click( object sender, EventArgs e )
+		{
+			Institucion.frm_History history = new Institucion.frm_History();
+			history.Owner = this;
+			history.ShowDialog( this );
 		}
 	}
 }

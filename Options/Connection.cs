@@ -11,7 +11,8 @@ namespace Options
     public class Connection : Config
     {
         private string _BaseUrl, 
-                        _token;
+                        _token,
+						_userLevel;
 
         #region PROPIEDADES
 
@@ -34,6 +35,12 @@ namespace Options
                 this._token = value;
             }
         }
+
+		public string UserLevel
+		{
+			get { return this.getAppSettings( "UserLevel" ); }
+			internal set { this.setAppSettings( "UserLevel", value ); }
+		}
 
         #endregion
 

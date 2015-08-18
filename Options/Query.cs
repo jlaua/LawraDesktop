@@ -105,6 +105,7 @@ namespace Options
             this.Request.AddHeader( "Auth-Token", this.AuthToken );
 			this.Request.AddHeader( "YearAcademy", this.getAppSettings("YearAcademy") );
 			this.Request.AddHeader( "AppCode", this.getAppSettings( "ApplicationCode" ) );
+			this.Request.AddHeader( "BranchCode", this.getAppSettings( "BranchCode" ) );
 
 			this.Request.AlwaysMultipartFormData = true;
         }
@@ -206,14 +207,20 @@ namespace Options
         /// <param name="parameters">Colección de Parametros que serán enviados junto a la petición</param>
         /// <param name="Files">Colección de Archivos que serán enviados junto a la petición</param>
         /// <returns>Confirmación de la Petición</returns>
-        public bool SendRequestPUT()
+        public bool SendRequestPUT( string _Method = "post" )
         {
-			this.Request.AddParameter( "_method", "put" );
-			
 			if ( !this._requestFiles.Any() )
 				this.Request.AlwaysMultipartFormData = false;
 
-            this.Request.Method = Method.POST;
+			if ( _Method == "post" )
+			{
+				this.Request.AddParameter( "_method", "put" );
+				this.Request.Method = Method.POST;
+			}
+			else if( _Method == "put" )
+			{
+				this.Request.Method = Method.PUT;
+			}
 
 			try
             {
