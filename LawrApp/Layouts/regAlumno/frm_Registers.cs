@@ -69,6 +69,7 @@ namespace LawrApp.Layouts.regAlumno
 			this.txtAlumnoColegiaProcedencia.Text = Name;
 			this.cbAlumnoTipoColegio.SelectedIndex = ( Type == "ESTATAL" ) ? 0 : 1;
 		}
+
 		public void ChooseStudent( string nameAlum, int idAlum ){}
 
 		private void LoadData()

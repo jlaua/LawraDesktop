@@ -24,6 +24,7 @@ namespace LawrApp
         private Thread _tr;
 
 		delegate void ValidateLevel();
+		delegate void LoadSucursales();
 
         public frmMain( DataGeneral dts )
         {
@@ -38,52 +39,77 @@ namespace LawrApp
             Thread.Sleep(200);
             CheckForIllegalCrossThreadCalls = false;
 
-			this.lblLoadInfo.Text = "Cargando: Periodos...";
-			this._preload.ListPeriodos( _data );
-
-			this.cboPeriodos.ValueMember = "Codigo";
-			this.cboPeriodos.DisplayMember = "Year";
-			this.cboPeriodos.DataSource = this._data.Tables["Periodo"];
-
-			if ( this._data.Tables["Periodo"].Rows.Count > 0 )
+			//DATOS NO FILTRADOS SIMPRE IMPORTANTES
+			if ( this._data.Tables["Departamentos"].Rows.Count == 0 )
 			{
-				this.lblLoadInfo.Text = "Asignando Periodos...";
-				this._preload.AsignYear( cboPeriodos.SelectedValue.ToString() );
-
-				if ( this._data.Tables["TipoApoderado"].Rows.Count == 0 )
-				{
-					this.lblLoadInfo.Text = "Cargando: Tipos de Parientes...";
-					this._preload.ListTipoApoderado( _data );
-				}
-
-				if ( this._data.Tables["Grados"].Rows.Count == 0 )
-				{
-					this.lblLoadInfo.Text = "Cargando: Grados, Secciones...";
-					this._preload.ListaGradoSeccion( _data );
-				}
-
-				this.lblLoadInfo.Text = "Cargando: Estudiantes...";
-				this._preload.ListaStudents( _data );
-			}
-			else
-			{
-				this.tsmRegistros.Enabled = false;
-				this.btnRegistrarAlumno.Enabled = false;
-				this.cboPeriodos.Enabled = false;
-				this.btnFichasStudents.Enabled = false;
-				MetroMessageBox.Show( this, "No Existe ningun Periodo Configurado", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+				this.lblLoadInfo.Text = "Cargando: Departamentos, Provincias, Distritos...";
+				this._preload.ListUbigeo( this._data );
 			}
 
 			if ( this._data.Tables["TipoDocumento"].Rows.Count == 0 )
 			{
 				this.lblLoadInfo.Text = "Cargando: Tipos de Documentos...";
-				this._preload.ListTipoDocumento( _data );
+				this._preload.ListTipoDocumento( this._data );
 			}
 
-			if ( this._data.Tables["Departamentos"].Rows.Count == 0 )
+			//DATOS FILTRADOS POR SU NIVEL
+			if ( this._log.UserLevel == 0 )
 			{
-				this.lblLoadInfo.Text = "Cargando: Departamentos, Provincias, Distritos...";
-				this._preload.ListUbigeo( _data );
+				if ( this._data.Tables["TipoPersonal"].Rows.Count == 0 )
+				{
+					this.lblLoadInfo.Text = "Cargando: Tipos de Personal...";
+					this._preload.ListTipoPersonal( this._data );
+				}
+
+				if ( this._data.Tables["Profesion"].Rows.Count == 0 )
+				{
+					this.lblLoadInfo.Text = "Cargando: Profesiones...";
+					this._preload.ListProfesiones( this._data );
+				}
+
+				if ( this._data.Tables["Sucursal"].Rows.Count == 0 )
+				{
+					this.lblLoadInfo.Text = "Cargando: Sucursales...";
+					this._preload.ListSucursales( this._data );
+					this.LoadBranchesToCombo();
+				}
+			}
+			else if ( this._log.UserLevel == 1 )
+			{
+				this.lblLoadInfo.Text = "Cargando: Periodos...";
+				this._preload.ListPeriodos( _data );
+
+				this.cboPeriodos.ValueMember = "Codigo";
+				this.cboPeriodos.DisplayMember = "Year";
+				this.cboPeriodos.DataSource = this._data.Tables["Periodo"];
+
+				if ( this._data.Tables["Periodo"].Rows.Count > 0 )
+				{
+					this.lblLoadInfo.Text = "Asignando Periodos...";
+					this._preload.AsignYear( cboPeriodos.SelectedValue.ToString() );
+
+					if ( this._data.Tables["TipoApoderado"].Rows.Count == 0 )
+					{
+						this.lblLoadInfo.Text = "Cargando: Tipos de Parientes...";
+						this._preload.ListTipoApoderado( _data );
+					}
+
+					if ( this._data.Tables["Grados"].Rows.Count == 0 )
+					{
+						this.lblLoadInfo.Text = "Cargando: Grados, Secciones...";
+						this._preload.ListaGradoSeccion( _data );
+					}
+
+					this.lblLoadInfo.Text = "Cargando: Estudiantes...";
+					this._preload.ListaStudents( _data );
+				}
+				else
+				{
+					this.btnRegistrarAlumno.Enabled = false;
+					this.cboPeriodos.Enabled = false;
+					this.btnFichasStudents.Enabled = false;
+					MetroMessageBox.Show( this, "No Existe ningun Periodo Configurado", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+				}
 			}
 
             this.lblLoadInfo.Text = "";
@@ -128,17 +154,23 @@ namespace LawrApp
 					case 0:
 					this.tableTiles.Enabled = false;
 					this.panelTitles.Enabled = false;
-					this.menuOptions.Enabled = true;
 					this.cboPeriodos.Visible = false;
 					this.lblBranchAddress.Visible = false;
 					this.lblPeriodo.Visible = false;
 					this.ptbLogo.Visible = false;
 					this.lblNameInstitution.Text = "Administrador General";
-					this.tsmRegistros.Visible = false;
-					this.tsmItemPeriodos.Visible = false;
-					this.tsmItemReportes.Visible = false;
 					this.panelLogged.Enabled = true;
 					this.lblNameInstitution.Location = new Point(570, 3);
+					this.cboBranches.Location = new Point( 718, 42 );
+					this.cboBranches.Visible = true;
+					this.cboBranches.Text = "Seleccione una Sucursal";
+					this.lblSucursal.Location = new Point( 632, 47 );
+					this.lblSucursal.Visible = true;
+					this.tsmItemPeriodos.Visible = false;
+					this.tsmItemReportes.Visible = false;
+					this.tsmItemRegisterAlumno.Enabled = false;
+					this.menuOptions.Enabled = true;
+					this.menuOptions.Visible = true;
 					break;
 				}
 			}
@@ -148,6 +180,21 @@ namespace LawrApp
 				this.Invoke( tipo, new object[] {  } );
 			}
 			
+		}
+
+		void LoadBranchesToCombo()
+		{
+			if ( ! InvokeRequired )
+			{
+				this.cboBranches.ValueMember = "Codigo";
+				this.cboBranches.DisplayMember = "ConcatColumn";
+				this.cboBranches.DataSource = this._data.Tables["Sucursal"];
+				this.cboBranches.SelectedIndex = -1;
+			}else
+			{
+				LoadSucursales tipo = new LoadSucursales( LoadBranchesToCombo );
+				this.Invoke( tipo, new object[] {  } );
+			}
 		}
 
 		public void ReloadData( bool Reload )
@@ -182,6 +229,7 @@ namespace LawrApp
 
 				this.panelLogged.Visible = true;
 				this.pgsLoadDataDefault.Visible = true;
+
                 this._tr.Start();
             }
             else
@@ -195,7 +243,7 @@ namespace LawrApp
 
         private void btnLogin_Click( object sender, EventArgs e )
         {
-            frmLogIn frmlog = new frmLogIn( _data );
+            frmLogIn frmlog = new frmLogIn( this._data );
             frmlog.classLog = this._log;
             frmlog.Show();
             this.Close();
@@ -287,6 +335,29 @@ namespace LawrApp
 			Institucion.frm_History history = new Institucion.frm_History();
 			history.Owner = this;
 			history.ShowDialog( this );
+		}
+
+		private void tsmItemRegisterPersonal_Click( object sender, EventArgs e )
+		{
+			int branchCode = Convert.ToInt32( this._preload.getAppSettings( "BranchCode" ) );
+
+			if ( branchCode > 0 )
+			{
+				Layouts.regPersonal.frm_Registers personal = new Layouts.regPersonal.frm_Registers( this._data );
+				personal.Show();
+				this.Close();
+			}
+			else
+			{
+				MetroMessageBox.Show( this, "No se puede Gestionar al Personal si no hay una Sucursal Elegida", "Debes Elegir una Sucursal", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+			}
+		}
+
+		private void tsmItemSucursales_Click( object sender, EventArgs e )
+		{
+			Institucion.frm_Branches branch = new Institucion.frm_Branches( this._data );
+			branch.Owner = this;
+			branch.ShowDialog( this );
 		}
 	}
 }

@@ -40,12 +40,12 @@
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.cerrarSesiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.tsmRegistros = new System.Windows.Forms.ToolStripMenuItem();
-			this.alumnosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+			this.tsmItemRegisterAlumno = new System.Windows.Forms.ToolStripMenuItem();
 			this.apoderadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.documentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.cursosExoneradosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.modificarDatosDeAlumnosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.profesoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.tsmItemRegisterPersonal = new System.Windows.Forms.ToolStripMenuItem();
 			this.tsmItemPeriodos = new System.Windows.Forms.ToolStripMenuItem();
 			this.nuevoPeriodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.modificarPeriodosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,7 +56,7 @@
 			this.tsmItemHistory = new System.Windows.Forms.ToolStripMenuItem();
 			this.visionMisiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.lemasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.sucursalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.tsmItemSucursales = new System.Windows.Forms.ToolStripMenuItem();
 			this.cambiarServidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.procesosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.matriculasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,7 +83,7 @@
 			this.metroTile6 = new MetroFramework.Controls.MetroTile();
 			this.btnFichasStudents = new MetroFramework.Controls.MetroTile();
 			this.metroTile8 = new MetroFramework.Controls.MetroTile();
-			this.metroTile9 = new MetroFramework.Controls.MetroTile();
+			this.tileChangeBranch = new MetroFramework.Controls.MetroTile();
 			this.metroTile10 = new MetroFramework.Controls.MetroTile();
 			this.metroTile11 = new MetroFramework.Controls.MetroTile();
 			this.metroTile12 = new MetroFramework.Controls.MetroTile();
@@ -106,6 +106,8 @@
 			this.lblUserName = new MetroFramework.Controls.MetroLabel();
 			this.ttInfo = new System.Windows.Forms.ToolTip(this.components);
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
+			this.cboBranches = new MetroFramework.Controls.MetroComboBox();
+			this.lblSucursal = new MetroFramework.Controls.MetroLabel();
 			this.menuOptions.SuspendLayout();
 			this.tableTiles.SuspendLayout();
 			this.panelLoginIn.SuspendLayout();
@@ -192,22 +194,22 @@
 			// tsmRegistros
 			// 
 			this.tsmRegistros.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.alumnosToolStripMenuItem1,
-            this.profesoresToolStripMenuItem});
+            this.tsmItemRegisterAlumno,
+            this.tsmItemRegisterPersonal});
 			this.tsmRegistros.Name = "tsmRegistros";
 			this.tsmRegistros.Size = new System.Drawing.Size(82, 24);
 			this.tsmRegistros.Text = "Registros";
 			// 
-			// alumnosToolStripMenuItem1
+			// tsmItemRegisterAlumno
 			// 
-			this.alumnosToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			this.tsmItemRegisterAlumno.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.apoderadosToolStripMenuItem,
             this.documentosToolStripMenuItem,
             this.cursosExoneradosToolStripMenuItem,
             this.modificarDatosDeAlumnosToolStripMenuItem});
-			this.alumnosToolStripMenuItem1.Name = "alumnosToolStripMenuItem1";
-			this.alumnosToolStripMenuItem1.Size = new System.Drawing.Size(147, 24);
-			this.alumnosToolStripMenuItem1.Text = "Alumnos";
+			this.tsmItemRegisterAlumno.Name = "tsmItemRegisterAlumno";
+			this.tsmItemRegisterAlumno.Size = new System.Drawing.Size(152, 24);
+			this.tsmItemRegisterAlumno.Text = "Alumnos";
 			// 
 			// apoderadosToolStripMenuItem
 			// 
@@ -236,11 +238,12 @@
 			this.modificarDatosDeAlumnosToolStripMenuItem.Text = "Modificar Datos de Alumnos";
 			this.modificarDatosDeAlumnosToolStripMenuItem.Click += new System.EventHandler(this.modificarDatosDeAlumnosToolStripMenuItem_Click);
 			// 
-			// profesoresToolStripMenuItem
+			// tsmItemRegisterPersonal
 			// 
-			this.profesoresToolStripMenuItem.Name = "profesoresToolStripMenuItem";
-			this.profesoresToolStripMenuItem.Size = new System.Drawing.Size(147, 24);
-			this.profesoresToolStripMenuItem.Text = "Profesores";
+			this.tsmItemRegisterPersonal.Name = "tsmItemRegisterPersonal";
+			this.tsmItemRegisterPersonal.Size = new System.Drawing.Size(152, 24);
+			this.tsmItemRegisterPersonal.Text = "Personal";
+			this.tsmItemRegisterPersonal.Click += new System.EventHandler(this.tsmItemRegisterPersonal_Click);
 			// 
 			// tsmItemPeriodos
 			// 
@@ -286,7 +289,7 @@
             this.tsmItemHistory,
             this.visionMisiónToolStripMenuItem,
             this.lemasToolStripMenuItem,
-            this.sucursalesToolStripMenuItem});
+            this.tsmItemSucursales});
 			this.datosDeLaEmpresaToolStripMenuItem.Name = "datosDeLaEmpresaToolStripMenuItem";
 			this.datosDeLaEmpresaToolStripMenuItem.Size = new System.Drawing.Size(193, 24);
 			this.datosDeLaEmpresaToolStripMenuItem.Text = "Institución";
@@ -317,11 +320,12 @@
 			this.lemasToolStripMenuItem.Size = new System.Drawing.Size(172, 24);
 			this.lemasToolStripMenuItem.Text = "Lemas";
 			// 
-			// sucursalesToolStripMenuItem
+			// tsmItemSucursales
 			// 
-			this.sucursalesToolStripMenuItem.Name = "sucursalesToolStripMenuItem";
-			this.sucursalesToolStripMenuItem.Size = new System.Drawing.Size(172, 24);
-			this.sucursalesToolStripMenuItem.Text = "Sucursales";
+			this.tsmItemSucursales.Name = "tsmItemSucursales";
+			this.tsmItemSucursales.Size = new System.Drawing.Size(172, 24);
+			this.tsmItemSucursales.Text = "Sucursales";
+			this.tsmItemSucursales.Click += new System.EventHandler(this.tsmItemSucursales_Click);
 			// 
 			// cambiarServidorToolStripMenuItem
 			// 
@@ -525,7 +529,7 @@
 			this.tableTiles.Controls.Add(this.metroTile6, 3, 1);
 			this.tableTiles.Controls.Add(this.btnFichasStudents, 3, 2);
 			this.tableTiles.Controls.Add(this.metroTile8, 6, 0);
-			this.tableTiles.Controls.Add(this.metroTile9, 7, 0);
+			this.tableTiles.Controls.Add(this.tileChangeBranch, 7, 0);
 			this.tableTiles.Controls.Add(this.metroTile10, 6, 1);
 			this.tableTiles.Controls.Add(this.metroTile11, 4, 0);
 			this.tableTiles.Controls.Add(this.metroTile12, 4, 1);
@@ -684,28 +688,28 @@
 			this.metroTile8.UseStyleColors = true;
 			this.metroTile8.UseTileImage = true;
 			// 
-			// metroTile9
+			// tileChangeBranch
 			// 
-			this.metroTile9.ActiveControl = null;
-			this.metroTile9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.tileChangeBranch.ActiveControl = null;
+			this.tileChangeBranch.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.metroTile9.AutoSize = true;
-			this.metroTile9.Location = new System.Drawing.Point(830, 4);
-			this.metroTile9.Margin = new System.Windows.Forms.Padding(4);
-			this.metroTile9.MaximumSize = new System.Drawing.Size(150, 170);
-			this.metroTile9.MinimumSize = new System.Drawing.Size(100, 120);
-			this.metroTile9.Name = "metroTile9";
-			this.metroTile9.Size = new System.Drawing.Size(117, 120);
-			this.metroTile9.Style = MetroFramework.MetroColorStyle.Purple;
-			this.metroTile9.TabIndex = 6;
-			this.metroTile9.Text = "Historia \r\nde Alumnos";
-			this.metroTile9.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-			this.metroTile9.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.metroTile9.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
-			this.metroTile9.UseSelectable = true;
-			this.metroTile9.UseStyleColors = true;
-			this.metroTile9.UseTileImage = true;
+			this.tileChangeBranch.AutoSize = true;
+			this.tileChangeBranch.Location = new System.Drawing.Point(830, 4);
+			this.tileChangeBranch.Margin = new System.Windows.Forms.Padding(4);
+			this.tileChangeBranch.MaximumSize = new System.Drawing.Size(150, 170);
+			this.tileChangeBranch.MinimumSize = new System.Drawing.Size(100, 120);
+			this.tileChangeBranch.Name = "tileChangeBranch";
+			this.tileChangeBranch.Size = new System.Drawing.Size(117, 120);
+			this.tileChangeBranch.Style = MetroFramework.MetroColorStyle.Purple;
+			this.tileChangeBranch.TabIndex = 6;
+			this.tileChangeBranch.Text = "Cambiar \r\nSucursales";
+			this.tileChangeBranch.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+			this.tileChangeBranch.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.tileChangeBranch.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Bold;
+			this.tileChangeBranch.UseSelectable = true;
+			this.tileChangeBranch.UseStyleColors = true;
+			this.tileChangeBranch.UseTileImage = true;
 			// 
 			// metroTile10
 			// 
@@ -863,6 +867,8 @@
 			// 
 			this.panelLogged.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.panelLogged.Controls.Add(this.lblSucursal);
+			this.panelLogged.Controls.Add(this.cboBranches);
 			this.panelLogged.Controls.Add(this.ptbLogo);
 			this.panelLogged.Controls.Add(this.lblPeriodo);
 			this.panelLogged.Controls.Add(this.lblBranchAddress);
@@ -1013,6 +1019,38 @@
 			this.pictureBox1.TabIndex = 10;
 			this.pictureBox1.TabStop = false;
 			// 
+			// cboBranches
+			// 
+			this.cboBranches.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cboBranches.DisplayFocus = true;
+			this.cboBranches.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.cboBranches.ImeMode = System.Windows.Forms.ImeMode.Off;
+			this.cboBranches.ItemHeight = 23;
+			this.cboBranches.Location = new System.Drawing.Point(500, 41);
+			this.cboBranches.Name = "cboBranches";
+			this.cboBranches.PromptText = "Seleccione una Sucursal";
+			this.cboBranches.Size = new System.Drawing.Size(226, 29);
+			this.cboBranches.Style = MetroFramework.MetroColorStyle.Green;
+			this.cboBranches.TabIndex = 20;
+			this.cboBranches.UseSelectable = true;
+			this.cboBranches.UseStyleColors = true;
+			this.cboBranches.Visible = false;
+			// 
+			// lblSucursal
+			// 
+			this.lblSucursal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.lblSucursal.Enabled = false;
+			this.lblSucursal.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+			this.lblSucursal.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.lblSucursal.Location = new System.Drawing.Point(414, 47);
+			this.lblSucursal.Name = "lblSucursal";
+			this.lblSucursal.Size = new System.Drawing.Size(80, 22);
+			this.lblSucursal.TabIndex = 21;
+			this.lblSucursal.Text = "Sucursales:";
+			this.lblSucursal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.lblSucursal.UseCustomForeColor = true;
+			this.lblSucursal.Visible = false;
+			// 
 			// frmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -1082,7 +1120,7 @@
         private MetroFramework.Controls.MetroTile metroTile6;
         private MetroFramework.Controls.MetroTile btnFichasStudents;
         private MetroFramework.Controls.MetroTile metroTile8;
-        private MetroFramework.Controls.MetroTile metroTile9;
+        private MetroFramework.Controls.MetroTile tileChangeBranch;
         private MetroFramework.Controls.MetroTile metroTile10;
         private MetroFramework.Controls.MetroTile metroTile11;
 		private MetroFramework.Controls.MetroTile metroTile12;
@@ -1107,12 +1145,12 @@
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripMenuItem cerrarSesiónToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem tsmRegistros;
-		private System.Windows.Forms.ToolStripMenuItem alumnosToolStripMenuItem1;
+		private System.Windows.Forms.ToolStripMenuItem tsmItemRegisterAlumno;
 		private System.Windows.Forms.ToolStripMenuItem apoderadosToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem documentosToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem cursosExoneradosToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem modificarDatosDeAlumnosToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem profesoresToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem tsmItemRegisterPersonal;
 		private System.Windows.Forms.ToolStripMenuItem tsmItemPeriodos;
 		private System.Windows.Forms.ToolStripMenuItem nuevoPeriodoToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem modificarPeriodosToolStripMenuItem;
@@ -1130,7 +1168,9 @@
 		private System.Windows.Forms.ToolStripMenuItem tsmItemHistory;
 		private System.Windows.Forms.ToolStripMenuItem visionMisiónToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem lemasToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem sucursalesToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem tsmItemSucursales;
+		private MetroFramework.Controls.MetroComboBox cboBranches;
+		private MetroFramework.Controls.MetroLabel lblSucursal;
 
     }
 }

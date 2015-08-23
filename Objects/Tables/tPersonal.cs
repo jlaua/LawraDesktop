@@ -20,11 +20,12 @@ namespace Objects.Tables
 		public bool Gender { get; set; }
 		public int CodigoTipoDocumento { get; set; }
 		public string DocumentNumber { get; set; }
-		public int CodigoProfesion { get; set; }
-		public string NameProfesion { get; set; }
+		public tProfesiones Profesion { get; set; }
 		public string Address { get; set; }
 		public string Phone { get; set; }
 		public string Email { get; set; }
 		public string ModifiedDate { get; set; }
 	}
+
+
 }

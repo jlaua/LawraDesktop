@@ -28,14 +28,12 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.panel1 = new System.Windows.Forms.Panel();
+			this.components = new System.ComponentModel.Container();
+			this.panelMain = new System.Windows.Forms.Panel();
 			this.tabControl = new MetroFramework.Controls.MetroTabControl();
 			this.tabPageListado = new MetroFramework.Controls.MetroTabPage();
 			this.panelListado = new System.Windows.Forms.Panel();
 			this.dgvListado = new System.Windows.Forms.DataGridView();
-			this.colCodigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colModifiedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.btnSalir = new MetroFramework.Controls.MetroButton();
 			this.btnEliminar = new MetroFramework.Controls.MetroButton();
 			this.btnModificar = new MetroFramework.Controls.MetroButton();
@@ -71,7 +69,8 @@
 			this.txtDireccion = new System.Windows.Forms.TextBox();
 			this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
 			this.pgsLoading = new MetroFramework.Controls.MetroProgressSpinner();
-			this.panel1.SuspendLayout();
+			this.toltipMore = new System.Windows.Forms.ToolTip(this.components);
+			this.panelMain.SuspendLayout();
 			this.tabControl.SuspendLayout();
 			this.tabPageListado.SuspendLayout();
 			this.panelListado.SuspendLayout();
@@ -82,25 +81,26 @@
 			((System.ComponentModel.ISupportInitialize)(this.nudZoom)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// panel1
+			// panelMain
 			// 
-			this.panel1.Controls.Add(this.tabControl);
-			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel1.Location = new System.Drawing.Point(25, 77);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(550, 441);
-			this.panel1.TabIndex = 0;
+			this.panelMain.Controls.Add(this.tabControl);
+			this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panelMain.Location = new System.Drawing.Point(25, 77);
+			this.panelMain.Name = "panelMain";
+			this.panelMain.Size = new System.Drawing.Size(550, 441);
+			this.panelMain.TabIndex = 0;
 			// 
 			// tabControl
 			// 
 			this.tabControl.Controls.Add(this.tabPageListado);
 			this.tabControl.Controls.Add(this.tabPageRegistro);
+			this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl.FontSize = MetroFramework.MetroTabControlSize.Tall;
 			this.tabControl.ItemSize = new System.Drawing.Size(105, 34);
-			this.tabControl.Location = new System.Drawing.Point(3, 3);
+			this.tabControl.Location = new System.Drawing.Point(0, 0);
 			this.tabControl.Name = "tabControl";
 			this.tabControl.SelectedIndex = 0;
-			this.tabControl.Size = new System.Drawing.Size(544, 435);
+			this.tabControl.Size = new System.Drawing.Size(550, 441);
 			this.tabControl.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
 			this.tabControl.Style = MetroFramework.MetroColorStyle.Green;
 			this.tabControl.TabIndex = 0;
@@ -111,15 +111,15 @@
 			this.tabPageListado.Controls.Add(this.panelListado);
 			this.tabPageListado.HorizontalScrollbarBarColor = true;
 			this.tabPageListado.HorizontalScrollbarHighlightOnWheel = false;
-			this.tabPageListado.HorizontalScrollbarSize = 6;
+			this.tabPageListado.HorizontalScrollbarSize = 1;
 			this.tabPageListado.Location = new System.Drawing.Point(4, 38);
 			this.tabPageListado.Name = "tabPageListado";
-			this.tabPageListado.Size = new System.Drawing.Size(536, 393);
+			this.tabPageListado.Size = new System.Drawing.Size(542, 399);
 			this.tabPageListado.TabIndex = 0;
 			this.tabPageListado.Text = "Sucursales";
 			this.tabPageListado.VerticalScrollbarBarColor = true;
 			this.tabPageListado.VerticalScrollbarHighlightOnWheel = false;
-			this.tabPageListado.VerticalScrollbarSize = 7;
+			this.tabPageListado.VerticalScrollbarSize = 1;
 			// 
 			// panelListado
 			// 
@@ -149,10 +149,6 @@
 			this.dgvListado.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
 			this.dgvListado.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
 			this.dgvListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dgvListado.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colCodigo,
-            this.colTitle,
-            this.colModifiedDate});
 			this.dgvListado.Location = new System.Drawing.Point(3, 38);
 			this.dgvListado.MultiSelect = false;
 			this.dgvListado.Name = "dgvListado";
@@ -174,26 +170,8 @@
 			this.dgvListado.Size = new System.Drawing.Size(530, 304);
 			this.dgvListado.StandardTab = true;
 			this.dgvListado.TabIndex = 10;
-			// 
-			// colCodigo
-			// 
-			this.colCodigo.HeaderText = "Codigo";
-			this.colCodigo.Name = "colCodigo";
-			this.colCodigo.ReadOnly = true;
-			this.colCodigo.Visible = false;
-			// 
-			// colTitle
-			// 
-			this.colTitle.HeaderText = "Titulo";
-			this.colTitle.Name = "colTitle";
-			this.colTitle.ReadOnly = true;
-			// 
-			// colModifiedDate
-			// 
-			this.colModifiedDate.FillWeight = 60F;
-			this.colModifiedDate.HeaderText = "Ult. Modificación";
-			this.colModifiedDate.Name = "colModifiedDate";
-			this.colModifiedDate.ReadOnly = true;
+			this.dgvListado.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvListado_CellMouseDoubleClick);
+			this.dgvListado.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvListado_KeyDown);
 			// 
 			// btnSalir
 			// 
@@ -203,6 +181,7 @@
 			this.btnSalir.TabIndex = 2;
 			this.btnSalir.Text = "Salir";
 			this.btnSalir.UseSelectable = true;
+			this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
 			// 
 			// btnEliminar
 			// 
@@ -212,6 +191,7 @@
 			this.btnEliminar.TabIndex = 2;
 			this.btnEliminar.Text = "Eliminar";
 			this.btnEliminar.UseSelectable = true;
+			this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
 			// 
 			// btnModificar
 			// 
@@ -221,6 +201,7 @@
 			this.btnModificar.TabIndex = 2;
 			this.btnModificar.Text = "Modificar";
 			this.btnModificar.UseSelectable = true;
+			this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
 			// 
 			// btnNuevo
 			// 
@@ -230,6 +211,7 @@
 			this.btnNuevo.TabIndex = 2;
 			this.btnNuevo.Text = "Nuevo";
 			this.btnNuevo.UseSelectable = true;
+			this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
 			// 
 			// btnBuscar
 			// 
@@ -246,6 +228,7 @@
 			this.txtBuscar.Name = "txtBuscar";
 			this.txtBuscar.Size = new System.Drawing.Size(377, 29);
 			this.txtBuscar.TabIndex = 1;
+			this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
 			// 
 			// metroLabel1
 			// 
@@ -261,15 +244,15 @@
 			this.tabPageRegistro.Controls.Add(this.panelRegistro);
 			this.tabPageRegistro.HorizontalScrollbarBarColor = true;
 			this.tabPageRegistro.HorizontalScrollbarHighlightOnWheel = false;
-			this.tabPageRegistro.HorizontalScrollbarSize = 6;
+			this.tabPageRegistro.HorizontalScrollbarSize = 1;
 			this.tabPageRegistro.Location = new System.Drawing.Point(4, 38);
 			this.tabPageRegistro.Name = "tabPageRegistro";
-			this.tabPageRegistro.Size = new System.Drawing.Size(536, 393);
+			this.tabPageRegistro.Size = new System.Drawing.Size(542, 399);
 			this.tabPageRegistro.TabIndex = 1;
 			this.tabPageRegistro.Text = "Registro";
 			this.tabPageRegistro.VerticalScrollbarBarColor = true;
 			this.tabPageRegistro.VerticalScrollbarHighlightOnWheel = false;
-			this.tabPageRegistro.VerticalScrollbarSize = 7;
+			this.tabPageRegistro.VerticalScrollbarSize = 1;
 			// 
 			// panelRegistro
 			// 
@@ -303,18 +286,20 @@
 			this.btnGuardar.Location = new System.Drawing.Point(450, 355);
 			this.btnGuardar.Name = "btnGuardar";
 			this.btnGuardar.Size = new System.Drawing.Size(83, 35);
-			this.btnGuardar.TabIndex = 7;
+			this.btnGuardar.TabIndex = 13;
 			this.btnGuardar.Text = "Hecho";
 			this.btnGuardar.UseSelectable = true;
+			this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
 			// 
 			// btnCancelar
 			// 
 			this.btnCancelar.Location = new System.Drawing.Point(376, 355);
 			this.btnCancelar.Name = "btnCancelar";
 			this.btnCancelar.Size = new System.Drawing.Size(68, 35);
-			this.btnCancelar.TabIndex = 6;
+			this.btnCancelar.TabIndex = 12;
 			this.btnCancelar.Text = "Cancelar";
 			this.btnCancelar.UseSelectable = true;
+			this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
 			// 
 			// groupBox1
 			// 
@@ -337,9 +322,10 @@
 			this.btnPreview.Location = new System.Drawing.Point(447, 56);
 			this.btnPreview.Name = "btnPreview";
 			this.btnPreview.Size = new System.Drawing.Size(77, 29);
-			this.btnPreview.TabIndex = 3;
+			this.btnPreview.TabIndex = 11;
 			this.btnPreview.Text = "vista Previa";
 			this.btnPreview.UseSelectable = true;
+			this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
 			// 
 			// nudZoom
 			// 
@@ -352,12 +338,13 @@
             0});
 			this.nudZoom.Name = "nudZoom";
 			this.nudZoom.Size = new System.Drawing.Size(49, 29);
-			this.nudZoom.TabIndex = 2;
+			this.nudZoom.TabIndex = 10;
 			this.nudZoom.Value = new decimal(new int[] {
             13,
             0,
             0,
             0});
+			this.nudZoom.Leave += new System.EventHandler(this.nudZoom_Leave);
 			// 
 			// metroLabel11
 			// 
@@ -382,7 +369,8 @@
 			this.txtLongitud.Location = new System.Drawing.Point(176, 56);
 			this.txtLongitud.Name = "txtLongitud";
 			this.txtLongitud.Size = new System.Drawing.Size(176, 29);
-			this.txtLongitud.TabIndex = 1;
+			this.txtLongitud.TabIndex = 9;
+			this.txtLongitud.Leave += new System.EventHandler(this.AsignDataAndValidate_TextBox_Leave);
 			// 
 			// metroLabel9
 			// 
@@ -398,16 +386,18 @@
 			this.txtLatitud.Location = new System.Drawing.Point(6, 56);
 			this.txtLatitud.Name = "txtLatitud";
 			this.txtLatitud.Size = new System.Drawing.Size(164, 29);
-			this.txtLatitud.TabIndex = 1;
+			this.txtLatitud.TabIndex = 8;
+			this.txtLatitud.Leave += new System.EventHandler(this.AsignDataAndValidate_TextBox_Leave);
 			// 
 			// cboDistrito
 			// 
 			this.cboDistrito.FormattingEnabled = true;
-			this.cboDistrito.Location = new System.Drawing.Point(361, 103);
+			this.cboDistrito.Location = new System.Drawing.Point(361, 102);
 			this.cboDistrito.Name = "cboDistrito";
 			this.cboDistrito.Size = new System.Drawing.Size(172, 29);
 			this.cboDistrito.TabIndex = 4;
 			this.cboDistrito.Text = "Seleccione...";
+			this.cboDistrito.SelectionChangeCommitted += new System.EventHandler(this.cboDistrito_SelectionChangeCommitted);
 			// 
 			// cboProvincia
 			// 
@@ -415,8 +405,9 @@
 			this.cboProvincia.Location = new System.Drawing.Point(179, 102);
 			this.cboProvincia.Name = "cboProvincia";
 			this.cboProvincia.Size = new System.Drawing.Size(176, 29);
-			this.cboProvincia.TabIndex = 4;
+			this.cboProvincia.TabIndex = 3;
 			this.cboProvincia.Text = "Seleccione...";
+			this.cboProvincia.SelectionChangeCommitted += new System.EventHandler(this.cboProvincia_SelectionChangeCommitted);
 			// 
 			// cboDepartamento
 			// 
@@ -424,8 +415,9 @@
 			this.cboDepartamento.Location = new System.Drawing.Point(3, 102);
 			this.cboDepartamento.Name = "cboDepartamento";
 			this.cboDepartamento.Size = new System.Drawing.Size(170, 29);
-			this.cboDepartamento.TabIndex = 4;
+			this.cboDepartamento.TabIndex = 2;
 			this.cboDepartamento.Text = "Seleccione...";
+			this.cboDepartamento.SelectionChangeCommitted += new System.EventHandler(this.cboDepartamento_SelectionChangeCommitted);
 			// 
 			// metroLabel5
 			// 
@@ -460,30 +452,34 @@
 			this.chboPrincipal.Name = "chboPrincipal";
 			this.chboPrincipal.Size = new System.Drawing.Size(71, 29);
 			this.chboPrincipal.Style = MetroFramework.MetroColorStyle.Green;
-			this.chboPrincipal.TabIndex = 2;
+			this.chboPrincipal.TabIndex = 1;
 			this.chboPrincipal.Text = "Principal";
 			this.chboPrincipal.UseSelectable = true;
+			this.chboPrincipal.CheckedChanged += new System.EventHandler(this.chboPrincipal_CheckedChanged);
 			// 
 			// txtTelefono
 			// 
 			this.txtTelefono.Location = new System.Drawing.Point(179, 167);
 			this.txtTelefono.Name = "txtTelefono";
 			this.txtTelefono.Size = new System.Drawing.Size(176, 29);
-			this.txtTelefono.TabIndex = 1;
+			this.txtTelefono.TabIndex = 6;
+			this.txtTelefono.Leave += new System.EventHandler(this.AsignDataAndValidate_TextBox_Leave);
 			// 
 			// txtEmail
 			// 
 			this.txtEmail.Location = new System.Drawing.Point(361, 167);
 			this.txtEmail.Name = "txtEmail";
 			this.txtEmail.Size = new System.Drawing.Size(172, 29);
-			this.txtEmail.TabIndex = 1;
+			this.txtEmail.TabIndex = 7;
+			this.txtEmail.Leave += new System.EventHandler(this.AsignDataAndValidate_TextBox_Leave);
 			// 
 			// txtCodigoLocal
 			// 
 			this.txtCodigoLocal.Location = new System.Drawing.Point(3, 167);
 			this.txtCodigoLocal.Name = "txtCodigoLocal";
 			this.txtCodigoLocal.Size = new System.Drawing.Size(170, 29);
-			this.txtCodigoLocal.TabIndex = 1;
+			this.txtCodigoLocal.TabIndex = 5;
+			this.txtCodigoLocal.Leave += new System.EventHandler(this.AsignDataAndValidate_TextBox_Leave);
 			// 
 			// metroLabel8
 			// 
@@ -517,7 +513,8 @@
 			this.txtDireccion.Location = new System.Drawing.Point(3, 37);
 			this.txtDireccion.Name = "txtDireccion";
 			this.txtDireccion.Size = new System.Drawing.Size(453, 29);
-			this.txtDireccion.TabIndex = 1;
+			this.txtDireccion.TabIndex = 0;
+			this.txtDireccion.Leave += new System.EventHandler(this.AsignDataAndValidate_TextBox_Leave);
 			// 
 			// metroLabel2
 			// 
@@ -530,7 +527,7 @@
 			// 
 			// pgsLoading
 			// 
-			this.pgsLoading.Location = new System.Drawing.Point(25, 520);
+			this.pgsLoading.Location = new System.Drawing.Point(28, 520);
 			this.pgsLoading.Maximum = 100;
 			this.pgsLoading.Name = "pgsLoading";
 			this.pgsLoading.Size = new System.Drawing.Size(16, 16);
@@ -539,6 +536,14 @@
 			this.pgsLoading.TabIndex = 1;
 			this.pgsLoading.UseSelectable = true;
 			this.pgsLoading.Value = 50;
+			this.pgsLoading.Visible = false;
+			// 
+			// toltipMore
+			// 
+			this.toltipMore.BackColor = System.Drawing.SystemColors.Window;
+			this.toltipMore.ForeColor = System.Drawing.SystemColors.GrayText;
+			this.toltipMore.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+			this.toltipMore.ToolTipTitle = "Info:";
 			// 
 			// frm_Branches
 			// 
@@ -546,7 +551,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(600, 550);
 			this.Controls.Add(this.pgsLoading);
-			this.Controls.Add(this.panel1);
+			this.Controls.Add(this.panelMain);
 			this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.MaximizeBox = false;
@@ -557,7 +562,9 @@
 			this.ShowInTaskbar = false;
 			this.Style = MetroFramework.MetroColorStyle.Green;
 			this.Text = "Sucursales de la Institución";
-			this.panel1.ResumeLayout(false);
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frm_Branches_FormClosing);
+			this.Load += new System.EventHandler(this.frm_Branches_Load);
+			this.panelMain.ResumeLayout(false);
 			this.tabControl.ResumeLayout(false);
 			this.tabPageListado.ResumeLayout(false);
 			this.panelListado.ResumeLayout(false);
@@ -575,7 +582,7 @@
 
 		#endregion
 
-		private System.Windows.Forms.Panel panel1;
+		private System.Windows.Forms.Panel panelMain;
 		private MetroFramework.Controls.MetroTabControl tabControl;
 		private MetroFramework.Controls.MetroTabPage tabPageListado;
 		private MetroFramework.Controls.MetroTabPage tabPageRegistro;
@@ -584,9 +591,6 @@
 		private MetroFramework.Controls.MetroButton btnBuscar;
 		private System.Windows.Forms.TextBox txtBuscar;
 		private System.Windows.Forms.DataGridView dgvListado;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colCodigo;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colTitle;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colModifiedDate;
 		private MetroFramework.Controls.MetroButton btnSalir;
 		private MetroFramework.Controls.MetroButton btnEliminar;
 		private MetroFramework.Controls.MetroButton btnModificar;
@@ -618,5 +622,6 @@
 		private System.Windows.Forms.TextBox txtLongitud;
 		private MetroFramework.Controls.MetroLabel metroLabel9;
 		private System.Windows.Forms.TextBox txtLatitud;
+		private System.Windows.Forms.ToolTip toltipMore;
 	}
 }

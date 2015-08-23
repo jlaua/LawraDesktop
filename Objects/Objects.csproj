@@ -43,6 +43,8 @@
     <Compile Include="Processes\plogin.cs" />
     <Compile Include="Processes\pAlumno.cs" />
     <Compile Include="Processes\pMatricula.cs" />
+    <Compile Include="Processes\pPersonal.cs" />
+    <Compile Include="Processes\pResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tables\tAlumno.cs" />
     <Compile Include="Tables\tApoderado.cs" />

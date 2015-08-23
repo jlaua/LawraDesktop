@@ -10,6 +10,8 @@ namespace Objects.Tables
 		public int Codigo { get; set; }
 		public string Name { get; set; }
 		public string Description { get; set; }
+		public bool isUser { get; set; }
+		public int TypeUserAsoc { get; set; }
 		public string ModifiedDate { get; set; }
 	}
 }

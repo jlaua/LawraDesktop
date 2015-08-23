@@ -102,10 +102,11 @@ namespace Options
 			this.Client.AddHandler( "application/json", new JsonDeserializer() );
 
 			this.Request.RequestFormat = DataFormat.Json;
-            this.Request.AddHeader( "Auth-Token", this.AuthToken );
-			this.Request.AddHeader( "YearAcademy", this.getAppSettings("YearAcademy") );
-			this.Request.AddHeader( "AppCode", this.getAppSettings( "ApplicationCode" ) );
-			this.Request.AddHeader( "BranchCode", this.getAppSettings( "BranchCode" ) );
+            this.Request.AddHeader( "token", this.AuthToken );
+			this.Request.AddHeader( "Yearacademy", this.getAppSettings("YearAcademy") );
+			this.Request.AddHeader( "Appcode", this.getAppSettings( "ApplicationCode" ) );
+			this.Request.AddHeader( "Branchcode", this.getAppSettings( "BranchCode" ) );
+			this.Request.AddHeader( "Level", this.getAppSettings( "UserLevel" ) );
 
 			this.Request.AlwaysMultipartFormData = true;
         }

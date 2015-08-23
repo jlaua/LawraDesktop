@@ -155,11 +155,11 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(600, 400);
-			this.ControlBox = false;
 			this.Controls.Add(this.pbuscarColegiosProcedencias);
 			this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.MaximizeBox = false;
+			this.MinimizeBox = false;
 			this.Name = "mdl_LastSchools";
 			this.Padding = new System.Windows.Forms.Padding(30, 97, 30, 32);
 			this.Resizable = false;

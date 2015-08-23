@@ -41,7 +41,7 @@ namespace Options.App
             }
         }
 
-        protected string getAppSettings( string key )
+        public string getAppSettings( string key )
         {
             try
             {

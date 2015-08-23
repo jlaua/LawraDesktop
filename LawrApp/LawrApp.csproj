@@ -111,7 +111,7 @@
       <DependentUpon>DataGeneral.xsd</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DataGeneral.Designer.cs">
+    <Compile Include="DataGeneral1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataGeneral.xsd</DependentUpon>
@@ -311,6 +311,13 @@
     <Compile Include="Layouts\regAlumno\mdl_ListAlumno.Designer.cs">
       <DependentUpon>mdl_ListAlumno.cs</DependentUpon>
     </Compile>
+    <Compile Include="Layouts\regPersonal\frm_Registers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Layouts\regPersonal\frm_Registers.Designer.cs">
+      <DependentUpon>frm_Registers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Layouts\regPersonal\IPersonal.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmConfigServer.resx">
@@ -409,6 +416,9 @@
     <EmbeddedResource Include="Layouts\regAlumno\mdl_ListAlumno.resx">
       <DependentUpon>mdl_ListAlumno.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Layouts\regPersonal\frm_Registers.resx">
+      <DependentUpon>frm_Registers.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -428,7 +438,7 @@
     <None Include="DataGeneral.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataGeneral.Designer.cs</LastGenOutput>
+      <LastGenOutput>DataGeneral1.Designer.cs</LastGenOutput>
     </None>
     <None Include="DataGeneral.xss">
       <DependentUpon>DataGeneral.xsd</DependentUpon>
@@ -445,7 +455,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Layouts\regPersonal\" />
     <Folder Include="lib\" />
   </ItemGroup>
   <ItemGroup>

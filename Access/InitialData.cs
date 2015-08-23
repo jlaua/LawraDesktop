@@ -49,10 +49,12 @@ namespace Access
 			{
 				query.SendRequestGET();
 
-				if ( query.ResponseStatusCode != HttpStatusCode.OK )
-				{
-					throw new ArgumentNullException( "No se ha podido acceder a los datos", "Datos de Tipo de Documentos" );
-				}
+				if ( query.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
+				else if ( query.ResponseStatusCode == HttpStatusCode.NoContent )
+					throw new ArgumentNullException( "No se han encontrado datos", "Lista Vacia" );
+				else if ( query.ResponseStatusCode != HttpStatusCode.OK )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._exceptionUbigeo, "Error en el Servidor" );
 
 				InstitutionData data = JsonConvert.DeserializeObject< InstitutionData >( query.ResponseContent );
 
@@ -75,10 +77,12 @@ namespace Access
 
 				dts.Tables["Periodo"].Clear();
 
-				if ( query.ResponseStatusCode != HttpStatusCode.OK )
-				{
-					throw new ArgumentNullException( "No se ha podido acceder a los datos", "Datos de Tipo de Documentos" );
-				}
+				if ( query.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
+				else if ( query.ResponseStatusCode == HttpStatusCode.NoContent )
+					throw new ArgumentNullException( "No se han encontrado datos", "Lista Vacia" );
+				else if ( query.ResponseStatusCode != HttpStatusCode.OK )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._exceptionUbigeo, "Error en el Servidor" );
 
 				List<tPeriodo> peri = JsonConvert.DeserializeObject<List<tPeriodo>>( query.ResponseContent );
 
@@ -120,10 +124,12 @@ namespace Access
                 dts.Tables["Provincias"].Clear();
                 dts.Tables["Distritos"].Clear();
 
-                if( query.ResponseStatusCode != HttpStatusCode.OK )
-                {
-                    throw new ArgumentNullException( "No se ha podido acceder a los datos", "Datos de Ubigeo" );
-                }
+				if ( query.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
+				else if ( query.ResponseStatusCode == HttpStatusCode.NoContent )
+					throw new ArgumentNullException( "No se han encontrado datos", "Lista Vacia" );
+				else if ( query.ResponseStatusCode != HttpStatusCode.OK )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._exceptionUbigeo, "Error en el Servidor" );
 
                 List<tDepartamentos> departamentos = JsonConvert.DeserializeObject<List<tDepartamentos>>( query.ResponseContent );
 
@@ -169,10 +175,12 @@ namespace Access
 
 				dts.Tables["TipoDocumento"].Clear();
 
-                if ( query.ResponseStatusCode != HttpStatusCode.OK )
-                {
-                    throw new ArgumentNullException( "No se ha podido acceder a los datos", "Datos de Tipo de Documentos" );
-                }
+				if ( query.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
+				else if ( query.ResponseStatusCode == HttpStatusCode.NoContent )
+					throw new ArgumentNullException( "No se han encontrado datos", "Lista Vacia" );
+				else if ( query.ResponseStatusCode != HttpStatusCode.OK )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._exceptionUbigeo, "Error en el Servidor" );
 
                 List<tTipoDocumento> tipo = JsonConvert.DeserializeObject<List<tTipoDocumento>>( query.ResponseContent );
 
@@ -212,10 +220,12 @@ namespace Access
 
 				dts.Tables["TipoApoderado"].Clear();
 
-                if (query.ResponseStatusCode != HttpStatusCode.OK)
-                {
-                    throw new ArgumentNullException("No se ha podido acceder a los datos", "Datos de Tipo de Documentos");
-                }
+				if ( query.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
+				else if ( query.ResponseStatusCode == HttpStatusCode.NoContent )
+					throw new ArgumentNullException( "No se han encontrado datos", "Lista Vacia" );
+				else if ( query.ResponseStatusCode != HttpStatusCode.OK )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._exceptionUbigeo, "Error en el Servidor" );
 
                 List<tTipoApoderado> tipo = JsonConvert.DeserializeObject<List<tTipoApoderado>>(query.ResponseContent);
 
@@ -253,10 +263,12 @@ namespace Access
 
 				dts.Tables["ListaAlumnos"].Clear();
 
-				if ( query.ResponseStatusCode != HttpStatusCode.OK )
-				{
-					throw new ArgumentNullException( "No se ha podido acceder a los datos", "Datos de Tipo de Documentos" );
-				}
+				if ( query.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
+				else if ( query.ResponseStatusCode == HttpStatusCode.NoContent )
+					throw new ArgumentNullException( "No se han encontrado datos", "Lista Vacia" );
+				else if ( query.ResponseStatusCode != HttpStatusCode.OK )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._exceptionUbigeo, "Error en el Servidor" );
 
 				List<lAlumnos> tipo = JsonConvert.DeserializeObject<List<lAlumnos>>( query.ResponseContent );
 
@@ -289,10 +301,12 @@ namespace Access
 				dts.Tables["Secciones"].Clear();
 				dts.Tables["Niveles"].Clear();
 
-				if ( query.ResponseStatusCode != HttpStatusCode.OK )
-				{
-					throw new ArgumentNullException( "No se ha podido acceder a los datos", "Datos de Grados y Secciones" );
-				}
+				if ( query.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
+				else if ( query.ResponseStatusCode == HttpStatusCode.NoContent )
+					throw new ArgumentNullException( "No se han encontrado datos", "Lista Vacia" );
+				else if ( query.ResponseStatusCode != HttpStatusCode.OK )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._exceptionUbigeo, "Error en el Servidor" );
 
 				GradoSeccion grs = JsonConvert.DeserializeObject<GradoSeccion>( query.ResponseContent );
 
@@ -331,6 +345,130 @@ namespace Access
 				this._exceptionUbigeo = e.Message;
 				return null;
 			}
+		}
+
+		public DataSet ListTipoPersonal( DataSet dts )
+		{
+			Query oQuery = new Query( "api/initial/type/personal" );
+
+			try
+			{
+				dts.Tables["TipoPersonal"].Clear();
+
+				oQuery.SendRequestGET();
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
+				else if ( oQuery.ResponseStatusCode == HttpStatusCode.NoContent )
+					throw new ArgumentNullException( "No se han encontrado datos", "Lista Vacia" );
+				else if ( oQuery.ResponseStatusCode != HttpStatusCode.OK )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._exceptionUbigeo, "Error en el Servidor" );
+
+				List<tTipoPersonal> tipos = JsonConvert.DeserializeObject<List<tTipoPersonal>>( oQuery.ResponseContent );
+
+				foreach ( tTipoPersonal item in tipos )
+				{
+					object[] temp = new object[6]
+					{
+						item.Codigo,
+						item.Name,
+						item.Description,
+						item.isUser,
+						item.TypeUserAsoc,
+						item.ModifiedDate
+					};
+
+					dts.Tables["TipoPersonal"].Rows.Add( temp );
+				}
+
+				return dts;
+			}
+			catch ( Exception ex )
+			{
+				this._exceptionUbigeo = ex.Message;
+				return null;
+			}
+		}
+
+		public DataSet ListProfesiones( DataSet dts )
+		{
+			Query oQuery = new Query( "api/initial/profesion" );
+
+			try
+			{
+				dts.Tables["Profesion"].Clear();
+
+				oQuery.SendRequestGET();
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
+				else if( oQuery.ResponseStatusCode == HttpStatusCode.NoContent )
+					throw new ArgumentNullException( "No se han encontrado datos", "Lista Vacia" );
+				else if ( oQuery.ResponseStatusCode != HttpStatusCode.OK )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._exceptionUbigeo, "Error en el Servidor" );
+
+				List<tProfesiones> tipos = JsonConvert.DeserializeObject<List<tProfesiones>>( oQuery.ResponseContent );
+
+				foreach ( tProfesiones item in tipos )
+				{
+					object[] temp = new object[3]
+					{
+						item.Codigo,
+						item.Name,
+						item.ModifiedDate
+					};
+
+					dts.Tables["Profesion"].Rows.Add( temp );
+				}
+			}
+			catch ( Exception ex )
+			{
+				this._exceptionUbigeo = ex.Message;
+			}
+
+			return dts;
+		}
+
+		public DataSet ListSucursales( DataSet dts )
+		{
+			Query oQuery = new Query( "api/initial/branches" );
+
+			try
+			{
+				dts.Tables["Sucursal"].Clear();
+
+				oQuery.SendRequestGET();
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
+				else if ( oQuery.ResponseStatusCode == HttpStatusCode.NoContent )
+					throw new ArgumentNullException( "No se han encontrado datos", "Lista Vacia" );
+				else if ( oQuery.ResponseStatusCode != HttpStatusCode.OK )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._exceptionUbigeo, "Error en el Servidor" );
+
+				List<tBranch> tipos = JsonConvert.DeserializeObject<List<tBranch>>( oQuery.ResponseContent );
+
+				foreach ( tBranch item in tipos )
+				{
+					object[] temp = new object[6]
+					{
+						item.Codigo,
+						item.Address,
+						item.IsMain,
+						item.LocalCode,
+						item.ModifiedDate,
+						item.LocalCode + " - " + item.Address
+					};
+
+					dts.Tables["Sucursal"].Rows.Add( temp );
+				}
+			}
+			catch ( Exception ex )
+			{
+				this._exceptionUbigeo = ex.Message;
+			}
+
+			return dts;
 		}
 
 		#endregion

@@ -11,13 +11,16 @@ using System.Windows.Forms;
 using MetroFramework;
 using MetroFramework.Forms;
 using MetroFramework.Controls;
+using Access;
 
 namespace LawrApp.Institucion
 {
 	public partial class mdl_Preview : MetroForm
 	{
 		private string _lat, _lng;
+		private string _msgException;
 		private int _zoom;
+		private ConfigServer _conf = new ConfigServer();
 
 		public mdl_Preview()
 		{
@@ -44,7 +47,15 @@ namespace LawrApp.Institucion
 
 		private void mdl_Preview_Load( object sender, EventArgs e )
 		{
-
+			this.lblDetalle.Text = "Detalle: Latitud = " + this.Latitud + "; Longitud = " + this.Longitud + "; Zoom de Altura = " + this.Zoom;
+			
+			try
+			{
+				this.webBrowser.Navigate( this._conf.BaseUrl + "api/geolocation/lat/" + this.Latitud + "/lng/" + this.Longitud + "/zoom/" + this.Zoom );
+			}catch( Exception ex )
+			{
+				this._msgException = ex.Message;
+			}
 		}
 	}
 }

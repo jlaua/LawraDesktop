@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Branches.cs" />
     <Compile Include="History.cs" />
     <Compile Include="Information.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
