@@ -6,6 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+
+//Custom's
+using MetroFramework.Controls;
 using MetroFramework.Forms;
 using MetroFramework;
 
@@ -25,6 +28,8 @@ namespace LawrApp
 
 		delegate void ValidateLevel();
 		delegate void LoadSucursales();
+
+		private int _codigoBranch = 0;
 
         public frmMain( DataGeneral dts )
         {
@@ -73,6 +78,15 @@ namespace LawrApp
 					this._preload.ListSucursales( this._data );
 					this.LoadBranchesToCombo();
 				}
+				else
+				{
+					this.LoadBranchesToCombo();
+				}
+
+				if ( this._preload.getAppSettings("BranchCode") != "" )
+				{
+					this.cboBranches.SelectedValue = this._preload.getAppSettings( "BranchCode" );
+				}
 			}
 			else if ( this._log.UserLevel == 1 )
 			{
@@ -118,6 +132,41 @@ namespace LawrApp
 			this.AsignLevel();
             //this.ControlsEnabled( true );
         }
+
+		void AsignSucursal()
+		{
+			CheckForIllegalCrossThreadCalls = false;
+
+			if ( ! this._preload.AsignBranch( this._codigoBranch ) )
+			{
+				MetroMessageBox.Show( this, this._preload.ExceptionUbigeo, "Existe un Error!", MessageBoxButtons.OK, MessageBoxIcon.Error );
+				this.panelTitles.Enabled = false;
+				this.tsmItemRegisterAlumno.Enabled = false;
+				this.tsmItemRegisterPersonal.Enabled = false;
+				this.tsmItemReportes.Enabled = false;
+				this.tsmItemPeriodos.Enabled = false;
+
+				this.menuOptions.Enabled = true;
+				this.tableTiles.Enabled = true;
+				this.pgsLoadDataDefault.Visible = false;
+				this.panelLogged.Enabled = true;
+			}
+			else
+			{
+				this.panelTitles.Enabled = true;
+				this.tsmItemRegisterAlumno.Enabled = true;
+				this.tsmItemRegisterPersonal.Enabled = true;
+				this.tsmItemReportes.Enabled = true;
+				this.tsmItemPeriodos.Enabled = true;
+
+				this.menuOptions.Enabled = true;
+				this.tableTiles.Enabled = true;
+				this.pgsLoadDataDefault.Visible = false;
+				this.panelLogged.Enabled = true;
+			}
+
+			this._tr.Abort();
+		}
 
         #endregion
 
@@ -167,7 +216,7 @@ namespace LawrApp
 					this.lblSucursal.Location = new Point( 632, 47 );
 					this.lblSucursal.Visible = true;
 					this.tsmItemPeriodos.Visible = false;
-					this.tsmItemReportes.Visible = false;
+					//this.tsmItemReportes.Visible = false;
 					this.tsmItemRegisterAlumno.Enabled = false;
 					this.menuOptions.Enabled = true;
 					this.menuOptions.Visible = true;
@@ -211,6 +260,11 @@ namespace LawrApp
 
 				this._tr.Start();
 			}
+		}
+
+		public void DeletedSucursal( int CodigoSucursal )
+		{
+
 		}
 
         #endregion
@@ -291,8 +345,8 @@ namespace LawrApp
 
 		private void datosDeAlumnoToolStripMenuItem_Click( object sender, EventArgs e )
 		{
-			//Reportes.Forms.frmAlumnoMatricula mat = new Reportes.Forms.frmAlumnoMatricula();
-			//mat.Show();
+			Reportes.Formularios.frm_MaterialEnAula ma = new Reportes.Formularios.frm_MaterialEnAula( this._data );
+			ma.Show();
 		}
 
 		private void modificarDatosDeAlumnosToolStripMenuItem_Click( object sender, EventArgs e )
@@ -358,6 +412,23 @@ namespace LawrApp
 			Institucion.frm_Branches branch = new Institucion.frm_Branches( this._data );
 			branch.Owner = this;
 			branch.ShowDialog( this );
+		}
+
+		private void cboBranches_SelectionChangeCommitted( object sender, EventArgs e )
+		{
+			this._tr = new Thread( new ThreadStart( this.AsignSucursal ) );
+			MetroComboBox cbo = ( MetroComboBox ) sender;
+			this._codigoBranch = (int) cbo.SelectedValue;
+			this.menuOptions.Enabled = false;
+			this.tableTiles.Enabled = false;
+			this.pgsLoadDataDefault.Visible = true;
+			this.panelLogged.Enabled = false;
+			this._tr.Start();
+		}
+
+		private void cboBranches_SelectedValueChanged( object sender, EventArgs e )
+		{
+
 		}
 	}
 }

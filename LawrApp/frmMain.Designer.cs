@@ -95,6 +95,8 @@
 			this.lblLoadInfo = new MetroFramework.Controls.MetroLabel();
 			this.pgsLoadDataDefault = new MetroFramework.Controls.MetroProgressSpinner();
 			this.panelLogged = new System.Windows.Forms.Panel();
+			this.lblSucursal = new MetroFramework.Controls.MetroLabel();
+			this.cboBranches = new MetroFramework.Controls.MetroComboBox();
 			this.ptbLogo = new System.Windows.Forms.PictureBox();
 			this.lblPeriodo = new MetroFramework.Controls.MetroLabel();
 			this.lblBranchAddress = new MetroFramework.Controls.MetroLabel();
@@ -106,8 +108,6 @@
 			this.lblUserName = new MetroFramework.Controls.MetroLabel();
 			this.ttInfo = new System.Windows.Forms.ToolTip(this.components);
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
-			this.cboBranches = new MetroFramework.Controls.MetroComboBox();
-			this.lblSucursal = new MetroFramework.Controls.MetroLabel();
 			this.menuOptions.SuspendLayout();
 			this.tableTiles.SuspendLayout();
 			this.panelLoginIn.SuspendLayout();
@@ -208,7 +208,7 @@
             this.cursosExoneradosToolStripMenuItem,
             this.modificarDatosDeAlumnosToolStripMenuItem});
 			this.tsmItemRegisterAlumno.Name = "tsmItemRegisterAlumno";
-			this.tsmItemRegisterAlumno.Size = new System.Drawing.Size(152, 24);
+			this.tsmItemRegisterAlumno.Size = new System.Drawing.Size(136, 24);
 			this.tsmItemRegisterAlumno.Text = "Alumnos";
 			// 
 			// apoderadosToolStripMenuItem
@@ -241,7 +241,7 @@
 			// tsmItemRegisterPersonal
 			// 
 			this.tsmItemRegisterPersonal.Name = "tsmItemRegisterPersonal";
-			this.tsmItemRegisterPersonal.Size = new System.Drawing.Size(152, 24);
+			this.tsmItemRegisterPersonal.Size = new System.Drawing.Size(136, 24);
 			this.tsmItemRegisterPersonal.Text = "Personal";
 			this.tsmItemRegisterPersonal.Click += new System.EventHandler(this.tsmItemRegisterPersonal_Click);
 			// 
@@ -885,6 +885,39 @@
 			this.panelLogged.TabIndex = 16;
 			this.panelLogged.Visible = false;
 			// 
+			// lblSucursal
+			// 
+			this.lblSucursal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.lblSucursal.Enabled = false;
+			this.lblSucursal.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+			this.lblSucursal.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.lblSucursal.Location = new System.Drawing.Point(414, 47);
+			this.lblSucursal.Name = "lblSucursal";
+			this.lblSucursal.Size = new System.Drawing.Size(80, 22);
+			this.lblSucursal.TabIndex = 21;
+			this.lblSucursal.Text = "Sucursales:";
+			this.lblSucursal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.lblSucursal.UseCustomForeColor = true;
+			this.lblSucursal.Visible = false;
+			// 
+			// cboBranches
+			// 
+			this.cboBranches.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cboBranches.DisplayFocus = true;
+			this.cboBranches.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.cboBranches.ImeMode = System.Windows.Forms.ImeMode.Off;
+			this.cboBranches.ItemHeight = 23;
+			this.cboBranches.Location = new System.Drawing.Point(500, 41);
+			this.cboBranches.Name = "cboBranches";
+			this.cboBranches.PromptText = "Seleccione una Sucursal";
+			this.cboBranches.Size = new System.Drawing.Size(226, 29);
+			this.cboBranches.Style = MetroFramework.MetroColorStyle.Green;
+			this.cboBranches.TabIndex = 20;
+			this.cboBranches.UseSelectable = true;
+			this.cboBranches.UseStyleColors = true;
+			this.cboBranches.Visible = false;
+			this.cboBranches.SelectionChangeCommitted += new System.EventHandler(this.cboBranches_SelectionChangeCommitted);
+			// 
 			// ptbLogo
 			// 
 			this.ptbLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1019,49 +1052,17 @@
 			this.pictureBox1.TabIndex = 10;
 			this.pictureBox1.TabStop = false;
 			// 
-			// cboBranches
-			// 
-			this.cboBranches.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.cboBranches.DisplayFocus = true;
-			this.cboBranches.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.cboBranches.ImeMode = System.Windows.Forms.ImeMode.Off;
-			this.cboBranches.ItemHeight = 23;
-			this.cboBranches.Location = new System.Drawing.Point(500, 41);
-			this.cboBranches.Name = "cboBranches";
-			this.cboBranches.PromptText = "Seleccione una Sucursal";
-			this.cboBranches.Size = new System.Drawing.Size(226, 29);
-			this.cboBranches.Style = MetroFramework.MetroColorStyle.Green;
-			this.cboBranches.TabIndex = 20;
-			this.cboBranches.UseSelectable = true;
-			this.cboBranches.UseStyleColors = true;
-			this.cboBranches.Visible = false;
-			// 
-			// lblSucursal
-			// 
-			this.lblSucursal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.lblSucursal.Enabled = false;
-			this.lblSucursal.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-			this.lblSucursal.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.lblSucursal.Location = new System.Drawing.Point(414, 47);
-			this.lblSucursal.Name = "lblSucursal";
-			this.lblSucursal.Size = new System.Drawing.Size(80, 22);
-			this.lblSucursal.TabIndex = 21;
-			this.lblSucursal.Text = "Sucursales:";
-			this.lblSucursal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.lblSucursal.UseCustomForeColor = true;
-			this.lblSucursal.Visible = false;
-			// 
 			// frmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1000, 600);
+			this.Controls.Add(this.menuOptions);
 			this.Controls.Add(this.panelLogged);
 			this.Controls.Add(this.pgsLoadDataDefault);
 			this.Controls.Add(this.lblLoadInfo);
 			this.Controls.Add(this.panelTitles);
 			this.Controls.Add(this.tableTiles);
-			this.Controls.Add(this.menuOptions);
 			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.panelLoginIn);
 			this.DisplayHeader = false;

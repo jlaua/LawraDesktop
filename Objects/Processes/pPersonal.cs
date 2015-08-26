@@ -16,7 +16,7 @@ namespace Objects.Processes
 		public string Key { get; set; }
 		public string Description { get; set; }
 		public string TipoPersonal { get; set; }
-		public bool UserActive { get; set; }
+		public bool IsActive { get; set; }
 		public string Sucursal { get; set; }
 		public string ModifiedDate { get; set; }
 	}

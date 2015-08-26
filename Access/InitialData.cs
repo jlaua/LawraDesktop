@@ -471,6 +471,41 @@ namespace Access
 			return dts;
 		}
 
+		public bool AsignBranch( int CodigoSucursal )
+		{
+			Query oQuery = new Query( "api/initial/institution/" + CodigoSucursal );
+
+			try
+			{
+				oQuery.SendRequestGET();
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.InternalServerError )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._exceptionUbigeo, "Error en el Servidor" );
+				else if ( oQuery.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
+
+				msgResponse resp = JsonConvert.DeserializeObject<msgResponse>( oQuery.ResponseContent );
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.BadRequest )
+					throw new InvalidOperationException( resp.message );
+
+				AsignBranches asign = JsonConvert.DeserializeObject<AsignBranches>( resp.data );
+
+				this.setAppSettings( "InstitutionCode", asign.Codigo );
+				this.setAppSettings( "InstitutionName", asign.Name );
+				this.setAppSettings( "InstitutionLogo", asign.Logo );
+				this.setAppSettings( "BranchCode", asign.CodigoSucursal.ToString() );
+				this.setAppSettings( "BranchAddress", asign.BranchAddress );
+
+				return true;
+			}
+			catch ( Exception e )
+			{
+				this._exceptionUbigeo = e.Message;
+				return false;
+			}
+		}
+
 		#endregion
 
 	}

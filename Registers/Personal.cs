@@ -48,11 +48,16 @@ namespace Registers
 				oQuery.SendRequestGET();
 
 				if ( oQuery.ResponseStatusCode == HttpStatusCode.InternalServerError )
-					throw new ArgumentNullException( "El Servidor Presenta Errores, Vuelve a intentarlo mas tarde.", "Error de Servidor" );
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._msgExceptionPersonal, "Error en el Servidor" );
 				else if ( oQuery.ResponseStatusCode == HttpStatusCode.NotFound )
-					throw new ArgumentNullException( "El Recurso no existe", "Recurso no Encontrado" );
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
 
-				return JsonConvert.DeserializeObject<List<lPersonal>>( oQuery.ResponseContent );
+				msgResponse resp = JsonConvert.DeserializeObject<msgResponse>( oQuery.ResponseContent );
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.BadRequest )
+					throw new InvalidOperationException( resp.message );
+
+				return JsonConvert.DeserializeObject<List<lPersonal>>( resp.data );
 
 			}catch ( Exception ex )
 			{
@@ -63,19 +68,23 @@ namespace Registers
 
 		public tPersonal Find( int ID )
 		{
-			Query oQuery = new Query( "api/personal" );
+			Query oQuery = new Query( "api/personal/" + ID );
 
 			try
 			{
-				oQuery.SendRequestGET( "" + ID );
+				oQuery.SendRequestGET();
 
-				if ( oQuery.ResponseStatusCode == System.Net.HttpStatusCode.InternalServerError )
-					throw new ArgumentNullException( "El Servidor Presenta Errores, Vuelve a intentarlo mas tarde.", "Error de Servidor" );
-				else if ( oQuery.ResponseStatusCode == System.Net.HttpStatusCode.NotFound )
-					throw new ArgumentNullException( "El Recurso no existe", "Recurso no Encontrado" );
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.InternalServerError )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._msgExceptionPersonal, "Error en el Servidor" );
+				else if ( oQuery.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
 
-				return JsonConvert.DeserializeObject<tPersonal>( oQuery.ResponseContent );
+				msgResponse resp = JsonConvert.DeserializeObject<msgResponse>( oQuery.ResponseContent );
 
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.BadRequest )
+					throw new InvalidOperationException( resp.message );
+
+				return JsonConvert.DeserializeObject<tPersonal>( resp.data );
 			}
 			catch ( Exception ex )
 			{
@@ -104,16 +113,91 @@ namespace Registers
 				query.SendRequestPOST();
 
 				if ( query.ResponseStatusCode == HttpStatusCode.InternalServerError )
-					throw new ArgumentNullException( "El Servidor Presenta Errores, Vuelve a intentarlo mas tarde.", "Error de Servidor" );
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._msgExceptionPersonal, "Error en el Servidor" );
 				else if ( query.ResponseStatusCode == HttpStatusCode.NotFound )
-					throw new ArgumentNullException( "El Recurso no existe", "Recurso no Encontrado" );
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
 
-				return JsonConvert.DeserializeObject<tPersonal>( query.ResponseContent );
+				msgResponse resp = JsonConvert.DeserializeObject<msgResponse>( query.ResponseContent );
+
+				if ( query.ResponseStatusCode == HttpStatusCode.BadRequest )
+					throw new InvalidOperationException( resp.message );
+
+				string[] str = resp.data.Split( '-' );
+				
+				this._data.Codigo =  Convert.ToInt32(str[0]);
+				this._data.Key = str[1];
+
+				return this._data;
 			}
 			catch ( Exception e )
 			{
 				this._msgExceptionPersonal = e.Message;
 				return null;
+			}
+		}
+
+		public bool Modify( int Codigo )
+		{
+			Query query = new Query( "api/personal/" + Codigo );
+
+			if ( !string.IsNullOrEmpty( this._data.ImageKey ) && !string.IsNullOrEmpty( this._data.ImageSrc ) )
+			{
+				this._file.Add( this._data.ImageKey, this._data.ImageSrc );
+				this._data.ImageSrc = string.Empty;
+			}
+
+			query.RequestParameters = this._data;
+
+			if ( this._file.Any() )
+				query.AddRequestFiles( this._file );
+
+			try
+			{
+				query.SendRequestPUT();
+
+				if ( query.ResponseStatusCode == HttpStatusCode.InternalServerError )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._msgExceptionPersonal, "Error en el Servidor" );
+				else if ( query.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
+
+				msgResponse resp = JsonConvert.DeserializeObject<msgResponse>( query.ResponseContent );
+
+				if ( query.ResponseStatusCode == HttpStatusCode.BadRequest )
+					throw new InvalidOperationException( resp.message );
+
+				return Convert.ToBoolean(resp.data);
+			}
+			catch ( Exception e )
+			{
+				this._msgExceptionPersonal = e.Message;
+				return false;
+			}
+		}
+
+		public bool Delete( int Codigo )
+		{
+			Query query = new Query( "api/personal/" + Codigo );
+
+			try
+			{
+				query.SendRequestDELETE();
+
+				if ( query.ResponseStatusCode == HttpStatusCode.InternalServerError )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._msgExceptionPersonal, "Error en el Servidor" );
+				else if ( query.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
+
+				msgResponse resp = JsonConvert.DeserializeObject<msgResponse>( query.ResponseContent );
+
+				if ( query.ResponseStatusCode == HttpStatusCode.BadRequest )
+					throw new InvalidOperationException( resp.message );
+
+				return Convert.ToBoolean( resp.data );
+			}
+			catch ( Exception e )
+			{
+				this._msgExceptionPersonal = e.Message;
+				return false;
 			}
 		}
 

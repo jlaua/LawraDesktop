@@ -29,8 +29,14 @@ namespace LawrApp.Layouts.regPersonal
 		private tPersonal _tPersonal_Old = new tPersonal();
 		private tProfesiones _tProfesion = new tProfesiones();
 
-		private bool _submitInsert = false;
-		private bool _inputManual = false;
+		private bool _submitInsert	= false;
+		private bool _inputManual	= false;
+		private bool _inAction		= false;
+		private bool _Changes		= false;
+
+		private int _idPersonal = 0;
+
+		private delegate void RestoreDataToControls();
 
 		public frm_Registers( DataGeneral dts )
 		{
@@ -44,20 +50,21 @@ namespace LawrApp.Layouts.regPersonal
 		{
 			CheckForIllegalCrossThreadCalls = false;
 
+			this._inAction = true;
+
 			List<lPersonal> tempPersonal = this._cPersonal.List();
 
 			if( tempPersonal != null )
 			{
 				foreach ( lPersonal item in tempPersonal )
 				{
-					object[] temp = new object[7]
+					object[] temp = new object[6]
 					{
 						item.Codigo,
 						item.Key,
 						item.Description,
 						item.TipoPersonal,
-						item.UserActive,
-						item.Sucursal,
+						item.IsActive,
 						item.ModifiedDate
 					};
 
@@ -78,6 +85,7 @@ namespace LawrApp.Layouts.regPersonal
 			}
 
 			this.panelMain.Enabled = true;
+			this._inAction = false;
 			this._hilo.Abort();
 		}
 
@@ -85,24 +93,122 @@ namespace LawrApp.Layouts.regPersonal
 		{
 			CheckForIllegalCrossThreadCalls = false;
 
+			this._tPersonal_Old = this._tPersonal;
 			this._tPersonal = this._cPersonal.Insert();
 
 			if ( this._tPersonal != null )
 			{
-				this._tPersonal_Old = this._tPersonal;
+				DataRow[] row = this._data.Tables["TipoPersonal"].Select("Codigo=" + this._tPersonal.CodigoTipoPersonal );
+
+				object[] temp = new object[6]
+				{
+					this._tPersonal.Codigo,
+					this._tPersonal.Key,
+					this._tPersonal.Names + " " + this._tPersonal.LastNames,
+					row[0]["Name"].ToString(),
+					row[0]["IsUser"],
+					DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+				};
+
+				this.dgvListado.Rows.Add( temp );
+
 				this.panelMain.Enabled = true;
 				this.pgsLoading.Visible = false;
+
+				MetroMessageBox.Show( this, "Se ha registrado al Personal", "Muy Bien!", MessageBoxButtons.OK, MessageBoxIcon.Question );
+				this.ResetControls();
 			}
 			else
 			{
 				this.panelMain.Enabled = true;
 				this.pgsLoading.Visible = false;
-				MetroMessageBox.Show( this, "Error:\n" + this._cPersonal.ExceptionPersonal, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error );
+				this._tPersonal = this._tPersonal_Old;
+				MetroMessageBox.Show( this, this._cPersonal.ExceptionPersonal, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error );
 
 			}
 
 			this._hilo.Abort();
+		}
 
+		void SubmitUpdate(  )
+		{
+			CheckForIllegalCrossThreadCalls = false;
+			this._inAction = true;
+			this._tPersonal_Old = this._tPersonal;
+
+			if ( this._cPersonal.Modify( this._tPersonal.Codigo ) )
+			{
+				DataRow[] row = this._data.Tables["TipoPersonal"].Select( "Codigo=" + this._tPersonal.CodigoTipoPersonal );
+
+				this.dgvListado.CurrentRow.Cells[2].Value = this._tPersonal.Names + " " + this._tPersonal.LastNames;
+				this.dgvListado.CurrentRow.Cells[3].Value = row[0]["Name"];
+				this.dgvListado.CurrentRow.Cells[4].Value = row[0]["IsUser"];
+
+				this.pgsLoading.Visible = false;
+				this.panelMain.Enabled = true;
+				MetroMessageBox.Show( this, "Se ha Modificado al Personal", "Muy Bien!", MessageBoxButtons.OK, MessageBoxIcon.Question );
+				this.ResetControls();
+			}
+			else
+			{
+				this._tPersonal = this._tPersonal_Old;
+				this.panelMain.Enabled = true;
+				this.pgsLoading.Visible = false;
+				MetroMessageBox.Show(this, this._cPersonal.ExceptionPersonal, "Error al Modificar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+
+			this._inAction = false;
+			this._hilo.Abort();
+		}
+
+		void SubmitDelete(  )
+		{
+			CheckForIllegalCrossThreadCalls = false;
+			this._inAction = true;
+
+			if ( this._cPersonal.Delete( this._idPersonal ) )
+			{
+				this.dgvListado.Rows.RemoveAt( this.dgvListado.CurrentRow.Index );
+				this.pgsLoading.Visible = false;
+				this.panelMain.Enabled = true;
+			}
+			else
+			{
+				pgsLoading.Visible = false;
+				MetroMessageBox.Show( this, this._cPersonal.ExceptionPersonal, "Error al Eliminar!", MessageBoxButtons.OK, MessageBoxIcon.Error );
+				this.panelMain.Enabled = true;
+				this._idPersonal = 0;
+			}
+
+			this._inAction = false;
+			this._hilo.Abort();
+		}
+
+		void FindPersonal( )
+		{
+			CheckForIllegalCrossThreadCalls = false;
+
+			this._inAction = true;
+
+			this._tPersonal = this._cPersonal.Find( this._idPersonal );
+
+			if ( this._tPersonal == null )
+			{
+				pgsLoading.Visible = false;
+				this.panelMain.Enabled = true;
+				this._tPersonal = new tPersonal();
+				MetroMessageBox.Show( this, this._cPersonal.ExceptionPersonal, "Error en la Solicitud", MessageBoxButtons.OK, MessageBoxIcon.Error );
+			}
+			else
+			{
+				this._tPersonal_Old = this._tPersonal;
+				this._tProfesion = this._tPersonal.Profesion;
+				this.RestoreData();
+			}
+
+			this._inAction = false;
+
+			this._hilo.Abort();
 		}
 
 		#endregion
@@ -132,8 +238,10 @@ namespace LawrApp.Layouts.regPersonal
 
 			//regresar estados por defecto
 			this.panelRegistros.Enabled = false;
+			this.panelListado.Enabled = true;
 			this.tabControl.SelectedTab = this.tabPageListado;
 			this.btnNuevo.Enabled = true;
+			this.lblLastModified.Text = string.Empty;
 			
 			if ( this.dgvListado.Rows.Count == 0 )
 			{
@@ -151,6 +259,68 @@ namespace LawrApp.Layouts.regPersonal
 				this.txtSearch.Enabled = true;
 				this.btnSearch.Enabled = true;
 			}
+
+			this.lblNombres_Validator.Visible = true;
+			this.lblApellidos_Validator.Visible = true;
+			this.lblGenero_Validator.Visible = true;
+			this.lblTipoDocumento_Validator.Visible = true;
+			this.lblDocumento_Validator.Visible = true;
+			this.lblTipoPersonal_Validator.Visible = true;
+			this.lblDireccion_Validator.Visible = true;
+
+			this._tPersonal = new tPersonal();
+		}
+
+		void RestoreData()
+		{
+			if( ! this.InvokeRequired )
+			{
+				this.ptbImage.ImageLocation = this._cPersonal.ConfigBaseUrl + this._tPersonal.ImageSrc;
+				this.txtNombres.Text = this._tPersonal.Names;
+				this.lblNombres_Validator.Visible = ( string.IsNullOrEmpty( this._tPersonal.Names ) ) ? true : false;
+				this.txtApellidos.Text = this._tPersonal.LastNames;
+				this.lblApellidos_Validator.Visible = ( string.IsNullOrEmpty( this._tPersonal.LastNames ) ) ? true : false;
+				this.dtpBirthday.Value = Convert.ToDateTime( this._tPersonal.Birthday );
+				this.CboGenero.SelectedIndex = ( this._tPersonal.Gender ) ? 1 : 0;
+				this.lblGenero_Validator.Visible = false;
+
+				if ( this._tPersonal.Profesion.Codigo == 0 )
+				{
+					this.cboProfesion.SelectedIndex = -1;
+					this.cboProfesion.Text = string.Empty;
+				}
+				else
+				{
+					this.cboProfesion.SelectedValue = this._tPersonal.Profesion.Codigo;
+				}
+				this._inputManual = true;
+				this.cboDocumento.SelectedValue = this._tPersonal.CodigoTipoDocumento;
+				this.lblTipoDocumento_Validator.Visible = false;
+				this.txtN_Documento.Text = this._tPersonal.DocumentNumber;
+				this.lblDocumento_Validator.Visible = ( string.IsNullOrEmpty( this._tPersonal.DocumentNumber ) ) ? true : false;
+				this.cboTipoPersonal.SelectedValue = this._tPersonal.CodigoTipoPersonal;
+				this.lblTipoPersonal_Validator.Visible = false;
+				this.txtTelefono.Text = this._tPersonal.Phone;
+				this.txtEmail.Text = this._tPersonal.Email;
+				this.txtDireccion.Text = this._tPersonal.Address;
+				this.lblDireccion_Validator.Visible = ( string.IsNullOrEmpty( this._tPersonal.Address ) ) ? true : false;
+				this.lblLastModified.Text = "Ult. Modificación: " + this._tPersonal.ModifiedDate;
+
+				this.pgsLoading.Visible = false;
+				this.panelMain.Enabled = true;
+				this.panelRegistros.Enabled = true;
+				this.panelListado.Enabled = false;
+
+				this.tabControl.SelectedIndex = 1;
+
+				this._Changes = false;
+				this.txtNombres.Focus();
+			}
+			else
+			{
+				RestoreDataToControls toco = new RestoreDataToControls( RestoreData );
+				this.Invoke( toco, new object[] { } );
+			}
 		}
 
 		#endregion
@@ -162,7 +332,7 @@ namespace LawrApp.Layouts.regPersonal
 			// Nombres
 			if ( string.IsNullOrWhiteSpace( this.txtNombres.Text ) )
 			{
-				this.toltipMore.Show( "Este Campo es Requerido", this.txtNombres );
+				this.toltipMore.Show( "Este Campo es Requerido", this.txtNombres, 2500 );
 				this.txtNombres.Focus();
 				return false;
 			}
@@ -170,7 +340,7 @@ namespace LawrApp.Layouts.regPersonal
 			// Apellidos
 			if ( string.IsNullOrWhiteSpace( this.txtNombres.Text ) )
 			{
-				this.toltipMore.Show( "Este Campo es Requerido", this.txtApellidos );
+				this.toltipMore.Show( "Este Campo es Requerido", this.txtApellidos, 2500 );
 				this.txtApellidos.Focus();
 				return false;
 			}
@@ -178,35 +348,15 @@ namespace LawrApp.Layouts.regPersonal
 			// Genero
 			if ( this.CboGenero.SelectedIndex < 0 )
 			{
-				this.toltipMore.Show( "Seleccione una Opción", this.CboGenero );
+				this.toltipMore.Show( "Seleccione una Opción", this.CboGenero, 2500 );
 				this.CboGenero.Focus();
 				return false;
-			}
-
-			// Profesión
-			if ( this._inputManual )
-			{
-				if ( string.IsNullOrWhiteSpace( this.cboProfesion.Text ) )
-				{
-					this.toltipMore.Show( "Si desea registrar una nueva profesión, Digite su nombre aquí o Escoja una de las Opciones", this.cboProfesion );
-					this.cboProfesion.Focus();
-					return false;
-				}
-			}
-			else
-			{
-				if ( this.cboProfesion.SelectedValue == null )
-				{
-					this.toltipMore.Show( "Si desea registrar una nueva profesión, Digite su nombre aquí o Escoja una de las Opciones", this.cboProfesion );
-					this.cboProfesion.Focus();
-					return false;
-				}
 			}
 
 			//Documento
 			if ( this.cboDocumento.SelectedValue == null )
 			{
-				this.toltipMore.Show( "Seleccione una Opción", this.cboDocumento );
+				this.toltipMore.Show( "Seleccione una Opción", this.cboDocumento, 2500 );
 				this.cboDocumento.Focus();
 				return false;
 			}
@@ -214,7 +364,7 @@ namespace LawrApp.Layouts.regPersonal
 			// N° de Documento
 			if ( string.IsNullOrWhiteSpace( this.txtN_Documento.Text ) )
 			{
-				this.toltipMore.Show( "Este Campo es Requerido", this.txtN_Documento );
+				this.toltipMore.Show( "Este Campo es Requerido", this.txtN_Documento, 2500 );
 				this.txtN_Documento.Focus();
 				return false;
 			}
@@ -222,7 +372,7 @@ namespace LawrApp.Layouts.regPersonal
 			// Tipo de Personal
 			if ( this.cboTipoPersonal.SelectedValue == null )
 			{
-				this.toltipMore.Show( "Seleccione una Opción", this.cboTipoPersonal );
+				this.toltipMore.Show( "Seleccione una Opción", this.cboTipoPersonal, 2500 );
 				this.cboTipoPersonal.Focus();
 				return false;
 			}
@@ -230,7 +380,7 @@ namespace LawrApp.Layouts.regPersonal
 			//Dirección
 			if ( string.IsNullOrWhiteSpace( this.txtDireccion.Text ) )
 			{
-				this.toltipMore.Show( "Este Campo es Requerido", this.txtDireccion );
+				this.toltipMore.Show( "Este Campo es Requerido", this.txtDireccion, 2500 );
 				this.txtDireccion.Focus();
 				return false;
 			}
@@ -242,6 +392,7 @@ namespace LawrApp.Layouts.regPersonal
 
 		private void frm_Registers_Load( object sender, EventArgs e )
 		{
+			this.lblSucursal.Text = "Dirección: " + this._cPersonal.getAppSettings( "BranchAddress" );
 			this.tabControl.SelectedTab = this.tabPageListado;
 
 			this._hilo = new Thread( new ThreadStart( LoadData ) );
@@ -271,8 +422,16 @@ namespace LawrApp.Layouts.regPersonal
 
 		private void frm_Registers_FormClosing( object sender, FormClosingEventArgs e )
 		{
-			frmMain main = new frmMain( this._data );
-			main.Show();
+			if ( ! this._inAction )
+			{
+				frmMain main = new frmMain( this._data );
+				main.Show();
+			}
+			else
+			{
+				e.Cancel = true;
+			}
+			
 		}
 
 		private void btnNuevo_Click( object sender, EventArgs e )
@@ -280,6 +439,7 @@ namespace LawrApp.Layouts.regPersonal
 			this.panelRegistros.Enabled = true;
 			this.btnNuevo.Enabled = false;
 			this.tabControl.SelectedTab = this.tabPageRegistro;
+			this._Changes = false;
 			this._submitInsert = true;
 			this.txtNombres.Focus();
 		}
@@ -288,6 +448,30 @@ namespace LawrApp.Layouts.regPersonal
 		{
 			this._submitInsert = false;
 			this.ResetControls();
+		}
+
+		private void btnGuardar_Click( object sender, EventArgs e )
+		{
+			if ( !this.ValidateData() ) return;
+
+			this._tPersonal.Birthday = this.dtpBirthday.Value.ToString( "yyyy-MM-dd" );
+			this._tPersonal.Profesion = this._tProfesion;
+
+			if ( this._submitInsert )
+			{
+				this._hilo = new Thread( new ThreadStart( this.SubmitInsert ) );
+			}
+			else
+			{
+				this._hilo = new Thread( new ThreadStart( this.SubmitUpdate ) );
+			}
+
+			this.panelMain.Enabled = false;
+			this.pgsLoading.Visible = true;
+
+			this._cPersonal.Data = this._tPersonal;
+
+			this._hilo.Start();
 		}
 
 		private void OnlyLetter_TextBox_KeyPress( object sender, KeyPressEventArgs e )
@@ -344,21 +528,25 @@ namespace LawrApp.Layouts.regPersonal
 			{
 				case "txtNombres":
 					this._tPersonal.Names = txt.Text.Trim();
+					this.lblNombres_Validator.Visible = ( string.IsNullOrWhiteSpace( txt.Text.Trim() ) ) ? true : false;
 				break;
 				case "txtApellidos":
 					this._tPersonal.LastNames = txt.Text.Trim();
+					this.lblApellidos_Validator.Visible = ( string.IsNullOrWhiteSpace( txt.Text.Trim() ) ) ? true : false;
 				break;
 				case "txtN_Documento":
 					this._tPersonal.DocumentNumber = txt.Text.Trim();
+					this.lblDocumento_Validator.Visible = ( string.IsNullOrWhiteSpace( txt.Text.Trim() ) ) ? true : false;
 				break;
 				case "txtEmail":
-				this._tPersonal.Email = txtEmail.Text.Trim();
+					this._tPersonal.Email = txtEmail.Text.Trim();
 				break;
 				case "txtTelefono":
-				this._tPersonal.Phone = txtTelefono.Text.Trim();
+					this._tPersonal.Phone = txtTelefono.Text.Trim();
 				break;
 				case "txtDireccion":
-				this._tPersonal.Address = txtDireccion.Text.Trim();
+					this._tPersonal.Address = txtDireccion.Text.Trim();
+					this.lblDireccion_Validator.Visible = ( string.IsNullOrWhiteSpace( txt.Text.Trim() ) ) ? true : false;
 				break;
 			}
 		}
@@ -369,24 +557,47 @@ namespace LawrApp.Layouts.regPersonal
 
 			switch( cbo.Name )
 			{
-				case "cboGenero":
-				this._tPersonal.Gender = ( ( cbo.SelectedIndex > 0 ) ? Convert.ToBoolean(cbo.SelectedIndex) : false );
+				case "CboGenero":
+				this._tPersonal.Gender = ( ( cbo.SelectedIndex == 1 ) ? true : false );
+				this.lblGenero_Validator.Visible = (cbo.SelectedIndex > -1) ? false : true;
 				break;
 				case "cboProfesion":
 				if( this._inputManual )
 				{
-					this._tProfesion.Name = this.cboProfesion.Text;
+					if ( string.IsNullOrWhiteSpace( cbo.Text.Trim() ) )//POR SI HE BORRADO TODO PORQUE NO TIENE PROFESION
+					{
+						this._tProfesion.Codigo = 0;
+						this._tProfesion.Name = string.Empty;
+					}
+					else
+					{
+						DataRow[] row = this._data.Tables["Profesion"].Select( "Name = '" + this.cboProfesion.Text.Trim() + "'" );
+
+						if ( row.Any() )
+						{
+							this.cboProfesion.SelectedValue = row[0]["Codigo"];
+							this.cboProfesion_SelectionChangeCommitted( this.cboProfesion, EventArgs.Empty );
+							this._tProfesion.Codigo = ( int ) row[0]["Codigo"];
+						}
+						else
+						{
+							this._tProfesion.Name = this.cboProfesion.Text;
+						}
+					}
 				}
 				else
 				{
 					this._tProfesion.Codigo = ( int ) ( ( cboProfesion.SelectedValue == null ) ? 0 : cboProfesion.SelectedValue );
 				}
+
 				break;
 				case "cboDocumento":
 				this._tPersonal.CodigoTipoDocumento = ( int ) ( ( cboDocumento.SelectedValue == null ) ? 0 : cboDocumento.SelectedValue );
+				this.lblTipoDocumento_Validator.Visible = false;
 				break;
 				case "cboTipoPersonal":
 				this._tPersonal.CodigoTipoPersonal = ( int ) ( (cboTipoPersonal.SelectedValue == null ) ? 0 : cboTipoPersonal.SelectedValue );
+				this.lblTipoPersonal_Validator.Visible = false;
 				break;
 			}
 		}
@@ -394,30 +605,6 @@ namespace LawrApp.Layouts.regPersonal
 		private void dtpBirthday_Leave( object sender, EventArgs e )
 		{
 			this._tPersonal.Birthday = this.dtpBirthday.Value.ToString( "yyyy-MM-dd" );
-		}
-
-		private void btnGuardar_Click( object sender, EventArgs e )
-		{
-			if ( !this.ValidateData() ) return;
-
-			this._tPersonal.Birthday = this.dtpBirthday.Value.ToString( "yyyy-MM-dd" );
-			this._tPersonal.Profesion = this._tProfesion;
-
-			if ( this._submitInsert )
-			{
-				this._hilo = new Thread( new ThreadStart( this.SubmitInsert ) );
-			}
-			else
-			{
-				this._hilo = new Thread( new ThreadStart( this.SubmitInsert ) );
-			}
-
-			this.panelMain.Enabled = false;
-			this.pgsLoading.Visible = true;
-
-			this._cPersonal.Data = this._tPersonal;
-
-			this._hilo.Start();
 		}
 
 		private void cboProfesion_KeyDown( object sender, KeyEventArgs e )
@@ -433,5 +620,72 @@ namespace LawrApp.Layouts.regPersonal
 			this._inputManual = false;
 		}
 
+		private void dgvListado_CellDoubleClick( object sender, DataGridViewCellEventArgs e )
+		{
+			if ( e.RowIndex >= 0 )
+			{
+				this._hilo = new Thread( new ThreadStart( this.FindPersonal ) );
+
+				this._idPersonal = ( int ) this.dgvListado.CurrentRow.Cells[0].Value;
+
+				this.panelMain.Enabled = false;
+				this.pgsLoading.Visible = true;
+
+				this._hilo.Start();
+			}
+		}
+
+		private void dgvListado_KeyDown( object sender, KeyEventArgs e )
+		{
+			if ( this.dgvListado.CurrentRow.Index >= 0 )
+			{
+				if ( e.KeyData == Keys.Enter )
+				{
+					this._hilo = new Thread( new ThreadStart( this.FindPersonal ) );
+
+					this._idPersonal = ( int ) this.dgvListado.CurrentRow.Cells[0].Value;
+
+					this.panelMain.Enabled = false;
+					this.pgsLoading.Visible = true;
+
+					this._hilo.Start();
+
+					e.Handled = true;
+				}
+				else if ( e.KeyData == Keys.Delete )
+				{
+					DialogResult res = MetroMessageBox.Show( this, "Si realmente deseas Eliminar esta fila Presiona OK", "¿Deseas Eliminar?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning );
+
+					if ( res == DialogResult.OK )
+					{
+						this._hilo = new Thread( new ThreadStart( this.SubmitDelete ) );
+
+						this._idPersonal = ( int ) this.dgvListado.CurrentRow.Cells[0].Value;
+
+						this.panelMain.Enabled = false;
+						this.pgsLoading.Visible = true;
+
+						this._hilo.Start();
+					}
+
+					e.Handled = true;
+				}
+			}
+		}
+
+		private void btnModificar_Click( object sender, EventArgs e )
+		{
+			if ( this.dgvListado.CurrentRow.Index >= 0 )
+			{
+				this._hilo = new Thread( new ThreadStart( this.FindPersonal ) );
+
+				this._idPersonal = ( int ) this.dgvListado.CurrentRow.Cells[0].Value;
+
+				this.panelMain.Enabled = false;
+				this.pgsLoading.Visible = true;
+
+				this._hilo.Start();
+			}
+		}
 	}
 }

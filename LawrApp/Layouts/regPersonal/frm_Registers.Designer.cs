@@ -43,7 +43,6 @@
 			this.colDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.colTipoPersonal = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.colActive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-			this.colSucursal = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.colLasModified = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.btnSalir = new MetroFramework.Controls.MetroButton();
 			this.btnEliminar = new MetroFramework.Controls.MetroButton();
@@ -51,7 +50,15 @@
 			this.btnNuevo = new MetroFramework.Controls.MetroButton();
 			this.tabPageRegistro = new MetroFramework.Controls.MetroTabPage();
 			this.panelRegistros = new System.Windows.Forms.Panel();
+			this.lblLastModified = new MetroFramework.Controls.MetroLabel();
 			this.gbDatos = new System.Windows.Forms.GroupBox();
+			this.lblDireccion_Validator = new System.Windows.Forms.Label();
+			this.lblTipoPersonal_Validator = new System.Windows.Forms.Label();
+			this.lblDocumento_Validator = new System.Windows.Forms.Label();
+			this.lblTipoDocumento_Validator = new System.Windows.Forms.Label();
+			this.lblGenero_Validator = new System.Windows.Forms.Label();
+			this.lblApellidos_Validator = new System.Windows.Forms.Label();
+			this.lblNombres_Validator = new System.Windows.Forms.Label();
 			this.txtDireccion = new System.Windows.Forms.TextBox();
 			this.txtTelefono = new System.Windows.Forms.TextBox();
 			this.txtEmail = new System.Windows.Forms.TextBox();
@@ -82,6 +89,7 @@
 			this.pgsLoading = new MetroFramework.Controls.MetroProgressSpinner();
 			this.openPerfilPicture = new System.Windows.Forms.OpenFileDialog();
 			this.toltipMore = new System.Windows.Forms.ToolTip(this.components);
+			this.lblSucursal = new MetroFramework.Controls.MetroLabel();
 			this.panelMain.SuspendLayout();
 			this.tabControl.SuspendLayout();
 			this.tabPageListado.SuspendLayout();
@@ -118,7 +126,7 @@
 			this.tabControl.ItemSize = new System.Drawing.Size(120, 40);
 			this.tabControl.Location = new System.Drawing.Point(3, 3);
 			this.tabControl.Name = "tabControl";
-			this.tabControl.SelectedIndex = 1;
+			this.tabControl.SelectedIndex = 0;
 			this.tabControl.Size = new System.Drawing.Size(734, 472);
 			this.tabControl.Style = MetroFramework.MetroColorStyle.Green;
 			this.tabControl.TabIndex = 4;
@@ -209,7 +217,6 @@
             this.colDescripcion,
             this.colTipoPersonal,
             this.colActive,
-            this.colSucursal,
             this.colLasModified});
 			this.dgvListado.Location = new System.Drawing.Point(3, 49);
 			this.dgvListado.MultiSelect = false;
@@ -232,6 +239,8 @@
 			this.dgvListado.Size = new System.Drawing.Size(718, 311);
 			this.dgvListado.StandardTab = true;
 			this.dgvListado.TabIndex = 8;
+			this.dgvListado.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListado_CellDoubleClick);
+			this.dgvListado.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvListado_KeyDown);
 			// 
 			// colCodigo
 			// 
@@ -262,18 +271,12 @@
 			// 
 			// colActive
 			// 
-			this.colActive.FillWeight = 50F;
+			this.colActive.FillWeight = 30F;
 			this.colActive.HeaderText = "Activo";
 			this.colActive.Name = "colActive";
 			this.colActive.ReadOnly = true;
 			this.colActive.Resizable = System.Windows.Forms.DataGridViewTriState.True;
 			this.colActive.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			// 
-			// colSucursal
-			// 
-			this.colSucursal.HeaderText = "Sucursal";
-			this.colSucursal.Name = "colSucursal";
-			this.colSucursal.ReadOnly = true;
 			// 
 			// colLasModified
 			// 
@@ -309,6 +312,7 @@
 			this.btnModificar.TabIndex = 5;
 			this.btnModificar.Text = "Modificar";
 			this.btnModificar.UseSelectable = true;
+			this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
 			// 
 			// btnNuevo
 			// 
@@ -338,6 +342,7 @@
 			// panelRegistros
 			// 
 			this.panelRegistros.BackColor = System.Drawing.Color.Transparent;
+			this.panelRegistros.Controls.Add(this.lblLastModified);
 			this.panelRegistros.Controls.Add(this.gbDatos);
 			this.panelRegistros.Controls.Add(this.btnCancelar);
 			this.panelRegistros.Controls.Add(this.btnGuardar);
@@ -348,8 +353,26 @@
 			this.panelRegistros.Size = new System.Drawing.Size(726, 424);
 			this.panelRegistros.TabIndex = 2;
 			// 
+			// lblLastModified
+			// 
+			this.lblLastModified.FontSize = MetroFramework.MetroLabelSize.Small;
+			this.lblLastModified.ForeColor = System.Drawing.SystemColors.ControlDark;
+			this.lblLastModified.Location = new System.Drawing.Point(11, 402);
+			this.lblLastModified.Name = "lblLastModified";
+			this.lblLastModified.Size = new System.Drawing.Size(275, 19);
+			this.lblLastModified.TabIndex = 4;
+			this.lblLastModified.Text = "metroLabel13";
+			this.lblLastModified.UseCustomForeColor = true;
+			// 
 			// gbDatos
 			// 
+			this.gbDatos.Controls.Add(this.lblDireccion_Validator);
+			this.gbDatos.Controls.Add(this.lblTipoPersonal_Validator);
+			this.gbDatos.Controls.Add(this.lblDocumento_Validator);
+			this.gbDatos.Controls.Add(this.lblTipoDocumento_Validator);
+			this.gbDatos.Controls.Add(this.lblGenero_Validator);
+			this.gbDatos.Controls.Add(this.lblApellidos_Validator);
+			this.gbDatos.Controls.Add(this.lblNombres_Validator);
 			this.gbDatos.Controls.Add(this.txtDireccion);
 			this.gbDatos.Controls.Add(this.txtTelefono);
 			this.gbDatos.Controls.Add(this.txtEmail);
@@ -381,6 +404,83 @@
 			this.gbDatos.TabIndex = 3;
 			this.gbDatos.TabStop = false;
 			this.gbDatos.Text = "Datos del Personal";
+			// 
+			// lblDireccion_Validator
+			// 
+			this.lblDireccion_Validator.BackColor = System.Drawing.Color.Transparent;
+			this.lblDireccion_Validator.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblDireccion_Validator.ForeColor = System.Drawing.Color.Red;
+			this.lblDireccion_Validator.Location = new System.Drawing.Point(67, 289);
+			this.lblDireccion_Validator.Name = "lblDireccion_Validator";
+			this.lblDireccion_Validator.Size = new System.Drawing.Size(24, 16);
+			this.lblDireccion_Validator.TabIndex = 62;
+			this.lblDireccion_Validator.Text = "*";
+			// 
+			// lblTipoPersonal_Validator
+			// 
+			this.lblTipoPersonal_Validator.BackColor = System.Drawing.Color.Transparent;
+			this.lblTipoPersonal_Validator.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblTipoPersonal_Validator.ForeColor = System.Drawing.Color.Red;
+			this.lblTipoPersonal_Validator.Location = new System.Drawing.Point(471, 161);
+			this.lblTipoPersonal_Validator.Name = "lblTipoPersonal_Validator";
+			this.lblTipoPersonal_Validator.Size = new System.Drawing.Size(24, 16);
+			this.lblTipoPersonal_Validator.TabIndex = 61;
+			this.lblTipoPersonal_Validator.Text = "*";
+			// 
+			// lblDocumento_Validator
+			// 
+			this.lblDocumento_Validator.BackColor = System.Drawing.Color.Transparent;
+			this.lblDocumento_Validator.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblDocumento_Validator.ForeColor = System.Drawing.Color.Red;
+			this.lblDocumento_Validator.Location = new System.Drawing.Point(278, 161);
+			this.lblDocumento_Validator.Name = "lblDocumento_Validator";
+			this.lblDocumento_Validator.Size = new System.Drawing.Size(24, 16);
+			this.lblDocumento_Validator.TabIndex = 60;
+			this.lblDocumento_Validator.Text = "*";
+			// 
+			// lblTipoDocumento_Validator
+			// 
+			this.lblTipoDocumento_Validator.BackColor = System.Drawing.Color.Transparent;
+			this.lblTipoDocumento_Validator.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblTipoDocumento_Validator.ForeColor = System.Drawing.Color.Red;
+			this.lblTipoDocumento_Validator.Location = new System.Drawing.Point(82, 161);
+			this.lblTipoDocumento_Validator.Name = "lblTipoDocumento_Validator";
+			this.lblTipoDocumento_Validator.Size = new System.Drawing.Size(24, 16);
+			this.lblTipoDocumento_Validator.TabIndex = 59;
+			this.lblTipoDocumento_Validator.Text = "*";
+			// 
+			// lblGenero_Validator
+			// 
+			this.lblGenero_Validator.BackColor = System.Drawing.Color.Transparent;
+			this.lblGenero_Validator.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblGenero_Validator.ForeColor = System.Drawing.Color.Red;
+			this.lblGenero_Validator.Location = new System.Drawing.Point(234, 95);
+			this.lblGenero_Validator.Name = "lblGenero_Validator";
+			this.lblGenero_Validator.Size = new System.Drawing.Size(24, 16);
+			this.lblGenero_Validator.TabIndex = 58;
+			this.lblGenero_Validator.Text = "*";
+			// 
+			// lblApellidos_Validator
+			// 
+			this.lblApellidos_Validator.BackColor = System.Drawing.Color.Transparent;
+			this.lblApellidos_Validator.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblApellidos_Validator.ForeColor = System.Drawing.Color.Red;
+			this.lblApellidos_Validator.Location = new System.Drawing.Point(351, 31);
+			this.lblApellidos_Validator.Name = "lblApellidos_Validator";
+			this.lblApellidos_Validator.Size = new System.Drawing.Size(24, 16);
+			this.lblApellidos_Validator.TabIndex = 56;
+			this.lblApellidos_Validator.Text = "*";
+			// 
+			// lblNombres_Validator
+			// 
+			this.lblNombres_Validator.BackColor = System.Drawing.Color.Transparent;
+			this.lblNombres_Validator.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblNombres_Validator.ForeColor = System.Drawing.Color.Red;
+			this.lblNombres_Validator.Location = new System.Drawing.Point(65, 31);
+			this.lblNombres_Validator.Name = "lblNombres_Validator";
+			this.lblNombres_Validator.Size = new System.Drawing.Size(24, 16);
+			this.lblNombres_Validator.TabIndex = 55;
+			this.lblNombres_Validator.Text = "*";
 			// 
 			// txtDireccion
 			// 
@@ -438,6 +538,8 @@
 			// 
 			// cboProfesion
 			// 
+			this.cboProfesion.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+			this.cboProfesion.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.cboProfesion.FormattingEnabled = true;
 			this.cboProfesion.Location = new System.Drawing.Point(367, 115);
 			this.cboProfesion.Name = "cboProfesion";
@@ -656,11 +758,23 @@
 			this.toltipMore.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
 			this.toltipMore.ToolTipTitle = "Info:";
 			// 
+			// lblSucursal
+			// 
+			this.lblSucursal.FontSize = MetroFramework.MetroLabelSize.Small;
+			this.lblSucursal.ForeColor = System.Drawing.SystemColors.ControlDark;
+			this.lblSucursal.Location = new System.Drawing.Point(22, 54);
+			this.lblSucursal.Name = "lblSucursal";
+			this.lblSucursal.Size = new System.Drawing.Size(748, 19);
+			this.lblSucursal.TabIndex = 2;
+			this.lblSucursal.Text = "metroLabel13";
+			this.lblSucursal.UseCustomForeColor = true;
+			// 
 			// frm_Registers
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 600);
+			this.Controls.Add(this.lblSucursal);
 			this.Controls.Add(this.pgsLoading);
 			this.Controls.Add(this.panelMain);
 			this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -735,15 +849,23 @@
 		private MetroFramework.Controls.MetroLabel metroLabel10;
 		private System.Windows.Forms.TextBox txtDireccion;
 		private MetroFramework.Controls.MetroLabel metroLabel12;
+		private System.Windows.Forms.OpenFileDialog openPerfilPicture;
+		private System.Windows.Forms.ToolTip toltipMore;
 		private System.Windows.Forms.DataGridViewTextBoxColumn colCodigo;
 		private System.Windows.Forms.DataGridViewTextBoxColumn colKey;
 		private System.Windows.Forms.DataGridViewTextBoxColumn colDescripcion;
 		private System.Windows.Forms.DataGridViewTextBoxColumn colTipoPersonal;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn colActive;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colSucursal;
 		private System.Windows.Forms.DataGridViewTextBoxColumn colLasModified;
-		private System.Windows.Forms.OpenFileDialog openPerfilPicture;
-		private System.Windows.Forms.ToolTip toltipMore;
+		private MetroFramework.Controls.MetroLabel lblSucursal;
+		private System.Windows.Forms.Label lblTipoPersonal_Validator;
+		private System.Windows.Forms.Label lblDocumento_Validator;
+		private System.Windows.Forms.Label lblTipoDocumento_Validator;
+		private System.Windows.Forms.Label lblGenero_Validator;
+		private System.Windows.Forms.Label lblApellidos_Validator;
+		private System.Windows.Forms.Label lblNombres_Validator;
+		private System.Windows.Forms.Label lblDireccion_Validator;
+		private MetroFramework.Controls.MetroLabel lblLastModified;
 
 	}
 }

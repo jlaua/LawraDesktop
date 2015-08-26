@@ -8,5 +8,6 @@ namespace LawrApp
     public interface IFrmMain
     {
 		void ReloadData( bool reload );
+		void DeletedSucursal( int CodigoSucursal );
     }
 }
