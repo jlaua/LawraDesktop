@@ -117,32 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="dashboard_logout" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dashboard-logout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="pictureBox3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+</value>
   </data>
-  <data name="icon_ap_periodo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icon-ap-periodo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="pictureBox2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAEAAAABBCAYAAABhNaJ7AAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJOSURBVHhe7ZqBbcIwEEU7QkdgBEZgBLIBIzACGzAC
+        I3SEjsAIjMAI9P/2R0XuVcGJbZ1jf+lVyEnO/w7UxOe8ldYwDDtwAKcAju102rqk5D7A40V47kGX1ysk
+        sQVXJTWHT7BVuLpE4+CuRJbAGHUVAYY3Mm4lNAfGeld4/4JZ/nStRJZwUXjfglH+9K0EUrDRNH4Fk+fA
+        dErOmsavYHLJf/0prprGrwzTSdE0PgWDfMozjSfE7y0R5koUwO/jMs0FZnPQC6Dp/InmArM56AXQdP4E
+        czmfAkd8rgloDORYA4RwDn9FgKmcj8AhJ03rRzCVcvk7xV3T+pFhMiua1o8skxlx+Qu4BCZz4m9ZDFO8
+        C+RcCo/4vAuMgrnjk9nUHDWNb8HoLTCegpvC+xfMcqfHSmIJ/u79/wlm2Ra3klhCPW1xCoZT3hX8N0ND
+        wTTvCql2hur69kfB+P4pkbnsFa5OGQlFoTD1ykoqBoWpV1ZSMShMvbKSikFh6pWVVAwKU6+spGJQmHpl
+        JRWDwtQrK6kYFKYOwTDb4nwjjA3SlB1ixmJMxvazOQozXPSMr8AVbYqC71fpQPm3RjRxiT2AV8n/XiEm
+        4OKG6/yS33QsbMTQY9rFk4J6TjyEXpc3UBCEm5052luloPd5m6m4sORWV25eb6jg5FLt7dJMt9N5Alhj
+        8iPMzS4CD+gE68I18bcIHNAB64I18lsEftCAdeKa+SmCPlgntMCVBbAONEMvgDXYEr0A1mBL9AJYgy3R
+        C2ANtkQvgDXYEr0A+MOGZ6MMpy9pI2ODdhBrrQAAAABJRU5ErkJggg==
+</value>
   </data>
-  <data name="icon_reg_alumno" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icon-reg-alumno.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="image_broken" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\image.broken.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="key_grey" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\key.grey.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="loader" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\loader.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="network_server_grey" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\network.server.grey.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="user_grey" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\user.grey.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="user_tie_grey" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\user.tie.grey.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="btnChange.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAEwAAABMCAYAAADHl1ErAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAHLSURBVHhe7ZqBbcJAEAQpgRIogRJogU4ogQ4oISVQ
+        AiVQSkpIbqOP9F6Do0ts521mpRGgs3zcSDz2w4YQQtaS4/F4CW7Q4VL09FMO+IAOt6KnHxXtYEBYmtUK
+        6wym11Y/lJJqZ6udS0m1g9UQFs8RFiAsCcKSNCHsLdDJResymxA21KQ1EJYEYUmaEAYIS4OwJIPC2A/r
+        83w/jBDSVPR5tc8vsKefhsuKJAhLslphncH02urcSxoIS4KwJAhL0oQw9vSTwoaatAbCkiAsSRPCAGFp
+        EJZkUBj7YX3Y0yeE/BitFbZ21LCOeIqYR99S4vk31atGUkxSDcI8kmKSahDmkRSTVIMwj6SYpBqEeSTF
+        JNUgzCMpJqkGYR5JMUk1CPNIikmqQZhHUkxSDcI8kmKSahDmkRSTVPM6wmLYXXCthp8K9diVtstMDLAN
+        3stAc6Be29J+eYk3f6qGmYtTaT99otk+0O9yf2Vfzje0Lk3F13oXj6PO8jBRHGvA7zf9n8JGneVhVLSD
+        fwvCkiAsCcKSICwJwpK8jLCxr8PmuCVyrlPMMkui2bqv9KdIDHC3gabkXtouNzGEbsD1F0mtKVOiHsu9
+        8SaEkMmz2XwC3hjaE6ZbZx4AAAAASUVORK5CYII=
+</value>
   </data>
 </root>

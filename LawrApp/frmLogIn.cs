@@ -28,33 +28,33 @@ namespace LawrApp
 
         #region THREAD´S
 
-        public void sendDataLogin()
-        {
-            CheckForIllegalCrossThreadCalls = false;
+		//public void sendDataLogin()
+		//{
+		//	CheckForIllegalCrossThreadCalls = false;
 
-            if ( this.classLog.SendLogin() )
-            {
-                this.panelDatos.Enabled = false;
-                this.pgsload.Visible = false;
-                this.btnacceder.Enabled = false;
-                MetroMessageBox.Show( this, 
-                    "\n" + this.classLog.UserFullName + "\n\nPulsa OK para continuar...", 
-                    "Bienvenido!", 
-                    MessageBoxButtons.OK, 
-                    MessageBoxIcon.Question );
+		//	if ( this.classLog.SendLogin() )
+		//	{
+		//		this.panelDatos.Enabled = false;
+		//		this.pgsload.Visible = false;
+		//		this.btnacceder.Enabled = false;
+		//		MetroMessageBox.Show( this, 
+		//			"\n" + this.classLog.UserFullName + "\n\nPulsa OK para continuar...", 
+		//			"Bienvenido!", 
+		//			MessageBoxButtons.OK, 
+		//			MessageBoxIcon.Question );
 
-                this.Close();
-            }
-            else
-            {
-                this.panelDatos.Enabled = true;
-                this.pgsload.Visible = false;
-                this.btnacceder.Enabled = true;
+		//		this.Close();
+		//	}
+		//	else
+		//	{
+		//		this.panelDatos.Enabled = true;
+		//		this.pgsload.Visible = false;
+		//		this.btnacceder.Enabled = true;
 
-                MetroMessageBox.Show( this, this.classLog.MsgExceptionLogin, "Error!!", MessageBoxButtons.OK, MessageBoxIcon.Error );
+		//		MetroMessageBox.Show( this, this.classLog.MsgExceptionLogin, "Error!!", MessageBoxButtons.OK, MessageBoxIcon.Error );
 
-            }
-        }
+		//	}
+		//}
 
         #endregion
 
@@ -62,22 +62,22 @@ namespace LawrApp
 
         private void btnacceder_Click( object sender, EventArgs e )
         {
-            if ( string.IsNullOrWhiteSpace( txtpassword.Text ) && string.IsNullOrWhiteSpace( txtuser_nick.Text ) )
-                return;//no avanzar si las cajas de texto estan avacias
+			//if ( string.IsNullOrWhiteSpace( txtpassword.Text ) && string.IsNullOrWhiteSpace( txtuser_nick.Text ) )
+			//	return;//no avanzar si las cajas de texto estan avacias
 
-            this.tr = new Thread( new ThreadStart( this.sendDataLogin ) );
+			//this.tr = new Thread( new ThreadStart( this.sendDataLogin ) );
 
-            classLog.InputName = this.txtuser_nick.Text;
-            classLog.InputPass = this.txtpassword.Text;
+			//classLog.InputName = this.txtuser_nick.Text;
+			//classLog.InputPass = this.txtpassword.Text;
 
-            this.txtpassword.Clear();
-            this.panelDatos.Enabled = false;
-            this.pgsload.Visible = true;
-            this.btnacceder.Enabled = false;
+			//this.txtpassword.Clear();
+			//this.panelDatos.Enabled = false;
+			//this.pgsload.Visible = true;
+			//this.btnacceder.Enabled = false;
 
-            this.tr.Start();
+			//this.tr.Start();
 
-            this.txtpassword.Focus();
+			//this.txtpassword.Focus();
 
         }
 

@@ -103,8 +103,9 @@ namespace Options
 
 			this.Request.RequestFormat = DataFormat.Json;
             this.Request.AddHeader( "token", this.AuthToken );
-			this.Request.AddHeader( "Yearacademy", this.getAppSettings("YearAcademy") );
+			this.Request.AddHeader( "Yearacademy", this.getAppSettings( "YearAcademy" ) );
 			this.Request.AddHeader( "Appcode", this.getAppSettings( "ApplicationCode" ) );
+			this.Request.AddHeader( "Apptype", "1" );
 			this.Request.AddHeader( "Branchcode", this.getAppSettings( "BranchCode" ) );
 			this.Request.AddHeader( "Level", this.getAppSettings( "UserLevel" ) );
 
@@ -156,8 +157,8 @@ namespace Options
 
             try
             {
-                if ( this._RequestParameters == null )
-                    throw new ArgumentNullException("Para este metodo se necesita minimo un parametro", "RequestParameters");
+				if ( this._RequestParameters == null )
+					this.Request.AlwaysMultipartFormData = false;
 
                 this.SendRequest();
 

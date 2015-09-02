@@ -134,6 +134,30 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="frm_Configuration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_Configuration.Designer.cs">
+      <DependentUpon>frm_Configuration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_Director.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_Director.Designer.cs">
+      <DependentUpon>frm_Director.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_Login.Designer.cs">
+      <DependentUpon>frm_Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frm_Personal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_Personal.Designer.cs">
+      <DependentUpon>frm_Personal.cs</DependentUpon>
+    </Compile>
     <Compile Include="IFrmMain.cs" />
     <Compile Include="Institucion\frm_History.cs">
       <SubType>Form</SubType>
@@ -335,6 +359,18 @@
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frm_Configuration.resx">
+      <DependentUpon>frm_Configuration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_Director.resx">
+      <DependentUpon>frm_Director.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_Login.resx">
+      <DependentUpon>frm_Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_Personal.resx">
+      <DependentUpon>frm_Personal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Institucion\frm_Branches.resx">
       <DependentUpon>frm_Branches.cs</DependentUpon>
     </EmbeddedResource>
@@ -500,6 +536,24 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loader.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\network.server.grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\image.broken.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user.grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\key.grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user.tie.grey.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

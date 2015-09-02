@@ -21,7 +21,7 @@ namespace LawrApp
         protected override void OnCreateMainForm()
         {
             DataGeneral data = new DataGeneral();
-            this.MainForm = new frmMain(data);
+            this.MainForm = new frm_Login(data);
         }
 
         [STAThread]

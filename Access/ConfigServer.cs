@@ -76,5 +76,22 @@ namespace Access
 				return false;
 			}
 		}
+
+		public void RemembermeOf()
+		{
+			this.setAppSettings( "InstitutionCode", "" );
+			this.setAppSettings( "InstitutionName", "" );
+			this.setAppSettings( "InstitutionLogo", "" );
+			this.setAppSettings( "BranchCode", "" );
+			this.setAppSettings( "BranchAddress", "" );
+			this.setAppSettings( "YearAcademy", "" );
+			this.setAppSettings( "Auth-Token", "" );
+			this.setAppSettings( "UserName", "" );
+			this.setAppSettings( "UserType", "" );
+			this.setAppSettings( "UserLevel", "" );
+			this.setAppSettings( "UserPictureUrl", "" );
+			this.setAppSettings( "remember_me", "false" );
+		}
+
 	}
 }

@@ -39,99 +39,99 @@ namespace LawrApp
 
         #region HILOS
 
-        public void LoadDataDefault()
-        {
-            Thread.Sleep(200);
-            CheckForIllegalCrossThreadCalls = false;
+		//public void LoadDataDefault()
+		//{
+		//	Thread.Sleep(200);
+		//	CheckForIllegalCrossThreadCalls = false;
 
-			//DATOS NO FILTRADOS SIMPRE IMPORTANTES
-			if ( this._data.Tables["Departamentos"].Rows.Count == 0 )
-			{
-				this.lblLoadInfo.Text = "Cargando: Departamentos, Provincias, Distritos...";
-				this._preload.ListUbigeo( this._data );
-			}
+		//	//DATOS NO FILTRADOS SIMPRE IMPORTANTES
+		//	if ( this._data.Tables["Departamentos"].Rows.Count == 0 )
+		//	{
+		//		this.lblLoadInfo.Text = "Cargando: Departamentos, Provincias, Distritos...";
+		//		this._preload.ListUbigeo( this._data );
+		//	}
 
-			if ( this._data.Tables["TipoDocumento"].Rows.Count == 0 )
-			{
-				this.lblLoadInfo.Text = "Cargando: Tipos de Documentos...";
-				this._preload.ListTipoDocumento( this._data );
-			}
+		//	if ( this._data.Tables["TipoDocumento"].Rows.Count == 0 )
+		//	{
+		//		this.lblLoadInfo.Text = "Cargando: Tipos de Documentos...";
+		//		this._preload.ListTipoDocumento( this._data );
+		//	}
 
-			//DATOS FILTRADOS POR SU NIVEL
-			if ( this._log.UserLevel == 0 )
-			{
-				if ( this._data.Tables["TipoPersonal"].Rows.Count == 0 )
-				{
-					this.lblLoadInfo.Text = "Cargando: Tipos de Personal...";
-					this._preload.ListTipoPersonal( this._data );
-				}
+		//	//DATOS FILTRADOS POR SU NIVEL
+		//	if ( this._log.UserLevel == 0 )
+		//	{
+		//		if ( this._data.Tables["TipoPersonal"].Rows.Count == 0 )
+		//		{
+		//			this.lblLoadInfo.Text = "Cargando: Tipos de Personal...";
+		//			this._preload.ListTipoPersonal( this._data );
+		//		}
 
-				if ( this._data.Tables["Profesion"].Rows.Count == 0 )
-				{
-					this.lblLoadInfo.Text = "Cargando: Profesiones...";
-					this._preload.ListProfesiones( this._data );
-				}
+		//		if ( this._data.Tables["Profesion"].Rows.Count == 0 )
+		//		{
+		//			this.lblLoadInfo.Text = "Cargando: Profesiones...";
+		//			this._preload.ListProfesiones( this._data );
+		//		}
 
-				if ( this._data.Tables["Sucursal"].Rows.Count == 0 )
-				{
-					this.lblLoadInfo.Text = "Cargando: Sucursales...";
-					this._preload.ListSucursales( this._data );
-					this.LoadBranchesToCombo();
-				}
-				else
-				{
-					this.LoadBranchesToCombo();
-				}
+		//		if ( this._data.Tables["Sucursal"].Rows.Count == 0 )
+		//		{
+		//			this.lblLoadInfo.Text = "Cargando: Sucursales...";
+		//			this._preload.ListSucursales( this._data );
+		//			this.LoadBranchesToCombo();
+		//		}
+		//		else
+		//		{
+		//			this.LoadBranchesToCombo();
+		//		}
 
-				if ( this._preload.getAppSettings("BranchCode") != "" )
-				{
-					this.cboBranches.SelectedValue = this._preload.getAppSettings( "BranchCode" );
-				}
-			}
-			else if ( this._log.UserLevel == 1 )
-			{
-				this.lblLoadInfo.Text = "Cargando: Periodos...";
-				this._preload.ListPeriodos( _data );
+		//		if ( this._preload.getAppSettings("BranchCode") != "" )
+		//		{
+		//			this.cboBranches.SelectedValue = this._preload.getAppSettings( "BranchCode" );
+		//		}
+		//	}
+		//	else if ( this._log.UserLevel == 1 )
+		//	{
+		//		this.lblLoadInfo.Text = "Cargando: Periodos...";
+		//		this._preload.ListPeriodos( _data );
 
-				this.cboPeriodos.ValueMember = "Codigo";
-				this.cboPeriodos.DisplayMember = "Year";
-				this.cboPeriodos.DataSource = this._data.Tables["Periodo"];
+		//		this.cboPeriodos.ValueMember = "Codigo";
+		//		this.cboPeriodos.DisplayMember = "Year";
+		//		this.cboPeriodos.DataSource = this._data.Tables["Periodo"];
 
-				if ( this._data.Tables["Periodo"].Rows.Count > 0 )
-				{
-					this.lblLoadInfo.Text = "Asignando Periodos...";
-					this._preload.AsignYear( cboPeriodos.SelectedValue.ToString() );
+		//		if ( this._data.Tables["Periodo"].Rows.Count > 0 )
+		//		{
+		//			this.lblLoadInfo.Text = "Asignando Periodos...";
+		//			this._preload.AsignYear( cboPeriodos.SelectedValue.ToString() );
 
-					if ( this._data.Tables["TipoApoderado"].Rows.Count == 0 )
-					{
-						this.lblLoadInfo.Text = "Cargando: Tipos de Parientes...";
-						this._preload.ListTipoApoderado( _data );
-					}
+		//			if ( this._data.Tables["TipoApoderado"].Rows.Count == 0 )
+		//			{
+		//				this.lblLoadInfo.Text = "Cargando: Tipos de Parientes...";
+		//				this._preload.ListTipoApoderado( _data );
+		//			}
 
-					if ( this._data.Tables["Grados"].Rows.Count == 0 )
-					{
-						this.lblLoadInfo.Text = "Cargando: Grados, Secciones...";
-						this._preload.ListaGradoSeccion( _data );
-					}
+		//			if ( this._data.Tables["Grados"].Rows.Count == 0 )
+		//			{
+		//				this.lblLoadInfo.Text = "Cargando: Grados, Secciones...";
+		//				this._preload.ListaGradoSeccion( _data );
+		//			}
 
-					this.lblLoadInfo.Text = "Cargando: Estudiantes...";
-					this._preload.ListaStudents( _data );
-				}
-				else
-				{
-					this.btnRegistrarAlumno.Enabled = false;
-					this.cboPeriodos.Enabled = false;
-					this.btnFichasStudents.Enabled = false;
-					MetroMessageBox.Show( this, "No Existe ningun Periodo Configurado", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning );
-				}
-			}
+		//			this.lblLoadInfo.Text = "Cargando: Estudiantes...";
+		//			this._preload.ListaStudents( _data );
+		//		}
+		//		else
+		//		{
+		//			this.btnRegistrarAlumno.Enabled = false;
+		//			this.cboPeriodos.Enabled = false;
+		//			this.btnFichasStudents.Enabled = false;
+		//			MetroMessageBox.Show( this, "No Existe ningun Periodo Configurado", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+		//		}
+		//	}
 
-            this.lblLoadInfo.Text = "";
-            this.pgsLoadDataDefault.Visible = false;
+		//	this.lblLoadInfo.Text = "";
+		//	this.pgsLoadDataDefault.Visible = false;
 
-			this.AsignLevel();
-            //this.ControlsEnabled( true );
-        }
+		//	this.AsignLevel();
+		//	//this.ControlsEnabled( true );
+		//}
 
 		void AsignSucursal()
 		{
@@ -198,30 +198,30 @@ namespace LawrApp
 
 				this.btnLogin.Enabled = false;
 
-				switch ( this._log.UserLevel )
-				{
-					case 0:
-					this.tableTiles.Enabled = false;
-					this.panelTitles.Enabled = false;
-					this.cboPeriodos.Visible = false;
-					this.lblBranchAddress.Visible = false;
-					this.lblPeriodo.Visible = false;
-					this.ptbLogo.Visible = false;
-					this.lblNameInstitution.Text = "Administrador General";
-					this.panelLogged.Enabled = true;
-					this.lblNameInstitution.Location = new Point(570, 3);
-					this.cboBranches.Location = new Point( 718, 42 );
-					this.cboBranches.Visible = true;
-					this.cboBranches.Text = "Seleccione una Sucursal";
-					this.lblSucursal.Location = new Point( 632, 47 );
-					this.lblSucursal.Visible = true;
-					this.tsmItemPeriodos.Visible = false;
-					//this.tsmItemReportes.Visible = false;
-					this.tsmItemRegisterAlumno.Enabled = false;
-					this.menuOptions.Enabled = true;
-					this.menuOptions.Visible = true;
-					break;
-				}
+				//switch ( this._log.UserLevel )
+				//{
+				//	case 0:
+				//	this.tableTiles.Enabled = false;
+				//	this.panelTitles.Enabled = false;
+				//	this.cboPeriodos.Visible = false;
+				//	this.lblBranchAddress.Visible = false;
+				//	this.lblPeriodo.Visible = false;
+				//	this.ptbLogo.Visible = false;
+				//	this.lblNameInstitution.Text = "Administrador General";
+				//	this.panelLogged.Enabled = true;
+				//	this.lblNameInstitution.Location = new Point(570, 3);
+				//	this.cboBranches.Location = new Point( 718, 42 );
+				//	this.cboBranches.Visible = true;
+				//	this.cboBranches.Text = "Seleccione una Sucursal";
+				//	this.lblSucursal.Location = new Point( 632, 47 );
+				//	this.lblSucursal.Visible = true;
+				//	this.tsmItemPeriodos.Visible = false;
+				//	//this.tsmItemReportes.Visible = false;
+				//	this.tsmItemRegisterAlumno.Enabled = false;
+				//	this.menuOptions.Enabled = true;
+				//	this.menuOptions.Visible = true;
+				//	break;
+				//}
 			}
 			else
 			{
@@ -248,18 +248,18 @@ namespace LawrApp
 
 		public void ReloadData( bool Reload )
 		{
-			if ( Reload )
-			{
-				this._tr = new Thread( new ThreadStart( this.LoadDataDefault ) );
+			//if ( Reload )
+			//{
+			//	this._tr = new Thread( new ThreadStart( this.LoadDataDefault ) );
 
-				this.ControlsVisible( true );
-				this.ControlsEnabled( false );
-				this.btnLogin.Enabled = false;
+			//	this.ControlsVisible( true );
+			//	this.ControlsEnabled( false );
+			//	this.btnLogin.Enabled = false;
 
-				this.pgsLoadDataDefault.Visible = true;
+			//	this.pgsLoadDataDefault.Visible = true;
 
-				this._tr.Start();
-			}
+			//	this._tr.Start();
+			//}
 		}
 
 		public void DeletedSucursal( int CodigoSucursal )
@@ -273,26 +273,26 @@ namespace LawrApp
 
         private void frmMain_Load( object sender, EventArgs e )
         {
-            if ( this._log.TokenIsRegistered() )
-            {
-                this._tr = new Thread( new ThreadStart( this.LoadDataDefault ) );
+			//if ( this._log.TokenIsRegistered() )
+			//{
+			//	this._tr = new Thread( new ThreadStart( this.LoadDataDefault ) );
 
-                this.lblUserName.Text = this._log.UserFullName;
-                this.lblUserType.Text = this._log.UserType;
-                this.pbUserPicture.ImageLocation = this._log.LocationImage;
+			//	//this.lblUserName.Text = this._log.UserFullName;
+			//	//this.lblUserType.Text = this._log.UserType;
+			//	//this.pbUserPicture.ImageLocation = this._log.LocationImage;
 
-				this.panelLogged.Visible = true;
-				this.pgsLoadDataDefault.Visible = true;
+			//	this.panelLogged.Visible = true;
+			//	this.pgsLoadDataDefault.Visible = true;
 
-                this._tr.Start();
-            }
-            else
-            {
-				this.ControlsVisible( false );
-				this.ControlsEnabled( false );
-				this.btnLogin.Enabled = true;
-				this.pgsLoadDataDefault.Visible = false;
-            }
+			//	this._tr.Start();
+			//}
+			//else
+			//{
+			//	this.ControlsVisible( false );
+			//	this.ControlsEnabled( false );
+			//	this.btnLogin.Enabled = true;
+			//	this.pgsLoadDataDefault.Visible = false;
+			//}
         }
 
         private void btnLogin_Click( object sender, EventArgs e )

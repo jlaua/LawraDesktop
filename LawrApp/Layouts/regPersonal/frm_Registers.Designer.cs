@@ -33,7 +33,6 @@
 			this.tabControl = new MetroFramework.Controls.MetroTabControl();
 			this.tabPageListado = new MetroFramework.Controls.MetroTabPage();
 			this.panelListado = new System.Windows.Forms.Panel();
-			this.btnDesactivar = new MetroFramework.Controls.MetroButton();
 			this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
 			this.btnSearch = new MetroFramework.Controls.MetroButton();
 			this.txtSearch = new System.Windows.Forms.TextBox();
@@ -150,7 +149,6 @@
 			// panelListado
 			// 
 			this.panelListado.BackColor = System.Drawing.Color.Transparent;
-			this.panelListado.Controls.Add(this.btnDesactivar);
 			this.panelListado.Controls.Add(this.metroLabel1);
 			this.panelListado.Controls.Add(this.btnSearch);
 			this.panelListado.Controls.Add(this.txtSearch);
@@ -164,15 +162,6 @@
 			this.panelListado.Name = "panelListado";
 			this.panelListado.Size = new System.Drawing.Size(726, 424);
 			this.panelListado.TabIndex = 2;
-			// 
-			// btnDesactivar
-			// 
-			this.btnDesactivar.Location = new System.Drawing.Point(373, 388);
-			this.btnDesactivar.Name = "btnDesactivar";
-			this.btnDesactivar.Size = new System.Drawing.Size(107, 33);
-			this.btnDesactivar.TabIndex = 12;
-			this.btnDesactivar.Text = "Desactivar Cuenta";
-			this.btnDesactivar.UseSelectable = true;
 			// 
 			// metroLabel1
 			// 
@@ -303,6 +292,7 @@
 			this.btnEliminar.TabIndex = 6;
 			this.btnEliminar.Text = "Eliminar";
 			this.btnEliminar.UseSelectable = true;
+			this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
 			// 
 			// btnModificar
 			// 
@@ -359,9 +349,8 @@
 			this.lblLastModified.ForeColor = System.Drawing.SystemColors.ControlDark;
 			this.lblLastModified.Location = new System.Drawing.Point(11, 402);
 			this.lblLastModified.Name = "lblLastModified";
-			this.lblLastModified.Size = new System.Drawing.Size(275, 19);
+			this.lblLastModified.Size = new System.Drawing.Size(353, 19);
 			this.lblLastModified.TabIndex = 4;
-			this.lblLastModified.Text = "metroLabel13";
 			this.lblLastModified.UseCustomForeColor = true;
 			// 
 			// gbDatos
@@ -712,6 +701,8 @@
 			// ptbImage
 			// 
 			this.ptbImage.BackColor = System.Drawing.Color.Gainsboro;
+			this.ptbImage.ErrorImage = global::LawrApp.Properties.Resources.image_broken;
+			this.ptbImage.InitialImage = global::LawrApp.Properties.Resources.loader;
 			this.ptbImage.Location = new System.Drawing.Point(584, 51);
 			this.ptbImage.Name = "ptbImage";
 			this.ptbImage.Size = new System.Drawing.Size(123, 152);
@@ -766,7 +757,6 @@
 			this.lblSucursal.Name = "lblSucursal";
 			this.lblSucursal.Size = new System.Drawing.Size(748, 19);
 			this.lblSucursal.TabIndex = 2;
-			this.lblSucursal.Text = "metroLabel13";
 			this.lblSucursal.UseCustomForeColor = true;
 			// 
 			// frm_Registers
@@ -784,6 +774,8 @@
 			this.Padding = new System.Windows.Forms.Padding(30, 90, 30, 32);
 			this.Resizable = false;
 			this.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow;
+			this.ShowIcon = false;
+			this.ShowInTaskbar = false;
 			this.Style = MetroFramework.MetroColorStyle.Green;
 			this.Text = "Personal";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frm_Registers_FormClosing);
@@ -822,7 +814,6 @@
 		private MetroFramework.Controls.MetroButton btnCancelar;
 		private MetroFramework.Controls.MetroButton btnGuardar;
 		private MetroFramework.Controls.MetroProgressSpinner pgsLoading;
-		private MetroFramework.Controls.MetroButton btnDesactivar;
 		private System.Windows.Forms.GroupBox gbDatos;
 		private MetroFramework.Controls.MetroLabel lblSrcImage;
 		private MetroFramework.Controls.MetroButton btnSearchImage;

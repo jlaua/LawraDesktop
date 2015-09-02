@@ -78,7 +78,6 @@ namespace LawrApp.Layouts.regPersonal
 			{
 				this.btnModificar.Enabled = false;
 				this.btnEliminar.Enabled = false;
-				this.btnDesactivar.Enabled = false;
 				this.txtSearch.Enabled = false;
 				this.btnSearch.Enabled = false;
 				this.pgsLoading.Visible = false;
@@ -247,7 +246,6 @@ namespace LawrApp.Layouts.regPersonal
 			{
 				this.btnModificar.Enabled = false;
 				this.btnEliminar.Enabled = false;
-				this.btnDesactivar.Enabled = false;
 				this.txtSearch.Enabled = false;
 				this.btnSearch.Enabled = false;
 			}
@@ -255,7 +253,6 @@ namespace LawrApp.Layouts.regPersonal
 			{
 				this.btnModificar.Enabled = true;
 				this.btnEliminar.Enabled = true;
-				this.btnDesactivar.Enabled = true;
 				this.txtSearch.Enabled = true;
 				this.btnSearch.Enabled = true;
 			}
@@ -422,16 +419,15 @@ namespace LawrApp.Layouts.regPersonal
 
 		private void frm_Registers_FormClosing( object sender, FormClosingEventArgs e )
 		{
-			if ( ! this._inAction )
-			{
-				frmMain main = new frmMain( this._data );
-				main.Show();
-			}
-			else
-			{
-				e.Cancel = true;
-			}
-			
+			//if ( ! this._inAction )
+			//{
+			//	frmMain main = new frmMain( this._data );
+			//	main.Show();
+			//}
+			//else
+			//{
+			//	e.Cancel = true;
+			//}
 		}
 
 		private void btnNuevo_Click( object sender, EventArgs e )
@@ -678,6 +674,23 @@ namespace LawrApp.Layouts.regPersonal
 			if ( this.dgvListado.CurrentRow.Index >= 0 )
 			{
 				this._hilo = new Thread( new ThreadStart( this.FindPersonal ) );
+
+				this._idPersonal = ( int ) this.dgvListado.CurrentRow.Cells[0].Value;
+
+				this.panelMain.Enabled = false;
+				this.pgsLoading.Visible = true;
+
+				this._hilo.Start();
+			}
+		}
+
+		private void btnEliminar_Click( object sender, EventArgs e )
+		{
+			DialogResult res = MetroMessageBox.Show( this, "Si realmente deseas Eliminar esta fila Presiona OK", "¿Deseas Eliminar?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning );
+
+			if ( res == DialogResult.OK )
+			{
+				this._hilo = new Thread( new ThreadStart( this.SubmitDelete ) );
 
 				this._idPersonal = ( int ) this.dgvListado.CurrentRow.Cells[0].Value;
 

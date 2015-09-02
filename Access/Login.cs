@@ -14,9 +14,10 @@ namespace Access
 
     public class Login : Connection
     {
-        private string _msgExceptionLogin, _InputName, _InputPass, _UserFullName, _UserType, _LocationImage;
-		private int _yearActive, _userLevel;
+        private string _msgExceptionLogin, _InputName, _InputPass;
         private string _Controller = "api/prslog";
+		private int _accessLevel;
+		private bool _inputRememberMe;
 
         #region PROPIEDADES
 
@@ -24,6 +25,12 @@ namespace Access
         {
             get { return this._msgExceptionLogin; }
         }
+
+		public bool RememberMe
+		{
+			get { return this._inputRememberMe; }
+			set { this._inputRememberMe = value; }
+		}
 
         public string InputName
         {
@@ -37,43 +44,11 @@ namespace Access
             set { this._InputPass = value; }
         }
 
-        public string UserFullName
-        {
-            get { return this._UserFullName; }
-        }
-
-        public string UserType
-        {
-            get { return this._UserType; }
-        }
-
-        public string LocationImage
-        {
-            get { return this._LocationImage; }
-        }
-
-		public int YearActive
+		public int AccessLevel
 		{
-			get { return this._yearActive; }
-			set { this._yearActive = value; }
+			get { return this._accessLevel; }
+			set { this._accessLevel = value; }
 		}
-
-		public int UserLevel
-		{
-			get { return this._userLevel; }
-			internal set { this._userLevel = value; }
-		}
-
-        #endregion
-
-        #region CONSTRUCTOR
-
-        public Login()
-        {
-            this._UserFullName      = this.getAppSettings( "UserName" );
-            this._UserType          = this.getAppSettings( "UserType" );
-            this._LocationImage     = this.getAppSettings( "UserPictureUrl" );
-        }
 
         #endregion
 
@@ -91,48 +66,46 @@ namespace Access
 
         public bool SendLogin()
         {
-            RequestLogin objSend		= new RequestLogin();
-			Query Oquery			= new Query( this._Controller );
+            RequestLogin objSend	= new RequestLogin();
+			Query oQuery			= new Query( this._Controller );
 
             try
             {
                 objSend.UserNick = this._InputName;
                 objSend.UserPass = this._InputPass;
 
-                Oquery.RequestParameters = objSend;
+                oQuery.RequestParameters = objSend;
 
-                Oquery.SendRequestPOST();
+                oQuery.SendRequestPOST();
 
-                if( Oquery.ResponseStatusCode == HttpStatusCode.Accepted )
-                {
-					ResponseLogin obj = JsonConvert.DeserializeObject<ResponseLogin>( Oquery.ResponseContent );
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.InternalServerError )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._msgExceptionLogin, "Error en el Servidor" );
+				else if ( oQuery.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
 
-                    this.setAppSettings( "UserName", obj.data.FullName );
-                    this.setAppSettings( "UserType", obj.data.UserType );
-					this.setAppSettings( "UserLevel", obj.data.UserLevel );
-                    this.setAppSettings( "UserPictureUrl", this.ConfigBaseUrl + obj.data.ImagePath );
+				msgResponse resp = JsonConvert.DeserializeObject<msgResponse>( oQuery.ResponseContent );
 
-					this.setAppSettings( "NameInstitution", obj.data.Institution.NameInstitution );
-					this.setAppSettings("LogoInstitution", obj.data.Institution.LogoInstitution );
-					this.setAppSettings("BranchCode", obj.data.Institution.BranchCode.ToString() );
-					this.setAppSettings("BranchAddress", obj.data.Institution.BranchAddress );
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.BadRequest )
+					throw new InvalidOperationException( resp.message );
 
-                    this.AuthToken = Oquery.ResponseHeader[0].Value.ToString();
+				LoginData obj = JsonConvert.DeserializeObject<LoginData>( resp.data );
 
-                    this._UserFullName  = obj.data.FullName;
-                    this._UserType      = obj.data.UserType;
-                    this._LocationImage = this.ConfigBaseUrl + obj.data.ImagePath;
-					this.UserLevel = Convert.ToInt32( obj.data.UserLevel );
+				if ( obj.UserLevel != "0" && obj.UserLevel != "1" && obj.UserLevel != "2" )
+					throw new InvalidOperationException( "TU NIVEL DE ACCESO NO ESTA PERMITIDO PARA ESTE SISTEMA" );
 
-                }
-				else if ( Oquery.ResponseStatusCode == HttpStatusCode.NotFound )
-				{
-					throw new ArgumentNullException( "La clave o la contraseña pueden estar erradas, vuelve a intentarlo", "Usuario no Existe" );
-				}
-                else
-                {
-					throw new ArgumentNullException( "Existen Errores en el Servidor, no puedes Acceder en estos momentos", "Error en el Servidor" );
-                }
+				this.setAppSettings( "UserName", obj.FullName );
+				this.setAppSettings( "UserType", obj.UserType );
+				this.setAppSettings( "UserLevel", obj.UserLevel );
+				this.setAppSettings( "UserPictureUrl", this.ConfigBaseUrl + obj.ImagePath );
+
+				this.setAppSettings( "InstitutionName", obj.Institution.NameInstitution );
+				this.setAppSettings( "InstitutionLogo", obj.Institution.LogoInstitution );
+				this.setAppSettings( "BranchCode", obj.Institution.BranchCode.ToString() );
+				this.setAppSettings( "BranchAddress", obj.Institution.BranchAddress );
+				this.setAppSettings( "Remember_me", this.RememberMe.ToString() );
+
+				this.AuthToken = obj.Token;
+				this.AccessLevel = Convert.ToInt32( obj.UserLevel );
 
                 return true;
             }
@@ -168,6 +141,53 @@ namespace Access
                 return false;
             }
         }
+
+		public bool ConfirmLogged()
+		{
+			Query oQuery = new Query( "api/prslog/confirm" );
+
+			try
+			{
+				oQuery.SendRequestPOST();
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.InternalServerError )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._msgExceptionLogin, "Error en el Servidor" );
+				else if ( oQuery.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
+
+				msgResponse resp = JsonConvert.DeserializeObject<msgResponse>( oQuery.ResponseContent );
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.BadRequest )
+					throw new InvalidOperationException( resp.message );
+
+				LoginData obj = JsonConvert.DeserializeObject<LoginData>( resp.data );
+
+				if ( obj.UserLevel != "0" && obj.UserLevel != "1" && obj.UserLevel != "2" )
+					throw new InvalidOperationException( "TU NIVEL DE ACCESO NO ESTA PERMITIDO PARA ESTE SISTEMA" );
+
+				this.setAppSettings( "UserName", obj.FullName );
+				this.setAppSettings( "UserType", obj.UserType );
+				this.setAppSettings( "UserLevel", obj.UserLevel );
+				this.setAppSettings( "UserPictureUrl", ( ! string.IsNullOrEmpty(obj.ImagePath) ) ? this.ConfigBaseUrl + obj.ImagePath : "" );
+
+				this.setAppSettings( "InstitutionName", obj.Institution.NameInstitution );
+				this.setAppSettings( "InstitutionLogo", obj.Institution.LogoInstitution );
+				this.setAppSettings( "BranchCode", obj.Institution.BranchCode.ToString() );
+				this.setAppSettings( "BranchAddress", obj.Institution.BranchAddress );
+				this.setAppSettings( "Remember_me", "true" );
+
+				this.AuthToken = obj.Token;
+				this.AccessLevel = Convert.ToInt32( obj.UserLevel );
+
+				return true;
+
+			}
+			catch ( Exception e )
+			{
+				this._msgExceptionLogin = e.Message;
+				return false;
+			}
+		}
 
         #endregion
 
