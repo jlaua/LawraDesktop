@@ -12,6 +12,7 @@ namespace Objects.Tables
 		public string FullAcronym { get; set; }
 		public string ShortAcronym { get; set; }
 		public string Creation { get; set; }
+		public string Lema { get; set; }
 		public int Forma { get; set; }
 		public int Gestion { get; set; }
 		public int Gender { get; set; }
@@ -55,6 +56,43 @@ namespace Objects.Tables
 		public string Longitud { get; set; }
 		public int Zoom { get; set; }
 		public string ModifiedDate { get; set; }
+	}
+
+	public class TVisionMision
+	{
+		public string Codigo { get; set; }
+		public string Vision { get; set; }
+		public string Mision { get; set; }
+		public string ModifiedDate { get; set; }
+	}
+
+	/// <summary>
+	/// Objecto para la manipulacion de la imagen, esta información llega de la web service
+	/// </summary>
+	public class tLogos
+	{
+		public int Codigo { get; set; }
+		public string CodigoInstitution { get; set; }
+		public string Name { get; set; }
+		public string Extension { get; set; }
+		public string Size { get; set; }
+		public string Width { get; set; }
+		public string Height { get; set; }
+		public string Source { get; set; }
+		public int Type { get; set; }
+		public int Dimension { get; set; }
+		public string ModifiedDate { get; set; }
+	}
+
+	/// <summary>
+	/// OBjeto para el envio de los nuevos logos a registrarse
+	/// </summary>
+	public class tMinLogos
+	{
+		public string Handle { get; set; }
+		public string Source { get; set; }
+		public int Dimension { get; set; }
+		public int Type { get; set; }
 	}
 
 }

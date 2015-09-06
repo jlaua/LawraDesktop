@@ -171,6 +171,12 @@
     <Compile Include="Institucion\frm_Information.Designer.cs">
       <DependentUpon>frm_Information.cs</DependentUpon>
     </Compile>
+    <Compile Include="Institucion\frm_Logos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Institucion\frm_Logos.Designer.cs">
+      <DependentUpon>frm_Logos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Institucion\frm_Slogans.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -350,6 +356,12 @@
     <Compile Include="Reportes\Formularios\frm_MaterialEnAula.Designer.cs">
       <DependentUpon>frm_MaterialEnAula.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reportes\Formularios\frm_prueba.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reportes\Formularios\frm_prueba.Designer.cs">
+      <DependentUpon>frm_prueba.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="frmConfigServer.resx">
       <DependentUpon>frmConfigServer.cs</DependentUpon>
     </EmbeddedResource>
@@ -379,6 +391,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Institucion\frm_Information.resx">
       <DependentUpon>frm_Information.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Institucion\frm_Logos.resx">
+      <DependentUpon>frm_Logos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Institucion\frm_Slogans.resx">
       <DependentUpon>frm_Slogans.cs</DependentUpon>
@@ -475,6 +490,9 @@
       <DependentUpon>frm_MaterialEnAula.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\Disenio\inf_MaterialEnAula.rdlc" />
+    <EmbeddedResource Include="Reportes\Formularios\frm_prueba.resx">
+      <DependentUpon>frm_prueba.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>

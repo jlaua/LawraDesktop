@@ -30,6 +30,7 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			this.panelMain = new System.Windows.Forms.Panel();
+			this.lblLastModified = new MetroFramework.Controls.MetroLabel();
 			this.lblDirectorValidate = new MetroFramework.Controls.MetroLabel();
 			this.lblUGELValidate = new MetroFramework.Controls.MetroLabel();
 			this.lblDREValidate = new MetroFramework.Controls.MetroLabel();
@@ -70,13 +71,18 @@
 			this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
 			this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
 			this.pgsLoading = new MetroFramework.Controls.MetroProgressSpinner();
-			this.lblLastModified = new MetroFramework.Controls.MetroLabel();
 			this.ttpValidator = new System.Windows.Forms.ToolTip(this.components);
+			this.metroLabel8 = new MetroFramework.Controls.MetroLabel();
+			this.txtLema_Institucional = new System.Windows.Forms.TextBox();
+			this.lblLema_InstValidate = new MetroFramework.Controls.MetroLabel();
 			this.panelMain.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// panelMain
 			// 
+			this.panelMain.Controls.Add(this.lblLema_InstValidate);
+			this.panelMain.Controls.Add(this.txtLema_Institucional);
+			this.panelMain.Controls.Add(this.metroLabel8);
 			this.panelMain.Controls.Add(this.lblLastModified);
 			this.panelMain.Controls.Add(this.lblDirectorValidate);
 			this.panelMain.Controls.Add(this.lblUGELValidate);
@@ -124,12 +130,25 @@
 			this.panelMain.Size = new System.Drawing.Size(560, 435);
 			this.panelMain.TabIndex = 0;
 			// 
+			// lblLastModified
+			// 
+			this.lblLastModified.FontSize = MetroFramework.MetroLabelSize.Small;
+			this.lblLastModified.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+			this.lblLastModified.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.lblLastModified.Location = new System.Drawing.Point(3, 416);
+			this.lblLastModified.Name = "lblLastModified";
+			this.lblLastModified.Size = new System.Drawing.Size(352, 16);
+			this.lblLastModified.TabIndex = 2;
+			this.lblLastModified.Text = "Ult. Modificación:";
+			this.lblLastModified.UseCustomForeColor = true;
+			this.lblLastModified.Visible = false;
+			// 
 			// lblDirectorValidate
 			// 
 			this.lblDirectorValidate.BackColor = System.Drawing.Color.Transparent;
 			this.lblDirectorValidate.FontWeight = MetroFramework.MetroLabelWeight.Bold;
 			this.lblDirectorValidate.ForeColor = System.Drawing.Color.Red;
-			this.lblDirectorValidate.Location = new System.Drawing.Point(56, 260);
+			this.lblDirectorValidate.Location = new System.Drawing.Point(340, 262);
 			this.lblDirectorValidate.Name = "lblDirectorValidate";
 			this.lblDirectorValidate.Size = new System.Drawing.Size(14, 12);
 			this.lblDirectorValidate.TabIndex = 16;
@@ -143,7 +162,7 @@
 			this.lblUGELValidate.BackColor = System.Drawing.Color.Transparent;
 			this.lblUGELValidate.FontWeight = MetroFramework.MetroLabelWeight.Bold;
 			this.lblUGELValidate.ForeColor = System.Drawing.Color.Red;
-			this.lblUGELValidate.Location = new System.Drawing.Point(326, 195);
+			this.lblUGELValidate.Location = new System.Drawing.Point(50, 260);
 			this.lblUGELValidate.Name = "lblUGELValidate";
 			this.lblUGELValidate.Size = new System.Drawing.Size(14, 12);
 			this.lblUGELValidate.TabIndex = 15;
@@ -157,7 +176,7 @@
 			this.lblDREValidate.BackColor = System.Drawing.Color.Transparent;
 			this.lblDREValidate.FontWeight = MetroFramework.MetroLabelWeight.Bold;
 			this.lblDREValidate.ForeColor = System.Drawing.Color.Red;
-			this.lblDREValidate.Location = new System.Drawing.Point(37, 195);
+			this.lblDREValidate.Location = new System.Drawing.Point(210, 196);
 			this.lblDREValidate.Name = "lblDREValidate";
 			this.lblDREValidate.Size = new System.Drawing.Size(14, 12);
 			this.lblDREValidate.TabIndex = 14;
@@ -171,7 +190,7 @@
 			this.lblResolucionValidate.BackColor = System.Drawing.Color.Transparent;
 			this.lblResolucionValidate.FontWeight = MetroFramework.MetroLabelWeight.Bold;
 			this.lblResolucionValidate.ForeColor = System.Drawing.Color.Red;
-			this.lblResolucionValidate.Location = new System.Drawing.Point(490, 132);
+			this.lblResolucionValidate.Location = new System.Drawing.Point(72, 196);
 			this.lblResolucionValidate.Name = "lblResolucionValidate";
 			this.lblResolucionValidate.Size = new System.Drawing.Size(14, 12);
 			this.lblResolucionValidate.TabIndex = 13;
@@ -185,7 +204,7 @@
 			this.lblTipoValidate.BackColor = System.Drawing.Color.Transparent;
 			this.lblTipoValidate.FontWeight = MetroFramework.MetroLabelWeight.Bold;
 			this.lblTipoValidate.ForeColor = System.Drawing.Color.Red;
-			this.lblTipoValidate.Location = new System.Drawing.Point(36, 132);
+			this.lblTipoValidate.Location = new System.Drawing.Point(403, 133);
 			this.lblTipoValidate.Name = "lblTipoValidate";
 			this.lblTipoValidate.Size = new System.Drawing.Size(14, 12);
 			this.lblTipoValidate.TabIndex = 12;
@@ -199,7 +218,7 @@
 			this.lblGeneroValidate.BackColor = System.Drawing.Color.Transparent;
 			this.lblGeneroValidate.FontWeight = MetroFramework.MetroLabelWeight.Bold;
 			this.lblGeneroValidate.ForeColor = System.Drawing.Color.Red;
-			this.lblGeneroValidate.Location = new System.Drawing.Point(464, 70);
+			this.lblGeneroValidate.Location = new System.Drawing.Point(235, 134);
 			this.lblGeneroValidate.Name = "lblGeneroValidate";
 			this.lblGeneroValidate.Size = new System.Drawing.Size(14, 12);
 			this.lblGeneroValidate.TabIndex = 11;
@@ -213,7 +232,7 @@
 			this.lblGestionValidate.BackColor = System.Drawing.Color.Transparent;
 			this.lblGestionValidate.FontWeight = MetroFramework.MetroLabelWeight.Bold;
 			this.lblGestionValidate.ForeColor = System.Drawing.Color.Red;
-			this.lblGestionValidate.Location = new System.Drawing.Point(328, 70);
+			this.lblGestionValidate.Location = new System.Drawing.Point(52, 134);
 			this.lblGestionValidate.Name = "lblGestionValidate";
 			this.lblGestionValidate.Size = new System.Drawing.Size(14, 12);
 			this.lblGestionValidate.TabIndex = 10;
@@ -227,7 +246,7 @@
 			this.lblFormaValidate.BackColor = System.Drawing.Color.Transparent;
 			this.lblFormaValidate.FontWeight = MetroFramework.MetroLabelWeight.Bold;
 			this.lblFormaValidate.ForeColor = System.Drawing.Color.Red;
-			this.lblFormaValidate.Location = new System.Drawing.Point(183, 70);
+			this.lblFormaValidate.Location = new System.Drawing.Point(462, 69);
 			this.lblFormaValidate.Name = "lblFormaValidate";
 			this.lblFormaValidate.Size = new System.Drawing.Size(14, 12);
 			this.lblFormaValidate.TabIndex = 9;
@@ -269,16 +288,17 @@
 			this.btnSalir.Location = new System.Drawing.Point(401, 399);
 			this.btnSalir.Name = "btnSalir";
 			this.btnSalir.Size = new System.Drawing.Size(75, 33);
-			this.btnSalir.TabIndex = 16;
+			this.btnSalir.TabIndex = 17;
 			this.btnSalir.Text = "Salir";
 			this.btnSalir.UseSelectable = true;
+			this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
 			// 
 			// btnHecho
 			// 
 			this.btnHecho.Location = new System.Drawing.Point(482, 399);
 			this.btnHecho.Name = "btnHecho";
 			this.btnHecho.Size = new System.Drawing.Size(75, 33);
-			this.btnHecho.TabIndex = 15;
+			this.btnHecho.TabIndex = 16;
 			this.btnHecho.Text = "Hecho";
 			this.btnHecho.UseSelectable = true;
 			this.btnHecho.Click += new System.EventHandler(this.btnHecho_Click);
@@ -287,10 +307,10 @@
 			// 
 			this.cboTipo.DropDownWidth = 200;
 			this.cboTipo.FormattingEnabled = true;
-			this.cboTipo.Location = new System.Drawing.Point(3, 151);
+			this.cboTipo.Location = new System.Drawing.Point(373, 152);
 			this.cboTipo.Name = "cboTipo";
-			this.cboTipo.Size = new System.Drawing.Size(179, 29);
-			this.cboTipo.TabIndex = 8;
+			this.cboTipo.Size = new System.Drawing.Size(184, 29);
+			this.cboTipo.TabIndex = 9;
 			this.cboTipo.SelectionChangeCommitted += new System.EventHandler(this.VerifyDataChanges_ComboBox_SelectionChangeCommited);
 			this.cboTipo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VerifyDataChanges_TextBox_KeyDown);
 			this.cboTipo.Leave += new System.EventHandler(this.AsignDataAndValidate_ComboBox_Leave);
@@ -298,10 +318,10 @@
 			// cboGenero
 			// 
 			this.cboGenero.FormattingEnabled = true;
-			this.cboGenero.Location = new System.Drawing.Point(417, 88);
+			this.cboGenero.Location = new System.Drawing.Point(188, 152);
 			this.cboGenero.Name = "cboGenero";
-			this.cboGenero.Size = new System.Drawing.Size(140, 29);
-			this.cboGenero.TabIndex = 7;
+			this.cboGenero.Size = new System.Drawing.Size(179, 29);
+			this.cboGenero.TabIndex = 8;
 			this.cboGenero.SelectionChangeCommitted += new System.EventHandler(this.VerifyDataChanges_ComboBox_SelectionChangeCommited);
 			this.cboGenero.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CboOnlyUpDown_KeyDown);
 			this.cboGenero.Leave += new System.EventHandler(this.AsignDataAndValidate_ComboBox_Leave);
@@ -309,10 +329,10 @@
 			// cboGestion
 			// 
 			this.cboGestion.FormattingEnabled = true;
-			this.cboGestion.Location = new System.Drawing.Point(279, 88);
+			this.cboGestion.Location = new System.Drawing.Point(3, 152);
 			this.cboGestion.Name = "cboGestion";
-			this.cboGestion.Size = new System.Drawing.Size(132, 29);
-			this.cboGestion.TabIndex = 6;
+			this.cboGestion.Size = new System.Drawing.Size(179, 29);
+			this.cboGestion.TabIndex = 7;
 			this.cboGestion.SelectionChangeCommitted += new System.EventHandler(this.VerifyDataChanges_ComboBox_SelectionChangeCommited);
 			this.cboGestion.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CboOnlyUpDown_KeyDown);
 			this.cboGestion.Leave += new System.EventHandler(this.AsignDataAndValidate_ComboBox_Leave);
@@ -320,10 +340,10 @@
 			// cboForma
 			// 
 			this.cboForma.FormattingEnabled = true;
-			this.cboForma.Location = new System.Drawing.Point(139, 88);
+			this.cboForma.Location = new System.Drawing.Point(417, 88);
 			this.cboForma.Name = "cboForma";
-			this.cboForma.Size = new System.Drawing.Size(134, 29);
-			this.cboForma.TabIndex = 5;
+			this.cboForma.Size = new System.Drawing.Size(140, 29);
+			this.cboForma.TabIndex = 6;
 			this.cboForma.SelectionChangeCommitted += new System.EventHandler(this.VerifyDataChanges_ComboBox_SelectionChangeCommited);
 			this.cboForma.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CboOnlyUpDown_KeyDown);
 			this.cboForma.Leave += new System.EventHandler(this.AsignDataAndValidate_ComboBox_Leave);
@@ -334,7 +354,7 @@
 			this.dtpCreation.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
 			this.dtpCreation.Location = new System.Drawing.Point(3, 88);
 			this.dtpCreation.Name = "dtpCreation";
-			this.dtpCreation.Size = new System.Drawing.Size(130, 29);
+			this.dtpCreation.Size = new System.Drawing.Size(121, 29);
 			this.dtpCreation.TabIndex = 4;
 			this.dtpCreation.ValueChanged += new System.EventHandler(this.dtpCreation_ValueChanged);
 			this.dtpCreation.Leave += new System.EventHandler(this.dtpCreation_Leave);
@@ -350,54 +370,54 @@
 			// 
 			// txtUGEL
 			// 
-			this.txtUGEL.Location = new System.Drawing.Point(279, 215);
+			this.txtUGEL.Location = new System.Drawing.Point(3, 280);
 			this.txtUGEL.Name = "txtUGEL";
 			this.txtUGEL.Size = new System.Drawing.Size(278, 29);
-			this.txtUGEL.TabIndex = 12;
+			this.txtUGEL.TabIndex = 13;
 			this.txtUGEL.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VerifyDataChanges_TextBox_KeyDown);
 			this.txtUGEL.Leave += new System.EventHandler(this.AsignDataAndValidate_TextBox_Leave);
 			// 
 			// txtPaginaWeb
 			// 
-			this.txtPaginaWeb.Location = new System.Drawing.Point(3, 342);
+			this.txtPaginaWeb.Location = new System.Drawing.Point(3, 344);
 			this.txtPaginaWeb.Name = "txtPaginaWeb";
 			this.txtPaginaWeb.Size = new System.Drawing.Size(554, 29);
-			this.txtPaginaWeb.TabIndex = 14;
+			this.txtPaginaWeb.TabIndex = 15;
 			this.txtPaginaWeb.Text = "http://";
 			this.txtPaginaWeb.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VerifyDataChanges_TextBox_KeyDown);
 			this.txtPaginaWeb.Leave += new System.EventHandler(this.AsignDataAndValidate_TextBox_Leave);
 			// 
 			// txtDirector
 			// 
-			this.txtDirector.Location = new System.Drawing.Point(3, 278);
+			this.txtDirector.Location = new System.Drawing.Point(287, 280);
 			this.txtDirector.Name = "txtDirector";
-			this.txtDirector.Size = new System.Drawing.Size(554, 29);
-			this.txtDirector.TabIndex = 13;
+			this.txtDirector.Size = new System.Drawing.Size(270, 29);
+			this.txtDirector.TabIndex = 14;
 			this.txtDirector.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VerifyDataChanges_TextBox_KeyDown);
 			this.txtDirector.Leave += new System.EventHandler(this.AsignDataAndValidate_TextBox_Leave);
 			// 
 			// txtDRE
 			// 
-			this.txtDRE.Location = new System.Drawing.Point(3, 215);
+			this.txtDRE.Location = new System.Drawing.Point(176, 216);
 			this.txtDRE.Name = "txtDRE";
-			this.txtDRE.Size = new System.Drawing.Size(270, 29);
-			this.txtDRE.TabIndex = 11;
+			this.txtDRE.Size = new System.Drawing.Size(235, 29);
+			this.txtDRE.TabIndex = 12;
 			this.txtDRE.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VerifyDataChanges_TextBox_KeyDown);
 			this.txtDRE.Leave += new System.EventHandler(this.AsignDataAndValidate_TextBox_Leave);
 			// 
 			// txtResolucion
 			// 
-			this.txtResolucion.Location = new System.Drawing.Point(328, 151);
+			this.txtResolucion.Location = new System.Drawing.Point(3, 216);
 			this.txtResolucion.Name = "txtResolucion";
-			this.txtResolucion.Size = new System.Drawing.Size(229, 29);
-			this.txtResolucion.TabIndex = 10;
+			this.txtResolucion.Size = new System.Drawing.Size(167, 29);
+			this.txtResolucion.TabIndex = 11;
 			this.txtResolucion.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VerifyDataChanges_TextBox_KeyDown);
 			this.txtResolucion.Leave += new System.EventHandler(this.AsignDataAndValidate_TextBox_Leave);
 			// 
 			// metroLabel11
 			// 
 			this.metroLabel11.AutoSize = true;
-			this.metroLabel11.Location = new System.Drawing.Point(279, 193);
+			this.metroLabel11.Location = new System.Drawing.Point(3, 258);
 			this.metroLabel11.Name = "metroLabel11";
 			this.metroLabel11.Size = new System.Drawing.Size(49, 19);
 			this.metroLabel11.TabIndex = 0;
@@ -405,17 +425,17 @@
 			// 
 			// txtCodigoMudular
 			// 
-			this.txtCodigoMudular.Location = new System.Drawing.Point(188, 151);
+			this.txtCodigoMudular.Location = new System.Drawing.Point(417, 216);
 			this.txtCodigoMudular.Name = "txtCodigoMudular";
-			this.txtCodigoMudular.Size = new System.Drawing.Size(134, 29);
-			this.txtCodigoMudular.TabIndex = 9;
+			this.txtCodigoMudular.Size = new System.Drawing.Size(140, 29);
+			this.txtCodigoMudular.TabIndex = 10;
 			this.txtCodigoMudular.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VerifyDataChanges_TextBox_KeyDown);
 			this.txtCodigoMudular.Leave += new System.EventHandler(this.AsignDataAndValidate_TextBox_Leave);
 			// 
 			// metroLabel13
 			// 
 			this.metroLabel13.AutoSize = true;
-			this.metroLabel13.Location = new System.Drawing.Point(3, 320);
+			this.metroLabel13.Location = new System.Drawing.Point(3, 322);
 			this.metroLabel13.Name = "metroLabel13";
 			this.metroLabel13.Size = new System.Drawing.Size(79, 19);
 			this.metroLabel13.TabIndex = 0;
@@ -424,7 +444,7 @@
 			// metroLabel12
 			// 
 			this.metroLabel12.AutoSize = true;
-			this.metroLabel12.Location = new System.Drawing.Point(3, 256);
+			this.metroLabel12.Location = new System.Drawing.Point(287, 258);
 			this.metroLabel12.Name = "metroLabel12";
 			this.metroLabel12.Size = new System.Drawing.Size(56, 19);
 			this.metroLabel12.TabIndex = 0;
@@ -433,7 +453,7 @@
 			// metroLabel9
 			// 
 			this.metroLabel9.AutoSize = true;
-			this.metroLabel9.Location = new System.Drawing.Point(3, 193);
+			this.metroLabel9.Location = new System.Drawing.Point(176, 194);
 			this.metroLabel9.Name = "metroLabel9";
 			this.metroLabel9.Size = new System.Drawing.Size(38, 19);
 			this.metroLabel9.TabIndex = 0;
@@ -442,11 +462,11 @@
 			// metroLabel10
 			// 
 			this.metroLabel10.AutoSize = true;
-			this.metroLabel10.Location = new System.Drawing.Point(328, 129);
+			this.metroLabel10.Location = new System.Drawing.Point(3, 194);
 			this.metroLabel10.Name = "metroLabel10";
-			this.metroLabel10.Size = new System.Drawing.Size(165, 19);
+			this.metroLabel10.Size = new System.Drawing.Size(71, 19);
 			this.metroLabel10.TabIndex = 0;
-			this.metroLabel10.Text = "Resolución de la Institución";
+			this.metroLabel10.Text = "Resolución";
 			// 
 			// txtAcronimoLong
 			// 
@@ -460,7 +480,7 @@
 			// label20
 			// 
 			this.label20.AutoSize = true;
-			this.label20.Location = new System.Drawing.Point(188, 129);
+			this.label20.Location = new System.Drawing.Point(417, 194);
 			this.label20.Name = "label20";
 			this.label20.Size = new System.Drawing.Size(107, 19);
 			this.label20.TabIndex = 0;
@@ -478,7 +498,7 @@
 			// metroLabel7
 			// 
 			this.metroLabel7.AutoSize = true;
-			this.metroLabel7.Location = new System.Drawing.Point(3, 129);
+			this.metroLabel7.Location = new System.Drawing.Point(373, 130);
 			this.metroLabel7.Name = "metroLabel7";
 			this.metroLabel7.Size = new System.Drawing.Size(35, 19);
 			this.metroLabel7.TabIndex = 0;
@@ -487,7 +507,7 @@
 			// metroLabel6
 			// 
 			this.metroLabel6.AutoSize = true;
-			this.metroLabel6.Location = new System.Drawing.Point(417, 66);
+			this.metroLabel6.Location = new System.Drawing.Point(188, 130);
 			this.metroLabel6.Name = "metroLabel6";
 			this.metroLabel6.Size = new System.Drawing.Size(52, 19);
 			this.metroLabel6.TabIndex = 0;
@@ -505,7 +525,7 @@
 			// metroLabel5
 			// 
 			this.metroLabel5.AutoSize = true;
-			this.metroLabel5.Location = new System.Drawing.Point(279, 66);
+			this.metroLabel5.Location = new System.Drawing.Point(3, 130);
 			this.metroLabel5.Name = "metroLabel5";
 			this.metroLabel5.Size = new System.Drawing.Size(52, 19);
 			this.metroLabel5.TabIndex = 0;
@@ -514,7 +534,7 @@
 			// metroLabel4
 			// 
 			this.metroLabel4.AutoSize = true;
-			this.metroLabel4.Location = new System.Drawing.Point(139, 66);
+			this.metroLabel4.Location = new System.Drawing.Point(417, 66);
 			this.metroLabel4.Name = "metroLabel4";
 			this.metroLabel4.Size = new System.Drawing.Size(48, 19);
 			this.metroLabel4.TabIndex = 0;
@@ -547,26 +567,46 @@
 			this.pgsLoading.Speed = 2F;
 			this.pgsLoading.Style = MetroFramework.MetroColorStyle.Green;
 			this.pgsLoading.TabIndex = 1;
+			this.pgsLoading.TabStop = false;
 			this.pgsLoading.UseSelectable = true;
 			this.pgsLoading.Value = 50;
-			// 
-			// lblLastModified
-			// 
-			this.lblLastModified.FontSize = MetroFramework.MetroLabelSize.Small;
-			this.lblLastModified.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-			this.lblLastModified.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.lblLastModified.Location = new System.Drawing.Point(3, 416);
-			this.lblLastModified.Name = "lblLastModified";
-			this.lblLastModified.Size = new System.Drawing.Size(352, 16);
-			this.lblLastModified.TabIndex = 2;
-			this.lblLastModified.Text = "Ult. Modificación:";
-			this.lblLastModified.UseCustomForeColor = true;
-			this.lblLastModified.Visible = false;
 			// 
 			// ttpValidator
 			// 
 			this.ttpValidator.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
 			this.ttpValidator.ToolTipTitle = "Message:";
+			// 
+			// metroLabel8
+			// 
+			this.metroLabel8.AutoSize = true;
+			this.metroLabel8.Location = new System.Drawing.Point(130, 66);
+			this.metroLabel8.Name = "metroLabel8";
+			this.metroLabel8.Size = new System.Drawing.Size(112, 19);
+			this.metroLabel8.TabIndex = 17;
+			this.metroLabel8.Text = "Lema Institucional";
+			// 
+			// txtLema_Institucional
+			// 
+			this.txtLema_Institucional.Location = new System.Drawing.Point(130, 88);
+			this.txtLema_Institucional.Name = "txtLema_Institucional";
+			this.txtLema_Institucional.Size = new System.Drawing.Size(281, 29);
+			this.txtLema_Institucional.TabIndex = 5;
+			this.txtLema_Institucional.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VerifyDataChanges_TextBox_KeyDown);
+			this.txtLema_Institucional.Leave += new System.EventHandler(this.AsignDataAndValidate_TextBox_Leave);
+			// 
+			// lblLema_InstValidate
+			// 
+			this.lblLema_InstValidate.BackColor = System.Drawing.Color.Transparent;
+			this.lblLema_InstValidate.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+			this.lblLema_InstValidate.ForeColor = System.Drawing.Color.Red;
+			this.lblLema_InstValidate.Location = new System.Drawing.Point(239, 69);
+			this.lblLema_InstValidate.Name = "lblLema_InstValidate";
+			this.lblLema_InstValidate.Size = new System.Drawing.Size(14, 12);
+			this.lblLema_InstValidate.TabIndex = 19;
+			this.lblLema_InstValidate.Text = "*";
+			this.lblLema_InstValidate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.lblLema_InstValidate.UseCustomBackColor = true;
+			this.lblLema_InstValidate.UseCustomForeColor = true;
 			// 
 			// frm_Information
 			// 
@@ -637,5 +677,8 @@
 		private MetroFramework.Controls.MetroLabel lblAcronimoValidate;
 		private MetroFramework.Controls.MetroLabel lblLastModified;
 		private System.Windows.Forms.ToolTip ttpValidator;
+		private System.Windows.Forms.TextBox txtLema_Institucional;
+		private MetroFramework.Controls.MetroLabel metroLabel8;
+		private MetroFramework.Controls.MetroLabel lblLema_InstValidate;
 	}
 }

@@ -134,7 +134,7 @@ namespace LawrApp
 				this.tsMenu_ConfSucursal.Enabled = false;
 				this.panelMain.Enabled = false;
 				this.tilePersonal.Enabled = false;
-				this.tileAulas.Enabled = false;
+				this.tileAulas.Enabled = true;
 				this.tileGrados.Enabled = false;
 				this.tileSeccion.Enabled = false;
 			}
@@ -158,7 +158,8 @@ namespace LawrApp
 		private void tileSucursales_Click( object sender, EventArgs e )
 		{
 			Institucion.frm_Branches bran = new Institucion.frm_Branches( this._data );
-			bran.Show();
+			bran.Owner = this;
+			bran.ShowDialog( this );
 		}
 
 		private void cboBranches_SelectionChangeCommitted( object sender, EventArgs e )
@@ -205,6 +206,69 @@ namespace LawrApp
 			{
 				MetroMessageBox.Show( this, "No se puede Gestionar al Personal si no hay una Sucursal Elegida", "Debes Elegir una Sucursal", MessageBoxButtons.OK, MessageBoxIcon.Warning );
 			}
+		}
+
+		private void tsmItem_DatosGenerales_Click( object sender, EventArgs e )
+		{
+			Institucion.frm_Information info = new Institucion.frm_Information( this._data );
+			info.Owner = this;
+			info.ShowDialog( this );
+		}
+
+		private void tsmItem_Historia_Click( object sender, EventArgs e )
+		{
+			Institucion.frm_History his = new Institucion.frm_History();
+			his.Owner = this;
+			his.ShowDialog( this );
+		}
+
+		private void tsmItem_Sucursales_Click( object sender, EventArgs e )
+		{
+			Institucion.frm_Branches bran = new Institucion.frm_Branches( this._data );
+			bran.Owner = this;
+			bran.ShowDialog( this );
+		}
+
+		private void tileDatos_Institucionales_Click( object sender, EventArgs e )
+		{
+			Institucion.frm_Information info = new Institucion.frm_Information( this._data );
+			info.Owner = this;
+			info.ShowDialog( this );
+		}
+
+		private void tileVisionMision_Click( object sender, EventArgs e )
+		{
+			Institucion.frm_VisionMision vimi = new Institucion.frm_VisionMision();
+			vimi.Owner = this;
+			vimi.ShowDialog( this );
+		}
+
+		private void tsmItem_VisionAndMision_Click( object sender, EventArgs e )
+		{
+			Institucion.frm_VisionMision vimi = new Institucion.frm_VisionMision();
+			vimi.Owner = this;
+			vimi.ShowDialog( this );
+		}
+
+		private void tileHistoria_Click( object sender, EventArgs e )
+		{
+			Institucion.frm_History his = new Institucion.frm_History();
+			his.Owner = this;
+			his.ShowDialog( this );
+		}
+
+		private void tileLogos_Click( object sender, EventArgs e )
+		{
+			Institucion.frm_Logos log = new Institucion.frm_Logos();
+			log.Owner = this;
+			log.ShowDialog( this );
+		}
+
+		private void tileAulas_Click( object sender, EventArgs e )
+		{
+			Reportes.Formularios.frm_prueba pr = new Reportes.Formularios.frm_prueba();
+			pr.Owner = this;
+			pr.ShowDialog( this );
 		}
 
 	}

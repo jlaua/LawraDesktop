@@ -29,6 +29,8 @@ namespace LawrApp.Institucion
 		private string _institutionCode	= string.Empty;
 		private bool _noChanges			= true;
 
+		private delegate void ReturnFocusToInput( TextBox txt );
+
 		public frm_Information( DataGeneral dts )
 		{
 			this._data = dts;
@@ -50,7 +52,7 @@ namespace LawrApp.Institucion
 				MetroMessageBox.Show( this, this._cInfo.ExceptionInfo, "Error en la consulta", MessageBoxButtons.OK, MessageBoxIcon.Error );
 				this.panelMain.Enabled = true;
 				this._tInst = new tInstitucion();
-				this.txtNombre.Select();
+				this.ReturnInput( this.txtNombre );
 			}
 			else
 			{
@@ -69,6 +71,9 @@ namespace LawrApp.Institucion
 				this.txtAcronimoShort.Text = this._tInst.ShortAcronym;
 				
 				this.dtpCreation.Value = Convert.ToDateTime( this._tInst.Creation );
+
+				this.txtLema_Institucional.Text = this._tInst.Lema;
+				this.lblLema_InstValidate.Visible = ( string.IsNullOrEmpty( this._tInst.Lema ) ) ? true : false;
 				
 				this.cboForma.SelectedValue = this._tInst.Forma;
 				this.lblFormaValidate.Visible = false;
@@ -96,21 +101,21 @@ namespace LawrApp.Institucion
 				this.txtDirector.Text = this._tInst.Director;
 				this.lblDirectorValidate.Visible = false;
 
-				this.txtPaginaWeb.Text = this._tInst.WebPage;
+				this.txtPaginaWeb.Text = ( string.IsNullOrEmpty( this._tInst.WebPage ) ) ? this._cInfo.getAppSettings( "BaseUrl" ) : this._tInst.WebPage;
 
 				this.lblLastModified.Text = "Ult. Modificación: " + ( Convert.ToDateTime( this._tInst.ModifiedDate ) ).ToString( "dddd d \\de MMMM \\del yyyy a la\\s hh:mm:ss tt" );
 				this.lblLastModified.Visible = true;
 
 				this.pgsLoading.Visible = false;
 				this.panelMain.Enabled = true;
-				this.txtNombre.Focus();
+				this.ReturnInput( this.txtNombre );
 				this._noChanges = true;
 			}
 
 			this._hilo.Abort();
 		}
 
-		void SubmitInsert(  )
+		void SubmitInsert()
 		{
 			CheckForIllegalCrossThreadCalls = false;
 			
@@ -143,7 +148,7 @@ namespace LawrApp.Institucion
 			this._hilo.Abort();
 		}
 
-		void SubmitUpdate( )
+		void SubmitUpdate()
 		{
 			CheckForIllegalCrossThreadCalls = false;
 
@@ -177,8 +182,25 @@ namespace LawrApp.Institucion
 
 		#endregion
 
+		#region METODOS
+
+		void ReturnInput( TextBox txt )
+		{
+			if ( ! this.InvokeRequired )
+			{
+				txt.Focus();
+			}
+			else
+			{
+				ReturnFocusToInput inp = new ReturnFocusToInput( ReturnInput );
+				this.Invoke( inp, new object[] { txt } );
+			}
+		}
+
+		#endregion
+
 		#region FUNCIONES
-		
+
 		private DataTable FormaData()
 		{
 			DataTable table = new DataTable();
@@ -263,7 +285,7 @@ namespace LawrApp.Institucion
 			//NOMBRE DE LA INSTITUCION
 			if( string.IsNullOrWhiteSpace( this._tInst.Name ) )
 			{
-				this.ttpValidator.Show( textRequired, this.lblNombreValidate );
+				this.ttpValidator.Show( textRequired, this.lblNombreValidate, 2500 );
 				this.txtNombre.Focus();
 				return false;
 			}
@@ -271,7 +293,7 @@ namespace LawrApp.Institucion
 			// ACRONIMO LARGO
 			if( string.IsNullOrWhiteSpace( this._tInst.FullAcronym ) )
 			{
-				this.ttpValidator.Show( textRequired, this.lblAcronimoValidate );
+				this.ttpValidator.Show( textRequired, this.lblAcronimoValidate, 2500 );
 				this.txtAcronimoLong.Focus();
 				return false;
 			}
@@ -279,15 +301,23 @@ namespace LawrApp.Institucion
 			// ACRONIMO CORTO
 			if( string.IsNullOrWhiteSpace( this._tInst.ShortAcronym ) )
 			{
-				this.ttpValidator.Show( textRequired, this.txtAcronimoShort );
+				this.ttpValidator.Show( textRequired, this.txtAcronimoShort, 2500 );
 				this.txtAcronimoShort.Focus();
+				return false;
+			}
+
+			// LEMA INSTITUCIONAL
+			if ( string.IsNullOrWhiteSpace( this._tInst.Lema ) )
+			{
+				this.ttpValidator.Show( textRequired, this.lblLema_InstValidate, 2500 );
+				this.txtLema_Institucional.Focus();
 				return false;
 			}
 
 			// FORMA DE LA INSTITUCIÓN
 			if( this._tInst.Forma <= 0 )
 			{
-				this.ttpValidator.Show( textNotSelection, this.lblFormaValidate );
+				this.ttpValidator.Show( textNotSelection, this.lblFormaValidate, 2500 );
 				this.cboForma.Focus();
 				return false;
 			}
@@ -295,7 +325,7 @@ namespace LawrApp.Institucion
 			// GESTION DE LA INSTITUCIÓN
 			if ( this._tInst.Gestion <= 0 )
 			{
-				this.ttpValidator.Show( textNotSelection, this.lblGestionValidate );
+				this.ttpValidator.Show( textNotSelection, this.lblGestionValidate, 2500 );
 				this.cboGestion.Focus();
 				return false;
 			}
@@ -303,7 +333,7 @@ namespace LawrApp.Institucion
 			// GENERO DE LA INSTITUCIÓN
 			if ( this._tInst.Gender <= 0 )
 			{
-				this.ttpValidator.Show( textNotSelection, this.lblGeneroValidate );
+				this.ttpValidator.Show( textNotSelection, this.lblGeneroValidate, 2500 );
 				this.cboGenero.Focus();
 				return false;
 			}
@@ -311,7 +341,7 @@ namespace LawrApp.Institucion
 			// TIPO DE INSTITUCIÓN
 			if ( this._tInst.Type <= 0 )
 			{
-				this.ttpValidator.Show( textNotSelection, this.lblTipoValidate );
+				this.ttpValidator.Show( textNotSelection, this.lblTipoValidate, 2500 );
 				this.cboTipo.Focus();
 				return false;
 			}
@@ -319,7 +349,7 @@ namespace LawrApp.Institucion
 			// RESOLUCION DE LA INSTITUCIÓN
 			if ( string.IsNullOrWhiteSpace( this._tInst.Resolution ) )
 			{
-				this.ttpValidator.Show( textRequired, this.lblResolucionValidate );
+				this.ttpValidator.Show( textRequired, this.lblResolucionValidate, 2500 );
 				this.txtResolucion.Focus();
 				return false;
 			}
@@ -327,7 +357,7 @@ namespace LawrApp.Institucion
 			// DIRECCIÓN REGIONAL DE EDUCACIÓN (DRE)
 			if ( string.IsNullOrWhiteSpace( this._tInst.DRE ) )
 			{
-				this.ttpValidator.Show( textRequired, this.lblDREValidate );
+				this.ttpValidator.Show( textRequired, this.lblDREValidate, 2500 );
 				this.txtDRE.Focus();
 				return false;
 			}
@@ -335,7 +365,7 @@ namespace LawrApp.Institucion
 			// UNIDAD DE GESTIÓN EDUCATICA LOCAL (UGEL)
 			if ( string.IsNullOrWhiteSpace( this._tInst.UGEL ) )
 			{
-				this.ttpValidator.Show( textRequired, this.lblUGELValidate );
+				this.ttpValidator.Show( textRequired, this.lblUGELValidate, 2500 );
 				this.txtUGEL.Focus();
 				return false;
 			}
@@ -343,7 +373,7 @@ namespace LawrApp.Institucion
 			// DIRECTOR ACTUAL DE LA INSTITUCIÓN
 			if ( string.IsNullOrWhiteSpace( this._tInst.Director ) )
 			{
-				this.ttpValidator.Show( textRequired, this.lblDirectorValidate );
+				this.ttpValidator.Show( textRequired, this.lblDirectorValidate, 2500 );
 				this.txtDirector.Focus();
 				return false;
 			}
@@ -352,6 +382,8 @@ namespace LawrApp.Institucion
 		}
 
 		#endregion
+
+		#region EVENTOS
 
 		private void frm_Information_Load( object sender, EventArgs e )
 		{
@@ -494,6 +526,10 @@ namespace LawrApp.Institucion
 				case "txtPaginaWeb":
 					this._tInst.WebPage = ( (txt.Text.Trim()).Length > 10 ) ? txt.Text.Trim() : null;
 				break;
+				case "txtLema_Institucional":
+					this._tInst.Lema = ( ( txt.Text.Trim() ).Length > 10 ) ? txt.Text.Trim() : null;
+					this.lblLema_InstValidate.Visible = ( string.IsNullOrWhiteSpace( txt.Text ) ) ? true : false;
+				break;
 			}
 		}
 
@@ -522,21 +558,28 @@ namespace LawrApp.Institucion
 			}
 		}
 
-		private void VerifyDataChanges_ComboBox_SelectionChangeCommited( object sender, EventArgs e )
-		{
-			if ( !this._submitInsert ) this._noChanges = false;
-		}
-
 		private void dtpCreation_Leave( object sender, EventArgs e )
 		{
 			DateTimePicker dtp = ( DateTimePicker ) sender;
 			this._tInst.Creation = dtp.Value.ToString( "yyyy-MM-dd" );
 		}
 
+		private void VerifyDataChanges_ComboBox_SelectionChangeCommited( object sender, EventArgs e )
+		{
+			if ( !this._submitInsert ) this._noChanges = false;
+		}
+
 		private void dtpCreation_ValueChanged( object sender, EventArgs e )
 		{
 			if ( ! this._submitInsert ) this._noChanges = false;
 		}
+
+		private void btnSalir_Click( object sender, EventArgs e )
+		{
+			this.Close();
+		}
+
+		#endregion
 
 	}
 }
