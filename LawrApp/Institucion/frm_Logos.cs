@@ -29,6 +29,7 @@ namespace LawrApp.Institucion
 
 		private Thread _hilo;
 		private bool _inAction = false;
+		private int _codigoLogo = 0;
 
 		public frm_Logos()
 		{
@@ -82,6 +83,8 @@ namespace LawrApp.Institucion
 			CheckForIllegalCrossThreadCalls = false;
 			this._inAction = true;
 			string status;
+			
+			List<tMinLogos> tmpMin = new List<tMinLogos>();
 
 			foreach( tMinLogos tmp in this._minLogos )
 			{
@@ -109,8 +112,8 @@ namespace LawrApp.Institucion
 					int index = this._lLogos.FindIndex( x => x.Dimension == respLogo.Dimension && x.Type == respLogo.Type );
 					if ( index >= 0 ) this._lLogos[index] = respLogo;
 					else this._lLogos.Add( respLogo );
-
-					this._minLogos.Remove( tmp );
+					
+					tmpMin.Add( tmp );
 
 					this.lblStatus.Text = "El logo ha Sido " + ( ( objExist == null ) ? "Registrado" : "Modificado") + "Con Exito";
 				}
@@ -119,7 +122,30 @@ namespace LawrApp.Institucion
 			pgsLoading.Visible = false;
 			this.panelMain.Enabled = true;
 
-			if ( !this._minLogos.Any() ) this.btnGuardar.Enabled = false;
+			foreach( tMinLogos item in tmpMin )
+			{
+				this._minLogos.Remove( item );
+			}
+
+			if ( ! this._minLogos.Any() )
+			{
+				this._minLogos = new List<tMinLogos>();
+				this.btnGuardar.Enabled = false;
+			}
+
+			this._inAction = false;
+			this._hilo.Abort();
+		}
+
+		void DeleteImageLogos()
+		{
+			CheckForIllegalCrossThreadCalls = false;
+			this._inAction = true;
+
+			if ( this._lg.Delete( this._codigoLogo ) )
+			{
+
+			}
 
 			this._inAction = false;
 			this._hilo.Abort();
@@ -235,6 +261,45 @@ namespace LawrApp.Institucion
 			this.pgsLoading.Visible = true;
 
 			this._hilo.Start();
+		}
+
+		private void tsmiDelete_Click( object sender, EventArgs e )
+		{
+			DialogResult result = MetroMessageBox.Show( this, 
+				"Se procederá a eliminar todo registro de esta imagen, Deseas continuar?", 
+				"Eliminar Imagen", 
+				MessageBoxButtons.OKCancel, 
+				MessageBoxIcon.Warning, 
+				MessageBoxDefaultButton.Button2 
+			);
+
+			if ( result == DialogResult.OK )
+			{
+				string[] relation = ( ( string ) this._ptbSelected.Tag ).Split( '-' );
+
+				int type = Convert.ToInt32( relation[0] );
+				int dimension = Convert.ToInt32( relation[1] );
+
+				tLogos logos = this._lLogos.Find( x => x.Dimension == dimension && x.Type == type );
+
+				if ( logos != null )
+				{
+					this._ptbSelected.Image = null;
+					this._ptbSelected.ImageLocation = null;
+				}
+				else
+				{
+					this._hilo = new Thread( new ThreadStart( this.DeleteImageLogos ) );
+
+					this.pgsLoading.Visible = true;
+					this.panelMain.Enabled = false;
+					this._inAction = true;
+
+					this._codigoLogo = logos.Codigo;
+
+					this._hilo.Start();
+				}
+			}
 		}
 
 	}

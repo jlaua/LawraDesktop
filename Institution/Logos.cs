@@ -136,5 +136,32 @@ namespace Institution
 				return null;
 			}
 		}
+
+		public bool Delete( int codigo )
+		{
+			Query oQuery = new Query( this._resource + "/" + codigo );
+
+			try
+			{
+				oQuery.SendRequestDELETE();
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.InternalServerError )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this.EXception, "Error en el Servidor" );
+				else if ( oQuery.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
+
+				msgResponse resp = JsonConvert.DeserializeObject<msgResponse>( oQuery.ResponseContent );
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.BadRequest )
+					throw new InvalidOperationException( resp.message );
+
+				return Convert.ToBoolean( resp.data );
+			}
+			catch ( Exception ex )
+			{
+				this.EXception = ex.Message;
+				return false;
+			}
+		}
 	}
 }

@@ -336,7 +336,7 @@
 			this.cmsImage.Name = "cmsImage";
 			this.cmsImage.ShowImageMargin = false;
 			this.cmsImage.ShowItemToolTips = false;
-			this.cmsImage.Size = new System.Drawing.Size(147, 70);
+			this.cmsImage.Size = new System.Drawing.Size(147, 92);
 			// 
 			// tsmiAddImage
 			// 
@@ -360,6 +360,7 @@
 			this.tsmiDelete.Name = "tsmiDelete";
 			this.tsmiDelete.Size = new System.Drawing.Size(146, 22);
 			this.tsmiDelete.Text = "Eliminar Imagen";
+			this.tsmiDelete.Click += new System.EventHandler(this.tsmiDelete_Click);
 			// 
 			// lblStatus
 			// 
