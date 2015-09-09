@@ -144,7 +144,17 @@ namespace LawrApp.Institucion
 
 			if ( this._lg.Delete( this._codigoLogo ) )
 			{
-
+				this._ptbSelected.Image = null;
+				this._ptbSelected.ImageLocation = null;
+				this._lLogos.Remove( this._lLogos.Find( x => x.Codigo == this._codigoLogo ) );
+				this.pgsLoading.Visible = false;
+				this.panelMain.Enabled = true;
+			}
+			else
+			{
+				this.pgsLoading.Visible = false;
+				MetroMessageBox.Show( this, this._lg.EXception, "Error al Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Error );
+				this.pgsLoading.Enabled = true;
 			}
 
 			this._inAction = false;
@@ -282,7 +292,7 @@ namespace LawrApp.Institucion
 
 				tLogos logos = this._lLogos.Find( x => x.Dimension == dimension && x.Type == type );
 
-				if ( logos != null )
+				if ( logos == null )
 				{
 					this._ptbSelected.Image = null;
 					this._ptbSelected.ImageLocation = null;
@@ -299,6 +309,14 @@ namespace LawrApp.Institucion
 
 					this._hilo.Start();
 				}
+			}
+		}
+
+		private void frm_Logos_FormClosing( object sender, FormClosingEventArgs e )
+		{
+			if ( this._inAction )
+			{
+				e.Cancel = true;
 			}
 		}
 

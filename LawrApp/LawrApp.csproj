@@ -177,6 +177,12 @@
     <Compile Include="Institucion\frm_Logos.Designer.cs">
       <DependentUpon>frm_Logos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Institucion\frm_Lounge.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Institucion\frm_Lounge.Designer.cs">
+      <DependentUpon>frm_Lounge.cs</DependentUpon>
+    </Compile>
     <Compile Include="Institucion\frm_Slogans.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -394,6 +400,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Institucion\frm_Logos.resx">
       <DependentUpon>frm_Logos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Institucion\frm_Lounge.resx">
+      <DependentUpon>frm_Lounge.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Institucion\frm_Slogans.resx">
       <DependentUpon>frm_Slogans.cs</DependentUpon>

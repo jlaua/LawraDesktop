@@ -336,7 +336,7 @@
 			this.cmsImage.Name = "cmsImage";
 			this.cmsImage.ShowImageMargin = false;
 			this.cmsImage.ShowItemToolTips = false;
-			this.cmsImage.Size = new System.Drawing.Size(147, 92);
+			this.cmsImage.Size = new System.Drawing.Size(147, 70);
 			// 
 			// tsmiAddImage
 			// 
@@ -395,6 +395,7 @@
 			this.ShowInTaskbar = false;
 			this.Style = MetroFramework.MetroColorStyle.Green;
 			this.Text = "Logos";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frm_Logos_FormClosing);
 			this.Load += new System.EventHandler(this.frm_Logos_Load);
 			this.panelMain.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.ptbLogo_White_Rectangle)).EndInit();

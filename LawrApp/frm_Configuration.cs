@@ -266,9 +266,16 @@ namespace LawrApp
 
 		private void tileAulas_Click( object sender, EventArgs e )
 		{
-			Reportes.Formularios.frm_prueba pr = new Reportes.Formularios.frm_prueba();
-			pr.Owner = this;
-			pr.ShowDialog( this );
+			if ( this._codigoBranch > 0 )
+			{
+				Institucion.frm_Lounge lon = new Institucion.frm_Lounge();
+				lon.Owner = this;
+				lon.ShowDialog( this );
+			}
+			else
+			{
+				MetroMessageBox.Show( this, "DEBES ESCOJER UNA SUCURSAL ANTES DE PROCEDER A REGISTRAR UN SALON", "ESCOJE UNA SUCURSAL", MessageBoxButtons.OK, MessageBoxIcon.Information );
+			}
 		}
 
 	}
