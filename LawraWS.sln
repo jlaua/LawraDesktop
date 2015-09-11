@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawrApp", "LawrApp\LawrApp.csproj", "{E9D4B4AB-CBE6-4402-A9A3-80C1A705B21B}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -24,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Registers", "Registers\Registers.csproj", "{558FB5AD-B143-4DD0-9F43-27B6F3E7B9A1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Institution", "Institution\Institution.csproj", "{9DA5FB98-769C-491E-BF2B-14801CC9DC7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlMaterial", "Control\ControlMaterial.csproj", "{96129239-8DA0-4F56-9712-38BD52B0C3DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{9DA5FB98-769C-491E-BF2B-14801CC9DC7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DA5FB98-769C-491E-BF2B-14801CC9DC7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DA5FB98-769C-491E-BF2B-14801CC9DC7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96129239-8DA0-4F56-9712-38BD52B0C3DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96129239-8DA0-4F56-9712-38BD52B0C3DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96129239-8DA0-4F56-9712-38BD52B0C3DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96129239-8DA0-4F56-9712-38BD52B0C3DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

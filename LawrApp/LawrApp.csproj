@@ -56,6 +56,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Access.dll</HintPath>
     </Reference>
+    <Reference Include="ControlMaterial">
+      <HintPath>lib\ControlMaterial.dll</HintPath>
+    </Reference>
     <Reference Include="Institution">
       <HintPath>lib\Institution.dll</HintPath>
     </Reference>
@@ -81,8 +84,7 @@
     <Reference Include="Objects">
       <HintPath>lib\Objects.dll</HintPath>
     </Reference>
-    <Reference Include="Options, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Options">
       <HintPath>lib\Options.dll</HintPath>
     </Reference>
     <Reference Include="Registers">
@@ -107,6 +109,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControlMaterial\frm_Material.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ControlMaterial\frm_Material.Designer.cs">
+      <DependentUpon>frm_Material.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataGeneral.cs">
       <DependentUpon>DataGeneral.xsd</DependentUpon>
       <SubType>Component</SubType>
@@ -368,6 +376,9 @@
     <Compile Include="Reportes\Formularios\frm_prueba.Designer.cs">
       <DependentUpon>frm_prueba.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ControlMaterial\frm_Material.resx">
+      <DependentUpon>frm_Material.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmConfigServer.resx">
       <DependentUpon>frmConfigServer.cs</DependentUpon>
     </EmbeddedResource>

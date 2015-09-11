@@ -508,5 +508,134 @@ namespace Access
 
 		#endregion
 
+		#region PERSONAL
+
+		public DataSet ListSalones( DataSet dts )
+		{
+			Query oQuery = new Query( "api/institution/branches/" + this.getAppSettings( "BranchCode" ) + "/lounge" );
+
+			try
+			{
+				dts.Tables["ListaSalones"].Clear();
+
+				oQuery.SendRequestGET();
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.InternalServerError )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._exceptionUbigeo, "Error en el Servidor" );
+				else if ( oQuery.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
+
+				msgResponse resp = JsonConvert.DeserializeObject<msgResponse>( oQuery.ResponseContent );
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.BadRequest )
+					throw new InvalidOperationException( resp.message );
+
+				List<tSalon> tipos = JsonConvert.DeserializeObject<List<tSalon>>( resp.data );
+
+				foreach ( tSalon item in tipos )
+				{
+					object[] temp = new object[3]
+					{
+						item.Codigo,
+						item.Name,
+						item.ModifiedDate
+					};
+
+					dts.Tables["ListaSalones"].Rows.Add( temp );
+				}
+			}
+			catch ( Exception e )
+			{
+				this._exceptionUbigeo = e.Message;
+			}
+
+			return dts;
+		}
+
+		public DataSet ListMarcas( DataSet dts )
+		{
+			Query oQuery = new Query( "api/initial/marca/" );
+
+			try
+			{
+				dts.Tables["ListaMarca"].Clear();
+
+				oQuery.SendRequestGET();
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.InternalServerError )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._exceptionUbigeo, "Error en el Servidor" );
+				else if ( oQuery.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
+
+				msgResponse resp = JsonConvert.DeserializeObject<msgResponse>( oQuery.ResponseContent );
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.BadRequest )
+					throw new InvalidOperationException( resp.message );
+
+				List<tMarca> marcas = JsonConvert.DeserializeObject<List<tMarca>>( resp.data );
+
+				foreach ( tMarca item in marcas )
+				{
+					object[] temp = new object[3]
+					{
+						item.Codigo,
+						item.Name,
+						item.Modifieddate
+					};
+
+					dts.Tables["ListaMarca"].Rows.Add( temp );
+				}
+			}
+			catch ( Exception e )
+			{
+				this._exceptionUbigeo = e.Message;
+			}
+
+			return dts;
+		}
+
+		public DataSet ListCategorias( DataSet dts )
+		{
+			Query oQuery = new Query( "api/initial/categoria/" );
+
+			try
+			{
+				oQuery.SendRequestGET();
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.InternalServerError )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._exceptionUbigeo, "Error en el Servidor" );
+				else if ( oQuery.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
+
+				msgResponse resp = JsonConvert.DeserializeObject<msgResponse>( oQuery.ResponseContent );
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.BadRequest )
+					throw new InvalidOperationException( resp.message );
+				
+				List<tCategoria> categ = JsonConvert.DeserializeObject<List<tCategoria>>( resp.data );
+
+				foreach ( tCategoria item in categ )
+				{
+					object[] temp = new object[3]
+					{
+						item.Codigo,
+						item.Name,
+						item.Modifieddate
+					};
+
+					dts.Tables["ListaCategoria"].Rows.Add( temp );
+				}
+				
+			}
+			catch ( Exception e )
+			{
+				this._exceptionUbigeo = e.Message;
+			}
+
+			return dts;
+		}
+
+		#endregion
+
 	}
 }

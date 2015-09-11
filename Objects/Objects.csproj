@@ -42,6 +42,7 @@
     <Compile Include="Processes\pInitial.cs" />
     <Compile Include="Processes\plogin.cs" />
     <Compile Include="Processes\pAlumno.cs" />
+    <Compile Include="Processes\pMaterialControl.cs" />
     <Compile Include="Processes\pMatricula.cs" />
     <Compile Include="Processes\pPersonal.cs" />
     <Compile Include="Processes\pResponse.cs" />

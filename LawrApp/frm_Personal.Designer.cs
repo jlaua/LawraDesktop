@@ -28,9 +28,12 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.panel1 = new System.Windows.Forms.Panel();
+			this.panelMain = new System.Windows.Forms.Panel();
 			this.panel_Right_Body = new System.Windows.Forms.Panel();
+			this.flpanel_Mensajes = new System.Windows.Forms.FlowLayoutPanel();
+			this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
 			this.panel_Left_Body = new System.Windows.Forms.Panel();
+			this.tileMaterial = new MetroFramework.Controls.MetroTile();
 			this.panelHeading = new System.Windows.Forms.Panel();
 			this.panel_Right_InstitutionData = new System.Windows.Forms.Panel();
 			this.cboYearPeriod = new MetroFramework.Controls.MetroComboBox();
@@ -51,10 +54,10 @@
 			this.pts_MenuItem_CloseApp = new System.Windows.Forms.ToolStripMenuItem();
 			this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
 			this.pgsLoading = new MetroFramework.Controls.MetroProgressSpinner();
-			this.flpanel_Mensajes = new System.Windows.Forms.FlowLayoutPanel();
-			this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
-			this.panel1.SuspendLayout();
+			this.lblLoadInfo = new MetroFramework.Controls.MetroLabel();
+			this.panelMain.SuspendLayout();
 			this.panel_Right_Body.SuspendLayout();
+			this.panel_Left_Body.SuspendLayout();
 			this.panelHeading.SuspendLayout();
 			this.panel_Right_InstitutionData.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.ptbLogoInstitucion)).BeginInit();
@@ -63,17 +66,18 @@
 			this.MainMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// panel1
+			// panelMain
 			// 
-			this.panel1.Controls.Add(this.panel_Right_Body);
-			this.panel1.Controls.Add(this.panel_Left_Body);
-			this.panel1.Controls.Add(this.panelHeading);
-			this.panel1.Controls.Add(this.MainMenu);
-			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel1.Location = new System.Drawing.Point(20, 30);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(860, 540);
-			this.panel1.TabIndex = 0;
+			this.panelMain.Controls.Add(this.panel_Right_Body);
+			this.panelMain.Controls.Add(this.panel_Left_Body);
+			this.panelMain.Controls.Add(this.panelHeading);
+			this.panelMain.Controls.Add(this.MainMenu);
+			this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panelMain.Enabled = false;
+			this.panelMain.Location = new System.Drawing.Point(20, 30);
+			this.panelMain.Name = "panelMain";
+			this.panelMain.Size = new System.Drawing.Size(860, 540);
+			this.panelMain.TabIndex = 0;
 			// 
 			// panel_Right_Body
 			// 
@@ -85,13 +89,43 @@
 			this.panel_Right_Body.Size = new System.Drawing.Size(253, 431);
 			this.panel_Right_Body.TabIndex = 5;
 			// 
+			// flpanel_Mensajes
+			// 
+			this.flpanel_Mensajes.AutoScroll = true;
+			this.flpanel_Mensajes.Location = new System.Drawing.Point(3, 33);
+			this.flpanel_Mensajes.Name = "flpanel_Mensajes";
+			this.flpanel_Mensajes.Size = new System.Drawing.Size(247, 395);
+			this.flpanel_Mensajes.TabIndex = 12;
+			// 
+			// metroLabel5
+			// 
+			this.metroLabel5.AutoSize = true;
+			this.metroLabel5.Location = new System.Drawing.Point(3, 11);
+			this.metroLabel5.Name = "metroLabel5";
+			this.metroLabel5.Size = new System.Drawing.Size(65, 19);
+			this.metroLabel5.TabIndex = 11;
+			this.metroLabel5.Text = "Mensajes:";
+			// 
 			// panel_Left_Body
 			// 
+			this.panel_Left_Body.Controls.Add(this.tileMaterial);
 			this.panel_Left_Body.Dock = System.Windows.Forms.DockStyle.Left;
 			this.panel_Left_Body.Location = new System.Drawing.Point(0, 109);
 			this.panel_Left_Body.Name = "panel_Left_Body";
 			this.panel_Left_Body.Size = new System.Drawing.Size(601, 431);
 			this.panel_Left_Body.TabIndex = 3;
+			// 
+			// tileMaterial
+			// 
+			this.tileMaterial.ActiveControl = null;
+			this.tileMaterial.Location = new System.Drawing.Point(19, 21);
+			this.tileMaterial.Name = "tileMaterial";
+			this.tileMaterial.Size = new System.Drawing.Size(103, 125);
+			this.tileMaterial.Style = MetroFramework.MetroColorStyle.Lime;
+			this.tileMaterial.TabIndex = 12;
+			this.tileMaterial.Text = "Registrar \r\nMaterial";
+			this.tileMaterial.UseSelectable = true;
+			this.tileMaterial.Click += new System.EventHandler(this.tileMaterial_Click);
 			// 
 			// panelHeading
 			// 
@@ -190,7 +224,6 @@
 			this.lblCargo.Name = "lblCargo";
 			this.lblCargo.Size = new System.Drawing.Size(304, 18);
 			this.lblCargo.TabIndex = 2;
-			this.lblCargo.Text = "Director(a)";
 			// 
 			// lblFullName
 			// 
@@ -201,7 +234,6 @@
 			this.lblFullName.Name = "lblFullName";
 			this.lblFullName.Size = new System.Drawing.Size(304, 31);
 			this.lblFullName.TabIndex = 1;
-			this.lblFullName.Text = "José Alejandro Vilchez Moreno";
 			this.lblFullName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.lblFullName.UseCustomForeColor = true;
 			// 
@@ -311,31 +343,23 @@
 			this.pgsLoading.UseSelectable = true;
 			this.pgsLoading.Value = 50;
 			// 
-			// flpanel_Mensajes
+			// lblLoadInfo
 			// 
-			this.flpanel_Mensajes.AutoScroll = true;
-			this.flpanel_Mensajes.Location = new System.Drawing.Point(3, 33);
-			this.flpanel_Mensajes.Name = "flpanel_Mensajes";
-			this.flpanel_Mensajes.Size = new System.Drawing.Size(247, 395);
-			this.flpanel_Mensajes.TabIndex = 12;
-			// 
-			// metroLabel5
-			// 
-			this.metroLabel5.AutoSize = true;
-			this.metroLabel5.Location = new System.Drawing.Point(3, 11);
-			this.metroLabel5.Name = "metroLabel5";
-			this.metroLabel5.Size = new System.Drawing.Size(65, 19);
-			this.metroLabel5.TabIndex = 11;
-			this.metroLabel5.Text = "Mensajes:";
+			this.lblLoadInfo.FontSize = MetroFramework.MetroLabelSize.Small;
+			this.lblLoadInfo.Location = new System.Drawing.Point(42, 573);
+			this.lblLoadInfo.Name = "lblLoadInfo";
+			this.lblLoadInfo.Size = new System.Drawing.Size(579, 16);
+			this.lblLoadInfo.TabIndex = 5;
 			// 
 			// frm_Personal
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(900, 600);
+			this.Controls.Add(this.lblLoadInfo);
 			this.Controls.Add(this.pgsLoading);
 			this.Controls.Add(this.metroLabel1);
-			this.Controls.Add(this.panel1);
+			this.Controls.Add(this.panelMain);
 			this.DisplayHeader = false;
 			this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -346,10 +370,11 @@
 			this.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow;
 			this.Text = "Menu Principal";
 			this.Load += new System.EventHandler(this.frm_Personal_Load);
-			this.panel1.ResumeLayout(false);
-			this.panel1.PerformLayout();
+			this.panelMain.ResumeLayout(false);
+			this.panelMain.PerformLayout();
 			this.panel_Right_Body.ResumeLayout(false);
 			this.panel_Right_Body.PerformLayout();
+			this.panel_Left_Body.ResumeLayout(false);
 			this.panelHeading.ResumeLayout(false);
 			this.panel_Right_InstitutionData.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.ptbLogoInstitucion)).EndInit();
@@ -363,7 +388,7 @@
 
 		#endregion
 
-		private System.Windows.Forms.Panel panel1;
+		private System.Windows.Forms.Panel panelMain;
 		private MetroFramework.Controls.MetroLabel metroLabel1;
 		private System.Windows.Forms.MenuStrip MainMenu;
 		private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem;
@@ -388,5 +413,7 @@
 		private MetroFramework.Controls.MetroComboBox cboYearPeriod;
 		private System.Windows.Forms.FlowLayoutPanel flpanel_Mensajes;
 		private MetroFramework.Controls.MetroLabel metroLabel5;
+		private MetroFramework.Controls.MetroTile tileMaterial;
+		private MetroFramework.Controls.MetroLabel lblLoadInfo;
 	}
 }

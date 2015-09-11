@@ -20,19 +20,101 @@ namespace LawrApp
 	public partial class frm_Personal : MetroForm
 	{
 		private DataGeneral _data;
+		private Thread _hilo;
+
+		private int _codigoBranch = 0;
+
 		private ConfigServer _cf = new ConfigServer();
+		private InitialData _initial = new InitialData();
+
+		delegate void LoadSucursales();
 
 		public frm_Personal( DataGeneral dts )
 		{
 			this._data = dts;
 			InitializeComponent();
+
 			this.lblFullName.Text = this._cf.getAppSettings( "UserName" );
 			this.lblCargo.Text = this._cf.getAppSettings( "UserType" );
 			this.ptbImagePorfile.ImageLocation = this._cf.getAppSettings( "UserPictureUrl" );
 
 			this.lblNameInstitucion.Text = this._cf.getAppSettings( "InstitutionName" ).ToUpper();
 			this.lblAddressInstitucion.Text = this._cf.getAppSettings( "BranchAddress" );
-			this.ptbLogoInstitucion.ImageLocation = this._cf.getAppSettings( "InstitutionLogo" );
+			this.ptbLogoInstitucion.ImageLocation = this._cf.ConfigBaseUrl + this._cf.getAppSettings( "InstitutionLogo" );
+		}
+
+		void LoadDataDefault()
+		{
+			CheckForIllegalCrossThreadCalls = false;
+
+			//DATOS NO FILTRADOS, SIMPRE IMPORTANTES
+			if ( this._data.Tables["Departamentos"].Rows.Count == 0 )
+			{
+				this.lblLoadInfo.Text = "Cargando: Departamentos, Provincias, Distritos...";
+				this._initial.ListUbigeo( this._data );
+			}
+
+			if ( this._data.Tables["TipoDocumento"].Rows.Count == 0 )
+			{
+				this.lblLoadInfo.Text = "Cargando: Tipos de Documentos...";
+				this._initial.ListTipoDocumento( this._data );
+			}
+
+			if ( this._data.Tables["ListaSalones"].Rows.Count == 0 )
+			{
+				this.lblLoadInfo.Text = "Cargando: Salones...";
+				this._initial.ListSalones( this._data );
+			}
+
+			if ( this._data.Tables["ListaMarca"].Rows.Count == 0 )
+			{
+				this.lblLoadInfo.Text = "Cargando: Marcas...";
+				this._initial.ListMarcas( this._data );
+			}
+
+			if ( this._data.Tables["listaCategoria"].Rows.Count == 0 )
+			{
+				this.lblLoadInfo.Text = "Cargando: Categorias...";
+				this._initial.ListCategorias( this._data );
+			}
+
+			this.lblLoadInfo.Text = "Cargando: Periodos...";
+			this._initial.ListPeriodos( _data );
+
+			this.cboYearPeriod.ValueMember = "Codigo";
+			this.cboYearPeriod.DisplayMember = "Year";
+			this.cboYearPeriod.DataSource = this._data.Tables["Periodo"];
+
+			if ( this._data.Tables["Periodo"].Rows.Count > 0 )
+			{
+				this.lblLoadInfo.Text = "Asignando Periodos...";
+				this._initial.AsignYear( this.cboYearPeriod.SelectedValue.ToString() );
+
+				if ( this._data.Tables["TipoApoderado"].Rows.Count == 0 )
+				{
+					this.lblLoadInfo.Text = "Cargando: Tipos de Parientes...";
+					this._initial.ListTipoApoderado( _data );
+				}
+
+				if ( this._data.Tables["Grados"].Rows.Count == 0 )
+				{
+					this.lblLoadInfo.Text = "Cargando: Grados, Secciones...";
+					this._initial.ListaGradoSeccion( _data );
+				}
+
+				this.lblLoadInfo.Text = "Cargando: Estudiantes...";
+				this._initial.ListaStudents( _data );
+			}
+			else
+			{
+				MetroMessageBox.Show( this, "No Existe ningun Periodo Configurado", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+			}
+
+			this.lblLoadInfo.Text = "";
+			this.pgsLoading.Visible = false;
+			this.panelMain.Enabled = true;
+
+			this._hilo.Abort();
 		}
 
 		void LoadMessages()
@@ -107,7 +189,21 @@ namespace LawrApp
 
 		private void frm_Personal_Load( object sender, EventArgs e )
 		{
-			this.LoadMessages();
+			this._hilo = new Thread( new ThreadStart( this.LoadDataDefault ) );
+
+			this.panelMain.Enabled = false;
+			this.pgsLoading.Visible = true;
+
+			this._hilo.Start();
+
+			//this.LoadMessages();
+		}
+
+		private void tileMaterial_Click( object sender, EventArgs e )
+		{
+			ControlMaterial.frm_Material mate = new ControlMaterial.frm_Material( this._data );
+			mate.Owner = this;
+			mate.ShowDialog( this );
 		}
 	}
 }
