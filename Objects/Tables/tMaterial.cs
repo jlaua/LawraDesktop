@@ -14,6 +14,7 @@ namespace Objects.Tables
 		public string Model { get; set; }
 		public string Observation { get; set; }
 		public string RestorationCost { get; set; }//Costo de restauración
+		public int Stock { get; set; }
 		public string ModifiedDate { get; set; }
 	}
 

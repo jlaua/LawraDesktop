@@ -201,9 +201,23 @@ namespace LawrApp
 
 		private void tileMaterial_Click( object sender, EventArgs e )
 		{
-			ControlMaterial.frm_Material mate = new ControlMaterial.frm_Material( this._data );
+			Control_Material.frm_Material mate = new Control_Material.frm_Material( this._data );
 			mate.Owner = this;
 			mate.ShowDialog( this );
+		}
+
+		private void tileIncome_Click( object sender, EventArgs e )
+		{
+			Control_Material.frm_Income inco = new Control_Material.frm_Income( this._data );
+			inco.Owner = this;
+			inco.ShowDialog( this );
+		}
+
+		private void tileAsignMaterials_Click( object sender, EventArgs e )
+		{
+			Control_Material.frm_AssignMaterials asm = new Control_Material.frm_AssignMaterials( this._data );
+			asm.Owner = this;
+			asm.ShowDialog( this );
 		}
 	}
 }

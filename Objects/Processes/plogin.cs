@@ -25,6 +25,7 @@ namespace Objects.Processes
 		public string FullName { get; set; }
 		public string UserType { get; set; }
 		public string UserLevel { get; set; }
+		public string UserLocation { get; set; }
 		public string ImagePath { get; set; }
 		public InstitutionData Institution { get; set; }
 	}

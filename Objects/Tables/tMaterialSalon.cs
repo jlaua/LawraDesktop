@@ -11,6 +11,7 @@ namespace Objects.Tables
 		public int CodigoMaterial { get; set; }
 		public int CodigoSalon { get; set; }
 		public string Key { get; set; }
+		public string Description { get; set; }
 		public string ModifiedDate { get; set; }
 	}
 }

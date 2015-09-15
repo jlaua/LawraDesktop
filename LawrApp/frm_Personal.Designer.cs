@@ -33,18 +33,17 @@
 			this.flpanel_Mensajes = new System.Windows.Forms.FlowLayoutPanel();
 			this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
 			this.panel_Left_Body = new System.Windows.Forms.Panel();
+			this.tileIncome = new MetroFramework.Controls.MetroTile();
 			this.tileMaterial = new MetroFramework.Controls.MetroTile();
 			this.panelHeading = new System.Windows.Forms.Panel();
 			this.panel_Right_InstitutionData = new System.Windows.Forms.Panel();
 			this.cboYearPeriod = new MetroFramework.Controls.MetroComboBox();
 			this.lblAddressInstitucion = new MetroFramework.Controls.MetroLabel();
 			this.lblNameInstitucion = new MetroFramework.Controls.MetroLabel();
-			this.ptbLogoInstitucion = new System.Windows.Forms.PictureBox();
 			this.panel_Left_UserData = new System.Windows.Forms.Panel();
 			this.lblLogOut = new MetroFramework.Controls.MetroLink();
 			this.lblCargo = new MetroFramework.Controls.MetroLabel();
 			this.lblFullName = new MetroFramework.Controls.MetroLabel();
-			this.ptbImagePorfile = new System.Windows.Forms.PictureBox();
 			this.MainMenu = new System.Windows.Forms.MenuStrip();
 			this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.pts_MenuItem_ChangeImagePerfil = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,15 +54,18 @@
 			this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
 			this.pgsLoading = new MetroFramework.Controls.MetroProgressSpinner();
 			this.lblLoadInfo = new MetroFramework.Controls.MetroLabel();
+			this.tileAsignMaterials = new MetroFramework.Controls.MetroTile();
+			this.ptbLogoInstitucion = new System.Windows.Forms.PictureBox();
+			this.ptbImagePorfile = new System.Windows.Forms.PictureBox();
 			this.panelMain.SuspendLayout();
 			this.panel_Right_Body.SuspendLayout();
 			this.panel_Left_Body.SuspendLayout();
 			this.panelHeading.SuspendLayout();
 			this.panel_Right_InstitutionData.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.ptbLogoInstitucion)).BeginInit();
 			this.panel_Left_UserData.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.ptbImagePorfile)).BeginInit();
 			this.MainMenu.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.ptbLogoInstitucion)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.ptbImagePorfile)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// panelMain
@@ -108,12 +110,26 @@
 			// 
 			// panel_Left_Body
 			// 
+			this.panel_Left_Body.Controls.Add(this.tileIncome);
+			this.panel_Left_Body.Controls.Add(this.tileAsignMaterials);
 			this.panel_Left_Body.Controls.Add(this.tileMaterial);
 			this.panel_Left_Body.Dock = System.Windows.Forms.DockStyle.Left;
 			this.panel_Left_Body.Location = new System.Drawing.Point(0, 109);
 			this.panel_Left_Body.Name = "panel_Left_Body";
 			this.panel_Left_Body.Size = new System.Drawing.Size(601, 431);
 			this.panel_Left_Body.TabIndex = 3;
+			// 
+			// tileIncome
+			// 
+			this.tileIncome.ActiveControl = null;
+			this.tileIncome.Location = new System.Drawing.Point(128, 21);
+			this.tileIncome.Name = "tileIncome";
+			this.tileIncome.Size = new System.Drawing.Size(103, 125);
+			this.tileIncome.Style = MetroFramework.MetroColorStyle.Lime;
+			this.tileIncome.TabIndex = 12;
+			this.tileIncome.Text = "Ingreso de\r\nMaterial";
+			this.tileIncome.UseSelectable = true;
+			this.tileIncome.Click += new System.EventHandler(this.tileIncome_Click);
 			// 
 			// tileMaterial
 			// 
@@ -183,16 +199,6 @@
 			this.lblNameInstitucion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.lblNameInstitucion.UseCustomForeColor = true;
 			// 
-			// ptbLogoInstitucion
-			// 
-			this.ptbLogoInstitucion.ErrorImage = global::LawrApp.Properties.Resources.image_broken;
-			this.ptbLogoInstitucion.InitialImage = global::LawrApp.Properties.Resources.loader;
-			this.ptbLogoInstitucion.Location = new System.Drawing.Point(394, 4);
-			this.ptbLogoInstitucion.Name = "ptbLogoInstitucion";
-			this.ptbLogoInstitucion.Size = new System.Drawing.Size(72, 77);
-			this.ptbLogoInstitucion.TabIndex = 0;
-			this.ptbLogoInstitucion.TabStop = false;
-			// 
 			// panel_Left_UserData
 			// 
 			this.panel_Left_UserData.Controls.Add(this.lblLogOut);
@@ -236,17 +242,6 @@
 			this.lblFullName.TabIndex = 1;
 			this.lblFullName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.lblFullName.UseCustomForeColor = true;
-			// 
-			// ptbImagePorfile
-			// 
-			this.ptbImagePorfile.ErrorImage = global::LawrApp.Properties.Resources.image_broken;
-			this.ptbImagePorfile.InitialImage = global::LawrApp.Properties.Resources.loader;
-			this.ptbImagePorfile.Location = new System.Drawing.Point(3, 3);
-			this.ptbImagePorfile.Name = "ptbImagePorfile";
-			this.ptbImagePorfile.Size = new System.Drawing.Size(67, 76);
-			this.ptbImagePorfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-			this.ptbImagePorfile.TabIndex = 0;
-			this.ptbImagePorfile.TabStop = false;
 			// 
 			// MainMenu
 			// 
@@ -351,6 +346,46 @@
 			this.lblLoadInfo.Size = new System.Drawing.Size(579, 16);
 			this.lblLoadInfo.TabIndex = 5;
 			// 
+			// tileAsignMaterials
+			// 
+			this.tileAsignMaterials.ActiveControl = null;
+			this.tileAsignMaterials.Location = new System.Drawing.Point(19, 152);
+			this.tileAsignMaterials.Name = "tileAsignMaterials";
+			this.tileAsignMaterials.PaintTileCount = false;
+			this.tileAsignMaterials.Size = new System.Drawing.Size(103, 125);
+			this.tileAsignMaterials.Style = MetroFramework.MetroColorStyle.Silver;
+			this.tileAsignMaterials.TabIndex = 12;
+			this.tileAsignMaterials.Text = "Asignar\r\nMateriales";
+			this.tileAsignMaterials.TileCount = 10;
+			this.tileAsignMaterials.TileImage = global::LawrApp.Properties.Resources.appbar_checkmark_pencil_top;
+			this.tileAsignMaterials.TileImageAlign = System.Drawing.ContentAlignment.TopCenter;
+			this.tileAsignMaterials.TileTextFontSize = MetroFramework.MetroTileTextSize.Small;
+			this.tileAsignMaterials.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Regular;
+			this.tileAsignMaterials.UseSelectable = true;
+			this.tileAsignMaterials.UseTileImage = true;
+			this.tileAsignMaterials.Click += new System.EventHandler(this.tileAsignMaterials_Click);
+			// 
+			// ptbLogoInstitucion
+			// 
+			this.ptbLogoInstitucion.ErrorImage = global::LawrApp.Properties.Resources.image_broken;
+			this.ptbLogoInstitucion.InitialImage = global::LawrApp.Properties.Resources.loader;
+			this.ptbLogoInstitucion.Location = new System.Drawing.Point(394, 4);
+			this.ptbLogoInstitucion.Name = "ptbLogoInstitucion";
+			this.ptbLogoInstitucion.Size = new System.Drawing.Size(72, 77);
+			this.ptbLogoInstitucion.TabIndex = 0;
+			this.ptbLogoInstitucion.TabStop = false;
+			// 
+			// ptbImagePorfile
+			// 
+			this.ptbImagePorfile.ErrorImage = global::LawrApp.Properties.Resources.image_broken;
+			this.ptbImagePorfile.InitialImage = global::LawrApp.Properties.Resources.loader;
+			this.ptbImagePorfile.Location = new System.Drawing.Point(3, 3);
+			this.ptbImagePorfile.Name = "ptbImagePorfile";
+			this.ptbImagePorfile.Size = new System.Drawing.Size(67, 76);
+			this.ptbImagePorfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+			this.ptbImagePorfile.TabIndex = 0;
+			this.ptbImagePorfile.TabStop = false;
+			// 
 			// frm_Personal
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
@@ -377,11 +412,11 @@
 			this.panel_Left_Body.ResumeLayout(false);
 			this.panelHeading.ResumeLayout(false);
 			this.panel_Right_InstitutionData.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.ptbLogoInstitucion)).EndInit();
 			this.panel_Left_UserData.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.ptbImagePorfile)).EndInit();
 			this.MainMenu.ResumeLayout(false);
 			this.MainMenu.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.ptbLogoInstitucion)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.ptbImagePorfile)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -415,5 +450,7 @@
 		private MetroFramework.Controls.MetroLabel metroLabel5;
 		private MetroFramework.Controls.MetroTile tileMaterial;
 		private MetroFramework.Controls.MetroLabel lblLoadInfo;
+		private MetroFramework.Controls.MetroTile tileIncome;
+		private MetroFramework.Controls.MetroTile tileAsignMaterials;
 	}
 }

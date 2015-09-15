@@ -9,7 +9,8 @@ namespace Objects.Tables
 	{
 		public int Codigo { get; set; }
 		public int CodigoMaterial { get; set; }
-		public bool Type { get; set; }//el tipo de kardex 0=Ingreso, 1=egreso
+		public bool TypeReg { get; set; }//el tipo de kardex 0=Ingreso, 1=egreso
+		public bool TypeIncome { get; set; } // el tipo de ingreso 0=Donación, 1=Compra
 		public decimal PurchasePrice { get; set; }//precio de compra
 		public int Quantity { get; set; }
 		public string PurchaseDate { get; set; }

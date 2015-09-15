@@ -90,8 +90,8 @@
     <Reference Include="Registers">
       <HintPath>lib\Registers.dll</HintPath>
     </Reference>
-    <Reference Include="RestSharp, Version=105.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RestSharp.105.1.0\lib\net4\RestSharp.dll</HintPath>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net4\RestSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -109,17 +109,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ControlMaterial\frm_Material.cs">
+    <Compile Include="Control_Material\frm_AssignMaterials.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ControlMaterial\frm_Material.Designer.cs">
+    <Compile Include="Control_Material\frm_AssignMaterials.Designer.cs">
+      <DependentUpon>frm_AssignMaterials.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control_Material\frm_Income.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Control_Material\frm_Income.Designer.cs">
+      <DependentUpon>frm_Income.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control_Material\frm_Material.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Control_Material\frm_Material.Designer.cs">
       <DependentUpon>frm_Material.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Control_Material\mdl_Materiales_nc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Control_Material\mdl_Materiales_nc.Designer.cs">
+      <DependentUpon>mdl_Materiales_nc.cs</DependentUpon>
     </Compile>
     <Compile Include="DataGeneral.cs">
       <DependentUpon>DataGeneral.xsd</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DataGeneral1.Designer.cs">
+    <Compile Include="DataGeneral.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataGeneral.xsd</DependentUpon>
@@ -376,8 +394,17 @@
     <Compile Include="Reportes\Formularios\frm_prueba.Designer.cs">
       <DependentUpon>frm_prueba.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ControlMaterial\frm_Material.resx">
+    <EmbeddedResource Include="Control_Material\frm_AssignMaterials.resx">
+      <DependentUpon>frm_AssignMaterials.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control_Material\frm_Income.resx">
+      <DependentUpon>frm_Income.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control_Material\frm_Material.resx">
       <DependentUpon>frm_Material.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Control_Material\mdl_Materiales_nc.resx">
+      <DependentUpon>mdl_Materiales_nc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmConfigServer.resx">
       <DependentUpon>frmConfigServer.cs</DependentUpon>
@@ -522,7 +549,7 @@
     <None Include="DataGeneral.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataGeneral1.Designer.cs</LastGenOutput>
+      <LastGenOutput>DataGeneral.Designer.cs</LastGenOutput>
     </None>
     <None Include="DataGeneral.xss">
       <DependentUpon>DataGeneral.xsd</DependentUpon>
@@ -592,6 +619,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\user.tie.grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\appbar.checkmark.pencil.top.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

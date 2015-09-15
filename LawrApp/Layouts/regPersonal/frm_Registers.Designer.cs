@@ -210,7 +210,6 @@
 			this.dgvListado.Location = new System.Drawing.Point(3, 49);
 			this.dgvListado.MultiSelect = false;
 			this.dgvListado.Name = "dgvListado";
-			this.dgvListado.ReadOnly = true;
 			this.dgvListado.RowHeadersVisible = false;
 			this.dgvListado.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 			this.dgvListado.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -235,7 +234,6 @@
 			// 
 			this.colCodigo.HeaderText = "Codigo";
 			this.colCodigo.Name = "colCodigo";
-			this.colCodigo.ReadOnly = true;
 			this.colCodigo.Visible = false;
 			// 
 			// colKey
@@ -243,27 +241,23 @@
 			this.colKey.FillWeight = 50F;
 			this.colKey.HeaderText = "Clave";
 			this.colKey.Name = "colKey";
-			this.colKey.ReadOnly = true;
 			// 
 			// colDescripcion
 			// 
 			this.colDescripcion.HeaderText = "Descripcion";
 			this.colDescripcion.Name = "colDescripcion";
-			this.colDescripcion.ReadOnly = true;
 			// 
 			// colTipoPersonal
 			// 
 			this.colTipoPersonal.FillWeight = 70F;
 			this.colTipoPersonal.HeaderText = "Tipo";
 			this.colTipoPersonal.Name = "colTipoPersonal";
-			this.colTipoPersonal.ReadOnly = true;
 			// 
 			// colActive
 			// 
 			this.colActive.FillWeight = 30F;
 			this.colActive.HeaderText = "Activo";
 			this.colActive.Name = "colActive";
-			this.colActive.ReadOnly = true;
 			this.colActive.Resizable = System.Windows.Forms.DataGridViewTriState.True;
 			this.colActive.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
 			// 
@@ -272,7 +266,6 @@
 			this.colLasModified.FillWeight = 80F;
 			this.colLasModified.HeaderText = "Ult. Modificación";
 			this.colLasModified.Name = "colLasModified";
-			this.colLasModified.ReadOnly = true;
 			this.colLasModified.Visible = false;
 			// 
 			// btnSalir

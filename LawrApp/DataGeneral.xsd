@@ -284,6 +284,7 @@
             <xs:sequence>
               <xs:element name="Codigo" msprop:Generator_ColumnVarNameInTable="columnCodigo" msprop:Generator_ColumnPropNameInRow="Codigo" msprop:Generator_ColumnPropNameInTable="CodigoColumn" msprop:Generator_UserColumnName="Codigo" type="xs:string" minOccurs="0" />
               <xs:element name="Description" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ColumnPropNameInTable="DescriptionColumn" msprop:Generator_UserColumnName="Description" type="xs:string" minOccurs="0" />
+              <xs:element name="Stock" msprop:nullValue="_throw" msprop:Generator_ColumnPropNameInRow="Stock" msprop:Generator_ColumnVarNameInTable="columnStock" msprop:Generator_ColumnPropNameInTable="StockColumn" msprop:Generator_UserColumnName="Stock" type="xs:int" default="0" minOccurs="0" />
               <xs:element name="ModifiedDate" msprop:Generator_ColumnVarNameInTable="columnModifiedDate" msprop:Generator_ColumnPropNameInRow="ModifiedDate" msprop:Generator_ColumnPropNameInTable="ModifiedDateColumn" msprop:Generator_UserColumnName="ModifiedDate" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
@@ -295,6 +296,16 @@
               <xs:element name="CodigoMaterial" msprop:Generator_ColumnVarNameInTable="columnCodigoMaterial" msprop:Generator_ColumnPropNameInRow="CodigoMaterial" msprop:Generator_ColumnPropNameInTable="CodigoMaterialColumn" msprop:Generator_UserColumnName="CodigoMaterial" type="xs:string" minOccurs="0" />
               <xs:element name="Descripcion" msprop:Generator_ColumnVarNameInTable="columnDescripcion" msprop:Generator_ColumnPropNameInRow="Descripcion" msprop:Generator_ColumnPropNameInTable="DescripcionColumn" msprop:Generator_UserColumnName="Descripcion" type="xs:string" minOccurs="0" />
               <xs:element name="Quantity" msprop:Generator_ColumnVarNameInTable="columnQuantity" msprop:Generator_ColumnPropNameInRow="Quantity" msprop:Generator_ColumnPropNameInTable="QuantityColumn" msprop:Generator_UserColumnName="Quantity" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ListaMaterialsAsign" msprop:Generator_TableClassName="ListaMaterialsAsignDataTable" msprop:Generator_TableVarName="tableListaMaterialsAsign" msprop:Generator_TablePropName="ListaMaterialsAsign" msprop:Generator_RowDeletingName="ListaMaterialsAsignRowDeleting" msprop:Generator_RowChangingName="ListaMaterialsAsignRowChanging" msprop:Generator_RowEvHandlerName="ListaMaterialsAsignRowChangeEventHandler" msprop:Generator_RowDeletedName="ListaMaterialsAsignRowDeleted" msprop:Generator_UserTableName="ListaMaterialsAsign" msprop:Generator_RowChangedName="ListaMaterialsAsignRowChanged" msprop:Generator_RowEvArgName="ListaMaterialsAsignRowChangeEvent" msprop:Generator_RowClassName="ListaMaterialsAsignRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Codigo" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnCodigo" msprop:Generator_ColumnPropNameInRow="Codigo" msprop:Generator_ColumnPropNameInTable="CodigoColumn" msprop:Generator_UserColumnName="Codigo" type="xs:int" minOccurs="0" />
+              <xs:element name="Key" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnKey" msprop:Generator_ColumnPropNameInRow="Key" msprop:Generator_ColumnPropNameInTable="KeyColumn" msprop:Generator_UserColumnName="Key" type="xs:string" minOccurs="0" />
+              <xs:element name="Description" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ColumnPropNameInTable="DescriptionColumn" msprop:Generator_UserColumnName="Description" type="xs:string" minOccurs="0" />
+              <xs:element name="Check" msprop:Generator_ColumnVarNameInTable="columnCheck" msprop:Generator_ColumnPropNameInRow="Check" msprop:Generator_ColumnPropNameInTable="CheckColumn" msprop:Generator_UserColumnName="Check" type="xs:boolean" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

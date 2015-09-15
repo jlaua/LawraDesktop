@@ -152,7 +152,6 @@ namespace Options
         //PETICIONES CON SUS METODOS
         public bool SendRequestPOST()
         {
-
             this.Request.Method = Method.POST;
 
             try
