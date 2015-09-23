@@ -8766,7 +8766,7 @@ namespace LawrApp {
             
             private global::System.Data.DataColumn columnDescription;
             
-            private global::System.Data.DataColumn columnCheck;
+            private global::System.Data.DataColumn columnCategoria;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -8827,9 +8827,9 @@ namespace LawrApp {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn CheckColumn {
+            public global::System.Data.DataColumn CategoriaColumn {
                 get {
-                    return this.columnCheck;
+                    return this.columnCategoria;
                 }
             }
             
@@ -8870,13 +8870,13 @@ namespace LawrApp {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ListaMaterialsAsignRow AddListaMaterialsAsignRow(int Codigo, string Key, string Description, bool Check) {
+            public ListaMaterialsAsignRow AddListaMaterialsAsignRow(int Codigo, string Key, string Description, string Categoria) {
                 ListaMaterialsAsignRow rowListaMaterialsAsignRow = ((ListaMaterialsAsignRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Codigo,
                         Key,
                         Description,
-                        Check};
+                        Categoria};
                 rowListaMaterialsAsignRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowListaMaterialsAsignRow);
                 return rowListaMaterialsAsignRow;
@@ -8902,7 +8902,7 @@ namespace LawrApp {
                 this.columnCodigo = base.Columns["Codigo"];
                 this.columnKey = base.Columns["Key"];
                 this.columnDescription = base.Columns["Description"];
-                this.columnCheck = base.Columns["Check"];
+                this.columnCategoria = base.Columns["Categoria"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8914,8 +8914,8 @@ namespace LawrApp {
                 base.Columns.Add(this.columnKey);
                 this.columnDescription = new global::System.Data.DataColumn("Description", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDescription);
-                this.columnCheck = new global::System.Data.DataColumn("Check", typeof(bool), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCheck);
+                this.columnCategoria = new global::System.Data.DataColumn("Categoria", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCategoria);
                 this.columnCodigo.ReadOnly = true;
                 this.columnKey.ReadOnly = true;
                 this.columnDescription.ReadOnly = true;
@@ -12980,17 +12980,17 @@ namespace LawrApp {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool Check {
+            public string Categoria {
                 get {
                     try {
-                        return ((bool)(this[this.tableListaMaterialsAsign.CheckColumn]));
+                        return ((string)(this[this.tableListaMaterialsAsign.CategoriaColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Check\' de la tabla \'ListaMaterialsAsign\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Categoria\' de la tabla \'ListaMaterialsAsign\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableListaMaterialsAsign.CheckColumn] = value;
+                    this[this.tableListaMaterialsAsign.CategoriaColumn] = value;
                 }
             }
             
@@ -13032,14 +13032,14 @@ namespace LawrApp {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsCheckNull() {
-                return this.IsNull(this.tableListaMaterialsAsign.CheckColumn);
+            public bool IsCategoriaNull() {
+                return this.IsNull(this.tableListaMaterialsAsign.CategoriaColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetCheckNull() {
-                this[this.tableListaMaterialsAsign.CheckColumn] = global::System.Convert.DBNull;
+            public void SetCategoriaNull() {
+                this[this.tableListaMaterialsAsign.CategoriaColumn] = global::System.Convert.DBNull;
             }
         }
         

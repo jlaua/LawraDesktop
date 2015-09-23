@@ -331,6 +331,33 @@ namespace ControlMaterial
 			}
 		}
 
+		public bool DeleteMaterialsToAula( int CodigoSalon, string Keys )
+		{
+			Query oQuery = new Query( string.Format("api/control/aula/{0}/asign/material/{1}", CodigoSalon, Keys ) );
+
+			try
+			{
+				oQuery.SendRequestDELETE();
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.InternalServerError )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n", "Error en el Servidor" );
+				else if ( oQuery.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
+
+				msgResponse resp = JsonConvert.DeserializeObject<msgResponse>( oQuery.ResponseContent );
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.BadRequest )
+					throw new InvalidOperationException( resp.message );
+
+				return Convert.ToBoolean( resp.data );
+			}
+			catch ( Exception e )
+			{
+				this._ExceptionCM = e.Message;
+				return false;
+			}
+		}
+
 		#endregion
 
 	}

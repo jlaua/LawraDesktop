@@ -52,13 +52,12 @@
 			this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
 			this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
 			this.panelRegistros = new System.Windows.Forms.Panel();
-			this.metroButton4 = new MetroFramework.Controls.MetroButton();
-			this.metroButton3 = new MetroFramework.Controls.MetroButton();
-			this.metroButton2 = new MetroFramework.Controls.MetroButton();
-			this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
-			this.textBox5 = new System.Windows.Forms.TextBox();
-			this.pgsLoading = new MetroFramework.Controls.MetroProgressSpinner();
 			this.dgvListado = new MetroFramework.Controls.MetroGrid();
+			this.btnElimar = new MetroFramework.Controls.MetroButton();
+			this.btnFilters = new MetroFramework.Controls.MetroButton();
+			this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
+			this.txtFilters = new System.Windows.Forms.TextBox();
+			this.pgsLoading = new MetroFramework.Controls.MetroProgressSpinner();
 			this.panelMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.scParent)).BeginInit();
 			this.scParent.Panel1.SuspendLayout();
@@ -144,6 +143,7 @@
 			this.btnCancelar.TabIndex = 9;
 			this.btnCancelar.Text = "Cancelar";
 			this.btnCancelar.UseSelectable = true;
+			this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
 			// 
 			// btnSalir
 			// 
@@ -154,6 +154,7 @@
 			this.btnSalir.TabIndex = 8;
 			this.btnSalir.Text = "Salir";
 			this.btnSalir.UseSelectable = true;
+			this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
 			// 
 			// btnAgregar
 			// 
@@ -301,11 +302,10 @@
 			// panelRegistros
 			// 
 			this.panelRegistros.Controls.Add(this.dgvListado);
-			this.panelRegistros.Controls.Add(this.metroButton4);
-			this.panelRegistros.Controls.Add(this.metroButton3);
-			this.panelRegistros.Controls.Add(this.metroButton2);
+			this.panelRegistros.Controls.Add(this.btnElimar);
+			this.panelRegistros.Controls.Add(this.btnFilters);
 			this.panelRegistros.Controls.Add(this.metroLabel7);
-			this.panelRegistros.Controls.Add(this.textBox5);
+			this.panelRegistros.Controls.Add(this.txtFilters);
 			this.panelRegistros.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panelRegistros.Enabled = false;
 			this.panelRegistros.Location = new System.Drawing.Point(0, 0);
@@ -313,66 +313,6 @@
 			this.panelRegistros.Padding = new System.Windows.Forms.Padding(5);
 			this.panelRegistros.Size = new System.Drawing.Size(503, 498);
 			this.panelRegistros.TabIndex = 0;
-			// 
-			// metroButton4
-			// 
-			this.metroButton4.Anchor = System.Windows.Forms.AnchorStyles.Right;
-			this.metroButton4.Location = new System.Drawing.Point(330, 453);
-			this.metroButton4.Name = "metroButton4";
-			this.metroButton4.Size = new System.Drawing.Size(75, 37);
-			this.metroButton4.TabIndex = 163;
-			this.metroButton4.Text = "Desmarcar";
-			this.metroButton4.UseSelectable = true;
-			// 
-			// metroButton3
-			// 
-			this.metroButton3.Anchor = System.Windows.Forms.AnchorStyles.Right;
-			this.metroButton3.Location = new System.Drawing.Point(411, 453);
-			this.metroButton3.Name = "metroButton3";
-			this.metroButton3.Size = new System.Drawing.Size(84, 37);
-			this.metroButton3.TabIndex = 162;
-			this.metroButton3.Text = "Eliminar\r\nFila(s)";
-			this.metroButton3.UseSelectable = true;
-			// 
-			// metroButton2
-			// 
-			this.metroButton2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-			this.metroButton2.Location = new System.Drawing.Point(433, 8);
-			this.metroButton2.Name = "metroButton2";
-			this.metroButton2.Size = new System.Drawing.Size(62, 29);
-			this.metroButton2.TabIndex = 2;
-			this.metroButton2.Text = "Buscar";
-			this.metroButton2.UseSelectable = true;
-			// 
-			// metroLabel7
-			// 
-			this.metroLabel7.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.metroLabel7.AutoSize = true;
-			this.metroLabel7.Location = new System.Drawing.Point(8, 15);
-			this.metroLabel7.Name = "metroLabel7";
-			this.metroLabel7.Size = new System.Drawing.Size(47, 19);
-			this.metroLabel7.TabIndex = 1;
-			this.metroLabel7.Text = "Filtrar:";
-			// 
-			// textBox5
-			// 
-			this.textBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox5.Location = new System.Drawing.Point(61, 8);
-			this.textBox5.Name = "textBox5";
-			this.textBox5.Size = new System.Drawing.Size(366, 29);
-			this.textBox5.TabIndex = 0;
-			// 
-			// pgsLoading
-			// 
-			this.pgsLoading.Location = new System.Drawing.Point(761, 572);
-			this.pgsLoading.Maximum = 100;
-			this.pgsLoading.Name = "pgsLoading";
-			this.pgsLoading.Size = new System.Drawing.Size(16, 16);
-			this.pgsLoading.Speed = 2F;
-			this.pgsLoading.TabIndex = 1;
-			this.pgsLoading.TabStop = false;
-			this.pgsLoading.UseSelectable = true;
-			this.pgsLoading.Value = 50;
 			// 
 			// dgvListado
 			// 
@@ -385,6 +325,8 @@
 			this.dgvListado.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
 			this.dgvListado.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.dgvListado.CausesValidation = false;
+			this.dgvListado.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+			this.dgvListado.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
 			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
 			dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
 			dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -408,7 +350,6 @@
 			this.dgvListado.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
 			this.dgvListado.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
 			this.dgvListado.Location = new System.Drawing.Point(8, 43);
-			this.dgvListado.MultiSelect = false;
 			this.dgvListado.Name = "dgvListado";
 			this.dgvListado.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
 			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -439,6 +380,58 @@
 			this.dgvListado.UseCustomForeColor = true;
 			this.dgvListado.UseStyleColors = true;
 			// 
+			// btnElimar
+			// 
+			this.btnElimar.Anchor = System.Windows.Forms.AnchorStyles.Right;
+			this.btnElimar.Location = new System.Drawing.Point(407, 461);
+			this.btnElimar.Name = "btnElimar";
+			this.btnElimar.Size = new System.Drawing.Size(88, 29);
+			this.btnElimar.TabIndex = 162;
+			this.btnElimar.Text = "Eliminar Fila(s)";
+			this.btnElimar.UseSelectable = true;
+			this.btnElimar.Click += new System.EventHandler(this.btnElimar_Click);
+			// 
+			// btnFilters
+			// 
+			this.btnFilters.Anchor = System.Windows.Forms.AnchorStyles.Right;
+			this.btnFilters.Location = new System.Drawing.Point(433, 8);
+			this.btnFilters.Name = "btnFilters";
+			this.btnFilters.Size = new System.Drawing.Size(62, 29);
+			this.btnFilters.TabIndex = 2;
+			this.btnFilters.Text = "Buscar";
+			this.btnFilters.UseSelectable = true;
+			// 
+			// metroLabel7
+			// 
+			this.metroLabel7.Anchor = System.Windows.Forms.AnchorStyles.Left;
+			this.metroLabel7.AutoSize = true;
+			this.metroLabel7.Location = new System.Drawing.Point(8, 15);
+			this.metroLabel7.Name = "metroLabel7";
+			this.metroLabel7.Size = new System.Drawing.Size(47, 19);
+			this.metroLabel7.TabIndex = 1;
+			this.metroLabel7.Text = "Filtrar:";
+			// 
+			// txtFilters
+			// 
+			this.txtFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtFilters.Location = new System.Drawing.Point(61, 8);
+			this.txtFilters.Name = "txtFilters";
+			this.txtFilters.Size = new System.Drawing.Size(366, 29);
+			this.txtFilters.TabIndex = 0;
+			this.txtFilters.TextChanged += new System.EventHandler(this.txtFilters_TextChanged);
+			// 
+			// pgsLoading
+			// 
+			this.pgsLoading.Location = new System.Drawing.Point(756, 571);
+			this.pgsLoading.Maximum = 100;
+			this.pgsLoading.Name = "pgsLoading";
+			this.pgsLoading.Size = new System.Drawing.Size(16, 16);
+			this.pgsLoading.Speed = 2F;
+			this.pgsLoading.TabIndex = 1;
+			this.pgsLoading.TabStop = false;
+			this.pgsLoading.UseSelectable = true;
+			this.pgsLoading.Value = 50;
+			// 
 			// frm_AssignMaterials
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
@@ -457,6 +450,7 @@
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Asignar Materiales a Aulas";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frm_AssignMaterials_FormClosing);
 			this.Load += new System.EventHandler(this.frm_AssignMaterials_Load);
 			this.panelMain.ResumeLayout(false);
 			this.scParent.Panel1.ResumeLayout(false);
@@ -495,11 +489,10 @@
 		private MetroFramework.Controls.MetroLabel metroLabel6;
 		private MetroFramework.Controls.MetroButton btnCancelar;
 		private MetroFramework.Controls.MetroProgressSpinner pgsLoading;
-		private MetroFramework.Controls.MetroButton metroButton2;
+		private MetroFramework.Controls.MetroButton btnFilters;
 		private MetroFramework.Controls.MetroLabel metroLabel7;
-		private System.Windows.Forms.TextBox textBox5;
-		private MetroFramework.Controls.MetroButton metroButton3;
-		private MetroFramework.Controls.MetroButton metroButton4;
+		private System.Windows.Forms.TextBox txtFilters;
+		private MetroFramework.Controls.MetroButton btnElimar;
 		private MetroFramework.Controls.MetroComboBox cboSalones;
 		private MetroFramework.Controls.MetroGrid dgvListado;
 	}

@@ -32,6 +32,8 @@ namespace LawrApp.Control_Material
 
 		private delegate void ReturnFocus( Control ctrl );
 		private delegate void RefreshTable( List<tMaterialSalon> materiales, bool IsAsign );
+		private delegate void RefreshBeforeDelete( List<string> Claves );
+
 		public frm_AssignMaterials( DataGeneral dts )
 		{
 			this._data = dts;
@@ -208,6 +210,54 @@ namespace LawrApp.Control_Material
 			this._hilo.Abort();
 		}
 
+		void DeleteMaterialsToSalon()
+		{
+			CheckForIllegalCrossThreadCalls = false;
+			this._inAction = true;
+
+			List<string> claves = new List<string>();
+
+			foreach ( DataGridViewRow row in this.dgvListado.SelectedRows )
+			{
+					claves.Add( row.Cells[0].Value.ToString() );
+			}
+
+			string keysUrl = string.Join( "_", claves.ToArray() );
+
+			if ( this._cMaterial.DeleteMaterialsToAula( this._codigoSalon, keysUrl ) )
+			{
+				this.RefreshDataGridBeforeDelete( claves );
+
+				//foreach ( string clave in claves )
+				//{
+				//	var itemRow = this._data.Tables["ListaMaterialsAsign"].AsEnumerable().Where( r => r.Field<int>( "Codigo" ) == Convert.ToInt32(clave) );
+
+				//	if ( itemRow.Any() )
+				//	{
+				//		foreach ( var row in itemRow.ToList() )
+				//			row.Delete();
+				//	}
+
+				//	//DataRow[] itemRow = this._data.Tables["ListaMaterialsAsign"].Select( "Codigo='" + clave + "'" );
+				//	//this._data.Tables["ListaMaterialsAsign"].Rows.RemoveAt( this._data.Tables["ListaMaterialsAsign"].Rows.IndexOf( itemRow[0] ) );
+				//}
+
+				this.panelMain.Enabled = true;
+				this.pgsLoading.Visible = false;
+				this.ReturnFocusToControl( this.btnBuscar );
+			}
+			else
+			{
+				this.pgsLoading.Visible = false;
+				MetroMessageBox.Show( this, this._cMaterial.EXception, "ERROR DESDE EL SERVIDOR", MessageBoxButtons.OK, MessageBoxIcon.Error );
+				this.panelMain.Enabled = true;
+				this.ReturnFocusToControl( this.btnElimar );
+			}
+
+			this._inAction = false;
+			this._hilo.Abort();
+		}
+
 		#endregion
 
 		#region METODOS
@@ -271,12 +321,14 @@ namespace LawrApp.Control_Material
 				{
 					foreach ( tMaterialSalon item in materiales )
 					{
+						string[] desc = item.Description.Split( '|' );
+
 						object[] row = new object[4]
 						{
 							item.Codigo,
 							item.Key,
-							item.Description,
-							false
+							desc[0],
+							( string.IsNullOrEmpty( desc[1] ) ) ? string.Empty : desc[1]
 						};
 
 						this._data.Tables["ListaMaterialsAsign"].Rows.Add( row );
@@ -296,6 +348,33 @@ namespace LawrApp.Control_Material
 			}
 		}
 
+		void RefreshDataGridBeforeDelete( List<string> Claves )
+		{
+			if ( ! this.InvokeRequired )
+			{
+				DataRow[] itemRow = null;
+
+				itemRow = this._data.Tables["ListaMaterialsAsign"].AsEnumerable().Where(
+				r => Claves.Contains( ( r.Field<int>( "Codigo" ) ).ToString() )
+				).ToArray();
+
+				foreach ( DataRow row in itemRow )
+					this._data.Tables["ListaMaterialsAsign"].Rows.Remove( row );
+
+				if ( this._data.Tables["ListaMaterialsAsign"].Rows.Count < 1 )
+					this.panelRegistros.Enabled = false;
+
+				this.dgvListado.DataSource = this._data.Tables["ListaMaterialsAsign"];
+
+				this.txtFilters.Clear();
+			}
+			else
+			{
+				RefreshBeforeDelete rf = new RefreshBeforeDelete( RefreshDataGridBeforeDelete );
+				this.Invoke( rf, new object[] { Claves } );
+			}
+		}
+
 		#endregion
 
 		private void frm_AssignMaterials_Load( object sender, EventArgs e )
@@ -307,11 +386,11 @@ namespace LawrApp.Control_Material
 				this.dgvListado.Columns["Codigo"].Frozen = false;
 				this.dgvListado.Columns["Key"].Frozen = false;
 				this.dgvListado.Columns["Description"].Frozen = false;
-				this.dgvListado.Columns["Check"].Frozen = false;
+				this.dgvListado.Columns["Categoria"].Frozen = false;
 
 				this.dgvListado.Columns["Codigo"].Visible = false;
-				this.dgvListado.Columns["Key"].FillWeight = 45;
-				this.dgvListado.Columns["Check"].FillWeight = 25;
+				this.dgvListado.Columns["Key"].FillWeight = 40;
+				this.dgvListado.Columns["Categoria"].FillWeight = 65;
 
 				this.cboSalones.DisplayMember = "Description";
 				this.cboSalones.ValueMember = "Codigo";
@@ -376,6 +455,53 @@ namespace LawrApp.Control_Material
 			this._cantidad = (int) this.nudCantidad.Value;
 
 			this._hilo.Start();
+		}
+
+		private void btnCancelar_Click( object sender, EventArgs e )
+		{
+			this.ResetControls();
+		}
+
+		private void btnSalir_Click( object sender, EventArgs e )
+		{
+			this.Close();
+		}
+
+		private void frm_AssignMaterials_FormClosing( object sender, FormClosingEventArgs e )
+		{
+			if ( this._inAction )
+				e.Cancel = true;
+		}
+
+		private void btnElimar_Click( object sender, EventArgs e )
+		{
+			if ( dgvListado.SelectedRows.Count == 0 || cboSalones.SelectedIndex < 0 ) return;
+
+			DialogResult result = MetroMessageBox.Show( this,
+				"Se Procedera a eliminar todas las filas que estan seleccionadas.\nSi estas seguro de continuar presiona OK",
+				"Eliminando materiales", 
+				MessageBoxButtons.OKCancel, 
+				MessageBoxIcon.Warning 
+			);
+
+			if ( result == DialogResult.OK )
+			{
+				this._hilo = new Thread( new ThreadStart( this.DeleteMaterialsToSalon ) );
+
+				this.panelMain.Enabled = false;
+				this.pgsLoading.Visible = true;
+				this._codigoSalon = Convert.ToInt32( this.cboSalones.SelectedValue );
+				this._inAction = true;
+
+				this._hilo.Start();
+			}
+		}
+
+		private void txtFilters_TextChanged( object sender, EventArgs e )
+		{
+			TextBox txt = ( TextBox ) sender;
+			this._data.Tables["ListaMaterialsAsign"].DefaultView.RowFilter = ( "Description like '%" + txt.Text + "%' OR Key like '%" + txt.Text + "%'" );
+			this.dgvListado.DataSource = this._data.Tables["ListaMaterialsAsign"].DefaultView;
 		}
 	}
 }
