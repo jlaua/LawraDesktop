@@ -151,7 +151,7 @@
 			this.lvAlumnoApellido.BackColor = System.Drawing.Color.Transparent;
 			this.lvAlumnoApellido.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lvAlumnoApellido.ForeColor = System.Drawing.Color.Red;
-			this.lvAlumnoApellido.Location = new System.Drawing.Point(330, 29);
+			this.lvAlumnoApellido.Location = new System.Drawing.Point(321, 25);
 			this.lvAlumnoApellido.Name = "lvAlumnoApellido";
 			this.lvAlumnoApellido.Size = new System.Drawing.Size(14, 15);
 			this.lvAlumnoApellido.TabIndex = 150;
@@ -193,7 +193,7 @@
 			this.lvAlumnoFechaNacimiento.BackColor = System.Drawing.Color.Transparent;
 			this.lvAlumnoFechaNacimiento.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lvAlumnoFechaNacimiento.ForeColor = System.Drawing.Color.Red;
-			this.lvAlumnoFechaNacimiento.Location = new System.Drawing.Point(377, 87);
+			this.lvAlumnoFechaNacimiento.Location = new System.Drawing.Point(377, 83);
 			this.lvAlumnoFechaNacimiento.Name = "lvAlumnoFechaNacimiento";
 			this.lvAlumnoFechaNacimiento.Size = new System.Drawing.Size(18, 15);
 			this.lvAlumnoFechaNacimiento.TabIndex = 99;
@@ -204,7 +204,7 @@
 			this.lvAlumnoGenero.BackColor = System.Drawing.Color.Transparent;
 			this.lvAlumnoGenero.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lvAlumnoGenero.ForeColor = System.Drawing.Color.Red;
-			this.lvAlumnoGenero.Location = new System.Drawing.Point(72, 86);
+			this.lvAlumnoGenero.Location = new System.Drawing.Point(62, 83);
 			this.lvAlumnoGenero.Name = "lvAlumnoGenero";
 			this.lvAlumnoGenero.Size = new System.Drawing.Size(18, 15);
 			this.lvAlumnoGenero.TabIndex = 98;
@@ -215,7 +215,7 @@
 			this.lbvdepartamento.BackColor = System.Drawing.Color.Transparent;
 			this.lbvdepartamento.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lbvdepartamento.ForeColor = System.Drawing.Color.Red;
-			this.lbvdepartamento.Location = new System.Drawing.Point(98, 149);
+			this.lbvdepartamento.Location = new System.Drawing.Point(98, 147);
 			this.lbvdepartamento.Name = "lbvdepartamento";
 			this.lbvdepartamento.Size = new System.Drawing.Size(18, 15);
 			this.lbvdepartamento.TabIndex = 103;
@@ -237,7 +237,7 @@
 			this.lbVdireccion.BackColor = System.Drawing.Color.Transparent;
 			this.lbVdireccion.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lbVdireccion.ForeColor = System.Drawing.Color.Red;
-			this.lbVdireccion.Location = new System.Drawing.Point(72, 210);
+			this.lbVdireccion.Location = new System.Drawing.Point(72, 207);
 			this.lbVdireccion.Name = "lbVdireccion";
 			this.lbVdireccion.Size = new System.Drawing.Size(18, 15);
 			this.lbVdireccion.TabIndex = 100;
@@ -248,7 +248,7 @@
 			this.lbvprovincia.BackColor = System.Drawing.Color.Transparent;
 			this.lbvprovincia.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lbvprovincia.ForeColor = System.Drawing.Color.Red;
-			this.lbvprovincia.Location = new System.Drawing.Point(239, 148);
+			this.lbvprovincia.Location = new System.Drawing.Point(238, 146);
 			this.lbvprovincia.Name = "lbvprovincia";
 			this.lbvprovincia.Size = new System.Drawing.Size(18, 15);
 			this.lbvprovincia.TabIndex = 102;
@@ -270,7 +270,7 @@
 			this.lblvdistrito.BackColor = System.Drawing.Color.Transparent;
 			this.lblvdistrito.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblvdistrito.ForeColor = System.Drawing.Color.Red;
-			this.lblvdistrito.Location = new System.Drawing.Point(389, 148);
+			this.lblvdistrito.Location = new System.Drawing.Point(388, 146);
 			this.lblvdistrito.Name = "lblvdistrito";
 			this.lblvdistrito.Size = new System.Drawing.Size(18, 15);
 			this.lblvdistrito.TabIndex = 101;
@@ -325,7 +325,7 @@
 			this.lvAlumnoColegioProcedencia.BackColor = System.Drawing.Color.Transparent;
 			this.lvAlumnoColegioProcedencia.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lvAlumnoColegioProcedencia.ForeColor = System.Drawing.Color.Red;
-			this.lvAlumnoColegioProcedencia.Location = new System.Drawing.Point(164, 273);
+			this.lvAlumnoColegioProcedencia.Location = new System.Drawing.Point(149, 270);
 			this.lvAlumnoColegioProcedencia.Name = "lvAlumnoColegioProcedencia";
 			this.lvAlumnoColegioProcedencia.Size = new System.Drawing.Size(18, 15);
 			this.lvAlumnoColegioProcedencia.TabIndex = 104;
@@ -336,7 +336,7 @@
 			this.lbvtipocolegio.BackColor = System.Drawing.Color.Transparent;
 			this.lbvtipocolegio.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lbvtipocolegio.ForeColor = System.Drawing.Color.Red;
-			this.lbvtipocolegio.Location = new System.Drawing.Point(450, 273);
+			this.lbvtipocolegio.Location = new System.Drawing.Point(441, 270);
 			this.lbvtipocolegio.Name = "lbvtipocolegio";
 			this.lbvtipocolegio.Size = new System.Drawing.Size(18, 15);
 			this.lbvtipocolegio.TabIndex = 105;
@@ -562,7 +562,7 @@
 			this.lvAlumnoNombre.BackColor = System.Drawing.Color.Transparent;
 			this.lvAlumnoNombre.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lvAlumnoNombre.ForeColor = System.Drawing.Color.Red;
-			this.lvAlumnoNombre.Location = new System.Drawing.Point(86, 29);
+			this.lvAlumnoNombre.Location = new System.Drawing.Point(72, 26);
 			this.lvAlumnoNombre.Name = "lvAlumnoNombre";
 			this.lvAlumnoNombre.Size = new System.Drawing.Size(18, 15);
 			this.lvAlumnoNombre.TabIndex = 118;
@@ -579,13 +579,17 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BorderStyle = MetroFramework.Forms.MetroFormBorderStyle.FixedSingle;
 			this.ClientSize = new System.Drawing.Size(800, 600);
 			this.Controls.Add(this.panelMain);
 			this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.MaximizeBox = false;
 			this.Name = "frm_Registers";
 			this.Padding = new System.Windows.Forms.Padding(30, 97, 30, 32);
-			this.Style = MetroFramework.MetroColorStyle.Green;
+			this.Resizable = false;
+			this.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Registrar Alumno";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frm_Registers_FormClosing);
 			this.Load += new System.EventHandler(this.frm_Registers_Load);

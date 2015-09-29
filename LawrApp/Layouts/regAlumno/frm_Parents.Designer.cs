@@ -149,7 +149,7 @@
 			this.tabPageListado.Text = "Apoderados";
 			this.tabPageListado.VerticalScrollbarBarColor = true;
 			this.tabPageListado.VerticalScrollbarHighlightOnWheel = false;
-			this.tabPageListado.VerticalScrollbarSize = 2;
+			this.tabPageListado.VerticalScrollbarSize = 1;
 			// 
 			// panelListado
 			// 
@@ -287,7 +287,7 @@
 			this.tabPageRegistro.Text = "Registros";
 			this.tabPageRegistro.VerticalScrollbarBarColor = true;
 			this.tabPageRegistro.VerticalScrollbarHighlightOnWheel = false;
-			this.tabPageRegistro.VerticalScrollbarSize = 2;
+			this.tabPageRegistro.VerticalScrollbarSize = 1;
 			// 
 			// panelRegistros
 			// 
@@ -727,15 +727,17 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BorderStyle = MetroFramework.Forms.MetroFormBorderStyle.FixedSingle;
 			this.ClientSize = new System.Drawing.Size(800, 600);
 			this.Controls.Add(this.panelMain);
 			this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.MaximizeBox = false;
 			this.Name = "frm_Parents";
 			this.Padding = new System.Windows.Forms.Padding(30, 97, 30, 32);
 			this.Resizable = false;
 			this.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow;
-			this.Style = MetroFramework.MetroColorStyle.Green;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Registro Parientes";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frm_Parents_FormClosing);
 			this.Load += new System.EventHandler(this.frm_Parents_Load);

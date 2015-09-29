@@ -278,5 +278,24 @@ namespace LawrApp
 			}
 		}
 
+		private void pts_MenuItem_CloseApp_Click( object sender, EventArgs e )
+		{
+			this.Close();
+		}
+
+		private void pts_MenuItem_ChangePassword_Click( object sender, EventArgs e )
+		{
+			mdl_ChangePassword cha = new mdl_ChangePassword();
+			cha.Owner = this;
+			cha.ShowDialog( this );
+		}
+
+		private void pts_MenuItem_ChangeImagePerfil_Click( object sender, EventArgs e )
+		{
+			mdl_ChangePicture pic = new mdl_ChangePicture();
+			pic.Owner = this;
+			pic.ShowDialog( this );
+		}
+
 	}
 }

@@ -306,5 +306,12 @@ namespace LawrApp
 				}
 			}
 		}
+
+		private void btnChange_Click( object sender, EventArgs e )
+		{
+			frmConfigServer cf = new frmConfigServer();
+			cf.Owner = this;
+			cf.ShowDialog( this );
+		}
 	}
 }

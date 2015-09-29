@@ -30,6 +30,13 @@ namespace Objects.Processes
 		public InstitutionData Institution { get; set; }
 	}
 
+	public class ChangePassword
+	{
+		public string UserNick { get; set; }
+		public string OldPassword { get; set; }
+		public string NewPassword { get; set; }
+	}
+
 	public class InstitutionData
 	{
 		public int BranchCode { get; set; }

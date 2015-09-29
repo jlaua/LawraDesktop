@@ -29,11 +29,11 @@
 		private void InitializeComponent()
 		{
 			this.panelMain = new System.Windows.Forms.Panel();
+			this.psLoad = new MetroFramework.Controls.MetroProgressSpinner();
+			this.btnAplicar = new MetroFramework.Controls.MetroButton();
 			this.lblmensaje = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.txtURL = new System.Windows.Forms.TextBox();
-			this.btnAplicar = new MetroFramework.Controls.MetroButton();
-			this.psLoad = new MetroFramework.Controls.MetroProgressSpinner();
 			this.panelMain.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -49,6 +49,29 @@
 			this.panelMain.Name = "panelMain";
 			this.panelMain.Size = new System.Drawing.Size(446, 95);
 			this.panelMain.TabIndex = 0;
+			// 
+			// psLoad
+			// 
+			this.psLoad.Location = new System.Drawing.Point(333, 68);
+			this.psLoad.Maximum = 100;
+			this.psLoad.Name = "psLoad";
+			this.psLoad.Size = new System.Drawing.Size(16, 16);
+			this.psLoad.Speed = 3F;
+			this.psLoad.Style = MetroFramework.MetroColorStyle.Teal;
+			this.psLoad.TabIndex = 4;
+			this.psLoad.UseSelectable = true;
+			this.psLoad.Value = 50;
+			this.psLoad.Visible = false;
+			// 
+			// btnAplicar
+			// 
+			this.btnAplicar.Location = new System.Drawing.Point(355, 60);
+			this.btnAplicar.Name = "btnAplicar";
+			this.btnAplicar.Size = new System.Drawing.Size(88, 32);
+			this.btnAplicar.TabIndex = 3;
+			this.btnAplicar.Text = "Aplicar";
+			this.btnAplicar.UseSelectable = true;
+			this.btnAplicar.Click += new System.EventHandler(this.btnAplicar_Click);
 			// 
 			// lblmensaje
 			// 
@@ -75,33 +98,11 @@
 			this.txtURL.Size = new System.Drawing.Size(436, 29);
 			this.txtURL.TabIndex = 0;
 			// 
-			// btnAplicar
-			// 
-			this.btnAplicar.Location = new System.Drawing.Point(355, 60);
-			this.btnAplicar.Name = "btnAplicar";
-			this.btnAplicar.Size = new System.Drawing.Size(88, 32);
-			this.btnAplicar.TabIndex = 3;
-			this.btnAplicar.Text = "Aplicar";
-			this.btnAplicar.UseSelectable = true;
-			this.btnAplicar.Click += new System.EventHandler(this.btnAplicar_Click);
-			// 
-			// psLoad
-			// 
-			this.psLoad.Location = new System.Drawing.Point(333, 68);
-			this.psLoad.Maximum = 100;
-			this.psLoad.Name = "psLoad";
-			this.psLoad.Size = new System.Drawing.Size(16, 16);
-			this.psLoad.Speed = 3F;
-			this.psLoad.Style = MetroFramework.MetroColorStyle.Green;
-			this.psLoad.TabIndex = 4;
-			this.psLoad.UseSelectable = true;
-			this.psLoad.Value = 50;
-			this.psLoad.Visible = false;
-			// 
 			// frmConfigServer
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BorderStyle = MetroFramework.Forms.MetroFormBorderStyle.FixedSingle;
 			this.ClientSize = new System.Drawing.Size(506, 225);
 			this.Controls.Add(this.panelMain);
 			this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -114,7 +115,8 @@
 			this.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow;
 			this.ShowIcon = false;
 			this.ShowInTaskbar = false;
-			this.Style = MetroFramework.MetroColorStyle.Green;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+			this.Style = MetroFramework.MetroColorStyle.Teal;
 			this.Text = "Cambiar Servidor";
 			this.Load += new System.EventHandler(this.server_Load);
 			this.panelMain.ResumeLayout(false);

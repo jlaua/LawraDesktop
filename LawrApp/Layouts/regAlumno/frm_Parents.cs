@@ -28,7 +28,7 @@ namespace LawrApp.Layouts.regAlumno
 		private int _codAlumno;
 		private int _codParient;
 		private int _lengthAllowed;
-		private bool _isNumeric, _isExactLength, _gotoModify;
+		private bool _isNumeric, _isExactLength, _gotoModify, _inAction;
 		private string error_debug;
 
 		// DELEGADO QUE PERMITE INGRESAR AL EVENTO SELECTIONCHANGEDCOMMITTED 
@@ -46,6 +46,7 @@ namespace LawrApp.Layouts.regAlumno
 		private void LoadListParents()
 		{
 			CheckForIllegalCrossThreadCalls = false;
+			this._inAction = true;
 
 			List<lApoderados> list = this._parent.List( this._codAlumno );
 
@@ -79,12 +80,14 @@ namespace LawrApp.Layouts.regAlumno
 			this.panelListado.Enabled = true;
 			this.btnSearchStudent.Enabled = true;
 
+			this._inAction = false;
 			this._hilo.Abort();
 		}
 
 		private void FindParents()
 		{
 			CheckForIllegalCrossThreadCalls = false;
+			this._inAction = true;
 
 			this._objParent = this._parent.Find( this._codAlumno, this._codParient );
 
@@ -117,12 +120,14 @@ namespace LawrApp.Layouts.regAlumno
 				MetroMessageBox.Show( this, this._parent.MsgExceptionParents, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
 			}
 
+			this._inAction = false;
 			this._hilo.Abort();
 		}
 
 		private void SubmitInsertOrUpdate()
 		{
 			CheckForIllegalCrossThreadCalls = false;
+			this._inAction = true;
 
 			if ( ! this._gotoModify )
 			{
@@ -179,12 +184,14 @@ namespace LawrApp.Layouts.regAlumno
 				}
 			}
 
+			this._inAction = false;
 			this._hilo.Abort();
 		}
 
 		private void SubmitDelete()
 		{
 			CheckForIllegalCrossThreadCalls = false;
+			this._inAction = true;
 
 			if ( this._parent.Delete( this._codAlumno, this._codParient ) )
 			{
@@ -199,8 +206,8 @@ namespace LawrApp.Layouts.regAlumno
 				MetroMessageBox.Show( this, this._parent.MsgExceptionParents, "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error );
 			}
 
+			this._inAction = false;
 			this._hilo.Abort();
-
 		}
 
 		#endregion
@@ -220,6 +227,7 @@ namespace LawrApp.Layouts.regAlumno
 			this.panelListado.Enabled		= false;
 			this.btnSearchStudent.Enabled	= false;
 			this.pgsLoading.Visible			= true;
+			this._inAction					= true;
 
 			this._hilo.Start();
 
@@ -255,7 +263,8 @@ namespace LawrApp.Layouts.regAlumno
 			this.pgsLoading.Visible = true;
 			this.tabControl.SelectedTab = this.tabPageRegistro;
 			this._gotoModify = true;
-			
+			this._inAction = true;
+
 			this._hilo.Start();
 		}
 
@@ -278,6 +287,7 @@ namespace LawrApp.Layouts.regAlumno
 				this.pgsLoading.Visible = true;
 
 				this._codParient = (int) this.dgvListado.CurrentRow.Cells[0].Value;
+				this._inAction = true;
 
 				this._hilo.Start();
 			}
@@ -437,8 +447,8 @@ namespace LawrApp.Layouts.regAlumno
 
 		private void frm_Parents_FormClosing( object sender, FormClosingEventArgs e )
 		{
-			frmMain main = new frmMain( this._data );
-			main.Show();
+			if ( this._inAction )
+				e.Cancel = true;
 		}
 
 		#region CLICK & DOUBLECLICK
@@ -477,6 +487,7 @@ namespace LawrApp.Layouts.regAlumno
 			this.pgsLoading.Visible = true;
 
 			this.JoinData();
+			this._inAction = true;
 
 			this._hilo.Start();
 		}

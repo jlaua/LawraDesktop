@@ -44,8 +44,8 @@ namespace LawrApp
 					
 					this.config.BaseUrl = strUrl;
 
-					this.ServerChange();
 					this.Close();
+					this._hilo.Abort();
 				}
 				else
 				{
@@ -64,26 +64,18 @@ namespace LawrApp
 
 		}
 
-		private void ServerChange()
-		{
-			LawrApp.IFrmMain IMain = this.Owner as IFrmMain;
-
-			if ( IMain != null )
-			{
-				IMain.ReloadData( true );
-				this.Close();
-			}
-		}
-
 		private void server_Load( object sender, EventArgs e )
 		{
 			this.txtURL.Text = this.config.BaseUrl;
 			this.txtURL.Focus();
-			lblmensaje.Text = this.Owner.Name;
 		}
 
 		private void btnAplicar_Click( object sender, EventArgs e )
 		{
+			if ( string.IsNullOrWhiteSpace( txtURL.Text ) ) return;
+
+			if ( !txtURL.Text.Trim().Contains( "http://" ) && !txtURL.Text.Trim().Contains( "https://" ) ) return;
+
 			this._hilo = new Thread( new ThreadStart( this.ContactApp ) );
 			
 			this.btnAplicar.Enabled = false;
@@ -91,8 +83,7 @@ namespace LawrApp
 
 			this._hilo.Start();
 
-			//this.con.ConfigBaseUrl = this.txtURL.Text;
-			//this.ServerChange();
+			this.config.ConfigBaseUrl = this.txtURL.Text;
 		}
 	}
 }

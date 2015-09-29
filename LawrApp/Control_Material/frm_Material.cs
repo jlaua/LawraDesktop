@@ -275,10 +275,11 @@ namespace LawrApp.Control_Material
 
 				foreach ( tMaterial Items in materiales )
 				{
-					object[] temp = new object[3] 
+					object[] temp = new object[4] 
 						{ 
 							Items.Codigo, 
 							Items.Description,
+							Items.Stock,
 							Items.ModifiedDate
 						};
 
@@ -294,6 +295,7 @@ namespace LawrApp.Control_Material
 
 				this.dgvListado.Columns["Description"].ReadOnly = true;
 				this.dgvListado.Columns["ModifiedDate"].ReadOnly = true;
+				this.dgvListado.Columns["Stock"].Visible = false;
 
 				this.dgvListado.Columns["Description"].HeaderText = "Descripcion";
 				this.dgvListado.Columns["ModifiedDate"].HeaderText = "Ult. Modificacion";

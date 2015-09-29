@@ -432,6 +432,7 @@
 			this.btnChange.UseCustomBackColor = true;
 			this.btnChange.UseCustomForeColor = true;
 			this.btnChange.UseSelectable = true;
+			this.btnChange.Click += new System.EventHandler(this.btnChange_Click);
 			// 
 			// frm_Login
 			// 

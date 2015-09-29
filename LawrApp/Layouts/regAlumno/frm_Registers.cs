@@ -28,6 +28,7 @@ namespace LawrApp.Layouts.regAlumno
 
 		private bool _IsNewShcool	= true;
 		private bool _toActualize	= false;
+		private bool _inAction		= false;
 		private int _codSchool		= 0;
 		private int _codigoAlumno	= 0;
 
@@ -75,6 +76,7 @@ namespace LawrApp.Layouts.regAlumno
 		private void LoadData()
 		{
 			CheckForIllegalCrossThreadCalls = false;
+			this._inAction = true;
 
 			if ( this._toActualize )
 			{
@@ -121,6 +123,9 @@ namespace LawrApp.Layouts.regAlumno
 			this.panelMain.Enabled = true;
 
 			this.alum.ListSchool( _data );
+
+			this._inAction = false;
+			this._hilo.Abort();
 		}
 
 		private bool ChangedData()
@@ -289,6 +294,7 @@ namespace LawrApp.Layouts.regAlumno
 		private void sendDataRegistro()
 		{
 			CheckForIllegalCrossThreadCalls = false;
+			this._inAction = true;
 
 			if ( ! this._toActualize )
 			{
@@ -326,6 +332,7 @@ namespace LawrApp.Layouts.regAlumno
 				}
 			}
 
+			this._inAction = false;
 			this._hilo.Abort();
 		}
 
@@ -343,14 +350,15 @@ namespace LawrApp.Layouts.regAlumno
 
 			this.cbDepartamento.SelectedIndex = -1;
 			this.cbDepartamento.Text = "Seleccione...";
+			this._inAction = true;
 
 			this._hilo.Start();
 		}
 
 		private void frm_Registers_FormClosing( object sender, FormClosingEventArgs e )
 		{
-			frm_FindAlumno listadoalumno = new frm_FindAlumno( _data );
-			listadoalumno.Show();
+			if ( this._inAction )
+				e.Cancel = true;
 		}
 
 	#region ClICK
@@ -374,6 +382,8 @@ namespace LawrApp.Layouts.regAlumno
 				if ( ! this.ChangedData() )
 				{
 					this.JoinData();
+					this._inAction = true;
+
 					this._hilo.Start();
 				}
 				else
@@ -384,6 +394,8 @@ namespace LawrApp.Layouts.regAlumno
 			else
 			{
 				this.JoinData();
+				this._inAction = true;
+
 				this._hilo.Start();
 			}
 		}

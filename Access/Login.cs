@@ -93,6 +93,7 @@ namespace Access
 				if ( obj.UserLevel != "0" && obj.UserLevel != "1" && obj.UserLevel != "2" )
 					throw new InvalidOperationException( "TU NIVEL DE ACCESO NO ESTA PERMITIDO PARA ESTE SISTEMA" );
 
+				this.setAppSettings( "User", this.InputName );
 				this.setAppSettings( "UserName", obj.FullName );
 				this.setAppSettings( "UserType", obj.UserType );
 				this.setAppSettings( "UserLevel", obj.UserLevel );
@@ -181,6 +182,73 @@ namespace Access
 
 				return true;
 
+			}
+			catch ( Exception e )
+			{
+				this._msgExceptionLogin = e.Message;
+				return false;
+			}
+		}
+
+		public bool SendChangePassword( ChangePassword change )
+		{
+			Query oQuery = new Query( this._Controller + "/change_password" );
+
+			try
+			{
+				change.UserNick = this.getAppSettings("User");
+				oQuery.RequestParameters = change;
+				oQuery.SendRequestPOST();
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.InternalServerError )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._msgExceptionLogin, "Error en el Servidor" );
+				else if ( oQuery.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
+
+				msgResponse resp = JsonConvert.DeserializeObject<msgResponse>( oQuery.ResponseContent );
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.BadRequest )
+					throw new InvalidOperationException( resp.message );
+
+				return Convert.ToBoolean( resp.data );
+			}
+			catch ( Exception e )
+			{
+				this._msgExceptionLogin = e.Message;
+				return false;
+			}
+		}
+
+		public bool SendChangePicture( string Source )
+		{
+			Query oQuery = new Query( this._Controller + "/change_picture/" );
+			Dictionary<string, string> file = new Dictionary<string, string>();
+			object obj = new object();
+
+			obj = new object[2]{this.getAppSettings( "User" ), 1};
+			
+			try
+			{
+				file.Add( "Picture", Source );
+				
+				oQuery.AddRequestFiles(file);
+				oQuery.RequestParameters = obj;
+
+				oQuery.SendRequestPOST();
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.InternalServerError )
+					throw new ArgumentNullException( "Existe un error en el servidor:\n" + this._msgExceptionLogin, "Error en el Servidor" );
+				else if ( oQuery.ResponseStatusCode == HttpStatusCode.NotFound )
+					throw new ArgumentNullException( "No se encontro recurso al cual acceder", "Recurso no encontrado" );
+
+				msgResponse resp = JsonConvert.DeserializeObject<msgResponse>( oQuery.ResponseContent );
+
+				if ( oQuery.ResponseStatusCode == HttpStatusCode.BadRequest )
+					throw new InvalidOperationException( resp.message );
+
+				this.setAppSettings( "UserPictureUrl", Convert.ToString(resp.data) );
+
+				return true;
 			}
 			catch ( Exception e )
 			{

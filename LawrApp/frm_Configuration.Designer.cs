@@ -398,6 +398,7 @@
 			this.pts_MenuItem_ChangeImagePerfil.Padding = new System.Windows.Forms.Padding(2);
 			this.pts_MenuItem_ChangeImagePerfil.Size = new System.Drawing.Size(228, 24);
 			this.pts_MenuItem_ChangeImagePerfil.Text = "Cambiar Imagen de Perfil";
+			this.pts_MenuItem_ChangeImagePerfil.Click += new System.EventHandler(this.pts_MenuItem_ChangeImagePerfil_Click);
 			// 
 			// pts_MenuItem_ChangePassword
 			// 
@@ -407,6 +408,7 @@
 			this.pts_MenuItem_ChangePassword.Name = "pts_MenuItem_ChangePassword";
 			this.pts_MenuItem_ChangePassword.Size = new System.Drawing.Size(224, 22);
 			this.pts_MenuItem_ChangePassword.Text = "Cambiar Contraseña";
+			this.pts_MenuItem_ChangePassword.Click += new System.EventHandler(this.pts_MenuItem_ChangePassword_Click);
 			// 
 			// pts_MenuItem_MyProfile
 			// 
@@ -439,6 +441,7 @@
 			this.pts_MenuItem_CloseApp.Name = "pts_MenuItem_CloseApp";
 			this.pts_MenuItem_CloseApp.Size = new System.Drawing.Size(224, 22);
 			this.pts_MenuItem_CloseApp.Text = "Salir";
+			this.pts_MenuItem_CloseApp.Click += new System.EventHandler(this.pts_MenuItem_CloseApp_Click);
 			// 
 			// tsMenu_Institucion
 			// 

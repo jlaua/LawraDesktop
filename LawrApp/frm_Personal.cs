@@ -107,6 +107,8 @@ namespace LawrApp
 			}
 			else
 			{
+				alumnoToolStripMenuItem.Enabled = false;
+				matriculasToolStripMenuItem.Enabled = false;
 				MetroMessageBox.Show( this, "No Existe ningun Periodo Configurado", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning );
 			}
 
@@ -196,7 +198,7 @@ namespace LawrApp
 
 			this._hilo.Start();
 
-			//this.LoadMessages();
+			this.LoadMessages();
 		}
 
 		private void tileMaterial_Click( object sender, EventArgs e )
@@ -218,6 +220,46 @@ namespace LawrApp
 			Control_Material.frm_AssignMaterials asm = new Control_Material.frm_AssignMaterials( this._data );
 			asm.Owner = this;
 			asm.ShowDialog( this );
+		}
+
+		private void pts_MenuItem_CloseApp_Click( object sender, EventArgs e )
+		{
+			this.Close();
+		}
+
+		private void pts_MenuItem_ChangePassword_Click( object sender, EventArgs e )
+		{
+			mdl_ChangePassword cha = new mdl_ChangePassword();
+			cha.Owner = this;
+			cha.ShowDialog( this );
+		}
+
+		private void pts_MenuItem_ChangeImagePerfil_Click( object sender, EventArgs e )
+		{
+			mdl_ChangePicture pic = new mdl_ChangePicture();
+			pic.Owner = this;
+			pic.ShowDialog( this );
+		}
+
+		private void datosGeneralesToolStripMenuItem_Click( object sender, EventArgs e )
+		{
+			Layouts.regAlumno.frm_Registers reg = new Layouts.regAlumno.frm_Registers( this._data );
+			reg.Owner = this;
+			reg.ShowDialog( this );
+		}
+
+		private void apoderadosToolStripMenuItem_Click( object sender, EventArgs e )
+		{
+			Layouts.regAlumno.frm_Parents par = new Layouts.regAlumno.frm_Parents( this._data );
+			par.Owner = this;
+			par.ShowDialog( this );
+		}
+
+		private void documentosToolStripMenuItem_Click( object sender, EventArgs e )
+		{
+			Layouts.regAlumno.frm_Documents docs = new Layouts.regAlumno.frm_Documents( this._data );
+			docs.Owner = this;
+			docs.ShowDialog( this );
 		}
 	}
 }
