@@ -589,6 +589,7 @@
 			this.Padding = new System.Windows.Forms.Padding(30, 97, 30, 32);
 			this.Resizable = false;
 			this.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow;
+			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Registrar Alumno";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frm_Registers_FormClosing);

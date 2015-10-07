@@ -107,8 +107,8 @@ namespace LawrApp
 			}
 			else
 			{
-				alumnoToolStripMenuItem.Enabled = false;
-				matriculasToolStripMenuItem.Enabled = false;
+				//alumnoToolStripMenuItem.Enabled = false;
+				//matriculasToolStripMenuItem.Enabled = false;
 				MetroMessageBox.Show( this, "No Existe ningun Periodo Configurado", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning );
 			}
 
@@ -260,6 +260,13 @@ namespace LawrApp
 			Layouts.regAlumno.frm_Documents docs = new Layouts.regAlumno.frm_Documents( this._data );
 			docs.Owner = this;
 			docs.ShowDialog( this );
+		}
+
+		private void buscarToolStripMenuItem_Click( object sender, EventArgs e )
+		{
+			Layouts.regAlumno.frm_FindAlumno find = new Layouts.regAlumno.frm_FindAlumno( this._data );
+			find.Owner = this;
+			find.ShowDialog( this );
 		}
 	}
 }

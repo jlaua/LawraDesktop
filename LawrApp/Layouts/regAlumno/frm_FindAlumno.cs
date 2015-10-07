@@ -24,6 +24,8 @@ namespace LawrApp.Layouts.regAlumno
 		private bool _getAlumno = false;
 		private bool _openMain	= true;
 
+		private delegate void LoadDataToGridView();
+
 		public frm_FindAlumno( DataGeneral dts )
 		{
 			this._data = dts;
@@ -51,16 +53,35 @@ namespace LawrApp.Layouts.regAlumno
 		private void LoadDataTableEstudent()
 		{
 			CheckForIllegalCrossThreadCalls = false;
+
 			this.alumnos.ListStudents( this._data );
 
-			this.dgvSearch.DataSource = this._data.Tables["ListaAlumnos"];
-
-			this.dgvSearch.Columns[0].Visible = false;
-			this.dgvSearch.Columns[1].FillWeight = 30;
-			this.dgvSearch.Columns[3].FillWeight = 40;
+			this.LoadToGrid();
 
 			this.panelMain.Enabled = true;
 			this.pgAlumnosLoad.Visible = false;
+			this._hilo.Abort();
+		}
+
+		private void LoadToGrid()
+		{
+			if( ! this.InvokeRequired )
+			{
+				this.dgvListado.DataSource = this._data.Tables["ListaAlumnos"];
+
+				this.dgvListado.Columns[0].Visible = false;
+				this.dgvListado.Columns["Key"].FillWeight = 30;
+				this.dgvListado.Columns["ModifiedDate"].FillWeight = 40;
+
+				this.dgvListado.Columns["Key"].HeaderText = "Folder";
+				this.dgvListado.Columns["Names"].HeaderText = "Nombre Completo";
+				this.dgvListado.Columns["ModifiedDate"].HeaderText = "Ult. Modificación";
+			}
+			else
+			{
+				LoadDataToGridView gri = new LoadDataToGridView( LoadToGrid );
+				this.Invoke( gri, new object[] { } );
+			}
 		}
 
 #endregion
@@ -79,11 +100,7 @@ namespace LawrApp.Layouts.regAlumno
 
 		private void frm_FindAlumno_FormClosing( object sender, FormClosingEventArgs e )
 		{
-			if ( this._openMain )
-			{
-				frmMain main = new frmMain( _data );
-				main.Show();
-			}
+
 		}
 
 	#region CLICK
@@ -103,13 +120,13 @@ namespace LawrApp.Layouts.regAlumno
 		{
 			frm_Registers regAlum = new frm_Registers( this._data );
 
-			regAlum.CodigoAlumno = Convert.ToInt32( this.dgvSearch.Rows[e.RowIndex].Cells[0].Value );
-			regAlum.keyAlumno = this.dgvSearch.CurrentRow.Cells[1].Value.ToString();
+			regAlum.CodigoAlumno = Convert.ToInt32( this.dgvListado.CurrentRow.Cells[0].Value );
+			regAlum.keyAlumno = this.dgvListado.CurrentRow.Cells[1].Value.ToString();
 
 			regAlum.ToActualize = true;
 
-			this._openMain = false;
-			regAlum.Show();
+			regAlum.Owner = this.ParentForm;
+			regAlum.ShowDialog( this.ParentForm );
 
 			this.Close();
 		}
@@ -121,7 +138,7 @@ namespace LawrApp.Layouts.regAlumno
 		private void txtSearch_TextChanged( object sender, EventArgs e )
 		{
 			this._data.Tables["ListaAlumnos"].DefaultView.RowFilter = ( "Names Like '%" + this.txtSearch.Text + "%' " );
-			this.dgvSearch.DataSource = this._data.Tables["ListaAlumnos"].DefaultView;
+			this.dgvListado.DataSource = this._data.Tables["ListaAlumnos"].DefaultView;
 		}
 
 	#endregion
@@ -132,8 +149,8 @@ namespace LawrApp.Layouts.regAlumno
 		{
 			if ( e.KeyData == Keys.Delete )
 			{
-				int idAlumno		= Convert.ToInt32( dgvSearch.CurrentRow.Cells[0].Value );
-				string nombreAlumno = dgvSearch.CurrentRow.Cells[2].Value.ToString();
+				int idAlumno		= Convert.ToInt32( dgvListado.CurrentRow.Cells[0].Value );
+				string nombreAlumno = dgvListado.CurrentRow.Cells[2].Value.ToString();
 
 				DialogResult question = MetroMessageBox.Show( 
 							this, 
@@ -146,13 +163,13 @@ namespace LawrApp.Layouts.regAlumno
 				if ( question == DialogResult.Yes )
 				{
 					if ( alumnos.DeleteStudent( idAlumno ) )
-						this.dgvSearch.Rows.Remove( this.dgvSearch.CurrentRow );
+						this.dgvListado.Rows.Remove( this.dgvListado.CurrentRow );
 				}
 			}
 			else if ( e.KeyData == Keys.Enter )
 			{
 				frm_Registers regAlum = new frm_Registers( this._data );
-				regAlum.CodigoAlumno = Convert.ToInt32( this.dgvSearch.CurrentRow.Cells[0].Value );
+				regAlum.CodigoAlumno = Convert.ToInt32( this.dgvListado.CurrentRow.Cells[0].Value );
 				regAlum.ToActualize = true;
 
 				this._openMain = false;

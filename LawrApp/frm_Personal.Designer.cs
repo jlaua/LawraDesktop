@@ -75,6 +75,8 @@
 			this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
 			this.pgsLoading = new MetroFramework.Controls.MetroProgressSpinner();
 			this.lblLoadInfo = new MetroFramework.Controls.MetroLabel();
+			this.buscarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.panelMain.SuspendLayout();
 			this.panel_Right_Body.SuspendLayout();
 			this.panel_Left_Body.SuspendLayout();
@@ -502,7 +504,9 @@
             this.registrarToolStripMenuItem,
             this.asistenciasToolStripMenuItem,
             this.notasToolStripMenuItem,
-            this.papaletasToolStripMenuItem});
+            this.papaletasToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.buscarToolStripMenuItem});
 			this.alumnoToolStripMenuItem.Name = "alumnoToolStripMenuItem";
 			this.alumnoToolStripMenuItem.Size = new System.Drawing.Size(62, 21);
 			this.alumnoToolStripMenuItem.Text = "Alumno";
@@ -592,6 +596,18 @@
 			this.lblLoadInfo.Size = new System.Drawing.Size(579, 16);
 			this.lblLoadInfo.TabIndex = 5;
 			// 
+			// buscarToolStripMenuItem
+			// 
+			this.buscarToolStripMenuItem.Name = "buscarToolStripMenuItem";
+			this.buscarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.buscarToolStripMenuItem.Text = "Buscar";
+			this.buscarToolStripMenuItem.Click += new System.EventHandler(this.buscarToolStripMenuItem_Click);
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+			// 
 			// frm_Personal
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
@@ -676,5 +692,7 @@
 		private System.Windows.Forms.ToolStripMenuItem notasToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem papaletasToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem matriculasToolStripMenuItem;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+		private System.Windows.Forms.ToolStripMenuItem buscarToolStripMenuItem;
 	}
 }
