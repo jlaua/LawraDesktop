@@ -15,6 +15,7 @@ namespace Objects.Processes
 		public int Codigo { get; set; }
 		public string Key { get; set; }
 		public string Description { get; set; }
+		public string Nick_User { get; set; }
 		public string TipoPersonal { get; set; }
 		public bool IsActive { get; set; }
 		public string Sucursal { get; set; }

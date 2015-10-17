@@ -78,6 +78,12 @@ namespace LawrApp
 				this._initial.ListCategorias( this._data );
 			}
 
+			if ( this._data.Tables["TipoApoderado"].Rows.Count == 0 )
+			{
+				this.lblLoadInfo.Text = "Cargando: Tipos de Parientes...";
+				this._initial.ListTipoApoderado( _data );
+			}
+
 			this.lblLoadInfo.Text = "Cargando: Periodos...";
 			this._initial.ListPeriodos( _data );
 
@@ -89,12 +95,6 @@ namespace LawrApp
 			{
 				this.lblLoadInfo.Text = "Asignando Periodos...";
 				this._initial.AsignYear( this.cboYearPeriod.SelectedValue.ToString() );
-
-				if ( this._data.Tables["TipoApoderado"].Rows.Count == 0 )
-				{
-					this.lblLoadInfo.Text = "Cargando: Tipos de Parientes...";
-					this._initial.ListTipoApoderado( _data );
-				}
 
 				if ( this._data.Tables["Grados"].Rows.Count == 0 )
 				{

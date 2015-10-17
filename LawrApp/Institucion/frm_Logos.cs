@@ -74,6 +74,11 @@ namespace LawrApp.Institucion
 					this.panelMain.Enabled = true;
 				}
 			}
+			else
+			{
+				pgsLoading.Visible = false;
+				MetroMessageBox.Show( this, this._lg.EXception, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+			}
 
 			this._hilo.Abort();
 		}

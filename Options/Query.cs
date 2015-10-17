@@ -102,7 +102,7 @@ namespace Options
 			this.Client.AddHandler( "application/json", new JsonDeserializer() );
 
 			this.Request.RequestFormat = DataFormat.Json;
-            this.Request.AddHeader( "token", this.AuthToken );
+            this.Request.AddHeader( "Token", this.AuthToken );
 			this.Request.AddHeader( "Yearacademy", this.getAppSettings( "YearAcademy" ) );
 			this.Request.AddHeader( "Appcode", this.getAppSettings( "ApplicationCode" ) );
 			this.Request.AddHeader( "Apptype", "1" );
@@ -134,7 +134,7 @@ namespace Options
                 {
 					string[] extends = Item.Value.Split( '.' );
 					string mime = extends[extends.Length - 1] == "jpg" ? "jpeg" : extends[extends.Length - 1];
-					this.Request.AddFile( Item.Key, Item.Value, "image/" + mime );
+					this.Request.AddFile( Item.Key, Item.Value, "image/" + mime.ToLower() );
                 }
             }
         }

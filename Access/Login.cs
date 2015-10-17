@@ -149,6 +149,10 @@ namespace Access
 
 			try
 			{
+				object arq = new object[2] { this.getAppSettings( "User" ), 1 };
+
+				oQuery.RequestParameters = arq;
+
 				oQuery.SendRequestPOST();
 
 				if ( oQuery.ResponseStatusCode == HttpStatusCode.InternalServerError )

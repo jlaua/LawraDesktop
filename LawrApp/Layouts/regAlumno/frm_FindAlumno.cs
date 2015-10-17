@@ -181,6 +181,18 @@ namespace LawrApp.Layouts.regAlumno
 
 	#endregion
 
+		private void btnPrint_Click( object sender, EventArgs e )
+		{
+			if ( dgvListado.CurrentRow.Index >= 0 )
+			{
+				int Codigo = Convert.ToInt32(this.dgvListado.CurrentRow.Cells[0].Value);
+				LawrApp.Reportes.Formularios.frm_MaterialEnAula ma = new Reportes.Formularios.frm_MaterialEnAula( this._data, Codigo );
+				ma.Owner = this.ParentForm;
+				ma.ShowDialog( this.ParentForm );
+				this.Close();
+			}
+		}
+
 #endregion
 
 	}

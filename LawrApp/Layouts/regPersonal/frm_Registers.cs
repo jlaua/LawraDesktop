@@ -37,6 +37,7 @@ namespace LawrApp.Layouts.regPersonal
 		private int _idPersonal = 0;
 
 		private delegate void RestoreDataToControls();
+		private delegate void LoadDataToDataGridView( List<lPersonal> Personal );
 
 		public frm_Registers( DataGeneral dts )
 		{
@@ -56,23 +57,7 @@ namespace LawrApp.Layouts.regPersonal
 
 			if( tempPersonal != null )
 			{
-				foreach ( lPersonal item in tempPersonal )
-				{
-					object[] temp = new object[6]
-					{
-						item.Codigo,
-						item.Key,
-						item.Description,
-						item.TipoPersonal,
-						item.IsActive,
-						item.ModifiedDate
-					};
-
-					this.dgvListado.Rows.Add( temp );
-				}
-
-				this.pgsLoading.Visible = false;
-				panelMain.Enabled = true;
+				this.LoadDataToGrid( tempPersonal );
 			}
 			else
 			{
@@ -213,6 +198,36 @@ namespace LawrApp.Layouts.regPersonal
 		#endregion
 
 		#region METODOS
+
+		void LoadDataToGrid( List<lPersonal> Personal )
+		{
+			if( ! this.InvokeRequired )
+			{
+				foreach ( lPersonal item in Personal )
+				{
+					object[] temp = new object[7]
+					{
+						item.Codigo,
+						item.Key,
+						item.Description,
+						item.Nick_User,
+						item.TipoPersonal,
+						item.IsActive,
+						item.ModifiedDate
+					};
+
+					this.dgvListado.Rows.Add( temp );
+				}
+
+				this.pgsLoading.Visible = false;
+				panelMain.Enabled = true;
+			}
+			else
+			{
+				LoadDataToDataGridView dto = new LoadDataToDataGridView( LoadDataToGrid );
+				this.Invoke( dto, new object[] { Personal } );
+			}
+		}
 
 		void ResetControls()
 		{

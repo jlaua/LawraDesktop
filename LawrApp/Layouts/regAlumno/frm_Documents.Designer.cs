@@ -37,14 +37,7 @@
 			this.tabcontrolDocumentos = new MetroFramework.Controls.MetroTabControl();
 			this.tabListaDocument = new MetroFramework.Controls.MetroTabPage();
 			this.pbuscarDocumentos = new MetroFramework.Controls.MetroPanel();
-			this.btnNuevo = new MetroFramework.Controls.MetroTile();
 			this.btncancelar = new MetroFramework.Controls.MetroButton();
-			this.dgListDocumentos = new MetroFramework.Controls.MetroGrid();
-			this.colCodigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colDocumento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colNumero = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colExpiration = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colModifiedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.btnEliminar = new MetroFramework.Controls.MetroButton();
 			this.btnModificar = new MetroFramework.Controls.MetroButton();
 			this.tabregistrardocumentos = new MetroFramework.Controls.MetroTabPage();
@@ -71,15 +64,22 @@
 			this.openImageDocument = new System.Windows.Forms.OpenFileDialog();
 			this.ttValidatorMessage = new System.Windows.Forms.ToolTip(this.components);
 			this.pgshowDocumentos = new MetroFramework.Controls.MetroProgressSpinner();
+			this.btnNuevo = new MetroFramework.Controls.MetroButton();
+			this.dgListDocumentos = new MetroFramework.Controls.MetroGrid();
+			this.colCodigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colExpirationDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colModifiedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.panel1.SuspendLayout();
 			this.tabcontrolDocumentos.SuspendLayout();
 			this.tabListaDocument.SuspendLayout();
 			this.pbuscarDocumentos.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dgListDocumentos)).BeginInit();
 			this.tabregistrardocumentos.SuspendLayout();
 			this.PregistroDocumento.SuspendLayout();
 			this.gbDatosDocument.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pbImageDocument)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgListDocumentos)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// panel1
@@ -101,9 +101,9 @@
 			this.tabcontrolDocumentos.Enabled = false;
 			this.tabcontrolDocumentos.Location = new System.Drawing.Point(3, 39);
 			this.tabcontrolDocumentos.Name = "tabcontrolDocumentos";
-			this.tabcontrolDocumentos.SelectedIndex = 1;
+			this.tabcontrolDocumentos.SelectedIndex = 0;
 			this.tabcontrolDocumentos.Size = new System.Drawing.Size(734, 429);
-			this.tabcontrolDocumentos.Style = MetroFramework.MetroColorStyle.Green;
+			this.tabcontrolDocumentos.Style = MetroFramework.MetroColorStyle.Blue;
 			this.tabcontrolDocumentos.TabIndex = 32;
 			this.tabcontrolDocumentos.UseSelectable = true;
 			// 
@@ -126,9 +126,9 @@
 			// pbuscarDocumentos
 			// 
 			this.pbuscarDocumentos.BackColor = System.Drawing.SystemColors.ControlLightLight;
+			this.pbuscarDocumentos.Controls.Add(this.dgListDocumentos);
 			this.pbuscarDocumentos.Controls.Add(this.btnNuevo);
 			this.pbuscarDocumentos.Controls.Add(this.btncancelar);
-			this.pbuscarDocumentos.Controls.Add(this.dgListDocumentos);
 			this.pbuscarDocumentos.Controls.Add(this.btnEliminar);
 			this.pbuscarDocumentos.Controls.Add(this.btnModificar);
 			this.pbuscarDocumentos.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -143,24 +143,9 @@
 			this.pbuscarDocumentos.VerticalScrollbarHighlightOnWheel = false;
 			this.pbuscarDocumentos.VerticalScrollbarSize = 1;
 			// 
-			// btnNuevo
-			// 
-			this.btnNuevo.ActiveControl = null;
-			this.btnNuevo.Enabled = false;
-			this.btnNuevo.Location = new System.Drawing.Point(678, 3);
-			this.btnNuevo.Name = "btnNuevo";
-			this.btnNuevo.Size = new System.Drawing.Size(42, 29);
-			this.btnNuevo.Style = MetroFramework.MetroColorStyle.Green;
-			this.btnNuevo.TabIndex = 154;
-			this.btnNuevo.Text = "+";
-			this.btnNuevo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.btnNuevo.Theme = MetroFramework.MetroThemeStyle.Light;
-			this.btnNuevo.UseSelectable = true;
-			this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
-			// 
 			// btncancelar
 			// 
-			this.btncancelar.Location = new System.Drawing.Point(501, 336);
+			this.btncancelar.Location = new System.Drawing.Point(3, 349);
 			this.btncancelar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.btncancelar.Name = "btncancelar";
 			this.btncancelar.Size = new System.Drawing.Size(69, 34);
@@ -169,106 +154,12 @@
 			this.btncancelar.UseSelectable = true;
 			this.btncancelar.Click += new System.EventHandler(this.btncancelar_Click);
 			// 
-			// dgListDocumentos
-			// 
-			this.dgListDocumentos.AllowUserToAddRows = false;
-			this.dgListDocumentos.AllowUserToDeleteRows = false;
-			this.dgListDocumentos.AllowUserToResizeRows = false;
-			this.dgListDocumentos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-			this.dgListDocumentos.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-			this.dgListDocumentos.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.dgListDocumentos.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-			this.dgListDocumentos.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(177)))), ((int)(((byte)(89)))));
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-			dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(177)))), ((int)(((byte)(89)))));
-			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dgListDocumentos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-			this.dgListDocumentos.ColumnHeadersHeight = 33;
-			this.dgListDocumentos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-			this.dgListDocumentos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colCodigo,
-            this.colDocumento,
-            this.colNumero,
-            this.colExpiration,
-            this.colModifiedDate});
-			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-			dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
-			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(177)))), ((int)(((byte)(89)))));
-			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.dgListDocumentos.DefaultCellStyle = dataGridViewCellStyle2;
-			this.dgListDocumentos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-			this.dgListDocumentos.EnableHeadersVisualStyles = false;
-			this.dgListDocumentos.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-			this.dgListDocumentos.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-			this.dgListDocumentos.Location = new System.Drawing.Point(3, 38);
-			this.dgListDocumentos.MultiSelect = false;
-			this.dgListDocumentos.Name = "dgListDocumentos";
-			this.dgListDocumentos.ReadOnly = true;
-			this.dgListDocumentos.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(177)))), ((int)(((byte)(89)))));
-			dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-			dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(177)))), ((int)(((byte)(89)))));
-			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dgListDocumentos.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-			this.dgListDocumentos.RowHeadersVisible = false;
-			this.dgListDocumentos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-			dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.ControlLight;
-			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-			this.dgListDocumentos.RowsDefaultCellStyle = dataGridViewCellStyle4;
-			this.dgListDocumentos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dgListDocumentos.Size = new System.Drawing.Size(717, 291);
-			this.dgListDocumentos.Style = MetroFramework.MetroColorStyle.Green;
-			this.dgListDocumentos.TabIndex = 35;
-			this.dgListDocumentos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgsearchDocumentos_CellDoubleClick);
-			this.dgListDocumentos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgsearchDocumentos_KeyDown);
-			// 
-			// colCodigo
-			// 
-			this.colCodigo.HeaderText = "Codigo";
-			this.colCodigo.Name = "colCodigo";
-			this.colCodigo.ReadOnly = true;
-			this.colCodigo.Visible = false;
-			// 
-			// colDocumento
-			// 
-			this.colDocumento.HeaderText = "Documento";
-			this.colDocumento.Name = "colDocumento";
-			this.colDocumento.ReadOnly = true;
-			// 
-			// colNumero
-			// 
-			this.colNumero.HeaderText = "Numero";
-			this.colNumero.Name = "colNumero";
-			this.colNumero.ReadOnly = true;
-			// 
-			// colExpiration
-			// 
-			this.colExpiration.HeaderText = "F. Expiración";
-			this.colExpiration.Name = "colExpiration";
-			this.colExpiration.ReadOnly = true;
-			// 
-			// colModifiedDate
-			// 
-			this.colModifiedDate.HeaderText = "Ultima Modificación";
-			this.colModifiedDate.Name = "colModifiedDate";
-			this.colModifiedDate.ReadOnly = true;
-			// 
 			// btnEliminar
 			// 
-			this.btnEliminar.Location = new System.Drawing.Point(576, 336);
+			this.btnEliminar.Location = new System.Drawing.Point(445, 349);
 			this.btnEliminar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.btnEliminar.Name = "btnEliminar";
-			this.btnEliminar.Size = new System.Drawing.Size(69, 34);
+			this.btnEliminar.Size = new System.Drawing.Size(79, 34);
 			this.btnEliminar.TabIndex = 36;
 			this.btnEliminar.Text = "Eliminar";
 			this.btnEliminar.UseSelectable = true;
@@ -276,10 +167,10 @@
 			// 
 			// btnModificar
 			// 
-			this.btnModificar.Location = new System.Drawing.Point(651, 336);
+			this.btnModificar.Location = new System.Drawing.Point(530, 349);
 			this.btnModificar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.btnModificar.Name = "btnModificar";
-			this.btnModificar.Size = new System.Drawing.Size(69, 34);
+			this.btnModificar.Size = new System.Drawing.Size(81, 34);
 			this.btnModificar.TabIndex = 35;
 			this.btnModificar.Text = "Modificar";
 			this.btnModificar.UseSelectable = true;
@@ -575,19 +466,139 @@
 			this.pgshowDocumentos.Value = 50;
 			this.pgshowDocumentos.Visible = false;
 			// 
+			// btnNuevo
+			// 
+			this.btnNuevo.Location = new System.Drawing.Point(637, 348);
+			this.btnNuevo.Name = "btnNuevo";
+			this.btnNuevo.Size = new System.Drawing.Size(86, 35);
+			this.btnNuevo.TabIndex = 155;
+			this.btnNuevo.Text = "Nuevo";
+			this.btnNuevo.UseSelectable = true;
+			this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
+			// 
+			// dgListDocumentos
+			// 
+			this.dgListDocumentos.AllowUserToAddRows = false;
+			this.dgListDocumentos.AllowUserToDeleteRows = false;
+			this.dgListDocumentos.AllowUserToOrderColumns = true;
+			this.dgListDocumentos.AllowUserToResizeColumns = false;
+			this.dgListDocumentos.AllowUserToResizeRows = false;
+			this.dgListDocumentos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+			this.dgListDocumentos.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+			this.dgListDocumentos.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.dgListDocumentos.CausesValidation = false;
+			this.dgListDocumentos.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+			this.dgListDocumentos.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+			dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(3);
+			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dgListDocumentos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			this.dgListDocumentos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dgListDocumentos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colCodigo,
+            this.colDocument,
+            this.colNumber,
+            this.colExpirationDate,
+            this.colModifiedDate});
+			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(81)))), ((int)(((byte)(81)))), ((int)(((byte)(81)))));
+			dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(3);
+			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.dgListDocumentos.DefaultCellStyle = dataGridViewCellStyle2;
+			this.dgListDocumentos.EnableHeadersVisualStyles = false;
+			this.dgListDocumentos.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+			this.dgListDocumentos.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			this.dgListDocumentos.Location = new System.Drawing.Point(3, 3);
+			this.dgListDocumentos.Name = "dgListDocumentos";
+			this.dgListDocumentos.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+			dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(3);
+			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dgListDocumentos.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+			this.dgListDocumentos.RowHeadersVisible = false;
+			this.dgListDocumentos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+			dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+			dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(81)))), ((int)(((byte)(81)))));
+			dataGridViewCellStyle4.Padding = new System.Windows.Forms.Padding(3);
+			dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+			this.dgListDocumentos.RowsDefaultCellStyle = dataGridViewCellStyle4;
+			this.dgListDocumentos.RowTemplate.Height = 31;
+			this.dgListDocumentos.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+			this.dgListDocumentos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+			this.dgListDocumentos.Size = new System.Drawing.Size(720, 339);
+			this.dgListDocumentos.StandardTab = true;
+			this.dgListDocumentos.TabIndex = 165;
+			this.dgListDocumentos.UseCustomBackColor = true;
+			this.dgListDocumentos.UseCustomForeColor = true;
+			this.dgListDocumentos.UseStyleColors = true;
+			// 
+			// colCodigo
+			// 
+			this.colCodigo.HeaderText = "Codigo";
+			this.colCodigo.Name = "colCodigo";
+			this.colCodigo.ReadOnly = true;
+			this.colCodigo.Visible = false;
+			// 
+			// colDocument
+			// 
+			this.colDocument.HeaderText = "Documento";
+			this.colDocument.Name = "colDocument";
+			this.colDocument.ReadOnly = true;
+			// 
+			// colNumber
+			// 
+			this.colNumber.FillWeight = 60F;
+			this.colNumber.HeaderText = "Número";
+			this.colNumber.Name = "colNumber";
+			this.colNumber.ReadOnly = true;
+			// 
+			// colExpirationDate
+			// 
+			this.colExpirationDate.FillWeight = 60F;
+			this.colExpirationDate.HeaderText = "F. Expiración";
+			this.colExpirationDate.Name = "colExpirationDate";
+			this.colExpirationDate.ReadOnly = true;
+			// 
+			// colModifiedDate
+			// 
+			this.colModifiedDate.FillWeight = 70F;
+			this.colModifiedDate.HeaderText = "Ult. Modificación";
+			this.colModifiedDate.Name = "colModifiedDate";
+			this.colModifiedDate.ReadOnly = true;
+			// 
 			// frm_Documents
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BorderStyle = MetroFramework.Forms.MetroFormBorderStyle.FixedSingle;
 			this.ClientSize = new System.Drawing.Size(800, 600);
 			this.Controls.Add(this.pgshowDocumentos);
 			this.Controls.Add(this.panel1);
 			this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.MaximizeBox = false;
 			this.Name = "frm_Documents";
 			this.Padding = new System.Windows.Forms.Padding(30, 97, 30, 32);
+			this.Resizable = false;
 			this.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow;
-			this.Style = MetroFramework.MetroColorStyle.Green;
+			this.ShowInTaskbar = false;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Registro de Documentos";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmregDocumento_FormClosing);
 			this.Load += new System.EventHandler(this.frmregDocumento_Load);
@@ -596,12 +607,12 @@
 			this.tabcontrolDocumentos.ResumeLayout(false);
 			this.tabListaDocument.ResumeLayout(false);
 			this.pbuscarDocumentos.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.dgListDocumentos)).EndInit();
 			this.tabregistrardocumentos.ResumeLayout(false);
 			this.PregistroDocumento.ResumeLayout(false);
 			this.gbDatosDocument.ResumeLayout(false);
 			this.gbDatosDocument.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pbImageDocument)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dgListDocumentos)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -612,7 +623,6 @@
 		private MetroFramework.Controls.MetroTabControl tabcontrolDocumentos;
 		private MetroFramework.Controls.MetroTabPage tabListaDocument;
 		private MetroFramework.Controls.MetroPanel pbuscarDocumentos;
-		private MetroFramework.Controls.MetroGrid dgListDocumentos;
 		private MetroFramework.Controls.MetroButton btnEliminar;
 		private MetroFramework.Controls.MetroButton btnModificar;
 		private MetroFramework.Controls.MetroTabPage tabregistrardocumentos;
@@ -633,19 +643,20 @@
 		private MetroFramework.Controls.MetroLabel metroLabel5;
 		private MetroFramework.Controls.MetroTextBox txtNameSelectedStudent;
 		private MetroFramework.Controls.MetroButton btnbuscaralumno;
-		private MetroFramework.Controls.MetroTile btnNuevo;
 		private System.Windows.Forms.OpenFileDialog openImageDocument;
 		private System.Windows.Forms.ToolTip ttValidatorMessage;
 		private MetroFramework.Controls.MetroButton btnagregardocumentos;
 		private MetroFramework.Controls.MetroButton Cancelar;
 		private MetroFramework.Controls.MetroButton btncancelar;
 		private MetroFramework.Controls.MetroLabel lbrutaimagen;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colCodigo;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colDocumento;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colNumero;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colExpiration;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colModifiedDate;
 		private MetroFramework.Controls.MetroProgressSpinner pgshowDocumentos;
+		private MetroFramework.Controls.MetroButton btnNuevo;
+		private MetroFramework.Controls.MetroGrid dgListDocumentos;
+		private System.Windows.Forms.DataGridViewTextBoxColumn colCodigo;
+		private System.Windows.Forms.DataGridViewTextBoxColumn colDocument;
+		private System.Windows.Forms.DataGridViewTextBoxColumn colNumber;
+		private System.Windows.Forms.DataGridViewTextBoxColumn colExpirationDate;
+		private System.Windows.Forms.DataGridViewTextBoxColumn colModifiedDate;
 
 	}
 }

@@ -551,6 +551,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Reportes\Disenio\inf_PerfilStudents.rdlc" />
     <EmbeddedResource Include="Reportes\Formularios\frm_MaterialEnAula.resx">
       <DependentUpon>frm_MaterialEnAula.cs</DependentUpon>
     </EmbeddedResource>
@@ -573,6 +574,11 @@
       <DependentUpon>DataGeneral.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Objects.Processes.lApoderados.datasource" />
+    <None Include="Properties\DataSources\Objects.Processes.lDocumentos.datasource" />
+    <None Include="Properties\DataSources\Objects.Tables.tAlumno.datasource" />
+    <None Include="Properties\DataSources\Objects.Tables.tApoderado.datasource" />
+    <None Include="Properties\DataSources\Objects.Tables.tDocumentoAlumno.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -640,6 +646,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\appbar.checkmark.pencil.top.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\appbar.printer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

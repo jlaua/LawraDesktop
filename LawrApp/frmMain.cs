@@ -345,7 +345,7 @@ namespace LawrApp
 
 		private void datosDeAlumnoToolStripMenuItem_Click( object sender, EventArgs e )
 		{
-			Reportes.Formularios.frm_MaterialEnAula ma = new Reportes.Formularios.frm_MaterialEnAula( this._data );
+			Reportes.Formularios.frm_MaterialEnAula ma = new Reportes.Formularios.frm_MaterialEnAula( this._data, 1 );
 			ma.Show();
 		}
 

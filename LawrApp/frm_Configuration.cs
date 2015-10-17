@@ -36,7 +36,9 @@ namespace LawrApp
 
 			this.lblFullName.Text = this._cf.getAppSettings( "UserName" );
 			this.lblCargo.Text = this._cf.getAppSettings( "UserType" );
-			this.ptbImagePorfile.ImageLocation = this._cf.getAppSettings( "UserPictureUrl" );
+
+			string src = this._cf.getAppSettings( "UserPictureUrl" );
+			this.ptbImagePorfile.ImageLocation = string.IsNullOrEmpty(src) ? this._cf.ConfigBaseUrl + "static/img/pdefault_md.png" : src ;
 		}
 
 		#region THREAD'S
@@ -295,6 +297,25 @@ namespace LawrApp
 			mdl_ChangePicture pic = new mdl_ChangePicture();
 			pic.Owner = this;
 			pic.ShowDialog( this );
+		}
+
+		private void lblLogOut_Click( object sender, EventArgs e )
+		{
+			this._cf.RemembermeOf();
+			Application.Restart();
+		}
+
+		private void pts_MenuItem_LogOut_Click( object sender, EventArgs e )
+		{
+			this._cf.RemembermeOf();
+			Application.Restart();
+		}
+
+		private void tsmItem_Logos_Click( object sender, EventArgs e )
+		{
+			Institucion.frm_Logos log = new Institucion.frm_Logos();
+			log.Owner = this;
+			log.ShowDialog( this );
 		}
 
 	}

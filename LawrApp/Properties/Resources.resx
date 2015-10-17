@@ -121,6 +121,9 @@
   <data name="appbar_checkmark_pencil_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\appbar.checkmark.pencil.top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="appbar_printer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\appbar.printer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="dashboard_logout" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dashboard-logout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

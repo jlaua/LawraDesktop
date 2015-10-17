@@ -316,6 +316,7 @@
 			// 
 			// lblLogOut
 			// 
+			this.lblLogOut.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.lblLogOut.ForeColor = System.Drawing.SystemColors.WindowFrame;
 			this.lblLogOut.Location = new System.Drawing.Point(76, 64);
 			this.lblLogOut.Name = "lblLogOut";
@@ -325,6 +326,7 @@
 			this.lblLogOut.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.lblLogOut.UseCustomForeColor = true;
 			this.lblLogOut.UseSelectable = true;
+			this.lblLogOut.Click += new System.EventHandler(this.lblLogOut_Click);
 			// 
 			// lblCargo
 			// 
@@ -432,6 +434,7 @@
 			this.pts_MenuItem_LogOut.Name = "pts_MenuItem_LogOut";
 			this.pts_MenuItem_LogOut.Size = new System.Drawing.Size(224, 22);
 			this.pts_MenuItem_LogOut.Text = "Cerrar Sesión";
+			this.pts_MenuItem_LogOut.Click += new System.EventHandler(this.pts_MenuItem_LogOut_Click);
 			// 
 			// pts_MenuItem_CloseApp
 			// 
@@ -512,6 +515,7 @@
 			this.tsmItem_Logos.Name = "tsmItem_Logos";
 			this.tsmItem_Logos.Size = new System.Drawing.Size(172, 22);
 			this.tsmItem_Logos.Text = "Logos";
+			this.tsmItem_Logos.Click += new System.EventHandler(this.tsmItem_Logos_Click);
 			// 
 			// tsmItem_Sucursales
 			// 

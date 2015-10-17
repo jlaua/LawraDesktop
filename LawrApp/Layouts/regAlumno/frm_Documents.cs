@@ -286,8 +286,7 @@ namespace LawrApp.Layouts.regAlumno
 
 		private void frmregDocumento_FormClosing( object sender, FormClosingEventArgs e )
 		{
-			frmMain main = new frmMain( this._data );
-			main.Show();
+			
 		}
 
 	#region KEYDOWN
@@ -326,7 +325,7 @@ namespace LawrApp.Layouts.regAlumno
 			}
 			else if( e.KeyData == Keys.Enter )
 			{
-				if ( dgListDocumentos.CurrentRow.Index < 0 ) return;
+				if ( this.dgListDocumentos.CurrentRow.Index < 0 ) return;
 
 				this._hilo = new Thread( new ThreadStart( this.FindDocumentSelected ) );
 

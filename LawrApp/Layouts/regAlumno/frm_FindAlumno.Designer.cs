@@ -28,27 +28,31 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.panelMain = new System.Windows.Forms.Panel();
+			this.dgvListado = new MetroFramework.Controls.MetroGrid();
+			this.btnSalir = new MetroFramework.Controls.MetroButton();
+			this.btnEliminar = new MetroFramework.Controls.MetroButton();
+			this.btnModificar = new MetroFramework.Controls.MetroButton();
 			this.btnnuevoAlumno = new MetroFramework.Controls.MetroButton();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.txtSearch = new System.Windows.Forms.TextBox();
 			this.pgAlumnosLoad = new MetroFramework.Controls.MetroProgressSpinner();
 			this.lbnameFormPadre = new MetroFramework.Controls.MetroLabel();
-			this.btnModificar = new MetroFramework.Controls.MetroButton();
-			this.dgvListado = new MetroFramework.Controls.MetroGrid();
-			this.btnEliminar = new MetroFramework.Controls.MetroButton();
-			this.btnSalir = new MetroFramework.Controls.MetroButton();
+			this.btnPrint = new MetroFramework.Controls.MetroButton();
+			this.ttTitles = new System.Windows.Forms.ToolTip(this.components);
 			this.panelMain.SuspendLayout();
-			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgvListado)).BeginInit();
+			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// panelMain
 			// 
+			this.panelMain.Controls.Add(this.btnPrint);
 			this.panelMain.Controls.Add(this.dgvListado);
 			this.panelMain.Controls.Add(this.btnSalir);
 			this.panelMain.Controls.Add(this.btnEliminar);
@@ -60,69 +64,6 @@
 			this.panelMain.Name = "panelMain";
 			this.panelMain.Size = new System.Drawing.Size(740, 471);
 			this.panelMain.TabIndex = 0;
-			// 
-			// btnnuevoAlumno
-			// 
-			this.btnnuevoAlumno.Location = new System.Drawing.Point(654, 427);
-			this.btnnuevoAlumno.Name = "btnnuevoAlumno";
-			this.btnnuevoAlumno.Size = new System.Drawing.Size(83, 41);
-			this.btnnuevoAlumno.TabIndex = 3;
-			this.btnnuevoAlumno.Text = "Nuevo";
-			this.btnnuevoAlumno.UseSelectable = true;
-			this.btnnuevoAlumno.Click += new System.EventHandler(this.btnnuevoAlumno_Click);
-			// 
-			// groupBox1
-			// 
-			this.groupBox1.Controls.Add(this.txtSearch);
-			this.groupBox1.Cursor = System.Windows.Forms.Cursors.Default;
-			this.groupBox1.Location = new System.Drawing.Point(3, 3);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(734, 67);
-			this.groupBox1.TabIndex = 152;
-			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "Buscar";
-			// 
-			// txtSearch
-			// 
-			this.txtSearch.BackColor = System.Drawing.Color.White;
-			this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.txtSearch.Location = new System.Drawing.Point(6, 28);
-			this.txtSearch.MaxLength = 250;
-			this.txtSearch.Multiline = true;
-			this.txtSearch.Name = "txtSearch";
-			this.txtSearch.Size = new System.Drawing.Size(722, 28);
-			this.txtSearch.TabIndex = 2;
-			this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
-			// 
-			// pgAlumnosLoad
-			// 
-			this.pgAlumnosLoad.Location = new System.Drawing.Point(30, 570);
-			this.pgAlumnosLoad.Maximum = 100;
-			this.pgAlumnosLoad.Name = "pgAlumnosLoad";
-			this.pgAlumnosLoad.Size = new System.Drawing.Size(16, 16);
-			this.pgAlumnosLoad.Speed = 2F;
-			this.pgAlumnosLoad.Style = MetroFramework.MetroColorStyle.Blue;
-			this.pgAlumnosLoad.TabIndex = 151;
-			this.pgAlumnosLoad.UseSelectable = true;
-			this.pgAlumnosLoad.Value = 50;
-			this.pgAlumnosLoad.Visible = false;
-			// 
-			// lbnameFormPadre
-			// 
-			this.lbnameFormPadre.AutoSize = true;
-			this.lbnameFormPadre.Location = new System.Drawing.Point(255, 30);
-			this.lbnameFormPadre.Name = "lbnameFormPadre";
-			this.lbnameFormPadre.Size = new System.Drawing.Size(0, 0);
-			this.lbnameFormPadre.TabIndex = 1;
-			// 
-			// btnModificar
-			// 
-			this.btnModificar.Location = new System.Drawing.Point(549, 427);
-			this.btnModificar.Name = "btnModificar";
-			this.btnModificar.Size = new System.Drawing.Size(83, 41);
-			this.btnModificar.TabIndex = 154;
-			this.btnModificar.Text = "Modificar";
-			this.btnModificar.UseSelectable = true;
 			// 
 			// dgvListado
 			// 
@@ -193,6 +134,15 @@
 			this.dgvListado.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSearch_CellDoubleClick);
 			this.dgvListado.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvSearch_KeyDown);
 			// 
+			// btnSalir
+			// 
+			this.btnSalir.Location = new System.Drawing.Point(3, 427);
+			this.btnSalir.Name = "btnSalir";
+			this.btnSalir.Size = new System.Drawing.Size(62, 41);
+			this.btnSalir.TabIndex = 154;
+			this.btnSalir.Text = "Salir";
+			this.btnSalir.UseSelectable = true;
+			// 
 			// btnEliminar
 			// 
 			this.btnEliminar.Location = new System.Drawing.Point(460, 427);
@@ -202,14 +152,85 @@
 			this.btnEliminar.Text = "Eliminar";
 			this.btnEliminar.UseSelectable = true;
 			// 
-			// btnSalir
+			// btnModificar
 			// 
-			this.btnSalir.Location = new System.Drawing.Point(3, 427);
-			this.btnSalir.Name = "btnSalir";
-			this.btnSalir.Size = new System.Drawing.Size(62, 41);
-			this.btnSalir.TabIndex = 154;
-			this.btnSalir.Text = "Salir";
-			this.btnSalir.UseSelectable = true;
+			this.btnModificar.Location = new System.Drawing.Point(549, 427);
+			this.btnModificar.Name = "btnModificar";
+			this.btnModificar.Size = new System.Drawing.Size(83, 41);
+			this.btnModificar.TabIndex = 154;
+			this.btnModificar.Text = "Modificar";
+			this.btnModificar.UseSelectable = true;
+			// 
+			// btnnuevoAlumno
+			// 
+			this.btnnuevoAlumno.Location = new System.Drawing.Point(654, 427);
+			this.btnnuevoAlumno.Name = "btnnuevoAlumno";
+			this.btnnuevoAlumno.Size = new System.Drawing.Size(83, 41);
+			this.btnnuevoAlumno.TabIndex = 3;
+			this.btnnuevoAlumno.Text = "Nuevo";
+			this.btnnuevoAlumno.UseSelectable = true;
+			this.btnnuevoAlumno.Click += new System.EventHandler(this.btnnuevoAlumno_Click);
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.txtSearch);
+			this.groupBox1.Cursor = System.Windows.Forms.Cursors.Default;
+			this.groupBox1.Location = new System.Drawing.Point(3, 3);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(734, 67);
+			this.groupBox1.TabIndex = 152;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Buscar";
+			// 
+			// txtSearch
+			// 
+			this.txtSearch.BackColor = System.Drawing.Color.White;
+			this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.txtSearch.Location = new System.Drawing.Point(6, 28);
+			this.txtSearch.MaxLength = 250;
+			this.txtSearch.Multiline = true;
+			this.txtSearch.Name = "txtSearch";
+			this.txtSearch.Size = new System.Drawing.Size(722, 28);
+			this.txtSearch.TabIndex = 2;
+			this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+			// 
+			// pgAlumnosLoad
+			// 
+			this.pgAlumnosLoad.Location = new System.Drawing.Point(30, 570);
+			this.pgAlumnosLoad.Maximum = 100;
+			this.pgAlumnosLoad.Name = "pgAlumnosLoad";
+			this.pgAlumnosLoad.Size = new System.Drawing.Size(16, 16);
+			this.pgAlumnosLoad.Speed = 2F;
+			this.pgAlumnosLoad.Style = MetroFramework.MetroColorStyle.Blue;
+			this.pgAlumnosLoad.TabIndex = 151;
+			this.pgAlumnosLoad.UseSelectable = true;
+			this.pgAlumnosLoad.Value = 50;
+			this.pgAlumnosLoad.Visible = false;
+			// 
+			// lbnameFormPadre
+			// 
+			this.lbnameFormPadre.AutoSize = true;
+			this.lbnameFormPadre.Location = new System.Drawing.Point(255, 30);
+			this.lbnameFormPadre.Name = "lbnameFormPadre";
+			this.lbnameFormPadre.Size = new System.Drawing.Size(0, 0);
+			this.lbnameFormPadre.TabIndex = 1;
+			// 
+			// btnPrint
+			// 
+			this.btnPrint.BackgroundImage = global::LawrApp.Properties.Resources.appbar_printer;
+			this.btnPrint.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.btnPrint.Location = new System.Drawing.Point(403, 427);
+			this.btnPrint.Name = "btnPrint";
+			this.btnPrint.Size = new System.Drawing.Size(51, 41);
+			this.btnPrint.TabIndex = 166;
+			this.ttTitles.SetToolTip(this.btnPrint, "Imprimir Perfil del Alumno");
+			this.btnPrint.UseSelectable = true;
+			this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+			// 
+			// ttTitles
+			// 
+			this.ttTitles.BackColor = System.Drawing.Color.White;
+			this.ttTitles.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
 			// 
 			// frm_FindAlumno
 			// 
@@ -236,9 +257,9 @@
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frm_FindAlumno_FormClosing);
 			this.Load += new System.EventHandler(this.frm_FindAlumno_Load);
 			this.panelMain.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dgvListado)).EndInit();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dgvListado)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -256,5 +277,7 @@
 		private MetroFramework.Controls.MetroGrid dgvListado;
 		private MetroFramework.Controls.MetroButton btnSalir;
 		private MetroFramework.Controls.MetroButton btnEliminar;
+		private MetroFramework.Controls.MetroButton btnPrint;
+		private System.Windows.Forms.ToolTip ttTitles;
 	}
 }

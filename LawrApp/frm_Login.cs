@@ -37,6 +37,7 @@ namespace LawrApp
 			InitializeComponent();
 
 			bool rememberme = Convert.ToBoolean( this._lg.getAppSettings( "Remember_me" ) );
+			this.ptbImagePorfile.ImageLocation = this._lg.ConfigBaseUrl + "static/img/pdefault_lg.png";
 
 			if ( ! rememberme )
 			{
@@ -79,7 +80,7 @@ namespace LawrApp
 				}
 				else
 				{
-					this.ptbImagePorfile.Image = LawrApp.Properties.Resources.user_tie_grey;
+					this.ptbImagePorfile.ImageLocation = this._lg.ConfigBaseUrl + "static/img/pdefault_lg.png";
 				}
 
 				this.lblFullName.Text = this._lg.getAppSettings( "UserName" );
@@ -106,7 +107,7 @@ namespace LawrApp
 			else
 			{
 				this.pgsLoading.Visible = false;
-				string[] msg = this._lg.MsgExceptionLogin.Split( '-' );
+				string[] msg = this._lg.MsgExceptionLogin.Split( '_' );
 				
 				MetroMessageBox.Show( this, msg[0], "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error );
 				this.ChangeDesignErrorConfirmLogged( Convert.ToInt32( msg[1] ) );

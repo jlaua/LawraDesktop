@@ -29,17 +29,16 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.toltipValid = new System.Windows.Forms.ToolTip(this.components);
 			this.panelMain = new System.Windows.Forms.Panel();
 			this.pgsLoading = new MetroFramework.Controls.MetroProgressSpinner();
 			this.tabControl = new MetroFramework.Controls.MetroTabControl();
 			this.tabPageListado = new MetroFramework.Controls.MetroTabPage();
 			this.panelListado = new System.Windows.Forms.Panel();
-			this.dgvListado = new System.Windows.Forms.DataGridView();
-			this.colCodigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colNombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colParentesco = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colModifiedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.btnSalir = new MetroFramework.Controls.MetroButton();
 			this.btnEliminar = new MetroFramework.Controls.MetroButton();
 			this.btnModificar = new MetroFramework.Controls.MetroButton();
@@ -80,14 +79,19 @@
 			this.btnSearchStudent = new MetroFramework.Controls.MetroButton();
 			this.txtNameStudent = new MetroFramework.Controls.MetroTextBox();
 			this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
+			this.dgvListado = new MetroFramework.Controls.MetroGrid();
+			this.colCodigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colNombres = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colParentesco = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colLastModified = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.panelMain.SuspendLayout();
 			this.tabControl.SuspendLayout();
 			this.tabPageListado.SuspendLayout();
 			this.panelListado.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dgvListado)).BeginInit();
 			this.tabPageRegistro.SuspendLayout();
 			this.panelRegistros.SuspendLayout();
 			this.gbDatos.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgvListado)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// toltipValid
@@ -132,7 +136,7 @@
 			this.tabControl.Name = "tabControl";
 			this.tabControl.SelectedIndex = 0;
 			this.tabControl.Size = new System.Drawing.Size(734, 417);
-			this.tabControl.Style = MetroFramework.MetroColorStyle.Green;
+			this.tabControl.Style = MetroFramework.MetroColorStyle.Blue;
 			this.tabControl.TabIndex = 3;
 			this.tabControl.UseSelectable = true;
 			// 
@@ -165,74 +169,6 @@
 			this.panelListado.Name = "panelListado";
 			this.panelListado.Size = new System.Drawing.Size(726, 369);
 			this.panelListado.TabIndex = 2;
-			// 
-			// dgvListado
-			// 
-			this.dgvListado.AllowUserToAddRows = false;
-			this.dgvListado.AllowUserToDeleteRows = false;
-			this.dgvListado.AllowUserToResizeColumns = false;
-			this.dgvListado.AllowUserToResizeRows = false;
-			this.dgvListado.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-			this.dgvListado.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
-			this.dgvListado.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.dgvListado.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-			this.dgvListado.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-			this.dgvListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dgvListado.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colCodigo,
-            this.colNombre,
-            this.colParentesco,
-            this.colModifiedDate});
-			this.dgvListado.Location = new System.Drawing.Point(3, 3);
-			this.dgvListado.MultiSelect = false;
-			this.dgvListado.Name = "dgvListado";
-			this.dgvListado.ReadOnly = true;
-			this.dgvListado.RowHeadersVisible = false;
-			this.dgvListado.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-			this.dgvListado.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.dgvListado.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-			this.dgvListado.RowTemplate.DefaultCellStyle.Padding = new System.Windows.Forms.Padding(3, 3, 0, 3);
-			this.dgvListado.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
-			this.dgvListado.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-			this.dgvListado.RowTemplate.Height = 28;
-			this.dgvListado.RowTemplate.ReadOnly = true;
-			this.dgvListado.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dgvListado.ShowCellErrors = false;
-			this.dgvListado.ShowCellToolTips = false;
-			this.dgvListado.ShowEditingIcon = false;
-			this.dgvListado.ShowRowErrors = false;
-			this.dgvListado.Size = new System.Drawing.Size(720, 324);
-			this.dgvListado.StandardTab = true;
-			this.dgvListado.TabIndex = 8;
-			this.dgvListado.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListado_CellDoubleClick);
-			this.dgvListado.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.dgvListado_PreviewKeyDown);
-			// 
-			// colCodigo
-			// 
-			this.colCodigo.HeaderText = "Codigo";
-			this.colCodigo.Name = "colCodigo";
-			this.colCodigo.ReadOnly = true;
-			this.colCodigo.Visible = false;
-			// 
-			// colNombre
-			// 
-			this.colNombre.HeaderText = "Nombre";
-			this.colNombre.Name = "colNombre";
-			this.colNombre.ReadOnly = true;
-			// 
-			// colParentesco
-			// 
-			this.colParentesco.FillWeight = 70F;
-			this.colParentesco.HeaderText = "Parentesco";
-			this.colParentesco.Name = "colParentesco";
-			this.colParentesco.ReadOnly = true;
-			// 
-			// colModifiedDate
-			// 
-			this.colModifiedDate.FillWeight = 60F;
-			this.colModifiedDate.HeaderText = "Ultima Modificación";
-			this.colModifiedDate.Name = "colModifiedDate";
-			this.colModifiedDate.ReadOnly = true;
 			// 
 			// btnSalir
 			// 
@@ -723,6 +659,106 @@
 			this.metroLabel1.TabIndex = 0;
 			this.metroLabel1.Text = "Alumno:";
 			// 
+			// dgvListado
+			// 
+			this.dgvListado.AllowUserToAddRows = false;
+			this.dgvListado.AllowUserToDeleteRows = false;
+			this.dgvListado.AllowUserToOrderColumns = true;
+			this.dgvListado.AllowUserToResizeColumns = false;
+			this.dgvListado.AllowUserToResizeRows = false;
+			this.dgvListado.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+			this.dgvListado.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+			this.dgvListado.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.dgvListado.CausesValidation = false;
+			this.dgvListado.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+			this.dgvListado.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+			dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(3);
+			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dgvListado.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			this.dgvListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dgvListado.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colCodigo,
+            this.colNombres,
+            this.colParentesco,
+            this.colLastModified});
+			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(81)))), ((int)(((byte)(81)))), ((int)(((byte)(81)))));
+			dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(3);
+			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.dgvListado.DefaultCellStyle = dataGridViewCellStyle2;
+			this.dgvListado.EnableHeadersVisualStyles = false;
+			this.dgvListado.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+			this.dgvListado.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			this.dgvListado.Location = new System.Drawing.Point(3, 3);
+			this.dgvListado.Name = "dgvListado";
+			this.dgvListado.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+			dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(3);
+			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dgvListado.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+			this.dgvListado.RowHeadersVisible = false;
+			this.dgvListado.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+			dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+			dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(81)))), ((int)(((byte)(81)))));
+			dataGridViewCellStyle4.Padding = new System.Windows.Forms.Padding(3);
+			dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+			this.dgvListado.RowsDefaultCellStyle = dataGridViewCellStyle4;
+			this.dgvListado.RowTemplate.Height = 31;
+			this.dgvListado.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+			this.dgvListado.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+			this.dgvListado.Size = new System.Drawing.Size(720, 324);
+			this.dgvListado.StandardTab = true;
+			this.dgvListado.TabIndex = 165;
+			this.dgvListado.UseCustomBackColor = true;
+			this.dgvListado.UseCustomForeColor = true;
+			this.dgvListado.UseStyleColors = true;
+			this.dgvListado.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListado_CellDoubleClick);
+			this.dgvListado.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.dgvListado_PreviewKeyDown);
+			// 
+			// colCodigo
+			// 
+			this.colCodigo.HeaderText = "Codigo";
+			this.colCodigo.Name = "colCodigo";
+			this.colCodigo.ReadOnly = true;
+			this.colCodigo.Visible = false;
+			// 
+			// colNombres
+			// 
+			this.colNombres.HeaderText = "Nombre";
+			this.colNombres.Name = "colNombres";
+			this.colNombres.ReadOnly = true;
+			// 
+			// colParentesco
+			// 
+			this.colParentesco.FillWeight = 50F;
+			this.colParentesco.HeaderText = "Parentesco";
+			this.colParentesco.Name = "colParentesco";
+			this.colParentesco.ReadOnly = true;
+			// 
+			// colLastModified
+			// 
+			this.colLastModified.FillWeight = 50F;
+			this.colLastModified.HeaderText = "Ult. Modificación";
+			this.colLastModified.Name = "colLastModified";
+			this.colLastModified.ReadOnly = true;
+			// 
 			// frm_Parents
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
@@ -746,11 +782,11 @@
 			this.tabControl.ResumeLayout(false);
 			this.tabPageListado.ResumeLayout(false);
 			this.panelListado.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.dgvListado)).EndInit();
 			this.tabPageRegistro.ResumeLayout(false);
 			this.panelRegistros.ResumeLayout(false);
 			this.gbDatos.ResumeLayout(false);
 			this.gbDatos.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgvListado)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -771,11 +807,6 @@
 		private MetroFramework.Controls.MetroButton btnEliminar;
 		private MetroFramework.Controls.MetroButton btnModificar;
 		private MetroFramework.Controls.MetroButton btnNuevo;
-		private System.Windows.Forms.DataGridView dgvListado;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colCodigo;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colNombre;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colParentesco;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colModifiedDate;
 		private MetroFramework.Controls.MetroButton btnCancelar;
 		private MetroFramework.Controls.MetroButton btnGuardar;
 		private System.Windows.Forms.GroupBox gbDatos;
@@ -808,5 +839,10 @@
 		public MetroFramework.Controls.MetroTextBox txtAddress;
 		private MetroFramework.Controls.MetroProgressSpinner pgsLoading;
 		private MetroFramework.Controls.MetroLabel lblEmail_Validator;
+		private MetroFramework.Controls.MetroGrid dgvListado;
+		private System.Windows.Forms.DataGridViewTextBoxColumn colCodigo;
+		private System.Windows.Forms.DataGridViewTextBoxColumn colNombres;
+		private System.Windows.Forms.DataGridViewTextBoxColumn colParentesco;
+		private System.Windows.Forms.DataGridViewTextBoxColumn colLastModified;
 	}
 }

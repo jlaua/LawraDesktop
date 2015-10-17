@@ -28,11 +28,19 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
+			Microsoft.Reporting.WinForms.ReportDataSource reportDataSource2 = new Microsoft.Reporting.WinForms.ReportDataSource();
+			this.tAlumnoBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.rpvMateriales = new Microsoft.Reporting.WinForms.ReportViewer();
 			this.pgsLoading = new MetroFramework.Controls.MetroProgressSpinner();
+			((System.ComponentModel.ISupportInitialize)(this.tAlumnoBindingSource)).BeginInit();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
+			// 
+			// tAlumnoBindingSource
+			// 
+			this.tAlumnoBindingSource.DataSource = typeof(Objects.Tables.tAlumno);
 			// 
 			// panel1
 			// 
@@ -50,7 +58,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.rpvMateriales.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.rpvMateriales.DocumentMapCollapsed = true;
-			this.rpvMateriales.LocalReport.ReportEmbeddedResource = "LawrApp.Reportes.Disenio.inf_MaterialEnAula.rdlc";
+			reportDataSource2.Name = "t_alumno";
+			reportDataSource2.Value = this.tAlumnoBindingSource;
+			this.rpvMateriales.LocalReport.DataSources.Add(reportDataSource2);
+			this.rpvMateriales.LocalReport.ReportEmbeddedResource = "LawrApp.Reportes.Disenio.inf_PerfilStudents.rdlc";
 			this.rpvMateriales.Location = new System.Drawing.Point(0, 0);
 			this.rpvMateriales.Name = "rpvMateriales";
 			this.rpvMateriales.Size = new System.Drawing.Size(800, 488);
@@ -76,6 +87,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BorderStyle = MetroFramework.Forms.MetroFormBorderStyle.FixedSingle;
 			this.ClientSize = new System.Drawing.Size(800, 600);
 			this.Controls.Add(this.pgsLoading);
 			this.Controls.Add(this.panel1);
@@ -83,10 +95,14 @@
 			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.Name = "frm_MaterialEnAula";
 			this.Padding = new System.Windows.Forms.Padding(0, 80, 0, 32);
-			this.Text = "Ubigeo - Distritos";
+			this.ShadowType = MetroFramework.Forms.MetroFormShadowType.SystemShadow;
+			this.ShowInTaskbar = false;
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+			this.Text = "Perfil de Alumno";
 			this.TextAlign = MetroFramework.Forms.MetroFormTextAlign.Center;
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.Load += new System.EventHandler(this.frm_MaterialEnAula_Load);
+			((System.ComponentModel.ISupportInitialize)(this.tAlumnoBindingSource)).EndInit();
 			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 
@@ -97,5 +113,6 @@
 		private System.Windows.Forms.Panel panel1;
 		private MetroFramework.Controls.MetroProgressSpinner pgsLoading;
 		private Microsoft.Reporting.WinForms.ReportViewer rpvMateriales;
+		private System.Windows.Forms.BindingSource tAlumnoBindingSource;
 	}
 }

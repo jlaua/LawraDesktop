@@ -24,6 +24,8 @@ namespace LawrApp.Layouts.regAlumno
 
 		private Thread _hilo;
 
+		private delegate void LoadDataToGridView();
+
 		public mdl_ListAlumno( DataGeneral dts )
 		{
 			this._data = dts;
@@ -36,19 +38,32 @@ namespace LawrApp.Layouts.regAlumno
 
 			this._alumno.ListStudents( this._data );
 
-			this.dgvSearchAlumnos.DataSource = this._data.Tables["ListaAlumnos"];
-
-			this.dgvSearchAlumnos.Columns[1].HeaderText = "Codigo";
-			this.dgvSearchAlumnos.Columns[2].HeaderText = "Nombres";
-			this.dgvSearchAlumnos.Columns[3].HeaderText = "Ultima Modificación";
-
-			this.dgvSearchAlumnos.Columns[0].Visible = false;
-			this.dgvSearchAlumnos.Columns[1].FillWeight = 50;
-			this.dgvSearchAlumnos.Columns[3].FillWeight = 70;
+			this.LoadDataToGrid();
 
 			this.pgAlumnosLoad.Visible = false;
 
 			this._hilo.Abort();
+		}
+
+		void LoadDataToGrid()
+		{
+			if( ! this.InvokeRequired )
+			{
+				this.dgvSearchAlumnos.DataSource = this._data.Tables["ListaAlumnos"];
+
+				this.dgvSearchAlumnos.Columns[1].HeaderText = "Codigo";
+				this.dgvSearchAlumnos.Columns[2].HeaderText = "Nombres";
+				this.dgvSearchAlumnos.Columns[3].HeaderText = "Ult. Modificación";
+
+				this.dgvSearchAlumnos.Columns[0].Visible = false;
+				this.dgvSearchAlumnos.Columns[1].FillWeight = 50;
+				this.dgvSearchAlumnos.Columns[3].FillWeight = 70;
+			}
+			else
+			{
+				LoadDataToGridView dtp = new LoadDataToGridView( LoadDataToGrid );
+				this.Invoke( dtp, new object[] { } );
+			}
 		}
 
 		private void sendDataToParent()
@@ -89,15 +104,6 @@ namespace LawrApp.Layouts.regAlumno
 		private void dgvSearchAlumnos_CellDoubleClick( object sender, DataGridViewCellEventArgs e )
 		{
 			this.sendDataToParent();
-			//if ( this.lbnameform.Text == "frmregDocumento" )
-			//{
-			//	this.enviarAlumno();
-			//}
-
-			//if ( this.lbnameform.Text == "frmregParent" )
-			//{
-			//	this.enviarAlumno();
-			//}
 		}
 
 		private void dgvSearchAlumnos_KeyDown( object sender, KeyEventArgs e )
@@ -105,10 +111,6 @@ namespace LawrApp.Layouts.regAlumno
 			if ( e.KeyData == Keys.Enter )
 			{
 				this.sendDataToParent();
-				//if ( this.lbnameform.Text == "frmregDocumento" )
-				//	this.enviarAlumno();
-				//if ( this.lbnameform.Text == "frmregParent" )
-				//	this.enviarAlumno();
 			}
 		}
 

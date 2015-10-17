@@ -37,12 +37,6 @@
 			this.btnSearch = new MetroFramework.Controls.MetroButton();
 			this.txtSearch = new System.Windows.Forms.TextBox();
 			this.dgvListado = new System.Windows.Forms.DataGridView();
-			this.colCodigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colTipoPersonal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.colActive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-			this.colLasModified = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.btnSalir = new MetroFramework.Controls.MetroButton();
 			this.btnEliminar = new MetroFramework.Controls.MetroButton();
 			this.btnModificar = new MetroFramework.Controls.MetroButton();
@@ -89,6 +83,13 @@
 			this.openPerfilPicture = new System.Windows.Forms.OpenFileDialog();
 			this.toltipMore = new System.Windows.Forms.ToolTip(this.components);
 			this.lblSucursal = new MetroFramework.Controls.MetroLabel();
+			this.colCodigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colTipoPersonal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.colActive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.colLasModified = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.panelMain.SuspendLayout();
 			this.tabControl.SuspendLayout();
 			this.tabPageListado.SuspendLayout();
@@ -204,6 +205,7 @@
             this.colCodigo,
             this.colKey,
             this.colDescripcion,
+            this.colUser,
             this.colTipoPersonal,
             this.colActive,
             this.colLasModified});
@@ -224,49 +226,11 @@
 			this.dgvListado.ShowCellToolTips = false;
 			this.dgvListado.ShowEditingIcon = false;
 			this.dgvListado.ShowRowErrors = false;
-			this.dgvListado.Size = new System.Drawing.Size(718, 311);
+			this.dgvListado.Size = new System.Drawing.Size(718, 333);
 			this.dgvListado.StandardTab = true;
 			this.dgvListado.TabIndex = 8;
 			this.dgvListado.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListado_CellDoubleClick);
 			this.dgvListado.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvListado_KeyDown);
-			// 
-			// colCodigo
-			// 
-			this.colCodigo.HeaderText = "Codigo";
-			this.colCodigo.Name = "colCodigo";
-			this.colCodigo.Visible = false;
-			// 
-			// colKey
-			// 
-			this.colKey.FillWeight = 50F;
-			this.colKey.HeaderText = "Clave";
-			this.colKey.Name = "colKey";
-			// 
-			// colDescripcion
-			// 
-			this.colDescripcion.HeaderText = "Descripcion";
-			this.colDescripcion.Name = "colDescripcion";
-			// 
-			// colTipoPersonal
-			// 
-			this.colTipoPersonal.FillWeight = 70F;
-			this.colTipoPersonal.HeaderText = "Tipo";
-			this.colTipoPersonal.Name = "colTipoPersonal";
-			// 
-			// colActive
-			// 
-			this.colActive.FillWeight = 30F;
-			this.colActive.HeaderText = "Activo";
-			this.colActive.Name = "colActive";
-			this.colActive.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.colActive.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			// 
-			// colLasModified
-			// 
-			this.colLasModified.FillWeight = 80F;
-			this.colLasModified.HeaderText = "Ult. Modificación";
-			this.colLasModified.Name = "colLasModified";
-			this.colLasModified.Visible = false;
 			// 
 			// btnSalir
 			// 
@@ -752,6 +716,50 @@
 			this.lblSucursal.TabIndex = 2;
 			this.lblSucursal.UseCustomForeColor = true;
 			// 
+			// colCodigo
+			// 
+			this.colCodigo.HeaderText = "Codigo";
+			this.colCodigo.Name = "colCodigo";
+			this.colCodigo.Visible = false;
+			// 
+			// colKey
+			// 
+			this.colKey.FillWeight = 50F;
+			this.colKey.HeaderText = "Folder";
+			this.colKey.Name = "colKey";
+			// 
+			// colDescripcion
+			// 
+			this.colDescripcion.HeaderText = "Descripcion";
+			this.colDescripcion.Name = "colDescripcion";
+			// 
+			// colUser
+			// 
+			this.colUser.HeaderText = "Usuario";
+			this.colUser.Name = "colUser";
+			this.colUser.ReadOnly = true;
+			// 
+			// colTipoPersonal
+			// 
+			this.colTipoPersonal.FillWeight = 70F;
+			this.colTipoPersonal.HeaderText = "Tipo";
+			this.colTipoPersonal.Name = "colTipoPersonal";
+			// 
+			// colActive
+			// 
+			this.colActive.FillWeight = 30F;
+			this.colActive.HeaderText = "Activo";
+			this.colActive.Name = "colActive";
+			this.colActive.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.colActive.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			// 
+			// colLasModified
+			// 
+			this.colLasModified.FillWeight = 80F;
+			this.colLasModified.HeaderText = "Ult. Modificación";
+			this.colLasModified.Name = "colLasModified";
+			this.colLasModified.Visible = false;
+			// 
 			// frm_Registers
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
@@ -835,12 +843,6 @@
 		private MetroFramework.Controls.MetroLabel metroLabel12;
 		private System.Windows.Forms.OpenFileDialog openPerfilPicture;
 		private System.Windows.Forms.ToolTip toltipMore;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colCodigo;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colKey;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colDescripcion;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colTipoPersonal;
-		private System.Windows.Forms.DataGridViewCheckBoxColumn colActive;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colLasModified;
 		private MetroFramework.Controls.MetroLabel lblSucursal;
 		private System.Windows.Forms.Label lblTipoPersonal_Validator;
 		private System.Windows.Forms.Label lblDocumento_Validator;
@@ -850,6 +852,13 @@
 		private System.Windows.Forms.Label lblNombres_Validator;
 		private System.Windows.Forms.Label lblDireccion_Validator;
 		private MetroFramework.Controls.MetroLabel lblLastModified;
+		private System.Windows.Forms.DataGridViewTextBoxColumn colCodigo;
+		private System.Windows.Forms.DataGridViewTextBoxColumn colKey;
+		private System.Windows.Forms.DataGridViewTextBoxColumn colDescripcion;
+		private System.Windows.Forms.DataGridViewTextBoxColumn colUser;
+		private System.Windows.Forms.DataGridViewTextBoxColumn colTipoPersonal;
+		private System.Windows.Forms.DataGridViewCheckBoxColumn colActive;
+		private System.Windows.Forms.DataGridViewTextBoxColumn colLasModified;
 
 	}
 }

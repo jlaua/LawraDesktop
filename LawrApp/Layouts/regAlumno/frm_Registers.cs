@@ -32,6 +32,9 @@ namespace LawrApp.Layouts.regAlumno
 		private int _codSchool		= 0;
 		private int _codigoAlumno	= 0;
 
+		private delegate void LoadDepa( object sender, EventArgs e );
+		private delegate void LoadProv( object sender, EventArgs e );
+
 		public frm_Registers( DataGeneral dts )
 		{
 			this._data = dts;
@@ -86,12 +89,25 @@ namespace LawrApp.Layouts.regAlumno
 				this._student = this.alum.FindStudents( this._codigoAlumno );
 
 				this.txtnombre.Text = this._student.Names;
+				this.lvAlumnoNombre.Visible = false;
+
 				this.txtapellidos.Text = this._student.LastNames;
+				this.lvAlumnoApellido.Visible = false;
 				this.cbsexo.SelectedIndex = ( this._student.Gender ) ? 1 : 0;
+				this.lvAlumnoGenero.Visible = false;
+
 				this.dtbirthday.Value = Convert.ToDateTime( this._student.Birthday );
+				this.lvAlumnoFechaNacimiento.Visible = false;
+
 				this.txtAlumnoColegiaProcedencia.Text = this._student.NameLastSchool;
+				this.lvAlumnoColegioProcedencia.Visible = false;
+
 				this.cbAlumnoTipoColegio.SelectedIndex = ( this._student.TypeLastSchool ) ? 1 : 0;
+				this.lbvtipocolegio.Visible = false;
+
 				this.txtAlumnoDireccion.Text = this._student.Address;
+				this.lbVdireccion.Visible = false;
+
 				this.txtobservacion.Text = this._student.Observation;
 
 				string[] ubigeo = new string[3] 
@@ -102,21 +118,19 @@ namespace LawrApp.Layouts.regAlumno
                 };
 
 				this.cbDepartamento.SelectedValue = Convert.ToInt32( ubigeo[0] );
+				this.cbDepartamento_SelectionChangeCommitted( cbDepartamento, EventArgs.Empty );
 
-				//this.Invoke( ( MethodInvoker ) delegate() 
-				//{
-				//	this.cbAlumnoDepartamento_SelectionChangeCommitted( cbDepartamento, EventArgs.Empty );
-				//});
+				this.cbProvincia.SelectedValue = (Convert.ToInt32(ubigeo[1])).ToString();
+				this.cbProvincia_SelectionChangeCommitted( cbProvincia, EventArgs.Empty );
 
-				this.cbProvincia.SelectedValue = Convert.ToInt32( ubigeo[1] );
-				//this.cbAlumnoProvincia_SelectionChangeCommitted( cbAlumnoProvincia, EventArgs.Empty );
+				this.cbdistrito.SelectedValue		= (Convert.ToInt32(ubigeo[2])).ToString();
+				this.lblvdistrito.Visible = false;
 
-				this.cbdistrito.SelectedValue		= Convert.ToInt32( ubigeo[2] );
-
-				if ( pbAlumnoPerfilPicture != null )
-				{
+				if ( !string.IsNullOrEmpty( this._student.ImageSrc ) )
 					this.pbAlumnoPerfilPicture.ImageLocation = this.alum.ConfigBaseUrl + this._student.ImageSrc;
-				}
+				else
+					this.pbAlumnoPerfilPicture.ImageLocation = this.alum.ConfigBaseUrl + "static/img/pdefault_md.png";
+
 			}
 
 			this.pgaAlumnoLoad.Visible = false;
@@ -130,6 +144,13 @@ namespace LawrApp.Layouts.regAlumno
 
 		private bool ChangedData()
 		{
+			string[] ubigeo = new string[3] 
+			{ 
+                this._student.Ubigeo.Substring(0, 2), 
+                this._student.Ubigeo.Substring(2, 2), 
+                this._student.Ubigeo.Substring(4, 2),
+            };
+
 			bool result = this._student.Names == this.txtnombre.Text &&
 							this._student.LastNames == this.txtapellidos.Text &&
 							this._student.Gender == ( this.cbsexo.Text == "MASCULINO" ) ? false : true &&
@@ -137,7 +158,12 @@ namespace LawrApp.Layouts.regAlumno
 							this._student.Address == this.txtAlumnoDireccion.Text &&
 							this._student.NameLastSchool == this.txtAlumnoColegiaProcedencia.Text &&
 							this._student.TypeLastSchool == ( this.cbAlumnoTipoColegio.Text == "ESTATAL" ) ? false : true &&
-							this._student.Observation == this.txtobservacion.Text;
+							this._student.Observation == this.txtobservacion.Text && 
+							(Convert.ToInt32(ubigeo[0]) == (int) this.cbDepartamento.SelectedValue) && 
+							(( Convert.ToInt32( ubigeo[1] ) ).ToString() == this.cbProvincia.SelectedValue.ToString()) &&  
+							(( Convert.ToInt32( ubigeo[2] ) ).ToString() == this.cbdistrito.SelectedValue.ToString()) && 
+							( string.IsNullOrEmpty( this.lblpathPicture.Text ) );
+
 			return result;
 		}
 
@@ -149,16 +175,25 @@ namespace LawrApp.Layouts.regAlumno
 			this.alum.DataAlumno.Address		= this.txtAlumnoDireccion.Text;
 			this.alum.DataAlumno.Gender			= this.cbsexo.SelectedIndex == 0 ? false : true;
 			this.alum.DataAlumno.Observation	= this.txtobservacion.Text;
+			this.alum.DataAlumno.Key			= this._student.Key;
 
-			if ( this.pbAlumnoPerfilPicture.ImageLocation != null && this.pbAlumnoPerfilPicture.Image != null )
+			if( this._student.CodigoImagen == 0 )
 			{
-				this.alum.DataAlumno.ImageKey = Helper.NameImageRandom( 10 );
-				this.alum.DataAlumno.ImageSrc = this.pbAlumnoPerfilPicture.ImageLocation;
+				if( ! string.IsNullOrEmpty(this.lblpathPicture.Text) )
+				{
+					this.alum.DataAlumno.ImageKey = Helper.NameImageRandom( 10 );
+					this.alum.DataAlumno.ImageSrc = this.pbAlumnoPerfilPicture.ImageLocation;
+				}
+				else
+				{
+					this.alum.DataAlumno.ImageKey = null;
+					this.alum.DataAlumno.ImageSrc = null;
+					this.alum.DataAlumno.CodigoImagen = 0;
+				}
 			}
 			else
 			{
-				this.alum.DataAlumno.ImageKey = null;
-				this.alum.DataAlumno.ImageSrc = null;
+				this.alum.DataAlumno.CodigoImagen = this._student.CodigoImagen;
 			}
 
 			if ( this._IsNewShcool )
@@ -205,13 +240,13 @@ namespace LawrApp.Layouts.regAlumno
 				this.cbsexo.Focus(); return false;
 			}
 
-			if ( !Helper.ValidarEdadMaximayMinima( this.dtbirthday.Value, 18, 5 ) )
+			/*if ( !Helper.ValidarEdadMaximayMinima( this.dtbirthday.Value, 18, 5 ) )
 			{
 				this.lvAlumnoFechaNacimiento.Visible = true;
 				toltipMore.ShowAlways = true;
 				toltipMore.Show( "La fecha no cumple los parametros establecidos", this.lvAlumnoFechaNacimiento, 3000 );
 				return false;
-			}
+			}*/
 
 			if ( this.cbDepartamento.Text == "Seleccione..." )
 			{
@@ -258,7 +293,7 @@ namespace LawrApp.Layouts.regAlumno
 			this.cbsexo.SelectedIndex = -1;
 			this.cbsexo.Text = "Seleccione...";
 
-			this.dtbirthday.Value = DateTime.Now;
+			this.dtbirthday.Value = this.dtbirthday.MaxDate;
 			this.cbDepartamento.SelectedIndex = -1;
 			this.cbDepartamento.Text = "Seleccione...";
 
@@ -352,6 +387,9 @@ namespace LawrApp.Layouts.regAlumno
 			this.cbDepartamento.Text = "Seleccione...";
 			this._inAction = true;
 
+			this.dtbirthday.MaxDate = DateTime.Now.AddYears( -5 );
+			this.dtbirthday.MinDate = DateTime.Now.AddYears( -18 );
+
 			this._hilo.Start();
 		}
 
@@ -427,6 +465,7 @@ namespace LawrApp.Layouts.regAlumno
 				{
 					this.pbAlumnoPerfilPicture.Load( src );
 					this.lblpathPicture.Text = src;
+					this._student.CodigoImagen = 0;
 					this.toltipMore.SetToolTip( this.lblpathPicture, src );
 				}
 				else
@@ -440,38 +479,56 @@ namespace LawrApp.Layouts.regAlumno
 
 		private void cbDepartamento_SelectionChangeCommitted( object sender, EventArgs e )
 		{
-			ComboBox cbo = ( ( ComboBox ) sender );
-			this.cbProvincia.ValueMember = "ClaveUbigeo";
-			this.cbProvincia.DisplayMember = "NombreProvincia";
+			if ( ! this.cbDepartamento.InvokeRequired )
+			{
+				ComboBox cbo = ( ( ComboBox ) sender );
+				this.cbProvincia.ValueMember = "ClaveUbigeo";
+				this.cbProvincia.DisplayMember = "NombreProvincia";
 
-			this.cbProvincia.DataSource = this._data.Tables["Provincias"].Select( "Cod_Departamento=" + cbo.SelectedValue );
+				this.cbProvincia.DataSource = this._data.Tables["Provincias"].Select( "Cod_Departamento=" + cbo.SelectedValue );
 
-			this.cbProvincia.SelectedIndex = -1;
-			this.lbvdepartamento.Visible = false;
-			this.cbProvincia.Text = "Seleccione...";
+				this.cbProvincia.SelectedIndex = -1;
+				this.lbvdepartamento.Visible = false;
+				this.cbProvincia.Text = "Seleccione...";
 
-			if ( this.cbdistrito.Items.Count > 0 ) this.cbdistrito.DataSource = null;
+				if ( this.cbdistrito.Items.Count > 0 ) this.cbdistrito.DataSource = null;
 
-			this.cbdistrito.SelectedIndex = -1;
-			this.cbdistrito.Text = "Seleccione...";
+				this.cbdistrito.SelectedIndex = -1;
+				this.cbdistrito.Text = "Seleccione...";
+			}
+			else
+			{
+				LoadDepa dep = new LoadDepa( cbDepartamento_SelectionChangeCommitted );
+				this.cbDepartamento.Invoke( dep, new object[] { sender, e } );
+			}
+			
 		}
 
 		private void cbProvincia_SelectionChangeCommitted( object sender, EventArgs e )
 		{
-			ComboBox cbo = ( ( ComboBox ) sender );
+			if( ! this.cbProvincia.InvokeRequired )
+			{
+				ComboBox cbo = ( ( ComboBox ) sender );
 
-			var strQuery = this._data.Tables["Provincias"].Select( "ClaveUbigeo = " + cbo.SelectedValue + "AND Cod_Departamento=" +
-			this.cbDepartamento.SelectedValue );
+				var strQuery = this._data.Tables["Provincias"].Select( "ClaveUbigeo = " + cbo.SelectedValue + "AND Cod_Departamento=" +
+				this.cbDepartamento.SelectedValue );
 
-			DataRow[] codProvincia = strQuery;
-			Object[] cods = codProvincia[0].ItemArray;
+				DataRow[] codProvincia = strQuery;
+				Object[] cods = codProvincia[0].ItemArray;
 
-			this.cbdistrito.ValueMember = "ClaveUbigeo";
-			this.cbdistrito.DisplayMember = "NombreDistrito";
-			this.cbdistrito.DataSource = this._data.Tables["Distritos"].Select( "Cod_Provincia=" + cods[0].ToString() );
-			this.cbdistrito.SelectedIndex = -1;
-			this.lbvprovincia.Visible = false;
-			this.cbdistrito.Text = "Seleccione...";
+				this.cbdistrito.ValueMember = "ClaveUbigeo";
+				this.cbdistrito.DisplayMember = "NombreDistrito";
+				this.cbdistrito.DataSource = this._data.Tables["Distritos"].Select( "Cod_Provincia=" + cods[0].ToString() );
+				this.cbdistrito.SelectedIndex = -1;
+				this.lbvprovincia.Visible = false;
+				this.cbdistrito.Text = "Seleccione...";
+			}
+			else
+			{
+				LoadProv pro = new LoadProv( this.cbProvincia_SelectionChangeCommitted );
+				this.cbProvincia.Invoke( pro, new object[] { sender, e } );
+			}
+			
 		}
 		
 		private void cbdistrito_SelectionChangeCommitted( object sender, EventArgs e )
@@ -555,7 +612,7 @@ namespace LawrApp.Layouts.regAlumno
 
 		private void dtAlumnobirthday_Leave( object sender, EventArgs e )
 		{
-			DateTimePicker DatePicker = ( DateTimePicker ) sender;
+			/*DateTimePicker DatePicker = ( DateTimePicker ) sender;
 
 			if ( !Helper.ValidarEdadMaximayMinima( DatePicker.Value, 18, 5 ) )
 			{
@@ -563,7 +620,7 @@ namespace LawrApp.Layouts.regAlumno
 				toltipMore.Show( "La fecha no cumple los parametros establecidos", this.lvAlumnoFechaNacimiento, 3000 );
 			}
 			else
-				this.lvAlumnoFechaNacimiento.Visible = false;
+				this.lvAlumnoFechaNacimiento.Visible = false;*/
 		}
 
 	#endregion

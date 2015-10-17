@@ -73,6 +73,16 @@ namespace LawrApp.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap appbar_printer {
+            get {
+                object obj = ResourceManager.GetObject("appbar_printer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap dashboard_logout {
             get {
                 object obj = ResourceManager.GetObject("dashboard_logout", resourceCulture);

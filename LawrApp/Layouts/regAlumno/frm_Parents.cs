@@ -34,7 +34,7 @@ namespace LawrApp.Layouts.regAlumno
 		// DELEGADO QUE PERMITE INGRESAR AL EVENTO SELECTIONCHANGEDCOMMITTED 
 		// DEL CBO TIPO PARIENTE DESDE UN SEGUNDO HILO
 		delegate void ChangeTipoApoderadoCallback(object sender, EventArgs e);
-
+		private delegate void LoadDataToGridView( List<lApoderados> Parents );
 		public frm_Parents( DataGeneral dts )
 		{
 			this._data = dts;
@@ -52,22 +52,7 @@ namespace LawrApp.Layouts.regAlumno
 
 			if ( list.Any() )
 			{
-				foreach ( lApoderados item in list )
-				{
-					object[] objTemp = new object[4] 
-					{
-						item.Codigo,
-						item.Names,
-						item.TipoApoderado,
-						item.ModifiedDate
-					};
-
-					this.dgvListado.Rows.Add( objTemp );
-				}
-
-				this.pgsLoading.Visible = false; 
-				this.btnModificar.Enabled = true;
-				this.btnEliminar.Enabled = true;
+				LoadDataToGrid( list );
 			}
 			else
 			{
@@ -239,6 +224,34 @@ namespace LawrApp.Layouts.regAlumno
 
 		#region METODOS
 
+		void LoadDataToGrid( List<lApoderados> Parents )
+		{
+			if( ! this.InvokeRequired )
+			{
+				foreach ( lApoderados item in Parents )
+				{
+					object[] objTemp = new object[4] 
+					{
+						item.Codigo,
+						item.Names,
+						item.TipoApoderado,
+						item.ModifiedDate
+					};
+
+					this.dgvListado.Rows.Add( objTemp );
+				}
+
+				this.pgsLoading.Visible = false;
+				this.btnModificar.Enabled = true;
+				this.btnEliminar.Enabled = true;
+			}
+			else
+			{
+				LoadDataToGridView dtp = new LoadDataToGridView( LoadDataToGrid );
+				this.Invoke( dtp, new object[] { Parents } );
+			}
+		}
+
 		void ActionForCreation()
 		{
 			this._gotoModify = false;
@@ -310,7 +323,7 @@ namespace LawrApp.Layouts.regAlumno
 			this.cboTypeDocument.SelectedIndex = -1;
 			this.cboTypeDocument.Text = "Seleccione...";
 
-			this.dtpBirthday.Value = DateTime.Now;
+			this.dtpBirthday.Value = dtpBirthday.MaxDate;
 
 			this._codParient = 0;
 			this._gotoModify = false;
@@ -443,6 +456,9 @@ namespace LawrApp.Layouts.regAlumno
 
 			this.cboTypeDocument.SelectedIndex	= -1;
 			this.cboTypeDocument.Text			= "Seleccione...";
+
+			this.dtpBirthday.MaxDate = DateTime.Now.AddYears( -18 );
+			this.dtpBirthday.MinDate = DateTime.Now.AddYears( -90 );
 		}
 
 		private void frm_Parents_FormClosing( object sender, FormClosingEventArgs e )
